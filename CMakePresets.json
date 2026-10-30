@@ -38,12 +38,30 @@
       }
     },
     {
+      "name": "workbench-debug",
+      "displayName": "Audacity Workbench [Debug]",
+      "description": "Local-first Workbench profile with debug symbols and no optimizations.",
+      "inherits": "audacity-debug",
+      "cacheVariables": {
+        "AU4_PRODUCT_PROFILE": "workbench"
+      }
+    },
+    {
       "name": "audacity-release",
       "displayName": "Audacity [RelWithDebInfo]",
       "description": "Release profile with optimizations and debug information.",
       "inherits": "base",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+    {
+      "name": "workbench-release",
+      "displayName": "Audacity Workbench [RelWithDebInfo]",
+      "description": "Local-first Workbench profile with optimizations and debug information.",
+      "inherits": "audacity-release",
+      "cacheVariables": {
+        "AU4_PRODUCT_PROFILE": "workbench"
       }
     }
   ]
