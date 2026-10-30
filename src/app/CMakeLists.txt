@@ -452,3 +452,7 @@ if (MSVC)
    set(CMAKE_SKIP_PACKAGE_ALL_DEPENDENCY true)
 
 endif (MSVC)
+
+if (MUSE_ENABLE_UNIT_TESTS)
+    add_subdirectory(tests)
+endif()
