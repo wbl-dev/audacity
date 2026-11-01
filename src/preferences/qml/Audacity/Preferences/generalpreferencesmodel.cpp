@@ -26,6 +26,7 @@
 #include <QStorageInfo>
 
 #include "log.h"
+#include "shared/productprofile.h"
 #include "translation.h"
 
 using namespace au::appshell;
@@ -54,6 +55,10 @@ void GeneralPreferencesModel::load()
 
 void GeneralPreferencesModel::checkUpdateForCurrentLanguage()
 {
+    if (!onlineLanguageUpdatesAvailable()) {
+        return;
+    }
+
     QString languageCode = currentLanguageCode();
 
     m_languageUpdateProgress = languagesService()->update(languageCode);
@@ -107,6 +112,11 @@ QVariantList GeneralPreferencesModel::languages() const
 QString GeneralPreferencesModel::currentLanguageCode() const
 {
     return languagesConfiguration()->currentLanguageCode().val;
+}
+
+bool GeneralPreferencesModel::onlineLanguageUpdatesAvailable() const noexcept
+{
+    return !au::shared::isWorkbenchProfile();
 }
 
 QStringList GeneralPreferencesModel::keyboardLayouts() const

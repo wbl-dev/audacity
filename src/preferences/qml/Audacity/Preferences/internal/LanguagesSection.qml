@@ -35,6 +35,7 @@ BaseSection {
     property alias languages: dropdown.model
     property string currentLanguageCode: ""
     property bool isNeedRestart: false
+    property bool onlineUpdatesAvailable: true
 
     signal languageSelected(string languageCode)
     signal checkForUpdateRequested
