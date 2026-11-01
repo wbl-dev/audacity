@@ -257,3 +257,78 @@ Workbench Profile 只允许保留崩溃诊断所需的网络能力。语言包�
 - 暂不改名和替换完整品牌资产。
 - 现有交互优化延后，以独立需求逐项实施。
 - Workbench Profile 的运行时网络白名单只包含崩溃诊断。
+
+## 13. 验证记录（2026-11-01）
+
+### 13.1 被验证的版本和环境
+
+- 实现提交：`c12afde5f9ce9d47e6808b67e551151692888a2e`（Task 1-5 完成后的源码；本节文档提交不包含在该哈希中）。
+- 主机：macOS arm64，AppleClang 17，Xcode SDK 26.2。
+- 实际被 CMake 发现的 Qt：6.12.0。
+- 项目要求：Qt 6.11。由于版本不匹配，本记录区分“通过”“失败”和“未执行”，不把部分构建视为完整验收。
+
+### 13.2 已通过
+
+以下检查通过：
+
+```bash
+git diff --check
+cmake -DTEST_CASE=default_profile -P buildscripts/cmake/tests/product_profile_test.cmake
+cmake -DTEST_CASE=workbench_profile -P buildscripts/cmake/tests/product_profile_test.cmake
+cmake -DTEST_CASE=cached_workbench_override -P buildscripts/cmake/tests/product_profile_test.cmake
+cmake -DTEST_CASE=invalid_profile -P buildscripts/cmake/tests/product_profile_test.cmake
+cmake --preset workbench-debug
+ctest --test-dir build/workbench-debug --output-on-failure -R '^workbench_'
+ctest --test-dir build/workbench-debug --output-on-failure -R '^(appshell_tests|preferences_tests|effects_base_tests|app_tests)$'
+```
+
+结果：
+
+- 四个 Profile 策略场景全部通过。
+- Workbench 配置成功。
+- 9 个 Workbench 回归测试全部通过：页面清单、启动路由、菜单、工程命令、历史云元数据的本地加载、偏好设置、效果器命令、模块策略和 Network stub。
+- AppShell、Preferences、Effects Base 和 App 四个相关测试套件全部通过。
+- `preferences_qml` 目标单独编译成功。
+- `au_project_tests` 运行了 48 个用例，其中 45 个通过；3 个既有 Clip tempo persistence 用例失败，与本轮改动文件没有交集。
+
+### 13.3 全量构建和测试结果
+
+以下命令已执行但没有通过：
+
+```bash
+cmake --build build/workbench-debug
+ctest --test-dir build/workbench-debug --output-on-failure
+```
+
+Workbench 全量构建在 Qt 6.12 生成的 `muse_extensions_qml` AOT C++ 中停止：`QQmlPrivate::AOTLookupValidation::Type` 与 `muse::extensions::Type` 名称冲突。失败发生在未修改的 Muse Extensions 代码，并且默认 Audacity Profile 在同一位置以同一错误失败。
+
+全量 CTest 是在构建失败后执行的，因此 39 个已注册测试中有 32 个因可执行文件尚未生成而 `Not Run`；6 个当时已有的测试通过，`au_project_tests` 因上述 3 个既有 Clip tempo 用例失败。该结果不是全量测试通过。
+
+默认 Audacity 对照验证中，裸 `cmake --preset audacity-debug` 首先被本机 Command Line Tools 的 MacOSX 27 SDK/TAPI 组合阻断。给 CMake 和其依赖子构建统一设置 Xcode 26.2 的 `DEVELOPER_DIR`、`SDKROOT` 和 `CMAKE_OSX_SYSROOT` 后，默认 Profile 配置成功，并显示上游默认的真实 Cloud、Network、Update、au3cloud、MuseHub 和 UsageInfo 模块均启用。随后全量编译在与 Workbench 相同的 Qt 6.12 Extensions AOT 错误处停止。
+
+### 13.4 模块和网络边界证据
+
+Workbench 配置输出显示：
+
+- `muse_cloud`、`muse_network`、`muse_update`、`au3cloud`、`musehub`、`usageinfo` 均配置为 stub。
+- `muse_diagnostics` 为真实模块。
+- 本次缓存中 `MUSE_MODULE_DIAGNOSTICS=ON`，`MUSE_MODULE_DIAGNOSTICS_CRASHPAD_CLIENT=OFF`，handler 路径和 report URL 均为空。
+
+生成的最终链接计划同样引用上述 stub archive，并引用真实 `libmuse_diagnostics.a`。链接计划还包含 `au3-network-manager`：它由保留的工程持久化/崩溃与 Sentry 兼容依赖带入，不是 Muse Network 产品服务实现。因为最终应用二进制没有生成，尚未完成静态库对象抽取后的符号检查，也未执行运行时抓包；因此不能宣称已经动态证明“除崩溃诊断外零网络请求”。
+
+### 13.5 未执行的人工验收
+
+应用没有成功链接，故以下检查均未执行：
+
+- GUI 中所有在线入口的最终可达性检查。
+- 本地新建、打开、保存和导出。
+- 三轨导入、移动、静音、独奏、循环和播放。
+- 波形、频谱、组合视图和 Label 编辑。
+- 录音、输入输出电平、内置效果器和本地插件。
+- Undo/Redo、关闭重开和崩溃恢复。
+- Crashpad 开启构建中的偏好项、handler 和唯一上传地址。
+- 最终二进制符号检查及运行时网络流量检查。
+
+### 13.6 当前结论
+
+产品 Profile、stub 边界、界面/命令收口和相关自动化回归已通过。完整构建、全量测试和人工烟雾验收仍需在仓库指定的 Qt 6.11 环境中重新执行；在这些检查完成前，本阶段状态是“实现完成，最终运行验收待补”，不是可发布验收通过。
