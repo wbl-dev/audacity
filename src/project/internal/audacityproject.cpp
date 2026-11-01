@@ -5,6 +5,7 @@
 #include "framework/global/io/ioretcodes.h"
 
 #include "project/projecterrors.h"
+#include "shared/productprofile.h"
 
 using namespace muse;
 using namespace au::project;
@@ -290,6 +291,10 @@ bool Audacity4Project::isImported() const
 
 bool Audacity4Project::isCloudProject() const
 {
+    if (shared::isWorkbenchProfile()) {
+        return false;
+    }
+
     return cloudProjectsProvider()->projectRecordForPath(m_path).has_value();
 }
 

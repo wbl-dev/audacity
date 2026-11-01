@@ -2,6 +2,10 @@
 # Audacity: A Digital Audio Editor
 #
 
+if(NOT AU4_WORKBENCH_PROFILE)
+    return()
+endif()
+
 set(MODULE_TEST app_tests)
 
 set(MODULE_TEST_SRC

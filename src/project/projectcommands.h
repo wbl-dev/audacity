@@ -66,6 +66,7 @@ inline bool isProjectActionAllowed(const muse::actions::ActionCode& actionCode)
     }
 
     return actionCode != "cloud-file-open"
+           && actionCode != "link-account"
            && actionCode != "file-save-to-cloud"
            && actionCode != "file-share-audio"
            && actionCode != "action://cloud/open-audio-file"

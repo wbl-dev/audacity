@@ -91,6 +91,7 @@ TEST_F(workbench_general_preferences, hides_online_sections_but_keeps_crash_poli
     UsageInfoPreferencesModel usageInfoModel;
 
     EXPECT_FALSE(generalModel.onlineLanguageUpdatesAvailable());
+    EXPECT_FALSE(generalModel.nonDiagnosticOnlineFeaturesAvailable());
     EXPECT_FALSE(updateModel.isAppUpdatable());
     EXPECT_FALSE(usageInfoModel.isUsageInfoAvailable());
 #ifdef MUSE_MODULE_DIAGNOSTICS_CRASHPAD_CLIENT

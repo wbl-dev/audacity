@@ -67,6 +67,7 @@ inline bool isMenuCommandAllowed(const muse::rcommand::Command& command)
            && commandUri != "command://project/update-cloud-audio-preview"
            && commandUri != "command://project/share-audio"
            && commandUri != "command://app/online-handbook"
+           && commandUri != "command://app/ask-help"
            && commandUri != "command://update/check"
            && commandUri != "command://effects/get-effects";
 }

@@ -3,6 +3,8 @@
 */
 #include "appshellcommandsregister.h"
 
+#include <algorithm>
+
 #include "framework/ui/view/iconcodes.h"
 #include "framework/global/types/translatablestring.h"
 
@@ -14,7 +16,7 @@ using namespace muse::rcommand;
 using namespace muse::ui;
 
 namespace {
-const std::vector<CommandInfo> s_commandInfos = {
+const std::vector<CommandInfo> s_allCommandInfos = {
     CommandInfo{
         APP_QUIT_COMMAND,
         //: Command title: shown as a menu item or a button label; keep it short
@@ -270,6 +272,18 @@ const std::vector<CommandInfo> s_commandInfos = {
         Decoration(rcommand::Checkable::Yes)
     },
 };
+
+const std::vector<CommandInfo>& commandInfos()
+{
+    static const std::vector<CommandInfo> infos = [] {
+        std::vector<CommandInfo> result = s_allCommandInfos;
+        std::erase_if(result, [](const CommandInfo& info) {
+            return !isAppShellCommandAllowed(info.command);
+        });
+        return result;
+    }();
+    return infos;
+}
 }
 
 std::string AppShellCommandsRegister::moduleName() const
@@ -281,8 +295,8 @@ const std::vector<Command>& AppShellCommandsRegister::commandList() const
 {
     static std::vector<Command> commands;
     if (commands.empty()) {
-        commands.reserve(s_commandInfos.size());
-        for (const auto& info : s_commandInfos) {
+        commands.reserve(commandInfos().size());
+        for (const auto& info : commandInfos()) {
             commands.push_back(info.command);
         }
     }
@@ -291,5 +305,5 @@ const std::vector<Command>& AppShellCommandsRegister::commandList() const
 
 const std::vector<CommandInfo>& AppShellCommandsRegister::commandInfoList() const
 {
-    return s_commandInfos;
+    return commandInfos();
 }

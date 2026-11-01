@@ -119,6 +119,11 @@ bool GeneralPreferencesModel::onlineLanguageUpdatesAvailable() const noexcept
     return !au::shared::isWorkbenchProfile();
 }
 
+bool GeneralPreferencesModel::nonDiagnosticOnlineFeaturesAvailable() const noexcept
+{
+    return !au::shared::isWorkbenchProfile();
+}
+
 QStringList GeneralPreferencesModel::keyboardLayouts() const
 {
     NOT_IMPLEMENTED;

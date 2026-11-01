@@ -17,8 +17,13 @@ set(MODULE_TEST_SRC
     ${CMAKE_CURRENT_LIST_DIR}/realtimeeffectspersistence_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/cliptempopersistence_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/au3metadata_tests.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/workbench_project_commands_tests.cpp
 )
+
+if(AU4_WORKBENCH_PROFILE)
+    list(APPEND MODULE_TEST_SRC
+        ${CMAKE_CURRENT_LIST_DIR}/workbench_project_commands_tests.cpp
+    )
+endif()
 
 set(MODULE_TEST_LINK
     project
@@ -40,12 +45,14 @@ set(MODULE_TEST_DATA_ROOT ${CMAKE_CURRENT_LIST_DIR})
 
 include(SetupGTest)
 
-add_test(
-    NAME workbench_project_commands
-    COMMAND au_project_tests --gtest_filter=workbench_project_commands.*
-)
+if(AU4_WORKBENCH_PROFILE)
+    add_test(
+        NAME workbench_project_commands
+        COMMAND au_project_tests --gtest_filter=workbench_project_commands.*
+    )
 
-add_test(
-    NAME workbench_local_cloud_metadata
-    COMMAND au_project_tests --gtest_filter=Project_Audacity4ProjectTests.Load_LocalFileWithExternalCloudRecord_ReturnsSuccessWithoutCloudOperation
-)
+    add_test(
+        NAME workbench_local_cloud_metadata
+        COMMAND au_project_tests --gtest_filter=Project_Audacity4ProjectTests.Load_LocalFileWithExternalCloudRecord_ReturnsSuccessWithoutCloudOperation
+    )
+endif()

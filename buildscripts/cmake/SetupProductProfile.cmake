@@ -10,17 +10,8 @@ set(AU4_WORKBENCH_PROFILE OFF)
 if(AU4_PRODUCT_PROFILE STREQUAL "workbench")
     set(AU4_WORKBENCH_PROFILE ON)
 
-    set(AU_BUILD_CLOUD_AUDIOCOM OFF CACHE BOOL "Build cloud audiocom module" FORCE)
-    set(AU_BUILD_MUSEHUB_MODULE OFF CACHE BOOL "Build Muse Hub module" FORCE)
-    set(AU_BUILD_USAGEINFO_MODULE OFF CACHE BOOL "Build usage info module" FORCE)
-    set(MUSE_MODULE_CLOUD OFF CACHE BOOL "Build cloud module" FORCE)
-    set(MUSE_MODULE_UPDATE OFF CACHE BOOL "Build update module" FORCE)
-    set(MUSE_MODULE_NETWORK OFF CACHE BOOL "Build network module" FORCE)
-    set(MUSE_MODULE_LEARN OFF CACHE BOOL "Build learn module" FORCE)
-    set(MUSE_MODULE_DIAGNOSTICS ON CACHE BOOL "Build diagnostics module" FORCE)
-    set(MUSE_MODULE_LANGUAGES ON CACHE BOOL "Build languages module" FORCE)
-
-    # Also override normal variables established by the base profile in this scope.
+    # Override effective values in this configure without rewriting the user's
+    # cache. A later configure can therefore switch back to the Audacity profile.
     set(AU_BUILD_CLOUD_AUDIOCOM OFF)
     set(AU_BUILD_MUSEHUB_MODULE OFF)
     set(AU_BUILD_USAGEINFO_MODULE OFF)

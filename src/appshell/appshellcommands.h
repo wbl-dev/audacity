@@ -5,9 +5,11 @@
 
 #include <map>
 
+#include "framework/actions/actiontypes.h"
 #include "framework/rcommand/commandtypes.h"
 
 #include "appshelltypes.h"
+#include "shared/productprofile.h"
 
 namespace au::appshell {
 inline static const muse::rcommand::Command APP_TOGGLE_FULLSCREEN_COMMAND("command://app/toggle-fullscreen");
@@ -45,6 +47,26 @@ inline static const muse::rcommand::Command APP_TOGGLE_TRANSPORT_TOOLBAR_COMMAND
 inline static const muse::rcommand::Command APP_TOGGLE_TRACKS_PANEL_COMMAND("command://app/toggle-tracks-panel");
 inline static const muse::rcommand::Command APP_TOGGLE_HISTORY_PANEL_COMMAND("command://app/toggle-history-panel");
 inline static const muse::rcommand::Command APP_TOGGLE_STATUSBAR_COMMAND("command://app/toggle-statusbar");
+
+inline bool isAppShellCommandAllowed(const muse::rcommand::Command& command)
+{
+    if (!shared::isWorkbenchProfile()) {
+        return true;
+    }
+
+    return command != APP_ONLINE_HANDBOOK_COMMAND
+           && command != APP_ASK_HELP_COMMAND;
+}
+
+inline bool isAppShellActionAllowed(const muse::actions::ActionCode& actionCode)
+{
+    if (!shared::isWorkbenchProfile()) {
+        return true;
+    }
+
+    return actionCode != "online-handbook"
+           && actionCode != "ask-help";
+}
 
 inline const std::map<muse::rcommand::Command, DockName>& toggleDockCommands()
 {

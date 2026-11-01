@@ -12,6 +12,8 @@ import Audacity.Export 1.0
 BaseSection {
     id: root
 
+    property bool onlineDownloadsAvailable: true
+
     navigation.direction: NavigationPanel.Horizontal
 
     CustomFFmpegPreferencesModel {
@@ -55,6 +57,7 @@ BaseSection {
             FlatButton {
                 id: downloadBtn
 
+                visible: root.onlineDownloadsAvailable
                 width: 182
 
                 text: qsTrc("export", "Download FFmpeg")
@@ -73,7 +76,7 @@ BaseSection {
                 text: qsTrc("export", "Locate existing installation")
 
                 navigation.panel: root.navigation
-                navigation.order: downloadBtn.navigation.order + 1
+                navigation.order: root.onlineDownloadsAvailable ? downloadBtn.navigation.order + 1 : downloadBtn.navigation.order
 
                 onClicked: {
                     ffmpegPrefModel.locateFFmpegLibrary()

@@ -93,10 +93,9 @@ void ProjectModule::resolveImports()
 {
     auto ir = globalIoc()->resolve<muse::interactive::IInteractiveUriRegister>(mname);
     if (ir) {
-        ir->registerQmlUri(muse::Uri("audacity://project/new"), "Audacity/Project/NewProjectDialog.qml");
-        ir->registerQmlUri(muse::Uri("audacity://project/asklocationtype"), "Audacity/Project/AskLocationTypeDialog.qml");
-        ir->registerQmlUri(muse::Uri("audacity://project/savetocloud"), "Audacity/Project/SaveToCloudDialog.qml");
-        ir->registerQmlUri(muse::Uri("audacity://project/cloudprojectsyncing"), "Audacity/Project/CloudProjectSyncDialog.qml");
+        for (const ProjectPageRegistration& page : projectPageManifest()) {
+            ir->registerQmlUri(page.uri, page.qmlPath);
+        }
     }
 
     auto cr = globalIoc()->resolve<muse::rcommand::ICommandsRegister>(mname);
@@ -116,15 +115,16 @@ void ProjectModule::registerUiTypes()
     qmlRegisterUncreatableType<AbstractItemModel>("Audacity.Project", 1, 0, "AbstractItemModel",
                                                   "Not creatable as it is an abstract type");
     qmlRegisterType<RecentProjectsModel>("Audacity.Project", 1, 0, "RecentProjectsModel");
-    qmlRegisterType<CloudProjectsModel>("Audacity.Project", 1, 0, "CloudProjectsModel");
-    qmlRegisterType<CloudAudioFilesModel>("Audacity.Project", 1, 0, "CloudAudioFilesModel");
+    if (!shared::isWorkbenchProfile()) {
+        qmlRegisterType<CloudProjectsModel>("Audacity.Project", 1, 0, "CloudProjectsModel");
+        qmlRegisterType<CloudAudioFilesModel>("Audacity.Project", 1, 0, "CloudAudioFilesModel");
+        qmlRegisterType<CloudProjectSyncModel>("Audacity.Project", 1, 0, "CloudProjectSyncModel");
+    }
     qmlRegisterType<NewProjectModel>("Audacity.Project", 1, 0, "NewProjectModel");
     qmlRegisterType<ProjectThumbnailLoader>("Audacity.Project", 1, 0, "ProjectThumbnailLoader");
     qmlRegisterType<ThumbnailLoader>("Audacity.Project", 1, 0, "ThumbnailLoader");
     qmlRegisterType<PixmapProjectThumbnailView>("Audacity.Project", 1, 0, "PixmapProjectThumbnailView");
     qmlRegisterType<ProjectPropertiesModel>("Audacity.Project", 1, 0, "ProjectPropertiesModel");
-    qmlRegisterType<CloudProjectSyncModel>("Audacity.Project", 1, 0, "CloudProjectSyncModel");
-
     qmlRegisterUncreatableType<QMLSaveLocationType>("Audacity.Project", 1, 0, "SaveLocationType",
                                                     "Not creatable as it is an enum type");
 }

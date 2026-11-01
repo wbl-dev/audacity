@@ -212,6 +212,8 @@ PreferencesPage {
         FFmpegLibrarySection {
             id: ffmpegLibrarySection
 
+            onlineDownloadsAvailable: preferencesModel.nonDiagnosticOnlineFeaturesAvailable
+
             navigation.section: root.navigationSection
             navigation.order: root.navigationOrderStart + 7
 
