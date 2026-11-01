@@ -1,7 +1,7 @@
 # Audacity 音频开发工作台：首轮功能精简设计
 
-日期：2026-10-30  
-状态：已批准  
+日期：2026-10-30
+状态：已批准
 范围：只定义第一阶段的功能精简，不包含算法接入、轨道模型扩展或既有交互优化。
 
 ## 1. 意图
@@ -262,7 +262,8 @@ Workbench Profile 只允许保留崩溃诊断所需的网络能力。语言包�
 
 ### 13.1 被验证的版本和环境
 
-- 实现提交：`c12afde5f9ce9d47e6808b67e551151692888a2e`（Task 1-5 完成后的源码；本节文档提交不包含在该哈希中）。
+- 初始实现提交：`c12afde5f9ce9d47e6808b67e551151692888a2e`（Task 1-5 完成后的源码）。
+- 代码审查修复提交：`d358f4569347faaf8d45f93f428710ca597b3420`（关闭剩余在线入口、隔离双 Profile 测试、强制 Workbench 本地保存）。
 - 主机：macOS arm64，AppleClang 17，Xcode SDK 26.2。
 - 实际被 CMake 发现的 Qt：6.12.0。
 - 项目要求：Qt 6.11。由于版本不匹配，本记录区分“通过”“失败”和“未执行”，不把部分构建视为完整验收。
@@ -276,6 +277,7 @@ git diff --check
 cmake -DTEST_CASE=default_profile -P buildscripts/cmake/tests/product_profile_test.cmake
 cmake -DTEST_CASE=workbench_profile -P buildscripts/cmake/tests/product_profile_test.cmake
 cmake -DTEST_CASE=cached_workbench_override -P buildscripts/cmake/tests/product_profile_test.cmake
+cmake -DTEST_CASE=workbench_to_audacity -P buildscripts/cmake/tests/product_profile_test.cmake
 cmake -DTEST_CASE=invalid_profile -P buildscripts/cmake/tests/product_profile_test.cmake
 cmake --preset workbench-debug
 ctest --test-dir build/workbench-debug --output-on-failure -R '^workbench_'
@@ -284,12 +286,15 @@ ctest --test-dir build/workbench-debug --output-on-failure -R '^(appshell_tests|
 
 结果：
 
-- 四个 Profile 策略场景全部通过。
+- 五个 Profile 策略场景全部通过；其中包含 Workbench 切回 Audacity 的缓存恢复检查。
 - Workbench 配置成功。
 - 9 个 Workbench 回归测试全部通过：页面清单、启动路由、菜单、工程命令、历史云元数据的本地加载、偏好设置、效果器命令、模块策略和 Network stub。
 - AppShell、Preferences、Effects Base 和 App 四个相关测试套件全部通过。
 - `preferences_qml` 目标单独编译成功。
 - `au_project_tests` 运行了 48 个用例，其中 45 个通过；3 个既有 Clip tempo persistence 用例失败，与本轮改动文件没有交集。
+- Workbench 的命令注册器和 dispatcher 均不再注册 Handbook、Ask Help，FFmpeg 偏好页保留本地 Locate 但不显示在线 Download。
+- Workbench 不注册云工程页面和云 QML 类型，不允许 `link-account`；带历史云元数据的本地工程仍能加载、保存、关闭后重开，并保持非云工程状态。
+- 默认 Audacity Profile 不注册任何 `workbench_*` 测试；受影响的 AppShell、Preferences、Effects Base 三个默认测试套件通过。
 
 ### 13.3 全量构建和测试结果
 
@@ -302,7 +307,7 @@ ctest --test-dir build/workbench-debug --output-on-failure
 
 Workbench 全量构建在 Qt 6.12 生成的 `muse_extensions_qml` AOT C++ 中停止：`QQmlPrivate::AOTLookupValidation::Type` 与 `muse::extensions::Type` 名称冲突。失败发生在未修改的 Muse Extensions 代码，并且默认 Audacity Profile 在同一位置以同一错误失败。
 
-全量 CTest 是在构建失败后执行的，因此 39 个已注册测试中有 32 个因可执行文件尚未生成而 `Not Run`；6 个当时已有的测试通过，`au_project_tests` 因上述 3 个既有 Clip tempo 用例失败。该结果不是全量测试通过。
+全量 CTest 是在构建失败后执行的，因此 39 个已注册测试中有 25 个因可执行文件尚未生成而 `Not Run`；13 个已生成的测试通过，`au_project_tests` 因上述 3 个既有 Clip tempo 用例失败。该结果不是全量测试通过。
 
 默认 Audacity 对照验证中，裸 `cmake --preset audacity-debug` 首先被本机 Command Line Tools 的 MacOSX 27 SDK/TAPI 组合阻断。给 CMake 和其依赖子构建统一设置 Xcode 26.2 的 `DEVELOPER_DIR`、`SDKROOT` 和 `CMAKE_OSX_SYSROOT` 后，默认 Profile 配置成功，并显示上游默认的真实 Cloud、Network、Update、au3cloud、MuseHub 和 UsageInfo 模块均启用。随后全量编译在与 Workbench 相同的 Qt 6.12 Extensions AOT 错误处停止。
 
@@ -331,4 +336,4 @@ Workbench 配置输出显示：
 
 ### 13.6 当前结论
 
-产品 Profile、stub 边界、界面/命令收口和相关自动化回归已通过。完整构建、全量测试和人工烟雾验收仍需在仓库指定的 Qt 6.11 环境中重新执行；在这些检查完成前，本阶段状态是“实现完成，最终运行验收待补”，不是可发布验收通过。
+产品 Profile、stub 边界、界面/命令收口、强制本地保存和相关自动化回归已通过。完整构建、全量测试和人工烟雾验收仍需在仓库指定的 Qt 6.11 环境中重新执行；在这些检查完成前，本阶段状态是“代码和定向回归完成，最终运行验收待补”，不是可发布验收通过。

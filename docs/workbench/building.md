@@ -38,6 +38,18 @@ cmake --build build/workbench-debug
 ctest --test-dir build/workbench-debug --output-on-failure
 ```
 
+产品 Profile 的配置策略还可以不依赖完整编译单独验证：
+
+```bash
+cmake -DTEST_CASE=default_profile -P buildscripts/cmake/tests/product_profile_test.cmake
+cmake -DTEST_CASE=workbench_profile -P buildscripts/cmake/tests/product_profile_test.cmake
+cmake -DTEST_CASE=cached_workbench_override -P buildscripts/cmake/tests/product_profile_test.cmake
+cmake -DTEST_CASE=workbench_to_audacity -P buildscripts/cmake/tests/product_profile_test.cmake
+cmake -DTEST_CASE=invalid_profile -P buildscripts/cmake/tests/product_profile_test.cmake
+```
+
+`workbench_to_audacity` 用例用于防止同一构建目录切回默认 Profile 后，Workbench 的模块关闭状态污染 Audacity 配置缓存。
+
 构建成功后，macOS 应用位于：
 
 ```text
