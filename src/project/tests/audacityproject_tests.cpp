@@ -127,6 +127,29 @@ TEST_F(Project_Audacity4ProjectTests, Load_ValidFile_ReturnsSuccess)
     m_currentProject->close();
 }
 
+TEST_F(Project_Audacity4ProjectTests, Load_LocalFileWithExternalCloudRecord_ReturnsSuccessWithoutCloudOperation)
+{
+    const muse::io::path_t testPath = muse::String::fromUtf8(au_project_tests_DATA_ROOT) + "/data/empty.aup4";
+    const CloudProjectRecord record {
+        .projectId = "historical-project-id",
+        .snapshotId = "historical-snapshot-id",
+        .localPath = testPath,
+    };
+
+    EXPECT_CALL(*m_cloudProjectsProvider, projectRecordForPath(testPath))
+        .WillRepeatedly(::testing::Return(record));
+    EXPECT_CALL(*m_cloudProjectsProvider, projectRecordForId(::testing::_)).Times(0);
+    EXPECT_CALL(*m_cloudProjectsProvider, makeSafeFilePath(::testing::_, ::testing::_, ::testing::_)).Times(0);
+
+    const muse::Ret ret = m_currentProject->load(testPath, false, "");
+
+    EXPECT_TRUE(ret.success());
+    EXPECT_TRUE(m_currentProject->isCloudProject());
+    ASSERT_TRUE(m_currentProject->cloudRecord().has_value());
+    EXPECT_EQ(m_currentProject->cloudRecord()->projectId, record.projectId);
+    m_currentProject->close();
+}
+
 TEST_F(Project_Audacity4ProjectTests, Load_LegacySchema_UpgradesInPlace)
 {
     const std::string srcPath = (muse::String::fromUtf8(au_project_tests_DATA_ROOT) + "/data/legacy_schema.aup4").toStdString();

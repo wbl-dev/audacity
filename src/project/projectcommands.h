@@ -5,7 +5,9 @@
 
 #include <string>
 
+#include "framework/actions/actiontypes.h"
 #include "framework/rcommand/commandtypes.h"
+#include "shared/productprofile.h"
 
 namespace au::project {
 inline static const muse::rcommand::Command PROJECT_NEW_COMMAND("command://project/new");
@@ -42,4 +44,32 @@ inline static const std::string PROJECT_FILES_PARAM("files");
 inline static const std::string PROJECT_REMOVE_AFTER_IMPORT_PARAM("removeAfterImport");
 inline static const std::string PROJECT_AUDIO_ID_PARAM("audioId");
 inline static const std::string PROJECT_TRACK_ID_PARAM("trackId");
+
+inline bool isProjectCommandAllowed(const muse::rcommand::Command& command)
+{
+    if (!shared::isWorkbenchProfile()) {
+        return true;
+    }
+
+    return command != PROJECT_OPEN_CLOUD_COMMAND
+           && command != PROJECT_SAVE_TO_CLOUD_COMMAND
+           && command != PROJECT_SHARE_AUDIO_COMMAND
+           && command != PROJECT_OPEN_CLOUD_AUDIO_FILE_COMMAND
+           && command != PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_COMMAND
+           && command != PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_FOR_PROJECT_COMMAND;
+}
+
+inline bool isProjectActionAllowed(const muse::actions::ActionCode& actionCode)
+{
+    if (!shared::isWorkbenchProfile()) {
+        return true;
+    }
+
+    return actionCode != "cloud-file-open"
+           && actionCode != "file-save-to-cloud"
+           && actionCode != "file-share-audio"
+           && actionCode != "action://cloud/open-audio-file"
+           && actionCode != "action://cloud/update-audio-preview"
+           && actionCode != "action://cloud/update-audio-preview-for-project";
+}
 }

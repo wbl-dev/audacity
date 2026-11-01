@@ -12,6 +12,7 @@ set(MODULE_TEST_SRC
     ${CMAKE_CURRENT_LIST_DIR}/pluginmigration_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/realtimeeffectscopy_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/realtimeeffectservice_tests.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/workbench_effect_commands_tests.cpp
 )
 
 set(MODULE_TEST_LINK
@@ -32,3 +33,8 @@ set(MODULE_TEST_INCLUDE
 set(MODULE_TEST_DATA_ROOT ${CMAKE_CURRENT_LIST_DIR})
 
 include(SetupGTest)
+
+add_test(
+    NAME workbench_effect_commands
+    COMMAND effects_base_tests --gtest_filter=workbench_effect_commands.*
+)

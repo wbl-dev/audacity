@@ -151,7 +151,7 @@ void EffectsActionsController::registerActions()
         return effectApplyConv(command, args, effectsProvider()->effectMetaList());
     };
 
-    const std::vector<ActionToCommand> actionToCommand = {
+    std::vector<ActionToCommand> actionToCommand = {
         { EFFECT_OPEN_QUERY.toString(), Command(), effectOpenConv },
         { REPEAT_LAST_EFFECT_CODE, EFFECTS_REPEAT_LAST_EFFECT_COMMAND, {} },
         { PLUGIN_MANAGER_CODE, EFFECTS_PLUGIN_MANAGER_COMMAND, {} },
@@ -165,6 +165,10 @@ void EffectsActionsController::registerActions()
         { PRESET_IMPORT_QUERY.toString(), EFFECTS_PRESET_IMPORT_COMMAND, queryParamsConv },
         { PRESET_EXPORT_QUERY.toString(), EFFECTS_PRESET_EXPORT_COMMAND, queryParamsConv },
     };
+    std::erase_if(actionToCommand, [](const ActionToCommand& mapping) {
+        return !isEffectsActionAllowed(mapping.actionCode)
+               || (mapping.command.isValid() && !isEffectsCommandAllowed(mapping.command));
+    });
     registerActionToCommand(this, actionToCommand, commandDispatcher(), dispatcher());
 
     m_uiActions->reload();

@@ -3,6 +3,7 @@
 #include <QFileDialog>
 #include <QWindow>
 
+#include <algorithm>
 #include <variant>
 
 #include "framework/global/async/async.h"
@@ -230,27 +231,31 @@ void ProjectActionsController::init()
 
     cd->onRequest(this, PROJECT_NEW_COMMAND, [this]() { return newProject(); });
     cd->onRequest(this, PROJECT_OPEN_COMMAND, [this](const Params& params) { return open(params); });
-    cd->onRequest(this, PROJECT_OPEN_CLOUD_COMMAND, [this](const Params& params) { return openCloudProject(params); });
     cd->onRequest(this, PROJECT_CLEAR_RECENT_COMMAND, [this]() { return clearRecentProjects(); });
     cd->onRequest(this, PROJECT_IMPORT_COMMAND, [this](const Params& params) { return importFiles(params); });
     cd->onRequest(this, PROJECT_IMPORT_STARTUP_MEDIA_COMMAND, [this](const Params& params) { return importStartupMedia(params); });
 
     cd->onRequest(this, PROJECT_SAVE_COMMAND, [this]() { return Ret(saveProject(SaveMode::Save)); });
-    cd->onRequest(this, PROJECT_SAVE_TO_CLOUD_COMMAND, [this]() { return Ret(saveProject(SaveMode::Save, SaveLocationType::Cloud)); });
     //! TODO AU4: decide whether to implement these functions from scratch in AU4 or
     //! to install our own implementation of the UI (BasicUI API)
     //! right now there's only BasicUI stub which means there's no progress dialog shown on saving
     cd->onRequest(this, PROJECT_SAVE_AS_COMMAND, [this]() { return Ret(saveProject(SaveMode::SaveAs)); });
     cd->onRequest(this, PROJECT_CLOSE_COMMAND, [this]() { return closeProject(); });
 
-    cd->onRequest(this, PROJECT_SHARE_AUDIO_COMMAND, [this]() { return shareAudio(); });
-    cd->onRequest(this, PROJECT_OPEN_CLOUD_AUDIO_FILE_COMMAND, [this](const Params& params) { return openCloudAudioFile(params); });
-    cd->onRequest(this, PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_COMMAND, [this](const Params& params) {
-        return updateCloudAudioPreview(params);
-    });
-    cd->onRequest(this, PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_FOR_PROJECT_COMMAND, [this](const Params& params) {
-        return updateCloudAudioPreview(params);
-    });
+    if (isProjectCommandAllowed(PROJECT_OPEN_CLOUD_COMMAND)) {
+        cd->onRequest(this, PROJECT_OPEN_CLOUD_COMMAND, [this](const Params& params) { return openCloudProject(params); });
+        cd->onRequest(this, PROJECT_SAVE_TO_CLOUD_COMMAND,
+                      [this]() { return Ret(saveProject(SaveMode::Save, SaveLocationType::Cloud)); });
+        cd->onRequest(this, PROJECT_SHARE_AUDIO_COMMAND, [this]() { return shareAudio(); });
+        cd->onRequest(this, PROJECT_OPEN_CLOUD_AUDIO_FILE_COMMAND,
+                      [this](const Params& params) { return openCloudAudioFile(params); });
+        cd->onRequest(this, PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_COMMAND, [this](const Params& params) {
+            return updateCloudAudioPreview(params);
+        });
+        cd->onRequest(this, PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_FOR_PROJECT_COMMAND, [this](const Params& params) {
+            return updateCloudAudioPreview(params);
+        });
+    }
 
     cd->onRequest(this, PROJECT_EXPORT_AUDIO_COMMAND, [this]() { return exportAudio(); });
     cd->onRequest(this, PROJECT_EXPORT_LABELS_COMMAND, [this](const Params& params) { return exportLabels(params); });
@@ -260,30 +265,37 @@ void ProjectActionsController::init()
     cd->onRequest(this, PROJECT_OPEN_CUSTOM_FFMPEG_OPTIONS_COMMAND, [this]() { return openCustomFFmpegOptions(); });
     cd->onRequest(this, PROJECT_OPEN_CUSTOM_MAPPING_COMMAND, [this]() { return openCustomMapping(); });
 
-    static const std::vector<ActionToCommand> actionToCommand = {
-        { "file-new", PROJECT_NEW_COMMAND, {} },
-        { "file-open", PROJECT_OPEN_COMMAND, openConv },
-        { "file-open-recent", PROJECT_OPEN_COMMAND, openConv },
-        { "cloud-file-open", PROJECT_OPEN_CLOUD_COMMAND, openCloudConv },
-        { "clear-recent", PROJECT_CLEAR_RECENT_COMMAND, {} },
-        { "project-import", PROJECT_IMPORT_COMMAND, filesConv },
-        { "project-import-startup-media", PROJECT_IMPORT_STARTUP_MEDIA_COMMAND, filesConv },
-        { "file-save", PROJECT_SAVE_COMMAND, {} },
-        { "file-save-to-cloud", PROJECT_SAVE_TO_CLOUD_COMMAND, {} },
-        { "file-save-as", PROJECT_SAVE_AS_COMMAND, {} },
-        { "file-close", PROJECT_CLOSE_COMMAND, {} },
-        { "file-share-audio", PROJECT_SHARE_AUDIO_COMMAND, {} },
-        { OPEN_CLOUD_AUDIO_FILE_URI.toString(), PROJECT_OPEN_CLOUD_AUDIO_FILE_COMMAND, audioIdConv },
-        { UPDATE_AUDIO_PREVIEW_ACTION.toString(), PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_COMMAND, {} },
-        { UPDATE_AUDIO_PREVIEW_FOR_PROJECT_ACTION.toString(), PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_FOR_PROJECT_COMMAND, cloudProjectIdConv },
-        { "export-audio", PROJECT_EXPORT_AUDIO_COMMAND, {} },
-        { "export-labels", PROJECT_EXPORT_LABELS_COMMAND, trackIdConv },
-        { "export-midi", PROJECT_EXPORT_MIDI_COMMAND, {} },
-        { "open-metadata-editor", PROJECT_OPEN_METADATA_DIALOG_COMMAND, {} },
-        { OPEN_METADATA_DIALOG, PROJECT_OPEN_METADATA_DIALOG_COMMAND, {} },
-        { OPEN_CUSTOM_FFMPEG_OPTIONS, PROJECT_OPEN_CUSTOM_FFMPEG_OPTIONS_COMMAND, {} },
-        { OPEN_CUSTOM_MAPPING, PROJECT_OPEN_CUSTOM_MAPPING_COMMAND, {} },
-    };
+    static const std::vector<ActionToCommand> actionToCommand = [] {
+        std::vector<ActionToCommand> mappings {
+            { "file-new", PROJECT_NEW_COMMAND, {} },
+            { "file-open", PROJECT_OPEN_COMMAND, openConv },
+            { "file-open-recent", PROJECT_OPEN_COMMAND, openConv },
+            { "cloud-file-open", PROJECT_OPEN_CLOUD_COMMAND, openCloudConv },
+            { "clear-recent", PROJECT_CLEAR_RECENT_COMMAND, {} },
+            { "project-import", PROJECT_IMPORT_COMMAND, filesConv },
+            { "project-import-startup-media", PROJECT_IMPORT_STARTUP_MEDIA_COMMAND, filesConv },
+            { "file-save", PROJECT_SAVE_COMMAND, {} },
+            { "file-save-to-cloud", PROJECT_SAVE_TO_CLOUD_COMMAND, {} },
+            { "file-save-as", PROJECT_SAVE_AS_COMMAND, {} },
+            { "file-close", PROJECT_CLOSE_COMMAND, {} },
+            { "file-share-audio", PROJECT_SHARE_AUDIO_COMMAND, {} },
+            { OPEN_CLOUD_AUDIO_FILE_URI.toString(), PROJECT_OPEN_CLOUD_AUDIO_FILE_COMMAND, audioIdConv },
+            { UPDATE_AUDIO_PREVIEW_ACTION.toString(), PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_COMMAND, {} },
+            { UPDATE_AUDIO_PREVIEW_FOR_PROJECT_ACTION.toString(), PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_FOR_PROJECT_COMMAND,
+              cloudProjectIdConv },
+            { "export-audio", PROJECT_EXPORT_AUDIO_COMMAND, {} },
+            { "export-labels", PROJECT_EXPORT_LABELS_COMMAND, trackIdConv },
+            { "export-midi", PROJECT_EXPORT_MIDI_COMMAND, {} },
+            { "open-metadata-editor", PROJECT_OPEN_METADATA_DIALOG_COMMAND, {} },
+            { OPEN_METADATA_DIALOG, PROJECT_OPEN_METADATA_DIALOG_COMMAND, {} },
+            { OPEN_CUSTOM_FFMPEG_OPTIONS, PROJECT_OPEN_CUSTOM_FFMPEG_OPTIONS_COMMAND, {} },
+            { OPEN_CUSTOM_MAPPING, PROJECT_OPEN_CUSTOM_MAPPING_COMMAND, {} },
+        };
+        std::erase_if(mappings, [](const ActionToCommand& mapping) {
+            return !isProjectActionAllowed(mapping.actionCode);
+        });
+        return mappings;
+    }();
 
     registerActionToCommand(this, actionToCommand, commandDispatcher(), dispatcher());
 
