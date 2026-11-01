@@ -115,6 +115,10 @@ void StartupScenario::setRemoveMediaFilesAfterImport(bool remove)
 
 void StartupScenario::setStartupUrl(const QString& url)
 {
+    if (!startupPolicy().dispatchCloudUrls) {
+        return;
+    }
+
     if (m_startupCompleted && !url.isEmpty()) {
         commandDispatcher()->dispatch(au3cloud::CLOUD_OPEN_URL_COMMAND, { { au3cloud::CLOUD_OPEN_URL_URL_PARAM, Val(url) } });
         return;
@@ -125,7 +129,7 @@ void StartupScenario::setStartupUrl(const QString& url)
 muse::async::Promise<muse::Ret> StartupScenario::runOnSplashScreen()
 {
     return muse::async::make_promise<muse::Ret>([this](auto resolve, auto) {
-        if (multiwindowsProvider()->isFirstWindow()) {
+        if (startupPolicy().checkForUpdates && multiwindowsProvider()->isFirstWindow()) {
             tryCheckForUpdate();
             startUpdateCheckTimer();
         }
@@ -270,11 +274,11 @@ void StartupScenario::showStartupDialogsIfNeed(StartupModeType)
             configuration()->setWelcomeDialogLastShownVersion(configuration()->audacityVersion());
         };
 
-        if (!configuration()->hasCompletedFirstLaunchSetup()) {
+        if (startupPolicy().showFirstLaunchSetup && !configuration()->hasCompletedFirstLaunchSetup()) {
             interactive()->open(FIRST_LAUNCH_SETUP_URI).then(this, [](const muse::Val&, auto resolve) {
                 return resolve();
             });
-        } else {
+        } else if (startupPolicy().showWelcomeDialog) {
             showWelcomePage();
         }
     };

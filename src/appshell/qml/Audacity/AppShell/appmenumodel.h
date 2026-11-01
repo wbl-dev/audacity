@@ -47,6 +47,7 @@ Q_MOC_INCLUDE(< QWindow >)
 #include "effects/effects_base/ieffectsmenuprovider.h"
 #include "trackedit/iprojecthistory.h"
 #include "trackedit/iselectioncontroller.h"
+#include "shared/productprofile.h"
 
 //! TODO AU4
 // #include "workspace/iworkspacemanager.h"
@@ -55,6 +56,21 @@ Q_MOC_INCLUDE(< QWindow >)
 #include "update/iupdateconfiguration.h"
 
 namespace au::appshell {
+inline bool isMenuCommandAllowed(const muse::rcommand::Command& command)
+{
+    if (!shared::isWorkbenchProfile()) {
+        return true;
+    }
+
+    const std::string commandUri = command.toString();
+    return commandUri != "command://project/save-to-cloud"
+           && commandUri != "command://project/update-cloud-audio-preview"
+           && commandUri != "command://project/share-audio"
+           && commandUri != "command://app/online-handbook"
+           && commandUri != "command://update/check"
+           && commandUri != "command://effects/get-effects";
+}
+
 class AppMenuModel : public muse::uicomponents::AbstractMenuModel, public effects::IEffectMenuItemFactory
 {
     Q_OBJECT

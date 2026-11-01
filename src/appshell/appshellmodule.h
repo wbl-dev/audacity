@@ -24,12 +24,22 @@
 #define AU_APPSHELL_APPSHELLMODULE_H
 
 #include <memory>
+#include <vector>
 
 #include <qglobal.h>
 
+#include "global/types/uri.h"
 #include "modularity/imodulesetup.h"
 
 namespace au::appshell {
+struct AppShellPageManifest
+{
+    std::vector<muse::Uri> pages;
+    std::vector<muse::Uri> dialogs;
+};
+
+AppShellPageManifest appShellPageManifest();
+
 class AppShellConfiguration;
 class ApplicationActionController;
 class ApplicationUiActions;
