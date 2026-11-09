@@ -180,7 +180,7 @@ ColumnLayout {
                                     return c.raw
                                 }
 
-                                let isUrl = c.url && c.url.length > 0
+                                let isUrl = root.model.externalLinksAvailable && c.url && c.url.length > 0
                                 if (isUrl) {
                                     return '<a href="' + c.url + '">' + c.name + '</a>'
                                 }
@@ -192,6 +192,7 @@ ColumnLayout {
                 }
 
                 StyledTextLabel {
+                    visible: root.model.externalLinksAvailable
                     text: {
                         let websiteUrl = root.model.appUrl()
                         return qsTrc("appshell/about", "Audacity website: %1").arg('<a href="' + websiteUrl.url + '">' + websiteUrl.displayName + '</a>')

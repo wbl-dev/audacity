@@ -5,10 +5,12 @@
 
 #include <QApplication>
 #include <QClipboard>
+#include <QRegularExpression>
 #include <QUrl>
 #include <QVariantList>
 
 #include "framework/global/translation.h"
+#include "shared/productprofile.h"
 
 using namespace muse;
 using namespace au::appshell;
@@ -265,6 +267,11 @@ AboutModel::AboutModel(QObject* parent)
 {
 }
 
+bool AboutModel::externalLinksAvailable() const noexcept
+{
+    return au::shared::nonDiagnosticExternalLinksAvailable();
+}
+
 QString AboutModel::appVersion() const
 {
     const QString version = QString::fromStdString(
@@ -347,6 +354,21 @@ QVariantList AboutModel::creditList() const
                                       QT_TRANSLATE_NOOP("appshell/about", "Audacity includes code from the following projects:"),
                                       buildCredits(sLibraries)));
         creditList.append(makeSection(QT_TRANSLATE_NOOP("appshell/about", "Special Thanks"), buildCredits(sThanks)));
+
+        if (!au::shared::nonDiagnosticExternalLinksAvailable()) {
+            for (QVariant& sectionValue : creditList) {
+                QVariantMap section = sectionValue.toMap();
+                QVariantList credits = section.value("credits").toList();
+                for (QVariant& creditValue : credits) {
+                    QVariantMap credit = creditValue.toMap();
+                    credit["url"] = QString();
+                    creditValue = credit;
+                }
+                section["credits"] = credits;
+                sectionValue = section;
+            }
+        }
+
         return creditList;
     }();
     return cached;
@@ -368,7 +390,14 @@ QString AboutModel::gplText() const
         if (!result.ret) {
             return QString{};
         }
-        return QString::fromUtf8(result.val.constChar(), static_cast<qsizetype>(result.val.size()));
+        QString text = QString::fromUtf8(result.val.constChar(), static_cast<qsizetype>(result.val.size()));
+        if (!externalLinksAvailable()) {
+            static const QRegularExpression externalAnchor(
+                "<a\\b[^>]*>(.*?)</a>",
+                QRegularExpression::CaseInsensitiveOption | QRegularExpression::DotMatchesEverythingOption);
+            text.replace(externalAnchor, "\\1");
+        }
+        return text;
     }();
 
     return gplText;

@@ -11,6 +11,7 @@
 #include "internal/applicationactioncontroller.h"
 #include "internal/applicationuiactions.h"
 #include "qml/Audacity/AppShell/appmenumodel.h"
+#include "qml/Audacity/AppShell/aboutmodel.h"
 #include "shared/productprofile.h"
 
 #include "effects/effects_base/effectscommands.h"
@@ -66,6 +67,24 @@ TEST(workbench_menu, keeps_local_workbench_commands_and_diagnostics)
     EXPECT_TRUE(isMenuCommandAllowed(APP_PREFERENCES_COMMAND));
     EXPECT_TRUE(isMenuCommandAllowed(effects::EFFECTS_PLUGIN_MANAGER_COMMAND));
     EXPECT_TRUE(isMenuCommandAllowed(muse::diagnostics::DIAGNOSTICS_SAVE_FILES_COMMAND));
+}
+
+TEST(workbench_online_surfaces_appshell, removes_about_dialog_external_links)
+{
+    ASSERT_TRUE(shared::isWorkbenchProfile());
+
+    const AboutModel model;
+    EXPECT_FALSE(model.externalLinksAvailable());
+
+    const QVariantList sections = model.creditList();
+    for (const QVariant& sectionValue : sections) {
+        const QVariantList credits = sectionValue.toMap().value("credits").toList();
+        for (const QVariant& creditValue : credits) {
+            EXPECT_TRUE(creditValue.toMap().value("url").toString().isEmpty());
+        }
+    }
+
+    EXPECT_FALSE(model.gplText().contains("<a href", Qt::CaseInsensitive));
 }
 
 } // namespace

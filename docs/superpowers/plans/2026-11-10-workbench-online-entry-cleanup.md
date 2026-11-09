@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Remove every user-reachable non-diagnostic online entry from the Workbench profile and add a final platform-level guard that refuses non-local URL launches.
+**Goal:** Remove every user-reachable non-diagnostic online entry from the Workbench profile and centralize the product policy that controls those affordances.
 
 **Architecture:** Keep the default Audacity profile unchanged. A shared application-level product policy marks non-diagnostic external links unavailable, and every Workbench-reachable model consumes that policy so QML omits online affordances. Existing Cloud, network, update, marketplace, telemetry and online-help stubs remain the deny-by-default service boundary; diagnostics remains real.
 

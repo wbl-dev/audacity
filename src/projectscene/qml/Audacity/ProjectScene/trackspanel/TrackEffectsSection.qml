@@ -158,11 +158,12 @@ Rectangle {
             id: infoText
             visible: !isMasterTrack && effectList.empty
             text: {
-                {
-                    const line1 = qsTrc("projectscene", "Realtime effects are non-destructive and can be changed at any time.")
-                    const line2 = qsTrc("projectscene", "<a href=\"https://www.audacityteam.org/realtime-video\">Watch video</a>")
-                    return line1 + "<br/><div style='line-height:30px;'><br/></div>" + line2
+                const line1 = qsTrc("projectscene", "Realtime effects are non-destructive and can be changed at any time.")
+                if (!menuModel.externalLinksAvailable) {
+                    return line1
                 }
+                const line2 = qsTrc("projectscene", "<a href=\"https://www.audacityteam.org/realtime-video\">Watch video</a>")
+                return line1 + "<br/><div style='line-height:30px;'><br/></div>" + line2
             }
 
             Layout.fillWidth: true

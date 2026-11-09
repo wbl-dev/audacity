@@ -12,6 +12,10 @@ set(MODULE_TEST_SRC
 
 if(AU4_WORKBENCH_PROFILE)
     list(APPEND MODULE_TEST_SRC
+        ${CMAKE_CURRENT_LIST_DIR}/../qml/Audacity/AppShell/aboutmodel.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/../qml/Audacity/AppShell/aboutmodel.h
+        ${CMAKE_CURRENT_LIST_DIR}/../qml/Audacity/AppShell/FirstLaunchSetup/firstlaunchsetupmodel.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/../qml/Audacity/AppShell/FirstLaunchSetup/firstlaunchsetupmodel.h
         ${CMAKE_CURRENT_LIST_DIR}/workbench_menu_tests.cpp
         ${CMAKE_CURRENT_LIST_DIR}/workbench_startup_tests.cpp
     )
@@ -22,6 +26,7 @@ set(MODULE_TEST_LINK
     project
 
     muse::ui
+    Qt::Widgets
 )
 
 set(MODULE_TEST_INCLUDE
@@ -50,5 +55,9 @@ if(AU4_WORKBENCH_PROFILE)
     add_test(
         NAME workbench_menu
         COMMAND appshell_tests --gtest_filter=workbench_menu.*
+    )
+    add_test(
+        NAME workbench_online_surfaces_appshell
+        COMMAND appshell_tests --gtest_filter=workbench_online_surfaces_appshell.*
     )
 endif()

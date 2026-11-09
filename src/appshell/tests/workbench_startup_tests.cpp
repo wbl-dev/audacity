@@ -8,6 +8,7 @@
 
 #include "appshellmodule.h"
 #include "internal/startupscenario.h"
+#include "qml/Audacity/AppShell/FirstLaunchSetup/firstlaunchsetupmodel.h"
 #include "shared/productprofile.h"
 
 namespace au::appshell {
@@ -70,6 +71,25 @@ TEST(workbench_startup, ignores_cloud_deep_links_and_skips_update_dependencies)
         auto splashResult = scenario.runOnSplashScreen();
         (void)splashResult;
     });
+}
+
+TEST(workbench_startup, first_launch_setup_contains_only_local_configuration_pages)
+{
+    ASSERT_TRUE(shared::isWorkbenchProfile());
+
+    FirstLaunchSetupModel model;
+    ASSERT_EQ(model.numberOfPages(), 3);
+
+    const QString expectedPages[] {
+        "ThemesPage.qml",
+        "ClipVisualizationPage.qml",
+        "WorkspaceLayoutPage.qml",
+    };
+
+    for (int index = 0; index < model.numberOfPages(); ++index) {
+        model.setCurrentPageIndex(index);
+        EXPECT_EQ(model.currentPage().value("url").toString(), expectedPages[index]);
+    }
 }
 
 } // namespace
