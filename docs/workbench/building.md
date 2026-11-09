@@ -13,6 +13,34 @@ Workbench 是本仓库中的本地优先产品 Profile。它复用 Audacity 的�
 
 macOS 需要 macOS 13 或更新版本以及 Xcode 15 或更新版本。不要用 Qt 6.12 代替 Qt 6.11：当前源码会在 Qt 6.12 生成的 Muse Extensions QML AOT 代码中遇到 `Type` 名称冲突。
 
+### 使用 aqtinstall 安装 Qt（无需 Qt 账户）
+
+`aqtinstall` 可以把多个 Qt 版本并排安装，不会覆盖系统中已有的 Qt。以下示例把 Qt 6.11.3 安装到 `/Users/your-name/Qt/6.11.3/macos`：
+
+```bash
+python3 -m venv /private/tmp/audacity-aqt-venv
+/private/tmp/audacity-aqt-venv/bin/python -m pip install aqtinstall==3.3.0
+/private/tmp/audacity-aqt-venv/bin/aqt install-qt mac desktop 6.11.3 clang_64 \
+  -O /Users/your-name/Qt \
+  -m qt5compat qtnetworkauth qtshadertools qtscxml qttasktree
+```
+
+确认当前安装：
+
+```bash
+/Users/your-name/Qt/6.11.3/macos/bin/qmake -query QT_VERSION
+```
+
+第一次配置，或切换过 Qt 版本后，使用 `--fresh` 丢弃旧的 CMake 探测结果，并显式指定 Qt 路径：
+
+```bash
+cmake --preset workbench-debug --fresh \
+  -DCMAKE_PREFIX_PATH=/Users/your-name/Qt/6.11.3/macos \
+  -DQt6_DIR=/Users/your-name/Qt/6.11.3/macos/lib/cmake/Qt6
+```
+
+如果下载镜像不稳定，可给 `aqt install-qt` 增加 `-b https://mirrors.aliyun.com/qt/`，或分开补装失败的模块。Qt 版本之间不需要修改全局 shell 配置；为每个构建目录传入对应的 `CMAKE_PREFIX_PATH` 即可。
+
 ## 获取源码
 
 新克隆时可直接获取所有子模块：
@@ -30,10 +58,9 @@ git submodule update --init --recursive
 
 ## 配置、构建和测试
 
-在仓库根目录运行：
+完成上述 Qt 配置后，在仓库根目录运行：
 
 ```bash
-cmake --preset workbench-debug
 cmake --build build/workbench-debug
 ctest --test-dir build/workbench-debug --output-on-failure
 ```

@@ -1,0 +1,141 @@
+# Workbench Online Entry Cleanup Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Remove every user-reachable non-diagnostic online entry from the Workbench profile and add a final platform-level guard that refuses non-local URL launches.
+
+**Architecture:** Keep the default Audacity profile unchanged. Workbench-visible models expose product-policy state so QML omits online affordances, while `PlatformInteractive` enforces a final deny-by-default boundary for URLs that escape to the operating system. Existing Cloud, update, marketplace, telemetry and online-help module stubs remain the network-service boundary; diagnostics remains real.
+
+**Tech Stack:** C++17, Qt 6.11/QML, GoogleTest, CMake/CTest, macOS runtime inspection.
+
+**Spec:** `docs/superpowers/specs/2026-10-30-audacity-workbench-slim-profile-design.md`
+
+## Global Constraints
+
+- Workbench keeps Diagnostics and local crash logs; Crashpad remains opt-in at package time.
+- Workbench must not expose or launch Audio.com, update, marketplace, telemetry, tutorial-video, online-help or general website URLs.
+- Local file reveal/open behavior must continue to work.
+- The default Audacity profile must retain its existing online links and URL-opening behavior.
+- Qt 6.11 is the supported build environment; Qt 6.12 is not used for verification.
+
+## Review Focus
+
+- A missed `http`, `https`, `mailto` or custom external scheme must be rejected by Workbench even when a hidden QML page becomes reachable later; covered by Task 1 URL-policy tests.
+- File URLs used by Diagnostics and Finder reveal must remain allowed; covered by Task 1 local-file tests.
+- Realtime-effects empty-state text must remain informative after removing the tutorial link; covered by Task 2 model tests and GUI smoke verification.
+- About credits and legal content must remain readable without clickable external anchors; covered by Task 2 model tests and GUI inspection.
+- First-launch setup must contain only local appearance/workspace pages and must not show cloud, update, usage-info or video pages; covered by Task 2 startup-policy tests and GUI/source audit.
+
+---
+
+### Task 1: Enforce the Workbench external-URL boundary
+
+**Files:**
+- Modify: `muse/framework/interactive/internal/platforminteractive.h`
+- Modify: `muse/framework/interactive/internal/platforminteractive.cpp`
+- Create: `muse/framework/interactive/tests/platforminteractive_tests.cpp`
+- Modify: `muse/framework/interactive/tests/CMakeLists.txt`
+
+**Interfaces:**
+- Produces: `PlatformInteractive::isUrlOpenAllowed(const QUrl&) noexcept`, used by `openUrl()` and tests.
+- Preserves: `openUrl(file://...)` and empty/local filesystem paths in Workbench; default Audacity permits all URLs.
+
+- [ ] **Step 1: Write failing URL-policy tests**
+
+Add tests asserting that Workbench rejects `https`, `http`, `mailto` and an arbitrary custom scheme, while allowing a `file://` URL. In a default-profile build, assert that the same external schemes remain allowed.
+
+- [ ] **Step 2: Run the focused test target and verify RED**
+
+Run: `cmake --build build/workbench-debug --target muse_interactive_tests && build/workbench-debug/muse/framework/interactive/tests/muse_interactive_tests --gtest_filter='PlatformInteractiveUrlPolicy.*'`
+
+Expected: build fails because `isUrlOpenAllowed` does not exist.
+
+- [ ] **Step 3: Implement the minimal product-profile URL policy**
+
+Add the pure policy function and make both `openUrl` overloads return `Ret::Code::NotSupported` before calling `QDesktopServices` when the URL is forbidden.
+
+- [ ] **Step 4: Run the focused tests and verify GREEN**
+
+Run: the Step 2 command.
+
+Expected: all `PlatformInteractiveUrlPolicy` tests pass.
+
+- [ ] **Step 5: Commit**
+
+Commit message: `fix: block external URL launches in workbench`
+
+### Task 2: Remove Workbench-visible external links
+
+**Files:**
+- Modify: `src/projectscene/view/trackspanel/addeffectmenumodel.h`
+- Modify: `src/projectscene/view/trackspanel/addeffectmenumodel.cpp`
+- Modify: `src/projectscene/qml/Audacity/ProjectScene/trackspanel/TrackEffectsSection.qml`
+- Create: `src/projectscene/tests/workbench_online_surfaces_tests.cpp`
+- Modify: `src/projectscene/tests/CMakeLists.txt`
+- Modify: `src/appshell/qml/Audacity/AppShell/aboutmodel.h`
+- Modify: `src/appshell/qml/Audacity/AppShell/aboutmodel.cpp`
+- Modify: `src/appshell/qml/Audacity/AppShell/AboutDialogAudacityTab.qml`
+- Modify: `src/appshell/qml/Audacity/AppShell/AboutDialogPrivacyTab.qml`
+- Modify: `src/appshell/tests/workbench_menu_tests.cpp`
+- Modify: `src/appshell/tests/workbench_startup_tests.cpp`
+
+**Interfaces:**
+- Consumes: Task 1's platform guard as a defense-in-depth fallback.
+- Produces: `AddEffectMenuModel::externalLinksAvailable()` and `AboutModel::externalLinksAvailable()` as constant QML policy properties.
+- Produces: Workbench About credit/legal data without clickable external anchors.
+
+- [ ] **Step 1: Write failing UI-policy tests**
+
+Add Workbench tests asserting that the realtime-effects model and About model report external links unavailable; About credits and GPL content contain no external anchor URLs. Extend startup tests to enumerate only the three local first-launch pages.
+
+- [ ] **Step 2: Run affected tests and verify RED**
+
+Run: `cmake --build build/workbench-debug --target projectscene_tests appshell_tests && ctest --test-dir build/workbench-debug --output-on-failure -R '^(workbench_online_surfaces|workbench_startup|workbench_menu)$'`
+
+Expected: build fails because the new model policy properties do not exist.
+
+- [ ] **Step 3: Implement minimal visible-surface cleanup**
+
+Hide the realtime-effects tutorial link in Workbench while preserving its explanatory text. Render About credits, website, privacy and GPL content without external anchors in Workbench. Keep default Audacity rendering unchanged.
+
+- [ ] **Step 4: Run affected tests and verify GREEN**
+
+Run: the Step 2 command.
+
+Expected: all selected tests pass.
+
+- [ ] **Step 5: Commit**
+
+Commit message: `fix: remove remaining workbench online surfaces`
+
+### Task 3: Verify runtime behavior and record the result
+
+**Files:**
+- Modify: `docs/workbench/building.md`
+- Modify: `docs/superpowers/specs/2026-10-30-audacity-workbench-slim-profile-design.md`
+
+**Interfaces:**
+- Consumes: Tasks 1-2 completed Workbench application and tests.
+- Produces: reproducible verification evidence and an accurate remaining-risk record.
+
+- [ ] **Step 1: Build and run automated verification**
+
+Run the full Workbench build, all `workbench_*` tests, affected suites, and full CTest. Record the known three Clip tempo failures separately if unchanged.
+
+- [ ] **Step 2: Run GUI and network smoke verification**
+
+Launch the built app, confirm realtime effects and About contain no clickable non-diagnostic online affordances, and inspect the process for established external network sockets while idle and while opening the audited local dialogs. Do not enable or transmit Crashpad reports.
+
+- [ ] **Step 3: Update verification documentation**
+
+Replace the provisional `Watch video` follow-up note with the implemented policy, exact test/build evidence, runtime network observation and any honest limitations.
+
+- [ ] **Step 4: Run final checks**
+
+Run: `git diff --check`, the full build, `ctest --test-dir build/workbench-debug --output-on-failure -R '^workbench_'`, and the full test suite.
+
+Expected: build and Workbench tests pass; any full-suite failure is limited to the already-recorded Clip tempo tests.
+
+- [ ] **Step 5: Commit**
+
+Commit message: `docs: record workbench online cleanup verification`

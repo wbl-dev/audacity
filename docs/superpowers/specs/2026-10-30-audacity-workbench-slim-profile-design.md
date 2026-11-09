@@ -337,3 +337,17 @@ Workbench 配置输出显示：
 ### 13.6 当前结论
 
 产品 Profile、stub 边界、界面/命令收口、强制本地保存和相关自动化回归已通过。完整构建、全量测试和人工烟雾验收仍需在仓库指定的 Qt 6.11 环境中重新执行；在这些检查完成前，本阶段状态是“代码和定向回归完成，最终运行验收待补”，不是可发布验收通过。
+
+## 14. Qt 6.11 补充验证（2026-11-09）
+
+使用 `aqtinstall 3.3.0` 安装 Qt 6.11.3 `clang_64`，并补齐 `qt5compat`、`qtnetworkauth`、`qtshadertools`、`qtscxml` 和 `qttasktree` 模块。CMake 使用 Xcode 26.2 SDK 和该 Qt 安装重新执行 `workbench-debug --fresh`，配置输出确认实际发现版本为 Qt 6.11.3。
+
+补充验证结果：
+
+- `cmake --build build/workbench-debug` 完整通过，生成 arm64 `audacity.app`；最终二进制链接到 Qt 6.11.3。
+- 9 个 `workbench_*` 测试全部通过。
+- 39 个 CTest 测试程序中 38 个通过；唯一失败的 `au_project_tests` 内仍是第 13.2 节记录的 3 个既有 Clip tempo persistence 用例，没有新增 Workbench 回归失败。
+- 编译出的应用已实际启动并显示 Home、Project、DevTools、时间轴和效果器面板；首次运行会显示本地音频插件校验对话框。
+- GUI 烟雾检查发现 Realtime effects 空状态仍有 `Watch video` 外链，应在下一轮界面收口中删除；因此当前还不能宣称所有在线入口已完成最终人工验收。
+
+Qt 6.12 的 QML AOT 冲突不再阻塞 Workbench 的 Qt 6.11 构建。仍待执行第 13.5 节中的音频核心流程、Crashpad 开启构建及运行时网络流量验证。
