@@ -4,7 +4,7 @@
 
 **Goal:** Remove every user-reachable non-diagnostic online entry from the Workbench profile and add a final platform-level guard that refuses non-local URL launches.
 
-**Architecture:** Keep the default Audacity profile unchanged. Workbench-visible models expose product-policy state so QML omits online affordances, while `PlatformInteractive` enforces a final deny-by-default boundary for URLs that escape to the operating system. Existing Cloud, update, marketplace, telemetry and online-help module stubs remain the network-service boundary; diagnostics remains real.
+**Architecture:** Keep the default Audacity profile unchanged. A shared application-level product policy marks non-diagnostic external links unavailable, and every Workbench-reachable model consumes that policy so QML omits online affordances. Existing Cloud, network, update, marketplace, telemetry and online-help stubs remain the deny-by-default service boundary; diagnostics remains real.
 
 **Tech Stack:** C++17, Qt 6.11/QML, GoogleTest, CMake/CTest, macOS runtime inspection.
 
@@ -20,49 +20,48 @@
 
 ## Review Focus
 
-- A missed `http`, `https`, `mailto` or custom external scheme must be rejected by Workbench even when a hidden QML page becomes reachable later; covered by Task 1 URL-policy tests.
-- File URLs used by Diagnostics and Finder reveal must remain allowed; covered by Task 1 local-file tests.
+- A product-policy regression must not re-enable non-diagnostic external links in Workbench; covered by Task 1 product-profile tests.
+- Default Audacity must retain its external-link policy to avoid changing the upstream product; covered by Task 1 conditional product-profile tests.
 - Realtime-effects empty-state text must remain informative after removing the tutorial link; covered by Task 2 model tests and GUI smoke verification.
 - About credits and legal content must remain readable without clickable external anchors; covered by Task 2 model tests and GUI inspection.
 - First-launch setup must contain only local appearance/workspace pages and must not show cloud, update, usage-info or video pages; covered by Task 2 startup-policy tests and GUI/source audit.
 
 ---
 
-### Task 1: Enforce the Workbench external-URL boundary
+### Task 1: Define the Workbench external-link product policy
 
 **Files:**
-- Modify: `muse/framework/interactive/internal/platforminteractive.h`
-- Modify: `muse/framework/interactive/internal/platforminteractive.cpp`
-- Create: `muse/framework/interactive/tests/platforminteractive_tests.cpp`
-- Modify: `muse/framework/interactive/tests/CMakeLists.txt`
+- Modify: `src/shared/productprofile.h`
+- Create: `src/shared/tests/productprofile_tests.cpp`
+- Modify: `src/shared/tests/CMakeLists.txt`
 
 **Interfaces:**
-- Produces: `PlatformInteractive::isUrlOpenAllowed(const QUrl&) noexcept`, used by `openUrl()` and tests.
-- Preserves: `openUrl(file://...)` and empty/local filesystem paths in Workbench; default Audacity permits all URLs.
+- Produces: `shared::nonDiagnosticExternalLinksAvailable() noexcept`, consumed by Workbench-reachable UI models.
+- Preserves: default Audacity reports external links available.
 
-- [ ] **Step 1: Write failing URL-policy tests**
+- [ ] **Step 1: Write failing product-policy tests**
 
-Add tests asserting that Workbench rejects `https`, `http`, `mailto` and an arbitrary custom scheme, while allowing a `file://` URL. In a default-profile build, assert that the same external schemes remain allowed.
+Add tests asserting that Workbench reports non-diagnostic external links unavailable and default Audacity reports them available.
 
 - [ ] **Step 2: Run the focused test target and verify RED**
 
-Run: `cmake --build build/workbench-debug --target muse_interactive_tests && build/workbench-debug/muse/framework/interactive/tests/muse_interactive_tests --gtest_filter='PlatformInteractiveUrlPolicy.*'`
+Run: `cmake --build build/workbench-debug --target shared_tests`, then `build/workbench-debug/src/shared/tests/shared_tests --gtest_filter='ProductProfile.*'`
 
-Expected: build fails because `isUrlOpenAllowed` does not exist.
+Expected: build fails because `nonDiagnosticExternalLinksAvailable` does not exist.
 
-- [ ] **Step 3: Implement the minimal product-profile URL policy**
+- [ ] **Step 3: Implement the minimal product-profile external-link policy**
 
-Add the pure policy function and make both `openUrl` overloads return `Ret::Code::NotSupported` before calling `QDesktopServices` when the URL is forbidden.
+Add the constexpr policy function beside `isWorkbenchProfile()`.
 
 - [ ] **Step 4: Run the focused tests and verify GREEN**
 
 Run: the Step 2 command.
 
-Expected: all `PlatformInteractiveUrlPolicy` tests pass.
+Expected: all `ProductProfile` tests pass.
 
 - [ ] **Step 5: Commit**
 
-Commit message: `fix: block external URL launches in workbench`
+Commit message: `fix: centralize workbench external link policy`
 
 ### Task 2: Remove Workbench-visible external links
 
@@ -80,7 +79,7 @@ Commit message: `fix: block external URL launches in workbench`
 - Modify: `src/appshell/tests/workbench_startup_tests.cpp`
 
 **Interfaces:**
-- Consumes: Task 1's platform guard as a defense-in-depth fallback.
+- Consumes: Task 1's shared external-link product policy.
 - Produces: `AddEffectMenuModel::externalLinksAvailable()` and `AboutModel::externalLinksAvailable()` as constant QML policy properties.
 - Produces: Workbench About credit/legal data without clickable external anchors.
 

@@ -12,4 +12,9 @@ constexpr bool isWorkbenchProfile() noexcept
     return false;
 #endif
 }
+
+constexpr bool nonDiagnosticExternalLinksAvailable() noexcept
+{
+    return !isWorkbenchProfile();
+}
 }
