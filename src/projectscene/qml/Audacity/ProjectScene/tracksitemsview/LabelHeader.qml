@@ -9,6 +9,9 @@ Rectangle {
     property string title: ""
 
     property bool isPoint: false
+    property bool isSelected: false
+    property real pointAnchorX: 0
+    property real pointAnchorY: 0
 
     property color backgroundColor: "transparent"
     property color labelColor: ui.theme.extra["black_color"]
@@ -42,11 +45,13 @@ Rectangle {
     property int contentWidth: Math.max(50, Math.min(400, titleLoader.contentWidth + 8))
     property int contentHeight: titleLoader.isEditState && titleLoader.item ? titleLoader.item.contentHeight : 14
 
-    x: root.isPoint ? root.earWidth + 3 : 0
-    y: 0
+    x: root.isPoint ? root.pointAnchorX + 16 : 0
+    y: root.isPoint ? root.pointAnchorY : 0
 
     color: root.backgroundColor
-    radius: root.isPoint ? 2 : 0
+    radius: root.isPoint ? 4 : 0
+    border.width: root.isPoint && root.isSelected ? 1 : 0
+    border.color: ui.theme.fontPrimaryColor
 
     function edit() {
         titleLoader.edit()
@@ -147,7 +152,7 @@ Rectangle {
             property real contentWidth: item ? (isEditState ? item.contentWidth + 1 : item.implicitWidth + 1) : 0
             property real contentHeight: item ? (isEditState ? item.contentHeight : item.implicitHeight) : 0
 
-            x: Math.max(0, root.leftVisibleMargin - root.x)
+            x: Math.max(0, root.leftVisibleMargin - (root.isPoint ? root.x - root.pointAnchorX : root.x))
             width: parent.width
             height: parent.height
 

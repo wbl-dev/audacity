@@ -8,6 +8,8 @@ import Audacity.ProjectScene
 TrackItemsContainer {
     id: root
 
+    readonly property int labelRowHeight: 22
+
     TrackLabelsListModel {
         id: labelsModel
         moveController: root.moveController
@@ -68,7 +70,7 @@ TrackItemsContainer {
                                     button: e.button,
                                     modifiers: e.modifiers,
                                     x: labelPos.x,
-                                    y: labelPos.y
+                                    y: labelPos.y + labelLoader.y
                                 })
                             }
                         }
@@ -203,7 +205,7 @@ TrackItemsContainer {
                             height: parent.height - y
                             width: itemData.width
                             x: itemData.x
-                            y: (itemData.visualHeight + 2) * itemData.level
+                            y: (root.labelRowHeight + 2) * itemData.level
                             z: Boolean(itemData) && itemData.isEditing ? 1000 : itemData.level
 
                             asynchronous: true
@@ -426,7 +428,7 @@ TrackItemsContainer {
                                     }
 
                                     Component.onCompleted: {
-                                        itemData.visualHeight = item.headerDefaultHeight
+                                        itemData.visualHeight = root.labelRowHeight
 
                                         if (titleEditRequested) {
                                             Qt.callLater(startRequestedTitleEdit)

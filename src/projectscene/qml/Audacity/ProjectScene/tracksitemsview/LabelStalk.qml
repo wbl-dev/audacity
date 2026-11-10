@@ -23,8 +23,8 @@ Rectangle {
     MouseArea {
         id: dragArea
         anchors.fill: parent
-        anchors.leftMargin: -1
-        anchors.rightMargin: -1
+        anchors.leftMargin: root.isForPoint ? -5 : -1
+        anchors.rightMargin: root.isForPoint ? -5 : -1
 
         acceptedButtons: Qt.LeftButton
         hoverEnabled: true

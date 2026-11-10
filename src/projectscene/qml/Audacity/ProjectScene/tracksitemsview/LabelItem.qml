@@ -26,8 +26,9 @@ Item {
     property bool isLinkedActive: false
     property bool isPoint: false
 
-    property int visualWidth: prv.isPoint ? pointStalk.width + header.x + header.width : header.width
+    property int visualWidth: prv.isPoint ? 16 + header.width : header.width
     readonly property int headerDefaultHeight: 14
+    readonly property int pointCardHeight: 22
 
     property var container: null
 
@@ -52,7 +53,7 @@ Item {
 
     property alias navigation: navCtrl
 
-    height: header.height
+    height: prv.isPoint ? pointCardHeight : header.height
 
     signal requestSelected
     signal requestSingleSelected
@@ -139,7 +140,17 @@ Item {
         anchors.leftMargin: -leftEar.width - border.width
         anchors.rightMargin: -rightEar.width - border.width
 
-        navigationCtrl: navCtrl
+        navigationCtrl: prv.isPoint ? null : navCtrl
+
+        border.color: ui.theme.fontPrimaryColor
+        border.width: 2
+        radius: 4
+    }
+
+    NavigationFocusBorder {
+        parent: header
+
+        navigationCtrl: prv.isPoint ? navCtrl : null
 
         border.color: ui.theme.fontPrimaryColor
         border.width: 2
@@ -204,6 +215,8 @@ Item {
         z: root.parent.z
 
         height: root.headerDefaultHeight
+        enabled: root.enabled
+        visible: !prv.isPoint
 
         isRight: false
         enableCursorInteraction: root.enableCursorInteraction
@@ -252,6 +265,8 @@ Item {
         z: root.parent.z
 
         height: root.headerDefaultHeight
+        enabled: root.enabled
+        visible: !prv.isPoint
 
         isRight: true
         enableCursorInteraction: root.enableCursorInteraction
@@ -293,12 +308,19 @@ Item {
     LabelHeader {
         id: header
 
+        parent: prv.isPoint && root.container ? root.container : root
+        z: prv.isPoint && root.parent ? root.parent.z : 0
+        enabled: root.enabled
+
         width: prv.isPoint ? contentWidth : root.width
-        height: Math.min(root.height, contentHeight)
+        height: prv.isPoint ? root.pointCardHeight : Math.min(root.height, contentHeight)
 
         title: root.title
 
         isPoint: prv.isPoint
+        isSelected: root.isSelected
+        pointAnchorX: root.parent ? root.parent.x : 0
+        pointAnchorY: root.parent ? root.parent.y : 0
 
         backgroundColor: prv.backgroundColor
 
@@ -333,7 +355,8 @@ Item {
         }
 
         onMousePositionChanged: function (x, y) {
-            root.labelItemMousePositionChanged(x, y)
+            const pos = header.mapToItem(root.container, x, y)
+            root.labelItemMousePositionChanged(pos.x - root.parent.x, pos.y)
         }
 
         onHeaderHoveredChanged: function (value) {
@@ -345,20 +368,22 @@ Item {
     Item {
         id: pointMarker
         parent: root.container
-        width: 16
-        height: 16
+        width: 24
+        height: 24
         x: root.parent.x + root.parent.width / 2 - width / 2
         y: root.parent.y
         z: root.parent.z + 1
+        enabled: root.enabled
         visible: prv.isPoint
 
         Rectangle {
             anchors.centerIn: parent
-            width: 9
-            height: 9
-            rotation: 45
+            width: 12
+            height: 12
+            radius: width / 2
             color: prv.leftEarBackgroundColor
             border.color: root.isSelected ? ui.theme.fontPrimaryColor : root.labelColor
+            border.width: root.isSelected ? 2 : 1
         }
 
         MouseArea {
@@ -370,7 +395,8 @@ Item {
                 e.accepted = false
             }
             onPositionChanged: function (e) {
-                root.labelItemMousePositionChanged(e.x - root.parent.x, e.y)
+                const pos = pointMarker.mapToItem(root.container, e.x, e.y)
+                root.labelItemMousePositionChanged(pos.x - root.parent.x, pos.y)
                 e.accepted = false
             }
             onContainsMouseChanged: root.headerHovered = containsMouse
@@ -387,8 +413,9 @@ Item {
         y: root.parent.y
         z: root.parent.z
 
-        height: root.height
+        height: root.parent.height
 
+        enabled: root.enabled
         isForPoint: true
         enableCursorInteraction: root.enableCursorInteraction
         backgroundColor: prv.leftEdgeInSelection ? root.timeSelection.color : leftEar.hovered ? prv.leftEarBackgroundColor : prv.rightEarBackgroundColor
@@ -422,6 +449,7 @@ Item {
 
         height: root.height
 
+        enabled: root.enabled
         isRight: false
         enableCursorInteraction: root.enableCursorInteraction
         backgroundColor: prv.leftEdgeInSelection ? root.timeSelection.color : prv.leftEarBackgroundColor
@@ -464,6 +492,7 @@ Item {
 
         height: root.height
 
+        enabled: root.enabled
         isRight: true
         enableCursorInteraction: root.enableCursorInteraction
         backgroundColor: prv.rightEdgeInSelection ? root.timeSelection.color : prv.rightEarBackgroundColor
