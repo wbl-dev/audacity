@@ -691,7 +691,7 @@ Rectangle {
                 marqueeReleased = false
 
                 if (!itemWasMoved && lastItemClickKey) {
-                    tracksItemsView.itemReleaseRequested(lastItemClickKey)
+                    tracksItemsView.itemReleaseRequested(lastItemClickKey, e.modifiers)
                 }
 
                 if (itemsMoveController.active) {
@@ -747,6 +747,10 @@ Rectangle {
             onDoubleClicked: e => {
                 if ((ignoredButtons & e.button) || e.button !== Qt.LeftButton) {
                     return
+                }
+
+                if (root.itemHovered && root.hoveredItemKey) {
+                    tracksItemsView.itemDoubleClicked(root.hoveredItemKey)
                 }
 
                 if (root.isSplitMode && splitToolController.trackSplittable(tracksViewState.trackAtPosition(e.x, e.y))) {
@@ -875,7 +879,8 @@ Rectangle {
                     }
                 }
 
-                signal itemReleaseRequested(var itemKey)
+                signal itemReleaseRequested(var itemKey, int modifiers)
+                signal itemDoubleClicked(var itemKey)
                 signal itemContextMenuRequested(var itemKey, real x, real y, int modifiers)
                 signal cancelItemDragEditRequested(var itemKey)
                 signal startAutoScroll

@@ -16,7 +16,7 @@ BUILD_DIR=${BUILD_DIR:-build/audacity-release}
 SCRIPTS_DIR="$PWD/share/testflowscripts"
 
 case "$(uname)" in
-    Darwin) APP="$BUILD_DIR/src/app/audacity.app/Contents/MacOS/audacity" ;;
+    Darwin) APP="$BUILD_DIR/src/app/OnlyAudios.app/Contents/MacOS/OnlyAudios" ;;
     *)      APP="$BUILD_DIR/src/app/audacity" ;;
 esac
 test -x "$APP" || { echo "no build at $APP, set BUILD_DIR"; exit 1; }

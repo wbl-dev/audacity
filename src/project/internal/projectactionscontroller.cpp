@@ -594,7 +594,11 @@ muse::Ret ProjectActionsController::importFiles(const Params& params)
         }
     }
 
-    return project->import(filePaths);
+    const muse::Ret result = project->import(filePaths);
+    if (!result) {
+        interactive()->error(muse::trc("project", "Import failed"), result.text());
+    }
+    return result;
 }
 
 muse::Ret ProjectActionsController::importStartupMedia(const Params& params)
@@ -1012,10 +1016,11 @@ muse::io::paths_t ProjectActionsController::selectImportFiles()
     std::string rawFileExt
         =
             "*.al *.ul *.s16be *.u16be *.s8 *.u8 *.ub *.uw *.4xm *.MTV *.afc *.aifc *.apc *.apl *.mac *.avs *.302 *.daud *.ffm *.cgi *.mm *.mpegtsraw *.mpegvideo *.nuv *.sw *.sb *.son *.sol *.vfwcap";
-    std::string textFileExt = "*.txt *.srt *.vtt";
-
     std::string allExt = audioFileExt + " " + videoFileExt + " " + gameMediaFileExt + " " + streamingFileExt + " "
-                         + animationAndImageFileExt + " " + rawFileExt + " " + textFileExt;
+                         + animationAndImageFileExt + " " + rawFileExt;
+    for (const std::string& extension : importer()->supportedExtensions()) {
+        allExt += " *." + extension;
+    }
 
     std::vector<std::string> filter {
         trc("project", "All supported files") + " (*.mp3,*.aac, ...) (" + allExt + ")",

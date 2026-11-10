@@ -6,6 +6,7 @@
 #include "global/async/async.h"
 
 #include "types/projectscenetypes.h"
+#include "playback/playbackcommands.h"
 
 #include "log.h"
 
@@ -345,6 +346,38 @@ void TrackLabelsListModel::selectLabel(const LabelKey& key)
         selectionController()->setItemSelectionAnchor(m_context->mousePositionTime(), key.key);
     }
     m_needToSelectTracksData = false;
+}
+
+void TrackLabelsListModel::activateLabel(const LabelKey& key)
+{
+    if (key.key.trackId != m_trackId) {
+        return;
+    }
+
+    const auto project = globalContext()->currentTrackeditProject();
+    if (!project) {
+        return;
+    }
+
+    const trackedit::Label label = project->label(key.key);
+    if (!label.isValid()) {
+        return;
+    }
+
+    if (label.kind == trackedit::LabelKind::Range) {
+        if (label.endTime <= label.startTime) {
+            return;
+        }
+        selectionController()->setSelectedAllAudioData(label.startTime, label.endTime);
+        commandDispatcher()->dispatch(playback::PLAYBACK_PLAY_SELECTION_COMMAND);
+    } else {
+        selectionController()->resetTimeSelection();
+        selectionController()->setSelectionStartTime(label.startTime);
+        commandDispatcher()->dispatch(playback::PLAYBACK_SEEK_COMMAND, {
+            { playback::PLAYBACK_SEEK_TIME_PARAM, muse::Val(label.startTime) },
+            { playback::PLAYBACK_SEEK_TRIGGER_PLAY_PARAM, muse::Val(true) },
+        });
+    }
 }
 
 void TrackLabelsListModel::selectLabelWithSharedStalk(const LabelKey& key, bool rightSide)

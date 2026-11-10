@@ -108,6 +108,7 @@ public:
     MOCK_METHOD(bool, changeLabelTitle, (const LabelKey&, const muse::String&), (override));
     MOCK_METHOD(bool, changeLabelLowFrequency, (const LabelKey&, double), (override));
     MOCK_METHOD(bool, changeLabelHighFrequency, (const LabelKey&, double), (override));
+    MOCK_METHOD(bool, changeLabelKind, (const LabelKey&, LabelKind), (override));
 
     MOCK_METHOD(bool, removeLabel, (const LabelKey&), (override));
     MOCK_METHOD(bool, removeLabels, (const LabelKeyList&, bool), (override));

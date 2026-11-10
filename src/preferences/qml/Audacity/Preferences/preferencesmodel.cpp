@@ -216,6 +216,9 @@ void PreferencesModel::load(const QString& currentPageId)
         makeItem("music", QT_TRANSLATE_NOOP("preferences", "Music"), IconCode::Code::MUSIC_NOTES,
                  "Preferences/MusicPreferencesPage.qml"),
 
+        makeItem("label-parsers", QT_TRANSLATE_NOOP("preferences", "Label parsers"), IconCode::Code::OPEN_FILE,
+                 "Preferences/LabelParsersPreferencesPage.qml"),
+
 #ifdef AU_BUILD_CLOUD_AUDIOCOM
         makeItem("export", QT_TRANSLATE_NOOP("preferences", "Export"), IconCode::Code::SHARE_FILE,
                  "Preferences/ExportPreferencesPage.qml"),

@@ -62,6 +62,7 @@ elseif(OS_IS_LIN)
 
 elseif(OS_IS_MAC)
     set(EXECUTABLE_NAME audacity MACOSX_BUNDLE)
+    set(APP_OUTPUT_NAME ${MUSE_APP_NAME})
     set(MACOSX_BUNDLE_GUI_IDENTIFIER ${MUSE_APP_GUI_IDENTIFIER})
     set(MACOSX_BUNDLE_BUNDLE_NAME ${MUSE_APP_TITLE})
     set(MACOSX_BUNDLE_LONG_VERSION_STRING ${MUSE_APP_VERSION})
@@ -229,7 +230,7 @@ target_include_directories(audacity PRIVATE
 ###########################################
 
 if (APP_OUTPUT_NAME)
-  set_target_properties(${EXECUTABLE_NAME} PROPERTIES OUTPUT_NAME ${APP_OUTPUT_NAME})
+  set_target_properties(audacity PROPERTIES OUTPUT_NAME ${APP_OUTPUT_NAME})
 endif (APP_OUTPUT_NAME)
 
 if (OS_IS_WIN)
@@ -414,7 +415,7 @@ elseif(OS_IS_MAC)
 
     if(MUSE_MODULE_DIAGNOSTICS_CRASHPAD_CLIENT)
         install(PROGRAMS "${MUSE_MODULE_DIAGNOSTICS_CRASHPAD_HANDLER_PATH}"
-            DESTINATION audacity.app/Contents/MacOS
+            DESTINATION ${MUSE_APP_BUNDLE_NAME}/Contents/MacOS
         )
     endif()
 

@@ -200,6 +200,28 @@ bool Au3LabelsInteraction::changeLabelHighFrequency(const LabelKey& labelKey, do
     return true;
 }
 
+bool Au3LabelsInteraction::changeLabelKind(const LabelKey& labelKey, LabelKind kind)
+{
+    Au3LabelTrack* track = DomAccessor::findLabelTrack(projectRef(), Au3TrackId(labelKey.trackId));
+    if (!track) {
+        return false;
+    }
+    Au3Label* label = DomAccessor::findLabel(track, labelKey.itemId);
+    if (!label || (label->GetKind() == ::LabelKind::Point) == (kind == LabelKind::Point)) {
+        return false;
+    }
+
+    const double start = label->getT0();
+    label->selectedRegion.setTimes(start, kind == LabelKind::Point ? start : start + 1.0);
+    label->SetKind(kind == LabelKind::Point ? ::LabelKind::Point : ::LabelKind::Range);
+
+    const auto project = globalContext()->currentTrackeditProject();
+    if (project) {
+        project->notifyAboutLabelChanged(DomConverter::label(track, label));
+    }
+    return true;
+}
+
 bool Au3LabelsInteraction::removeLabel(const LabelKey& labelKey)
 {
     Au3LabelTrack* labelTrack = DomAccessor::findLabelTrack(projectRef(), Au3TrackId(labelKey.trackId));
@@ -510,7 +532,14 @@ bool Au3LabelsInteraction::stretchLabelLeft(const LabelKey& labelKey, secs_t new
 
     newStartTime = std::max(0.0, newStartTime.to_double());
 
-    au3Label.selectedRegion.setTimes(newStartTime, anchorT1);
+    if (au3Label.GetKind() == ::LabelKind::Point) {
+        au3Label.selectedRegion.setTimes(newStartTime, newStartTime);
+    } else {
+        if (muse::RealIsEqual(newStartTime, anchorT1)) {
+            return false;
+        }
+        au3Label.selectedRegion.setTimes(newStartTime, anchorT1);
+    }
     labelTrack->SetLabel(labelIndex, au3Label);
 
     const auto prj = globalContext()->currentTrackeditProject();
@@ -580,7 +609,14 @@ bool Au3LabelsInteraction::stretchLabelRight(const LabelKey& labelKey, secs_t ne
 
     newEndTime = std::max(0.0, newEndTime.to_double());
 
-    au3Label.selectedRegion.setTimes(anchorT0, newEndTime);
+    if (au3Label.GetKind() == ::LabelKind::Point) {
+        au3Label.selectedRegion.setTimes(newEndTime, newEndTime);
+    } else {
+        if (muse::RealIsEqual(newEndTime, anchorT0)) {
+            return false;
+        }
+        au3Label.selectedRegion.setTimes(anchorT0, newEndTime);
+    }
     labelTrack->SetLabel(labelIndex, au3Label);
 
     const auto prj = globalContext()->currentTrackeditProject();

@@ -23,7 +23,7 @@ if (NOT BUILD_VERSION)
     #file (STRINGS "${ARTIFACTS_DIR}/env/build_version.env" BUILD_VERSION)
 endif()
 
-file(MAKE_DIRECTORY ${INSTALL_DIR}/audacity.app/Contents/Resources/Frameworks)
+file(MAKE_DIRECTORY ${INSTALL_DIR}/${MUSE_APP_BUNDLE_NAME}/Contents/Resources/Frameworks)
 
 # Setup keychain for code sign
 set(_secret "$ENV{SIGN_CERTIFICATE_ENCRYPT_SECRET}")
@@ -66,9 +66,9 @@ else()
 endif()
 
 if (BUILD_MODE STREQUAL "nightly")
-    set(LONG_NAME "AudacityNightly")
+    set(LONG_NAME "OnlyAudiosNightly")
 else()
-    set(LONG_NAME "Audacity")
+    set(LONG_NAME "OnlyAudios")
 endif()
 set(DMG_NAME ${LONG_NAME}-${BUILD_VERSION}.dmg)
 

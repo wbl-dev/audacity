@@ -104,6 +104,7 @@ void LabelStruct::CopyAttributesFrom(const LabelStruct& other)
 {
     mSelected = other.mSelected;
     mGroupId = other.mGroupId;
+    mKind = other.mKind;
 }
 
 LabelTrack::Interval::~Interval() = default;
@@ -395,6 +396,7 @@ LabelStruct::LabelStruct(const SelectedRegion& region,
     , title(aTitle)
     , mId(++s_lastLabelId)
 {
+    mKind = region.t0() == region.t1() ? LabelKind::Point : LabelKind::Range;
     updated = false;
     width = 0;
     x = 0;
@@ -412,6 +414,7 @@ LabelStruct::LabelStruct(const SelectedRegion& region,
 {
     // Overwrite the times
     selectedRegion.setTimes(t0, t1);
+    mKind = selectedRegion.t0() == selectedRegion.t1() ? LabelKind::Point : LabelKind::Range;
 
     updated = false;
     width = 0;
@@ -807,6 +810,8 @@ bool LabelTrack::HandleXMLTag(const std::string_view& tag, const AttributesList&
         wxString title;
         bool selected = false;
         long groupId = -1;
+        bool hasKind = false;
+        LabelKind kind = LabelKind::Point;
 
         // loop through attrs, which is a null-terminated list of
         // attribute-value pairs
@@ -823,6 +828,12 @@ bool LabelTrack::HandleXMLTag(const std::string_view& tag, const AttributesList&
                 value.TryGet(selected);
             } else if (attr == "groupId") {
                 value.TryGet(groupId);
+            } else if (attr == "kind") {
+                const wxString kindValue = value.ToWString();
+                if (kindValue == wxT("point") || kindValue == wxT("range")) {
+                    kind = kindValue == wxT("point") ? LabelKind::Point : LabelKind::Range;
+                    hasKind = true;
+                }
             }
         } // while
 
@@ -833,7 +844,14 @@ bool LabelTrack::HandleXMLTag(const std::string_view& tag, const AttributesList&
         //if (selectedRegion.t1() < 0)
         //   selectedRegion.collapseToT0();
 
+        if (hasKind && (kind == LabelKind::Point) != (selectedRegion.t0() == selectedRegion.t1())) {
+            return false;
+        }
+
         LabelStruct l { selectedRegion, title };
+        if (hasKind) {
+            l.SetKind(kind);
+        }
         l.SetSelected(selected);
         l.SetGroupId(groupId);
         mLabels.push_back(l);
@@ -884,6 +902,7 @@ void LabelTrack::WriteXML(XMLWriter& xmlFile) const
         xmlFile.StartTag(wxT("label"));
         labelStruct.getSelectedRegion()
         .WriteXMLAttributes(xmlFile, "t", "t1");
+        xmlFile.WriteAttr(wxT("kind"), labelStruct.GetKind() == LabelKind::Point ? wxT("point") : wxT("range"));
         // PRL: to do: write other selection fields
         xmlFile.WriteAttr(wxT("title"), labelStruct.title);
         xmlFile.WriteAttr(wxT("isSelected"), labelStruct.GetSelected());

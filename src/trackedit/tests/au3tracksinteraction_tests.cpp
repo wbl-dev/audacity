@@ -89,6 +89,21 @@ public:
     std::shared_ptr<muse::IInteractive> m_interactive;
 };
 
+TEST_F(Au3TracksInteractionTests, RemoveDragAddedTracksPreservesImportedLabelTrack)
+{
+    const size_t trackCountBeforeImport = m_trackEditProject->trackList().size();
+    TrackTemplateFactory factory(projectRef(), DEFAULT_SAMPLE_RATE);
+    const TrackId labelTrackId = factory.addLabelTrackFromTemplate("Imported labels", {
+            { 1.0, 2.0, "Label" }
+        });
+    ASSERT_NE(DomAccessor::findLabelTrack(projectRef(), Au3TrackId(labelTrackId)), nullptr);
+
+    m_tracksInteraction->removeDragAddedTracks(trackCountBeforeImport, true);
+
+    EXPECT_NE(DomAccessor::findLabelTrack(projectRef(), Au3TrackId(labelTrackId)), nullptr);
+    removeTrack(labelTrackId);
+}
+
 TEST_F(Au3TracksInteractionTests, ChangeTrackColor)
 {
     //! [GIVEN] There is a project with a track

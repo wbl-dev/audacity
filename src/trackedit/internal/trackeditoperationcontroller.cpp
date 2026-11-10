@@ -966,6 +966,16 @@ bool TrackeditOperationController::changeLabelHighFrequency(const LabelKey& labe
     return false;
 }
 
+bool TrackeditOperationController::changeLabelKind(const LabelKey& labelKey, LabelKind kind)
+{
+    if (!labelsInteraction()->changeLabelKind(labelKey, kind)) {
+        return false;
+    }
+    projectHistory()->pushHistoryState(muse::trc("trackedit", "Label type changed"),
+                                       muse::trc("trackedit", "Change label type"));
+    return true;
+}
+
 bool TrackeditOperationController::cutLabel(const LabelKey& labelKey)
 {
     ITrackDataPtr data = labelsInteraction()->cutLabel(labelKey);

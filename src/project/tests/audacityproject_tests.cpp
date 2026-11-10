@@ -34,6 +34,10 @@
 #include "project/tests/mocks/projectviewstatecreatormock.h"
 #include "project/tests/mocks/cloudprojectsprovidermock.h"
 #include "trackedit/tests/mocks/clipboardmock.h"
+#include "trackedit/tests/mocks/projecthistorymock.h"
+#include "trackedit/tests/mocks/trackeditprojectmock.h"
+#include "au3wrap/tests/mocks/au3projectmock.h"
+#include "importexport/import/iimporter.h"
 
 #include "testtools.h"
 #include "testing/testcontext.h"
@@ -79,6 +83,19 @@ private:
     std::string m_destinationPath;
 };
 
+namespace {
+class BatchImporterMock : public importexport::IImporter
+{
+public:
+    MOCK_METHOD(importexport::FileInfo, fileInfo, (const muse::io::path_t&), (override));
+    MOCK_METHOD(bool, import, (const muse::io::path_t&), (override));
+    MOCK_METHOD(bool, importIntoTrack, (const muse::io::path_t&, trackedit::TrackId, trackedit::secs_t), (override));
+    MOCK_METHOD(bool, importFromSystemClipboard, (const std::vector<muse::io::path_t>&, trackedit::secs_t), (override));
+    MOCK_METHOD(std::vector<std::string>, supportedExtensions, (), (const, override));
+    MOCK_METHOD(muse::Ret, lastError, (), (const, override));
+};
+}
+
 class Project_Audacity4ProjectTests : public ::testing::Test
 {
 protected:
@@ -112,7 +129,48 @@ protected:
             m_currentProject.reset();
         }
     }
+
+    void setBatchDependencies(const std::shared_ptr<BatchImporterMock>& importerMock,
+                              const std::shared_ptr<trackedit::ProjectHistoryMock>& history)
+    {
+        m_currentProject->importer.set(importerMock);
+        m_currentProject->projectHistory.set(history);
+        m_currentProject->m_au3Project = std::make_shared<::testing::NiceMock<au3::Au3ProjectMock> >();
+        m_currentProject->m_trackeditProject = std::make_shared<::testing::NiceMock<trackedit::TrackeditProjectMock> >();
+    }
 };
+
+TEST_F(Project_Audacity4ProjectTests, PartialLabelBatchReportsFailureAndCreatesOneUndoState)
+{
+    auto importer = std::make_shared<::testing::NiceMock<BatchImporterMock> >();
+    auto history = std::make_shared<::testing::NiceMock<trackedit::ProjectHistoryMock> >();
+    setBatchDependencies(importer, history);
+
+    EXPECT_CALL(*importer, import(muse::io::path_t("good.txt"))).WillOnce(::testing::Return(true));
+    EXPECT_CALL(*importer, import(muse::io::path_t("bad.ann"))).WillOnce(::testing::Return(false));
+    EXPECT_CALL(*importer, lastError()).WillOnce(::testing::Return(muse::make_ret(muse::Ret::Code::BadData, "Line 2: invalid time")));
+    EXPECT_CALL(*history, pushHistoryState(::testing::An<const std::string&>(), ::testing::An<const std::string&>())).Times(1);
+
+    const muse::Ret result = m_currentProject->import(std::vector<muse::io::path_t> { "good.txt", "bad.ann" }, false);
+    EXPECT_FALSE(result.success());
+    EXPECT_THAT(result.text(), ::testing::HasSubstr("bad.ann"));
+    EXPECT_THAT(result.text(), ::testing::HasSubstr("Line 2"));
+}
+
+TEST_F(Project_Audacity4ProjectTests, FailedImporterWithEmptyErrorDoesNotCreateUndoState)
+{
+    auto importer = std::make_shared<::testing::NiceMock<BatchImporterMock> >();
+    auto history = std::make_shared<::testing::NiceMock<trackedit::ProjectHistoryMock> >();
+    setBatchDependencies(importer, history);
+
+    EXPECT_CALL(*importer, import(muse::io::path_t("broken.aup"))).WillOnce(::testing::Return(false));
+    EXPECT_CALL(*importer, lastError()).WillOnce(::testing::Return(muse::make_ok()));
+    EXPECT_CALL(*history, pushHistoryState(::testing::An<const std::string&>(), ::testing::An<const std::string&>())).Times(0);
+
+    const muse::Ret result = m_currentProject->import(muse::io::path_t("broken.aup"));
+    EXPECT_FALSE(result.success());
+    EXPECT_FALSE(result.text().empty());
+}
 
 TEST_F(Project_Audacity4ProjectTests, Load_ValidFile_ReturnsSuccess)
 {

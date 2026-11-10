@@ -20,6 +20,9 @@ public:
     MOCK_METHOD(muse::Ret, importIntoTracks,
                 (const std::vector<muse::io::path_t>& filePaths, const std::vector<trackedit::TrackId>& dstTrackIds,
                  muse::secs_t startTime), (override));
+    MOCK_METHOD(muse::Ret, importDroppedFiles,
+                (const std::vector<muse::io::path_t>& audioPaths, const std::vector<trackedit::TrackId>& dstTrackIds,
+                 const std::vector<muse::io::path_t>& labelPaths, muse::secs_t startTime), (override));
 
     MOCK_METHOD(void, close, (), (override));
     MOCK_METHOD(muse::async::Notification, aboutCloseBegin, (), (const, override));

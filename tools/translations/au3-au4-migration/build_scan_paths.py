@@ -193,7 +193,7 @@ def slug_for(rel_path: Path) -> str:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--preset", default="audacity-asan")
-    ap.add_argument("--exe", default="src/app/audacity.app/Contents/MacOS/audacity",
+    ap.add_argument("--exe", default="src/app/OnlyAudios.app/Contents/MacOS/OnlyAudios",
                     help="ninja-relative path to executable target")
     args = ap.parse_args()
 

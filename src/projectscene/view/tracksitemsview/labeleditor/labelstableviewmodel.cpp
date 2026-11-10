@@ -16,6 +16,7 @@
 #include "labelstableviewtimecodecell.h"
 
 #include "trackedit/trackeditcommands.h"
+#include "project/iaudacityproject.h"
 
 static const QString SELECT_LABEL_TRACK_ID("select-label-track");
 static const QString NEW_LABEL_TRACK_ID("new-label-track");
@@ -34,6 +35,7 @@ static const std::string LOW_FREQUENCY_COLUMN_NAME = "lowFrequency";
 
 static const int HIGH_FREQUENCY_COLUMN = 5;
 static const std::string HIGH_FREQUENCY_COLUMN_NAME = "highFrequency";
+static const int KIND_COLUMN = 6;
 
 using namespace au::projectscene;
 using namespace muse;
@@ -118,6 +120,8 @@ QVector<TableViewHeader*> LabelsTableViewModel::makeHorizontalHeaders()
     highFrequencyHeader->setCurrentFormatId(labelEditorColumnFormat(HIGH_FREQUENCY_COLUMN_NAME, highFrequencyModelStub.currentFormat()));
     connectToColumnFormatChange(highFrequencyHeader, HIGH_FREQUENCY_COLUMN_NAME);
     hHeaders << highFrequencyHeader;
+    hHeaders << makeHorizontalHeader(qtrc("projectscene", "Type (Point/Range)"), TableViewCellType::Type::String,
+                                     TableViewCellEditMode::Mode::DoubleClick, 140);
 
     return hHeaders;
 }
@@ -163,6 +167,7 @@ QVector<QVector<TableViewCell*> > LabelsTableViewModel::makeTable()
 
             row.append(makeTimecodeCell(Val(label.lowFrequency)));
             row.append(makeTimecodeCell(Val(label.highFrequency)));
+            row.append(makeCell(Val(label.kind == trackedit::LabelKind::Point ? "Point" : "Range")));
 
             table.append(row);
         }
@@ -258,6 +263,7 @@ void LabelsTableViewModel::addNewLabel()
 
     cells.append(makeTimecodeCell(Val(createdLabel.lowFrequency)));
     cells.append(makeTimecodeCell(Val(createdLabel.highFrequency)));
+    cells.append(makeCell(Val(createdLabel.kind == trackedit::LabelKind::Point ? "Point" : "Range")));
 
     insertRow(row, cells);
 
@@ -332,9 +338,10 @@ void LabelsTableViewModel::importLabels()
         return;
     }
 
-    Ret ret = labelsImporter()->importData(importPath);
+    Ret ret = globalContext()->currentProject()->import(importPath);
     if (!ret) {
         LOGE() << ret.toString();
+        interactive()->error(muse::trc("projectscene", "Label import failed"), ret.text());
     } else {
         // reload
         load();
@@ -350,6 +357,7 @@ bool LabelsTableViewModel::doCellValueChangeRequested(int row, int column, const
     case END_TIME_COLUMN: return changeLabelEndTime(row, value);
     case LOW_FREQUENCY_COLUMN: return changeLabelLowFrequency(row, value);
     case HIGH_FREQUENCY_COLUMN: return changeLabelHighFrequency(row, value);
+    case KIND_COLUMN: return changeLabelKind(row, value);
     default: break;
     }
 
@@ -499,16 +507,20 @@ bool LabelsTableViewModel::changeLabelStartTime(int row, const Val& value)
 
     trackedit::LabelKey labelKey = verticalHeader->labelKey().key;
 
-    TableViewCell* endTimeCell = findCell(row, END_TIME_COLUMN);
-
-    //! NOTE: correct the right side so that the left side is not higher than the right
-    if (muse::RealIsEqualOrLess(endTimeCell->value().toDouble(), value.toDouble())) {
-        //! NOTE: without push to history
-        labelsInteraction()->stretchLabelRight(labelKey, value.toDouble(), true /* completed */);
-        endTimeCell->setValue(value);
+    const auto project = globalContext()->currentTrackeditProject();
+    if (!project) {
+        return false;
+    }
+    const trackedit::Label label = project->label(labelKey);
+    if (label.kind == trackedit::LabelKind::Range && value.toDouble() >= label.endTime) {
+        return false;
     }
 
-    return trackeditInteraction()->stretchLabelLeft(labelKey, value.toDouble(), true /* completed */);
+    const bool changed = trackeditInteraction()->stretchLabelLeft(labelKey, value.toDouble(), true /* completed */);
+    if (changed && label.kind == trackedit::LabelKind::Point) {
+        QTimer::singleShot(0, this, [this] { load(); });
+    }
+    return changed;
 }
 
 bool LabelsTableViewModel::changeLabelEndTime(int row, const Val& value)
@@ -525,16 +537,41 @@ bool LabelsTableViewModel::changeLabelEndTime(int row, const Val& value)
 
     trackedit::LabelKey labelKey = verticalHeader->labelKey().key;
 
-    TableViewCell* startTimeCell = findCell(row, START_TIME_COLUMN);
-
-    //! NOTE: correct the left side so that the right side is not lower than the left
-    if (muse::RealIsEqualOrMore(startTimeCell->value().toDouble(), value.toDouble())) {
-        //! NOTE: without push to history
-        labelsInteraction()->stretchLabelLeft(labelKey, value.toDouble(), true /* completed */);
-        startTimeCell->setValue(value);
+    const auto project = globalContext()->currentTrackeditProject();
+    if (!project) {
+        return false;
+    }
+    const trackedit::Label label = project->label(labelKey);
+    if (label.kind == trackedit::LabelKind::Point || value.toDouble() <= label.startTime) {
+        return false;
     }
 
     return trackeditInteraction()->stretchLabelRight(labelKey, value.toDouble(), true /* completed */);
+}
+
+bool LabelsTableViewModel::isPointRow(int row) const
+{
+    auto* header = dynamic_cast<LabelsTableViewVerticalHeader*>(findVerticalHeader(row));
+    const auto project = globalContext()->currentTrackeditProject();
+    return header && project && project->label(header->labelKey().key).kind == trackedit::LabelKind::Point;
+}
+
+bool LabelsTableViewModel::changeLabelKind(int row, const Val& value)
+{
+    auto* header = dynamic_cast<LabelsTableViewVerticalHeader*>(findVerticalHeader(row));
+    if (!header) {
+        return false;
+    }
+    const QString text = QString::fromStdString(value.toString()).trimmed();
+    if (text.compare("Point", Qt::CaseInsensitive) != 0 && text.compare("Range", Qt::CaseInsensitive) != 0) {
+        return false;
+    }
+    const auto kind = text.compare("Point", Qt::CaseInsensitive) == 0 ? trackedit::LabelKind::Point : trackedit::LabelKind::Range;
+    if (!trackeditInteraction()->changeLabelKind(header->labelKey().key, kind)) {
+        return false;
+    }
+    QTimer::singleShot(0, this, [this] { load(); });
+    return true;
 }
 
 bool LabelsTableViewModel::changeLabelLowFrequency(int row, const Val& value)
@@ -616,7 +653,7 @@ io::path_t LabelsTableViewModel::selectFileForExport()
 
 io::path_t LabelsTableViewModel::selectFileForImport()
 {
-    std::vector<std::string> filter = importExportFilter(labelsImportExportConfiguration()->fileFilter());
+    std::vector<std::string> filter = importExportFilter(labelsImportExportConfiguration()->importFileFilter());
     io::path_t defaultDir = labelsImportExportConfiguration()->labelsDirectoryPath();
 
     //: Title of a file picker dialog

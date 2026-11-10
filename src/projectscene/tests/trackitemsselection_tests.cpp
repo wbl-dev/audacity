@@ -10,6 +10,10 @@
 #include "trackedit/tests/mocks/selectioncontrollermock.h"
 #include "trackedit/tests/mocks/tracknavigationcontrollermock.h"
 #include "trackedit/tests/mocks/trackeditinteractionmock.h"
+#include "trackedit/tests/mocks/trackeditprojectmock.h"
+#include "context/tests/mocks/globalcontextmock.h"
+#include "rcommand/tests/mocks/commanddispatchermock.h"
+#include "playback/playbackcommands.h"
 
 #include "testing/testcontext.h"
 
@@ -139,11 +143,74 @@ protected:
         delete m_model;
     }
 
+    void setupActivation(const TrackItemKey& key, trackedit::Label label)
+    {
+        m_globalContext = std::make_shared<NiceMock<context::GlobalContextMock> >();
+        m_trackeditProject = std::make_shared<NiceMock<trackedit::TrackeditProjectMock> >();
+        m_commandDispatcher = std::make_shared<NiceMock<muse::rcommand::CommandDispatcherMock> >();
+        m_model->globalContext.set(m_globalContext);
+        m_model->commandDispatcher.set(m_commandDispatcher);
+        ON_CALL(*m_globalContext, currentTrackeditProject()).WillByDefault(Return(m_trackeditProject));
+        ON_CALL(*m_trackeditProject, label(key.key)).WillByDefault(Return(label));
+    }
+
     TrackLabelsListModel* m_model = nullptr;
     std::shared_ptr<NiceMock<trackedit::SelectionControllerMock> > m_selectionController;
     std::shared_ptr<NiceMock<trackedit::TrackNavigationControllerMock> > m_trackNavController;
     std::shared_ptr<NiceMock<trackedit::TrackeditInteractionMock> > m_trackeditInteraction;
+    std::shared_ptr<NiceMock<context::GlobalContextMock> > m_globalContext;
+    std::shared_ptr<NiceMock<trackedit::TrackeditProjectMock> > m_trackeditProject;
+    std::shared_ptr<NiceMock<muse::rcommand::CommandDispatcherMock> > m_commandDispatcher;
 };
+
+TEST_F(TrackLabelsSelectionTests, ActivateRangeSelectsAudioAndPlaysExactSelection)
+{
+    const auto key = makeKey(1, 42);
+    trackedit::Label label;
+    label.key = key.key;
+    label.startTime = 2.0;
+    label.endTime = 5.0;
+    label.kind = trackedit::LabelKind::Range;
+    setupActivation(key, label);
+
+    EXPECT_CALL(*m_selectionController, setSelectedAllAudioData(Optional(2.0), Optional(5.0)));
+    muse::rcommand::Request captured;
+    EXPECT_CALL(*m_commandDispatcher, dispatch(_)).WillOnce(DoAll(SaveArg<0>(&captured),
+                                                                  Invoke([](const muse::rcommand::Request& request) {
+        return muse::async::make_promise<muse::rcommand::Response>([request](auto resolve) {
+            return resolve(muse::rcommand::make_response(request, muse::make_ok()));
+        });
+    })));
+
+    m_model->activateLabel(key);
+    EXPECT_EQ(captured.command, playback::PLAYBACK_PLAY_SELECTION_COMMAND);
+}
+
+TEST_F(TrackLabelsSelectionTests, ActivatePointSeeksAndStartsOrdinaryPlayback)
+{
+    const auto key = makeKey(1, 43);
+    trackedit::Label label;
+    label.key = key.key;
+    label.startTime = 3.0;
+    label.endTime = 3.0;
+    label.kind = trackedit::LabelKind::Point;
+    setupActivation(key, label);
+
+    EXPECT_CALL(*m_selectionController, resetTimeSelection());
+    EXPECT_CALL(*m_selectionController, setSelectionStartTime(trackedit::secs_t(3.0)));
+    muse::rcommand::Request captured;
+    EXPECT_CALL(*m_commandDispatcher, dispatch(_)).WillOnce(DoAll(SaveArg<0>(&captured),
+                                                                  Invoke([](const muse::rcommand::Request& request) {
+        return muse::async::make_promise<muse::rcommand::Response>([request](auto resolve) {
+            return resolve(muse::rcommand::make_response(request, muse::make_ok()));
+        });
+    })));
+
+    m_model->activateLabel(key);
+    EXPECT_EQ(captured.command, playback::PLAYBACK_SEEK_COMMAND);
+    EXPECT_DOUBLE_EQ(captured.params.at(playback::PLAYBACK_SEEK_TIME_PARAM).toDouble(), 3.0);
+    EXPECT_TRUE(captured.params.at(playback::PLAYBACK_SEEK_TRIGGER_PLAY_PARAM).toBool());
+}
 
 TEST_F(TrackLabelsSelectionTests, SelectLabel_SetsRangeAnchor_GroupedLabel)
 {

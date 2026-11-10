@@ -21,13 +21,6 @@
 #include "testing/testcontext.h"
 
 namespace {
-//! TimeStretching.cpp registers the `OnProjectTempoChange` override for
-//! `WaveTrack`. Nothing else in this binary references that translation unit,
-//! so without this the linker drops it and `DoProjectTempoChange` silently
-//! does nothing.
-[[maybe_unused]] const auto& forceTimeStretchingLink
-    =TimeStretching::defaultStretchRenderingTitle;
-
 // Default test values - may be overwritten.
 constexpr auto TEST_PROJECT_TEMPO = 188.0;
 constexpr auto TEST_SAMPLE_RATE = 48000; // Applies to the track and its clips
@@ -135,7 +128,13 @@ protected:
     [[nodiscard]] bool readProject(const wxString& xml)
     {
         XMLFileReader reader;
-        return reader.ParseString(&ProjectFileIO::Get(project()), xml);
+        const bool parsed = reader.ParseString(&ProjectFileIO::Get(project()), xml);
+        if (parsed) {
+            // Call a function in TimeStretching.cpp so the static linker keeps
+            // its WaveTrack project-tempo override registration in this binary.
+            (void)TimeStretching::HasPitchOrSpeed(firstTrack(), 0.0, 0.0);
+        }
+        return parsed;
     }
 
     WaveTrack& firstTrack()

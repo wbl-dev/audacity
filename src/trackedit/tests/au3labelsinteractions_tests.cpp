@@ -10,7 +10,9 @@
 #include "mocks/tracknavigationcontrollermock.h"
 
 #include "au3-label-track/LabelTrack.h"
+#include "au3-xml/XMLWriter.h"
 #include "au3wrap/internal/domaccessor.h"
+#include "au3wrap/internal/domconverter.h"
 #include "au3wrap/internal/wxtypes_convert.h"
 
 using ::testing::Truly;
@@ -78,6 +80,120 @@ TEST_F(Au3LabelsInteractionsTests, LabelsAreUngroupedByDefault)
     //! [THEN] It belongs to no group
     EXPECT_EQ(m_labelsInteraction->labelGroupId(key), -1);
     EXPECT_TRUE(m_labelsInteraction->labelsInGroup(-1).empty());
+}
+
+TEST_F(Au3LabelsInteractionsTests, WritesPointAndRangeKindsToProjectXml)
+{
+    auto* labelTrack = ::LabelTrack::Create(Au3TrackList::Get(projectRef()));
+    SelectedRegion pointRegion;
+    pointRegion.setTimes(1.0, 1.0);
+    labelTrack->AddLabel(pointRegion, wxString("point"));
+    SelectedRegion rangeRegion;
+    rangeRegion.setTimes(2.0, 3.0);
+    labelTrack->AddLabel(rangeRegion, wxString("range"));
+
+    XMLStringWriter writer;
+    labelTrack->WriteXML(writer);
+    const std::string xml = writer.ToStdString();
+    EXPECT_NE(xml.find("kind=\"point\""), std::string::npos);
+    EXPECT_NE(xml.find("kind=\"range\""), std::string::npos);
+}
+
+TEST_F(Au3LabelsInteractionsTests, LegacyProjectLabelsInferKindFromTimeSpan)
+{
+    auto* labelTrack = ::LabelTrack::Create(Au3TrackList::Get(projectRef()));
+    const AttributesList pointAttrs {
+        { "t", XMLAttributeValueView(1.0) },
+        { "t1", XMLAttributeValueView(1.0) },
+        { "title", XMLAttributeValueView(std::string_view("point")) },
+    };
+    const AttributesList rangeAttrs {
+        { "t", XMLAttributeValueView(2.0) },
+        { "t1", XMLAttributeValueView(3.0) },
+        { "title", XMLAttributeValueView(std::string_view("range")) },
+    };
+
+    ASSERT_TRUE(labelTrack->HandleXMLTag("label", pointAttrs));
+    ASSERT_TRUE(labelTrack->HandleXMLTag("label", rangeAttrs));
+    ASSERT_EQ(labelTrack->GetNumLabels(), 2);
+    EXPECT_EQ(labelTrack->GetLabel(0)->GetKind(), ::LabelKind::Point);
+    EXPECT_EQ(labelTrack->GetLabel(1)->GetKind(), ::LabelKind::Range);
+}
+
+TEST_F(Au3LabelsInteractionsTests, InvalidExplicitRangeKindDoesNotCreateZeroDurationRange)
+{
+    auto* labelTrack = ::LabelTrack::Create(Au3TrackList::Get(projectRef()));
+    const AttributesList attrs {
+        { "t", XMLAttributeValueView(1.0) },
+        { "t1", XMLAttributeValueView(1.0) },
+        { "kind", XMLAttributeValueView(std::string_view("range")) },
+    };
+
+    EXPECT_FALSE(labelTrack->HandleXMLTag("label", attrs));
+    EXPECT_EQ(labelTrack->GetNumLabels(), 0);
+}
+
+TEST_F(Au3LabelsInteractionsTests, ExplicitKindConversionPreservesTitleAndFrequency)
+{
+    auto* track = ::LabelTrack::Create(Au3TrackList::Get(projectRef()));
+    SelectedRegion region(4.0, 6.0);
+    region.setF0(110.0);
+    const LabelKey key { track->GetId(), track->AddLabel(region, wxString("note")) };
+
+    ASSERT_TRUE(m_labelsInteraction->changeLabelKind(key, LabelKind::Point));
+    const auto* point = track->GetLabel(0);
+    EXPECT_EQ(point->GetKind(), ::LabelKind::Point);
+    EXPECT_DOUBLE_EQ(point->getT0(), 4.0);
+    EXPECT_DOUBLE_EQ(point->getT1(), 4.0);
+    EXPECT_DOUBLE_EQ(point->getLowFrequency(), 110.0);
+    EXPECT_EQ(point->title, wxString("note"));
+
+    ASSERT_TRUE(m_labelsInteraction->changeLabelKind(key, LabelKind::Range));
+    const auto* range = track->GetLabel(0);
+    EXPECT_EQ(range->GetKind(), ::LabelKind::Range);
+    EXPECT_DOUBLE_EQ(range->getT0(), 4.0);
+    EXPECT_DOUBLE_EQ(range->getT1(), 5.0);
+}
+
+TEST_F(Au3LabelsInteractionsTests, StretchingPointMovesBothEndpoints)
+{
+    auto* track = ::LabelTrack::Create(Au3TrackList::Get(projectRef()));
+    const LabelKey key { track->GetId(), track->AddLabel(SelectedRegion(2.0, 2.0), wxString("point")) };
+    ASSERT_TRUE(m_labelsInteraction->stretchLabelLeft(key, 3.0, true));
+    EXPECT_EQ(track->GetLabel(0)->GetKind(), ::LabelKind::Point);
+    EXPECT_DOUBLE_EQ(track->GetLabel(0)->getT0(), 3.0);
+    EXPECT_DOUBLE_EQ(track->GetLabel(0)->getT1(), 3.0);
+}
+
+TEST_F(Au3LabelsInteractionsTests, LegacyFrequencyBoundsSurviveKindInferenceAndCopy)
+{
+    auto* labelTrack = ::LabelTrack::Create(Au3TrackList::Get(projectRef()));
+    const AttributesList attrs {
+        { "t", XMLAttributeValueView(2.0) },
+        { "t1", XMLAttributeValueView(2.0) },
+        { "selLow", XMLAttributeValueView(220.0) },
+        { "selHigh", XMLAttributeValueView(440.0) },
+    };
+    ASSERT_TRUE(labelTrack->HandleXMLTag("label", attrs));
+    const auto* original = labelTrack->GetLabel(0);
+    ASSERT_NE(original, nullptr);
+    EXPECT_EQ(original->GetKind(), ::LabelKind::Point);
+    EXPECT_DOUBLE_EQ(original->getLowFrequency(), 220.0);
+    EXPECT_DOUBLE_EQ(original->getHighFrequency(), 440.0);
+
+    const auto duplicate = std::dynamic_pointer_cast<::LabelTrack>(labelTrack->Duplicate());
+    ASSERT_NE(duplicate, nullptr);
+    ASSERT_EQ(duplicate->GetNumLabels(), 1);
+    EXPECT_EQ(duplicate->GetLabel(0)->GetKind(), ::LabelKind::Point);
+    EXPECT_DOUBLE_EQ(duplicate->GetLabel(0)->getLowFrequency(), 220.0);
+    EXPECT_DOUBLE_EQ(duplicate->GetLabel(0)->getHighFrequency(), 440.0);
+
+    XMLStringWriter writer;
+    duplicate->WriteXML(writer);
+    const std::string xml = writer.ToStdString();
+    EXPECT_NE(xml.find("kind=\"point\""), std::string::npos);
+    EXPECT_NE(xml.find("selLow=\"220"), std::string::npos);
+    EXPECT_NE(xml.find("selHigh=\"440"), std::string::npos);
 }
 
 TEST_F(Au3LabelsInteractionsTests, SetLabelGroupIdNotifiesAndListsTheLabelInItsGroup)
@@ -155,6 +271,8 @@ TEST_F(Au3LabelsInteractionsTests, AddLabelToSelectionCreatesLabelTrackWhenNoneE
     ASSERT_NE(label, nullptr) << "Label should exist";
     ASSERT_DOUBLE_EQ(label->getT0(), selectionStart) << "Label start time should match selection start";
     ASSERT_DOUBLE_EQ(label->getT1(), selectionEnd) << "Label end time should match selection end";
+    EXPECT_EQ(label->GetKind(), ::LabelKind::Range);
+    EXPECT_EQ(DomConverter::label(labelTrack, label).kind, LabelKind::Range);
 }
 
 TEST_F(Au3LabelsInteractionsTests, AddLabelToSelectionUsesExistingLabelTrack)
@@ -290,6 +408,7 @@ TEST_F(Au3LabelsInteractionsTests, AddLabelToSelectionWithZeroLengthSelection)
     ASSERT_NE(label, nullptr) << "Label should exist";
     ASSERT_DOUBLE_EQ(label->getT0(), playbackPosition) << "Label start should be at playback position";
     ASSERT_DOUBLE_EQ(label->getT1(), playbackPosition) << "Label end should be at playback position";
+    EXPECT_EQ(label->GetKind(), ::LabelKind::Point);
 }
 
 TEST_F(Au3LabelsInteractionsTests, AddMultipleLabelsToSameLabelTrack)

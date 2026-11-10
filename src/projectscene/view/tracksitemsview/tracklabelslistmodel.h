@@ -7,6 +7,7 @@
 #include "tracklabelitem.h"
 
 #include "trackedit/itracksviewrequestsservice.h"
+#include "rcommand/icommanddispatcher.h"
 
 namespace au::projectscene {
 class TrackLabelsListModel : public TrackItemsListModel
@@ -14,11 +15,13 @@ class TrackLabelsListModel : public TrackItemsListModel
     Q_OBJECT
 
     muse::ContextInject<trackedit::ITracksViewRequestsService> tracksViewRequestsService { this };
+    muse::ContextInject<muse::rcommand::ICommandDispatcher> commandDispatcher { this };
 
 public:
     explicit TrackLabelsListModel(QObject* parent = nullptr);
 
     Q_INVOKABLE void selectLabel(const LabelKey& key);
+    Q_INVOKABLE void activateLabel(const LabelKey& key);
     Q_INVOKABLE void selectLabelWithSharedStalk(const LabelKey& key, bool rightSide);
     Q_INVOKABLE void resetSelectedLabels();
     Q_INVOKABLE bool changeLabelTitle(const LabelKey& key, const QString& newTitle);
@@ -36,6 +39,7 @@ public:
 
 private:
     friend class TrackLabelsLayoutManagerTests;
+    friend class TrackLabelsSelectionTests;
     friend class TrackItemsMoveControllerTests;
 
     void onInit() override;

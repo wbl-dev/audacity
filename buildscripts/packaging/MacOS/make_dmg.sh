@@ -1,9 +1,9 @@
 #!/bin/bash
 
 INSTALL_DIR="build.install"
-APPNAME=audacity
-LONG_NAME="Audacity"
-LONGER_NAME="Audacity 4"
+APPNAME=OnlyAudios
+LONG_NAME="OnlyAudios"
+LONGER_NAME="OnlyAudios"
 VERSION=0
 HERE="$(cd "$(dirname "$0")" && pwd)"
 
@@ -191,8 +191,10 @@ codesign --verify --deep --strict --verbose=2 "${VOLUME}/${APPNAME}.app"
 echo "spctl"
 spctl --assess --type execute "${VOLUME}/${APPNAME}.app"
 
-echo "Rename ${APPNAME}.app to ${VOLUME}/${LONGER_NAME}.app"
-mv ${VOLUME}/${APPNAME}.app "${VOLUME}/${LONGER_NAME}.app"
+if [[ "${APPNAME}" != "${LONGER_NAME}" ]]; then
+  echo "Rename ${APPNAME}.app to ${VOLUME}/${LONGER_NAME}.app"
+  mv "${VOLUME}/${APPNAME}.app" "${VOLUME}/${LONGER_NAME}.app"
+fi
 
 echo "Copy in background image"
 # copy in background image

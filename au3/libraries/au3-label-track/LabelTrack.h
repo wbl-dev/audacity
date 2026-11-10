@@ -33,6 +33,12 @@ enum class LabelFormat
     WEBVTT,
 };
 
+enum class LabelKind
+{
+    Point,
+    Range,
+};
+
 LABEL_TRACK_API
 extern EnumSetting<bool> LabelStyleSetting;
 
@@ -51,6 +57,8 @@ public:
     double getT1() const { return selectedRegion.t1(); }
     double getLowFrequency() const { return selectedRegion.f0(); }
     double getHighFrequency() const { return selectedRegion.f1(); }
+    LabelKind GetKind() const { return mKind; }
+    void SetKind(LabelKind kind) { mKind = kind; }
 
     // Returns true iff the label got inverted:
     bool AdjustEdge(int iEdge, double fNewTime);
@@ -108,6 +116,7 @@ private:
     int64_t mId{ 0 };
     bool mSelected{ false };
     int64_t mGroupId{ -1 };
+    LabelKind mKind{ LabelKind::Point };
 };
 
 using LabelArray = std::vector<LabelStruct>;

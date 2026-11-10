@@ -83,11 +83,9 @@ add_compile_definitions(AU4_APP_TITLE_VERSION="${MUSE_APP_TITLE_VERSION}")
 ###########################################
 
 # Configure muse_framework app bundle name for macOS
-set(MUSE_APP_BUNDLE_NAME "audacity.app")
-
 if (OS_IS_MAC)
     SET(AU4_INSTALL_NAME  "Contents/Resources/")
-    SET(AU4_SHARE_NAME    "audacity.app/")
+    SET(AU4_SHARE_NAME    "${MUSE_APP_BUNDLE_NAME}/")
     SET(AU4_FRAMEWORKS_NAME "Frameworks/")
 elseif (OS_IS_WIN)
     SET(AU4_INSTALL_NAME  "")

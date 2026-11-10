@@ -7,6 +7,7 @@
 #include <QTextCodec>
 
 #include <csignal>
+#include <cstring>
 
 #include "appfactory.h"
 #include "commandlineparser.h"
@@ -15,6 +16,7 @@
 #include "framework/multiwindows/singleinstance.h"
 
 #include "muse_framework_config.h"
+#include "importexport/labels/internal/labelscriptworker.h"
 
 #if (defined (_MSCVER) || defined (_MSC_VER))
 #include <vector>
@@ -55,6 +57,9 @@ static void crashCallback(int signum)
 
 int main(int argc, char** argv)
 {
+    if (argc == 2 && std::strcmp(argv[1], "--label-script-worker") == 0) {
+        return au::importexport::runLabelScriptWorker(argc, argv);
+    }
 #ifndef MUSE_MODULE_DIAGNOSTICS_CRASHPAD_CLIENT
     signal(SIGSEGV, crashCallback);
     signal(SIGILL, crashCallback);
@@ -93,9 +98,9 @@ int main(int argc, char** argv)
 
     const char* appName;
 #ifdef MUSE_APP_UNSTABLE
-    appName  = "Audacity4Development";
+    appName  = "OnlyAudiosDevelopment";
 #else
-    appName  = "Audacity4";
+    appName  = "OnlyAudios";
 #endif
 
 #ifdef Q_OS_WIN
@@ -110,8 +115,8 @@ int main(int argc, char** argv)
     QGuiApplication::styleHints()->setMousePressAndHoldInterval(250);
 
     QCoreApplication::setApplicationName(appName);
-    QCoreApplication::setOrganizationName("Audacity");
-    QCoreApplication::setOrganizationDomain("audacityteam.org");
+    QCoreApplication::setOrganizationName("OnlyAudios");
+    QCoreApplication::setOrganizationDomain("onlyaudios.local");
     QCoreApplication::setApplicationVersion(MUSE_APP_VERSION);
 
 #if !defined(Q_OS_WIN) && !defined(Q_OS_DARWIN) && !defined(Q_OS_WASM)

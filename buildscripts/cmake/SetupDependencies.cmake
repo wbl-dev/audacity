@@ -16,7 +16,7 @@ include(${CMAKE_CURRENT_LIST_DIR}/DependencyManifest.cmake)
 include(${MUSE_FRAMEWORK_PATH}/buildscripts/cmake/ExtDepsManifest.cmake)
 
 # bundle each consumed dep's runtime libs + licenses into the app.
-extdeps_install_consumed(MACOS_BUNDLE audacity.app)
+extdeps_install_consumed(MACOS_BUNDLE ${MUSE_APP_BUNDLE_NAME})
 
 get_property(_extdeps_consumed GLOBAL PROPERTY EXTDEPS_CONSUMED)
 foreach(_dep ${_extdeps_consumed})

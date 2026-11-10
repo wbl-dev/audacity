@@ -1,5 +1,8 @@
 #include "au3importer.h"
 
+#include <algorithm>
+#include <cctype>
+
 #include "framework/global/io/path.h"
 #include "global/log.h"
 #include "global/types/string.h"
@@ -112,7 +115,9 @@ au::importexport::FileInfo au::importexport::Au3Importer::fileInfo(const muse::i
 
     FileInfo fileInfo;
     for (const auto plugin : importPlugins) {
-        if (!plugin->SupportsExtension(suffix(filePath))) {
+        std::string extension = suffix(filePath);
+        std::transform(extension.begin(), extension.end(), extension.begin(), [](unsigned char c) { return std::tolower(c); });
+        if (!plugin->SupportsExtension(extension)) {
             continue;
         }
 
@@ -131,15 +136,22 @@ au::importexport::FileInfo au::importexport::Au3Importer::fileInfo(const muse::i
 
 bool au::importexport::Au3Importer::import(const muse::io::path_t& filePath)
 {
-    const std::string ext = suffix(filePath);
+    m_lastError = muse::make_ok();
+    std::string ext = suffix(filePath);
+    std::transform(ext.begin(), ext.end(), ext.begin(), [](unsigned char c) { return std::tolower(c); });
     for (const std::string& labelExt : labelsImporter()->supportedExtensions()) {
         if (labelExt == ext) {
-            return labelsImporter()->importData(filePath).success();
+            m_lastError = labelsImporter()->importData(filePath);
+            return m_lastError.success();
         }
     }
 
     if (LegacyAupImporter::isLegacyAupFile(filePath)) {
-        return importLegacyAup(filePath);
+        const bool imported = importLegacyAup(filePath);
+        if (!imported && m_lastError.success()) {
+            m_lastError = muse::make_ret(muse::Ret::Code::BadData, "Could not import legacy project: " + filePath.toStdString());
+        }
+        return imported;
     }
 
     const bool projectWasEmpty = isProjectEmpty();
@@ -166,6 +178,7 @@ bool au::importexport::Au3Importer::import(const muse::io::path_t& filePath)
             newTracks, newTags.get(), acidTags, errorMessage);
 
         if (!success) {
+            m_lastError = muse::make_ret(muse::Ret::Code::BadData, "Could not import audio file: " + filePath.toStdString());
             return false;
         }
     } // ImportProgress (and its dialog) destroyed here, before tempo detection
@@ -389,6 +402,8 @@ std::vector<std::string> au::importexport::Au3Importer::supportedExtensions() co
                 if (!ext.empty() && ext.front() == '.') {
                     ext.erase(ext.begin());
                 }
+
+                std::transform(ext.begin(), ext.end(), ext.begin(), [](unsigned char c) { return std::tolower(c); });
 
                 uniq.emplace(ext);
             }

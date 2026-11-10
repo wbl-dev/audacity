@@ -84,18 +84,34 @@ Ret Audacity4Project::importIntoTracks(const std::vector<muse::io::path_t>& file
                                        const std::vector<trackedit::TrackId>& dstTrackIds,
                                        muse::secs_t startTime)
 {
-    IF_ASSERT_FAILED(filePaths.size() == dstTrackIds.size()) {
+    return importDroppedFiles(filePaths, dstTrackIds, {}, startTime);
+}
+
+Ret Audacity4Project::importDroppedFiles(const std::vector<muse::io::path_t>& audioPaths,
+                                         const std::vector<trackedit::TrackId>& dstTrackIds,
+                                         const std::vector<muse::io::path_t>& labelPaths,
+                                         muse::secs_t startTime)
+{
+    IF_ASSERT_FAILED(audioPaths.size() == dstTrackIds.size()) {
         return muse::make_ret(Ret::Code::InternalError);
     }
 
-    muse::Ret ret = muse::make_ret(Ret::Code::Ok);
+    std::vector<std::string> failures;
     bool anyImported = false;
-    for (size_t i = 0; i < filePaths.size(); ++i) {
-        Ret ok = doImportIntoTrack(filePaths.at(i), dstTrackIds.at(i), startTime);
+    for (size_t i = 0; i < audioPaths.size(); ++i) {
+        Ret ok = doImportIntoTrack(audioPaths.at(i), dstTrackIds.at(i), startTime);
         if (ok) {
             anyImported = true;
         } else {
-            ret = muse::make_ret(Ret::Code::InternalError);
+            failures.push_back(audioPaths[i].toStdString() + ": " + ok.toString());
+        }
+    }
+    for (const auto& path : labelPaths) {
+        const Ret ok = doImport(path, false);
+        if (ok) {
+            anyImported = true;
+        } else {
+            failures.push_back(path.toStdString() + ": " + ok.toString());
         }
     }
 
@@ -103,7 +119,17 @@ Ret Audacity4Project::importIntoTracks(const std::vector<muse::io::path_t>& file
         projectHistory()->pushHistoryState(muse::trc("project", "Imported multiple files"), muse::trc("project", "Import"));
     }
 
-    return ret;
+    if (failures.empty()) {
+        return muse::make_ok();
+    }
+    std::string detail;
+    for (const auto& message : failures) {
+        if (!detail.empty()) {
+            detail += "\n";
+        }
+        detail += message;
+    }
+    return muse::make_ret(Ret::Code::BadData, detail);
 }
 
 Ret Audacity4Project::import(const muse::io::path_t& path, const bool forceMode)
@@ -121,13 +147,14 @@ Ret Audacity4Project::import(const muse::io::path_t& path, const bool forceMode)
 
 Ret Audacity4Project::import(const std::vector<muse::io::path_t>& paths, bool forceMode)
 {
-    muse::Ret ret = muse::make_ret(Ret::Code::Ok);
+    std::vector<std::string> failures;
     bool anyImported = false;
     for (const auto& path: paths) {
-        if (doImport(path, forceMode)) {
+        const Ret result = doImport(path, forceMode);
+        if (result) {
             anyImported = true;
         } else {
-            ret = muse::make_ret(Ret::Code::InternalError);
+            failures.push_back(path.toStdString() + ": " + result.toString());
         }
     }
 
@@ -135,7 +162,17 @@ Ret Audacity4Project::import(const std::vector<muse::io::path_t>& paths, bool fo
         projectHistory()->pushHistoryState(muse::trc("project", "Imported multiple files"), muse::trc("project", "Import"));
     }
 
-    return ret;
+    if (failures.empty()) {
+        return muse::make_ok();
+    }
+    std::string detail;
+    for (const auto& message : failures) {
+        if (!detail.empty()) {
+            detail += "\n";
+        }
+        detail += message;
+    }
+    return muse::make_ret(Ret::Code::BadData, detail);
 }
 
 muse::Ret Audacity4Project::doLoad(const io::path_t& path, const bool forceMode, const std::string& format)
@@ -201,7 +238,11 @@ Ret Audacity4Project::doImport(const muse::io::path_t& path, const bool forceMod
     const bool ok = importer()->import(path);
     m_trackeditProject->reload();
 
-    return ok ? muse::make_ret(Ret::Code::Ok) : muse::make_ret(Ret::Code::InternalError);
+    if (ok) {
+        return muse::make_ok();
+    }
+    const muse::Ret error = importer()->lastError();
+    return error.success() ? muse::make_ret(Ret::Code::BadData, "Could not import " + path.toStdString()) : error;
 }
 
 Ret Audacity4Project::doImportIntoTrack(const muse::io::path_t& path, trackedit::TrackId dstTrackId, muse::secs_t startTime)

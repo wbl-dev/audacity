@@ -1,5 +1,8 @@
 #include "dropcontroller.h"
 
+#include <QFileInfo>
+#include "global/translation.h"
+
 using namespace au::projectscene;
 
 namespace {
@@ -16,18 +19,22 @@ void DropController::probeAudioFiles(const QStringList& fileUrls)
 {
     m_lastDraggedUrls.clear();
     m_lastDraggedFilesInfo.clear();
+    m_lastDraggedLabelPaths.clear();
 
     std::vector<muse::io::path_t> localPaths;
     localPaths.reserve(fileUrls.size());
 
     const auto exts = importer()->supportedExtensions();
+    const auto labelExts = labelsImporter()->supportedExtensions();
     for (const auto& fileUrl : fileUrls) {
         const QUrl url(fileUrl);
         QString local = url.isLocalFile() ? url.toLocalFile() : fileUrl;
         muse::io::path_t path = muse::io::path_t(local);
-        if (muse::contains(exts, muse::io::suffix(path))) {
+        const std::string suffix = QFileInfo(local).suffix().toLower().toStdString();
+        if (muse::contains(labelExts, suffix)) {
+            m_lastDraggedLabelPaths.push_back(path);
+        } else if (muse::contains(exts, suffix)) {
             localPaths.push_back(path);
-            m_lastDraggedUrls.push_back(fileUrl);
         }
     }
 
@@ -35,12 +42,14 @@ void DropController::probeAudioFiles(const QStringList& fileUrls)
         return;
     }
 
-    for (const auto& path : localPaths) {
+    for (size_t i = 0; i < localPaths.size(); ++i) {
+        const auto& path = localPaths[i];
         au::importexport::FileInfo fileInfo = importer()->fileInfo(path);
         if (fileInfo.isEmpty()) {
             continue;
         }
         m_lastDraggedFilesInfo.push_back(std::move(fileInfo));
+        m_lastDraggedUrls.push_back(QString::fromStdString(path.toStdString()));
     }
 }
 
@@ -96,6 +105,7 @@ void DropController::endImportSession()
     m_trackCountBeforeImport = -1;
     m_lastDraggedFilesInfo.clear();
     m_lastDraggedUrls.clear();
+    m_lastDraggedLabelPaths.clear();
 }
 
 int DropController::requiredTracksCount() const
@@ -322,5 +332,8 @@ void DropController::handleDroppedFiles(const std::vector<trackedit::TrackId>& t
 
     project::IAudacityProjectPtr prj = globalContext()->currentProject();
 
-    prj->importIntoTracks(localPaths, adjustedDstTrackIds, startTime);
+    const muse::Ret result = prj->importDroppedFiles(localPaths, adjustedDstTrackIds, m_lastDraggedLabelPaths, startTime);
+    if (!result && interactive()) {
+        interactive()->error(muse::trc("projectscene", "Import failed"), result.text());
+    }
 }

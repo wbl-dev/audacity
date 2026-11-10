@@ -1,5 +1,9 @@
 # Remove unused Qt runtime content
 
+if(NOT MUSE_APP_BUNDLE_NAME)
+    set(MUSE_APP_BUNDLE_NAME "OnlyAudios.app")
+endif()
+
 if(NOT QT_DEPLOY_ROOT AND CMAKE_INSTALL_PREFIX)
     set(QT_DEPLOY_ROOT "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}")
 endif()
@@ -12,10 +16,10 @@ get_filename_component(QT_DEPLOY_ROOT "${QT_DEPLOY_ROOT}" ABSOLUTE)
 
 set(_qml_roots
     "${QT_DEPLOY_ROOT}/qml"
-    "${QT_DEPLOY_ROOT}/audacity.app/Contents/Resources/qml"
+    "${QT_DEPLOY_ROOT}/${MUSE_APP_BUNDLE_NAME}/Contents/Resources/qml"
 )
 set(_macos_quick_plugins_root
-    "${QT_DEPLOY_ROOT}/audacity.app/Contents/PlugIns/quick"
+    "${QT_DEPLOY_ROOT}/${MUSE_APP_BUNDLE_NAME}/Contents/PlugIns/quick"
 )
 
 # Remove unused optional child modules copied with their parent directories
@@ -93,15 +97,15 @@ file(REMOVE_RECURSE
     "${QT_DEPLOY_ROOT}/plugins/qmltooling"
     "${QT_DEPLOY_ROOT}/plugins/sqldrivers"
     "${QT_DEPLOY_ROOT}/plugins/styles"
-    "${QT_DEPLOY_ROOT}/audacity.app/Contents/PlugIns/qmltooling"
-    "${QT_DEPLOY_ROOT}/audacity.app/Contents/PlugIns/sqldrivers"
-    "${QT_DEPLOY_ROOT}/audacity.app/Contents/PlugIns/styles"
+    "${QT_DEPLOY_ROOT}/${MUSE_APP_BUNDLE_NAME}/Contents/PlugIns/qmltooling"
+    "${QT_DEPLOY_ROOT}/${MUSE_APP_BUNDLE_NAME}/Contents/PlugIns/sqldrivers"
+    "${QT_DEPLOY_ROOT}/${MUSE_APP_BUNDLE_NAME}/Contents/PlugIns/styles"
     "${QT_DEPLOY_ROOT}/translations"
 )
 
 # Remove dangling macOS links left by pruned QML plugins
 file(GLOB _macos_quick_plugins LIST_DIRECTORIES FALSE
-    "${QT_DEPLOY_ROOT}/audacity.app/Contents/PlugIns/quick/*"
+    "${QT_DEPLOY_ROOT}/${MUSE_APP_BUNDLE_NAME}/Contents/PlugIns/quick/*"
 )
 foreach(_plugin IN LISTS _macos_quick_plugins)
     if(IS_SYMLINK "${_plugin}" AND NOT EXISTS "${_plugin}")
@@ -157,7 +161,7 @@ foreach(_stem IN LISTS _unused_qt_library_stems)
 
     string(REGEX REPLACE "^Qt6" "Qt" _framework_stem "${_stem}")
     file(REMOVE_RECURSE
-        "${QT_DEPLOY_ROOT}/audacity.app/Contents/Frameworks/${_framework_stem}.framework"
+        "${QT_DEPLOY_ROOT}/${MUSE_APP_BUNDLE_NAME}/Contents/Frameworks/${_framework_stem}.framework"
     )
 endforeach()
 

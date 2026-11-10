@@ -63,6 +63,7 @@ public:
 
     Q_INVOKABLE void exportLabels();
     Q_INVOKABLE void importLabels();
+    Q_INVOKABLE bool isPointRow(int row) const;
 
 private:
     bool doCellValueChangeRequested(int row, int column, const muse::Val& value) override;
@@ -88,6 +89,7 @@ private:
     bool changeLabelEndTime(int row, const muse::Val& value);
     bool changeLabelLowFrequency(int row, const muse::Val& value);
     bool changeLabelHighFrequency(int row, const muse::Val& value);
+    bool changeLabelKind(int row, const muse::Val& value);
 
     muse::RetVal<QString> createNewLabelTrack(int currentRow);
 

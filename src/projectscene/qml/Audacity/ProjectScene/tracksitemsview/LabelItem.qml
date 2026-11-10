@@ -342,6 +342,41 @@ Item {
     }
 
     // Point's Stalk
+    Item {
+        id: pointMarker
+        parent: root.container
+        width: 16
+        height: 16
+        x: root.parent.x + root.parent.width / 2 - width / 2
+        y: root.parent.y
+        z: root.parent.z + 1
+        visible: prv.isPoint
+
+        Rectangle {
+            anchors.centerIn: parent
+            width: 9
+            height: 9
+            rotation: 45
+            color: prv.leftEarBackgroundColor
+            border.color: root.isSelected ? ui.theme.fontPrimaryColor : root.labelColor
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.OpenHandCursor
+            onPressed: function (e) {
+                root.requestSingleSelected()
+                e.accepted = false
+            }
+            onPositionChanged: function (e) {
+                root.labelItemMousePositionChanged(e.x - root.parent.x, e.y)
+                e.accepted = false
+            }
+            onContainsMouseChanged: root.headerHovered = containsMouse
+        }
+    }
+
     LabelStalk {
         id: pointStalk
 

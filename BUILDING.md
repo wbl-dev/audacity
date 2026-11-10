@@ -60,6 +60,10 @@ cmake --build build/            # build (every build)
 cmake --install build/          # install (every successful build)
 ```
 
+On macOS, after configuring the `audacity-debug` preset, quit OnlyAudios and run
+`./buildscripts/tools/build_and_install_onlyaudios.sh` from the repository root.
+The script builds the app and replaces `/Applications/OnlyAudios.app`.
+
 ### With Visual Studio (Windows only)
 
 Double-click the `generate_sln.bat` script in the root of the repository. This will generate a Visual Studio solution in the `build` directory and build the `install` target. Open the generated solution (./build/audacity.sln) in Visual Studio and press F5 to run Audacity.

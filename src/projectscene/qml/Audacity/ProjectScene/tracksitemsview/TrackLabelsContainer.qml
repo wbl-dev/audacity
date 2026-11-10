@@ -21,6 +21,22 @@ TrackItemsContainer {
         context: root.context
     }
 
+    property var ignoreNextReleaseKey: null
+
+    // Wait for Qt's double-click interval before starting playback, so editing
+    // a title never plays the first click of the double-click gesture.
+    Timer {
+        id: labelActivationTimer
+        interval: Qt.styleHints.mouseDoubleClickInterval
+        property var pendingKey: null
+        onTriggered: {
+            if (pendingKey) {
+                labelsModel.activateLabel(pendingKey)
+            }
+            pendingKey = null
+        }
+    }
+
     onInitRequired: function () {
         labelsModel.init()
         layoutManager.init()
@@ -454,8 +470,24 @@ TrackItemsContainer {
     Connections {
         target: root.container
 
-        function onItemReleaseRequested(itemKey) {
+        function onItemReleaseRequested(itemKey, modifiers) {
             labelsModel.toggleTracksDataSelectionByLabel(itemKey)
+            if (root.ignoreNextReleaseKey == itemKey) {
+                root.ignoreNextReleaseKey = null
+                return
+            }
+            if (modifiers === Qt.NoModifier) {
+                labelActivationTimer.pendingKey = itemKey
+                labelActivationTimer.restart()
+            }
+        }
+
+        function onItemDoubleClicked(itemKey) {
+            root.ignoreNextReleaseKey = itemKey
+            if (labelActivationTimer.pendingKey == itemKey) {
+                labelActivationTimer.stop()
+                labelActivationTimer.pendingKey = null
+            }
         }
 
         function onCancelItemDragEditRequested(itemKey) {

@@ -21,6 +21,8 @@ qt_add_qml_module(preferences_qml
         foreign.h
         generalpreferencesmodel.cpp
         generalpreferencesmodel.h
+        labelparserspreferencesmodel.cpp
+        labelparserspreferencesmodel.h
         musicpreferencesmodel.cpp
         musicpreferencesmodel.h
         playbackpreferencesmodel.cpp
@@ -44,6 +46,7 @@ qt_add_qml_module(preferences_qml
         EditPreferencesPage.qml
         ExportPreferencesPage.qml
         GeneralPreferencesPage.qml
+        LabelParsersPreferencesPage.qml
         internal/AccentColorsSection.qml
         internal/AdvancedTopSection.qml
         internal/AsioSection.qml
@@ -126,5 +129,6 @@ fixup_qml_module_dependencies(preferences_qml)
 
 target_link_libraries(preferences_qml PRIVATE
     audacity_extensions
+    iex_labels
     importer # TempoDetectionPref (foreign.h) lives there; the link makes its metatypes visible to qmltyperegistrar
 )

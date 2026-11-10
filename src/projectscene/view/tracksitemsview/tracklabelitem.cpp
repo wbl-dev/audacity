@@ -18,6 +18,7 @@ void TrackLabelItem::setLabel(const trackedit::Label& label)
     m_title = label.title;
     m_color = configuration()->clipColor(label.colorIndex).toQColor();
     m_selectedColor = configuration()->clipSelectedColor(label.colorIndex).toQColor();
+    m_kind = label.kind;
 
     emit titleChanged();
     emit colorChanged();
@@ -131,5 +132,5 @@ void TrackLabelItem::setIsLinkedActive(bool active)
 
 bool TrackLabelItem::isPoint() const
 {
-    return muse::RealIsEqual(m_time.startTime, m_time.endTime);
+    return m_kind == trackedit::LabelKind::Point;
 }

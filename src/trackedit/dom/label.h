@@ -9,6 +9,11 @@
 #include "../trackedittypes.h"
 
 namespace au::trackedit {
+enum class LabelKind {
+    Point,
+    Range,
+};
+
 struct Label {
     LabelKey key;
 
@@ -19,6 +24,7 @@ struct Label {
     double lowFrequency = 0.0;
     double highFrequency = 0.0;
     int64_t groupId = -1;
+    LabelKind kind = LabelKind::Point;
 
     inline bool isValid() const { return key.isValid(); }
 };

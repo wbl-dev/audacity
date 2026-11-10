@@ -118,6 +118,7 @@ StyledTableView {
             signal editingFinished
 
             height: 24
+            enabled: column !== 3 || !tableViewModel.isPointRow(row)
 
             value: val
 

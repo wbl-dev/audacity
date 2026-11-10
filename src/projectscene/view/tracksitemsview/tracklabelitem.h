@@ -77,5 +77,6 @@ private:
     bool m_isLeftLinked = false;
     bool m_isRightLinked = false;
     bool m_isLinkedActive = false;
+    trackedit::LabelKind m_kind = trackedit::LabelKind::Point;
 };
 }

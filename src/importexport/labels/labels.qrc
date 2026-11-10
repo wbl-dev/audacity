@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+        <file>resources/audacity-txt.js</file>
         <file>qml/Export/ExportLabelsDialog.qml</file>
         <file>qml/Export/internal/LabelTracksSelectionView.qml</file>
     </qresource>

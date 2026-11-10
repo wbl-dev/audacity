@@ -25,6 +25,9 @@ public:
     virtual muse::Ret importIntoTrack(const muse::io::path_t& filePath, trackedit::TrackId dstTrackId, muse::secs_t startTime) = 0;
     virtual muse::Ret importIntoTracks(const std::vector<muse::io::path_t>& filePaths, const std::vector<trackedit::TrackId>& dstTrackIds,
                                        muse::secs_t startTime) = 0;
+    virtual muse::Ret importDroppedFiles(const std::vector<muse::io::path_t>& audioPaths,
+                                         const std::vector<trackedit::TrackId>& dstTrackIds,
+                                         const std::vector<muse::io::path_t>& labelPaths, muse::secs_t startTime) = 0;
 
     virtual void close() = 0;
     virtual muse::async::Notification aboutCloseBegin() const = 0;

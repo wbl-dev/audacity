@@ -69,6 +69,8 @@ public:
     muse::Ret importIntoTrack(const muse::io::path_t& filePath, trackedit::TrackId dstTrackId, muse::secs_t startTime) override;
     muse::Ret importIntoTracks(const std::vector<muse::io::path_t>& filePaths, const std::vector<trackedit::TrackId>& dstTrackIds,
                                muse::secs_t startTime) override;
+    muse::Ret importDroppedFiles(const std::vector<muse::io::path_t>& audioPaths, const std::vector<trackedit::TrackId>& dstTrackIds,
+                                 const std::vector<muse::io::path_t>& labelPaths, muse::secs_t startTime) override;
     void close() override;
     muse::async::Notification aboutCloseBegin() const override;
     muse::async::Notification aboutCloseEnd() const override;
