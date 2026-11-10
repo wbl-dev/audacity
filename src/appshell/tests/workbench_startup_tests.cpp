@@ -9,6 +9,7 @@
 #include "appshellmodule.h"
 #include "internal/startupscenario.h"
 #include "qml/Audacity/AppShell/FirstLaunchSetup/firstlaunchsetupmodel.h"
+#include "qml/Audacity/AppShell/maintoolbarmodel.h"
 #include "shared/productprofile.h"
 
 namespace au::appshell {
@@ -40,8 +41,17 @@ TEST(workbench_page_manifest, contains_only_local_product_destinations)
     EXPECT_TRUE(contains(manifest.dialogs, "audacity://firstLaunchSetup"));
 
     EXPECT_FALSE(contains(manifest.pages, "audacity://publish"));
+    EXPECT_FALSE(contains(manifest.pages, "audacity://devtools"));
     EXPECT_FALSE(contains(manifest.dialogs, "audacity://signin/audiocom"));
     EXPECT_FALSE(contains(manifest.dialogs, "audacity://welcomedialog"));
+}
+
+TEST(workbench_page_manifest, developer_mode_does_not_restore_the_devtools_tab)
+{
+    ASSERT_TRUE(shared::isWorkbenchProfile());
+
+    EXPECT_FALSE(shouldShowDeveloperToolsInMainToolbar(false));
+    EXPECT_FALSE(shouldShowDeveloperToolsInMainToolbar(true));
 }
 
 TEST(workbench_startup, preserves_local_startup_and_disables_online_flows)

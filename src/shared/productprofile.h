@@ -17,4 +17,9 @@ constexpr bool nonDiagnosticExternalLinksAvailable() noexcept
 {
     return !isWorkbenchProfile();
 }
+
+constexpr bool fullDeveloperToolsAvailable() noexcept
+{
+    return !isWorkbenchProfile();
+}
 }

@@ -372,3 +372,15 @@ Qt 6.11.3 验证结果：
 - 一次 Workbench 空闲进程的 `lsof` 网络快照未发现套接字；这不是持续抓包，不能代替发布前网络流量观测。
 
 构建应用已用于检查实时效果面板和 About 文本渲染；开发工具外链的最后一项修复随后通过 QML 构建和回归测试。按照交付约定，最终 GUI 点击验收由使用者在最新提交的构建上执行；因此本记录把自动化与构建验证标记为完成，不把人工产品验收或 Crashpad 开启构建标记为完成。
+
+## 16. Diagnostics-only 收尾（2026-11-10）
+
+根据“Workbench 只保留崩溃诊断，不保留独立 DevTools Tab”的要求，本轮进一步收紧开发工具边界：
+
+- Workbench Profile 在配置阶段关闭 TestFlow；重新生成的 Ninja 构建图不包含 TestFlow 模块、运行器或脚本目标。
+- Workbench 不再注册 `audacity://devtools`，顶部导航即使处于 developer mode 也不会显示 DevTools Tab。
+- 必要的本地诊断出口保留在窗口顶部 Diagnostics 菜单中，该菜单在 Workbench 只包含诊断文件导出。
+- Diagnostics 真实模块、工程崩溃恢复以及可选 Crashpad 打包接口继续保留。
+- 默认 Audacity Profile 仍启用 TestFlow、完整 DevTools 页面和原诊断菜单。
+
+Qt 6.11.3 下完成了 Workbench 全量构建，11 个 `workbench_*` 测试全部通过。默认 Audacity 对照构建的 `ProductProfile.*` 通过，并在配置输出中确认 TestFlow 仍启用。最终界面观感和核心音频工作流继续由使用者在最新构建上验收。

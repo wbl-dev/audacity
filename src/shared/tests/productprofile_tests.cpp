@@ -13,8 +13,10 @@ TEST(ProductProfile, ExposesNonDiagnosticExternalLinksOnlyInDefaultAudacity)
 {
     if constexpr (isWorkbenchProfile()) {
         EXPECT_FALSE(nonDiagnosticExternalLinksAvailable());
+        EXPECT_FALSE(fullDeveloperToolsAvailable());
     } else {
         EXPECT_TRUE(nonDiagnosticExternalLinksAvailable());
+        EXPECT_TRUE(fullDeveloperToolsAvailable());
     }
 }
 

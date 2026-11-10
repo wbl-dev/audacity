@@ -141,11 +141,11 @@ ctest --test-dir build/workbench-debug --output-on-failure
 - 全量 CTest：41 个测试程序中 40 个通过；唯一失败仍为 `au_project_tests`，内部是三个既有 Clip tempo persistence 用例。
 - 默认 Audacity Profile 使用同一 Qt 6.11.3 重新配置并构建 `shared_tests`；`ProductProfile.*` 通过，确认默认 Profile 仍允许原有外链策略。
 
-本轮新增的 Workbench 策略会移除实时效果帮助链接、About 中的网站/隐私/GPL/依赖库链接，以及开发工具交互页的外部 URL 测试按钮；首次启动仍只包含三个本地配置页。一次空闲进程的 `lsof -nP -a -p <pid> -i` 快照没有发现网络套接字，但这只是时点检查，不等同于完整抓包。开发构建的 Crashpad client 为关闭状态。
+本轮新增的 Workbench 策略会移除实时效果帮助链接和 About 中的网站/隐私/GPL/依赖库链接；首次启动仍只包含三个本地配置页。后续 Diagnostics-only 收尾还会关闭 Workbench 的 TestFlow 构建、取消 `audacity://devtools` 页面注册和顶部 DevTools Tab，并把顶部 Diagnostics 菜单限制为诊断文件导出。一次空闲进程的 `lsof -nP -a -p <pid> -i` 快照没有发现网络套接字，但这只是时点检查，不等同于完整抓包。开发构建的 Crashpad client 为关闭状态。
 
 最终 GUI 验收由验证者在最新构建上完成，至少检查：
 
 1. `View > Show effects panel` 只显示实时效果说明，不显示 `Watch video`。
 2. `About Audacity` 的 Audacity/Legal 两页没有可点击外链；Legal 页说明只有可选崩溃报告需要网络。
-3. DevTools 的 Interactive 页不显示 `Open musescore.com`。
+3. 顶部导航不显示 DevTools Tab；顶部 Diagnostics 菜单只保留诊断文件导出。
 4. Help、Preferences、首次启动、保存/导出和插件管理中没有非诊断在线入口。

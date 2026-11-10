@@ -66,18 +66,19 @@ Commit message: `fix: reduce workbench diagnostics surface`
 - Modify: `src/shared/productprofile.h`
 - Modify: `src/shared/tests/productprofile_tests.cpp`
 - Modify: `src/appshell/appshellmodule.cpp`
+- Modify: `src/appshell/qml/Audacity/AppShell/maintoolbarmodel.h`
 - Modify: `src/appshell/qml/Audacity/AppShell/maintoolbarmodel.cpp`
 - Modify: `src/appshell/tests/workbench_startup_tests.cpp`
 - Modify: `docs/workbench/building.md`
 - Modify: `docs/superpowers/specs/2026-10-30-audacity-workbench-slim-profile-design.md`
 
 **Interfaces:**
-- Produces: `shared::fullDeveloperToolsAvailable() noexcept`, true for default Audacity and false for Workbench.
+- Produces: `shared::fullDeveloperToolsAvailable() noexcept`, true for default Audacity and false for Workbench; `shouldShowDeveloperToolsInMainToolbar(bool) noexcept` combines it with developer mode.
 - Consumes: that shared policy in page registration and top navigation construction.
 
 - [ ] **Step 1: Write failing DevTools availability tests**
 
-Require Workbench product policy to report full developer tools unavailable and the Workbench page manifest to omit `audacity://devtools`. The default-profile policy test requires the inverse.
+Require Workbench product policy to report full developer tools unavailable, the Workbench page manifest to omit `audacity://devtools`, and toolbar policy to reject the Tab even when developer mode is true. The default-profile policy test requires the inverse.
 
 - [ ] **Step 2: Run the focused test and verify RED**
 

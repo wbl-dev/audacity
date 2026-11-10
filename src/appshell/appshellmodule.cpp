@@ -58,13 +58,16 @@ AppShellPageManifest au::appshell::appShellPageManifest()
         {
             muse::Uri("audacity://home"),
             muse::Uri("audacity://project"),
-            muse::Uri("audacity://devtools"),
         },
         {
             muse::Uri("audacity://about/audacity"),
             muse::Uri("audacity://firstLaunchSetup"),
         },
     };
+
+    if (shared::fullDeveloperToolsAvailable()) {
+        manifest.pages.emplace_back("audacity://devtools");
+    }
 
     if (!shared::isWorkbenchProfile()) {
         manifest.pages.emplace_back("audacity://publish");
