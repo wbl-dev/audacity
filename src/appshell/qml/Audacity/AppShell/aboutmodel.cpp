@@ -3,6 +3,8 @@
 */
 #include "aboutmodel.h"
 
+#include <utility>
+
 #include <QApplication>
 #include <QClipboard>
 #include <QRegularExpression>
@@ -260,6 +262,14 @@ QVariantMap makeSection(const char* title, QString rawCredit)
     };
     return s;
 }
+
+QString withoutHtmlAnchors(QString text)
+{
+    static const QRegularExpression anchor(
+        "<a\\b[^>]*>(.*?)</a>",
+        QRegularExpression::CaseInsensitiveOption | QRegularExpression::DotMatchesEverythingOption);
+    return text.replace(anchor, "\\1");
+}
 }
 
 AboutModel::AboutModel(QObject* parent)
@@ -362,6 +372,9 @@ QVariantList AboutModel::creditList() const
                 for (QVariant& creditValue : credits) {
                     QVariantMap credit = creditValue.toMap();
                     credit["url"] = QString();
+                    if (credit.contains("raw")) {
+                        credit["raw"] = withoutHtmlAnchors(credit.value("raw").toString());
+                    }
                     creditValue = credit;
                 }
                 section["credits"] = credits;
@@ -392,10 +405,7 @@ QString AboutModel::gplText() const
         }
         QString text = QString::fromUtf8(result.val.constChar(), static_cast<qsizetype>(result.val.size()));
         if (!externalLinksAvailable()) {
-            static const QRegularExpression externalAnchor(
-                "<a\\b[^>]*>(.*?)</a>",
-                QRegularExpression::CaseInsensitiveOption | QRegularExpression::DotMatchesEverythingOption);
-            text.replace(externalAnchor, "\\1");
+            text = withoutHtmlAnchors(std::move(text));
         }
         return text;
     }();

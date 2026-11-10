@@ -3,8 +3,11 @@
  */
 
 #include <algorithm>
+#include <cstring>
 
+#include <QCoreApplication>
 #include <QFile>
+#include <QTranslator>
 
 #include <gtest/gtest.h>
 
@@ -35,6 +38,18 @@ bool contains(const muse::ui::UiActionList& actions, const muse::actions::Action
         return action.code == actionCode;
     }) != actions.cend();
 }
+
+class LinkedTranslatorCredits final : public QTranslator
+{
+public:
+    QString translate(const char* context, const char* sourceText, const char*, int) const override
+    {
+        if (std::strcmp(context, "appshell/about") == 0 && std::strcmp(sourceText, "translator_credits") == 0) {
+            return "<a href=\"mailto:review@example.invalid\">Review Translator</a><br>Plain Translator";
+        }
+        return {};
+    }
+};
 
 TEST(workbench_menu, excludes_online_and_marketplace_commands)
 {
@@ -75,18 +90,30 @@ TEST(workbench_online_surfaces_appshell, removes_about_dialog_external_links)
 {
     ASSERT_TRUE(shared::isWorkbenchProfile());
 
+    LinkedTranslatorCredits translator;
+    QCoreApplication::installTranslator(&translator);
+
     const AboutModel model;
     EXPECT_FALSE(model.externalLinksAvailable());
 
+    bool foundTranslatedCredit = false;
     const QVariantList sections = model.creditList();
     for (const QVariant& sectionValue : sections) {
         const QVariantList credits = sectionValue.toMap().value("credits").toList();
         for (const QVariant& creditValue : credits) {
-            EXPECT_TRUE(creditValue.toMap().value("url").toString().isEmpty());
+            const QVariantMap credit = creditValue.toMap();
+            EXPECT_TRUE(credit.value("url").toString().isEmpty());
+            EXPECT_FALSE(credit.value("raw").toString().contains("<a", Qt::CaseInsensitive));
+            foundTranslatedCredit |= credit.value("raw").toString().contains("Review Translator");
         }
     }
+    EXPECT_TRUE(foundTranslatedCredit);
 
-    EXPECT_FALSE(model.gplText().contains("<a href", Qt::CaseInsensitive));
+    const QString gplText = model.gplText();
+    EXPECT_TRUE(gplText.contains("GNU GENERAL PUBLIC LICENSE", Qt::CaseInsensitive));
+    EXPECT_FALSE(gplText.contains("<a href", Qt::CaseInsensitive));
+
+    QCoreApplication::removeTranslator(&translator);
 }
 
 TEST(workbench_online_surfaces_appshell, guards_devtools_external_url_test)
@@ -98,8 +125,16 @@ TEST(workbench_online_surfaces_appshell, guards_devtools_external_url_test)
     ASSERT_TRUE(qmlFile.open(QIODevice::ReadOnly));
 
     const QByteArray source = qmlFile.readAll();
-    EXPECT_TRUE(source.contains("AboutModel {"));
-    EXPECT_TRUE(source.contains("visible: productPolicyModel.externalLinksAvailable"));
+    EXPECT_TRUE(source.contains("required property bool externalLinksAvailable"));
+    EXPECT_TRUE(source.contains("visible: root.externalLinksAvailable\n            text: \"Open musescore.com\""));
+
+    QFile devToolsPageFile(QString::fromUtf8(appshell_tests_DATA_ROOT)
+                           + "/../qml/Audacity/AppShell/DevTools/DevToolsPage.qml");
+    ASSERT_TRUE(devToolsPageFile.open(QIODevice::ReadOnly));
+
+    const QByteArray devToolsPageSource = devToolsPageFile.readAll();
+    EXPECT_TRUE(devToolsPageSource.contains("return productPolicyModel.externalLinksAvailable || item.name !== \"cloud\""));
+    EXPECT_TRUE(devToolsPageSource.contains("externalLinksAvailable: productPolicyModel.externalLinksAvailable"));
 }
 
 } // namespace
