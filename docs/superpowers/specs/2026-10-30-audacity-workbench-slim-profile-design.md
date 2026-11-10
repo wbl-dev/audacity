@@ -351,3 +351,24 @@ Workbench 配置输出显示：
 - GUI 烟雾检查发现 Realtime effects 空状态仍有 `Watch video` 外链，应在下一轮界面收口中删除；因此当前还不能宣称所有在线入口已完成最终人工验收。
 
 Qt 6.12 的 QML AOT 冲突不再阻塞 Workbench 的 Qt 6.11 构建。仍待执行第 13.5 节中的音频核心流程、Crashpad 开启构建及运行时网络流量验证。
+
+## 15. 在线入口收尾验证（2026-11-10）
+
+本轮以统一的 `nonDiagnosticExternalLinksAvailable()` 产品策略收口剩余可达外链，同时保持默认 Audacity Profile 的原有行为。Workbench 现在：
+
+- 实时效果空状态保留本地说明，移除 `Watch video`。
+- About Credits、网站、隐私说明和 GPL 文本不生成可点击外链。
+- 首次启动模型只提供 Themes、Clip Visualization 和 Workspace Layout 三个本地页。
+- DevTools Interactive 页隐藏 `Open musescore.com`；Crash handler 工具继续保留。
+- Cloud、Network、Update、MuseHub、UsageInfo 和 Audio.com 仍使用既有 stub/注册策略作为服务边界，Diagnostics 保持真实模块。
+
+Qt 6.11.3 验证结果：
+
+- Workbench 完整构建通过。
+- 11 个 `workbench_*` 测试全部通过。
+- AppShell、Shared、Preferences、ProjectScene、Effects Base 和 App 六个受影响测试套件全部通过。
+- 全量 CTest 为 40/41；唯一失败的 `au_project_tests` 内仍是第 13.2 节记录的三个 Clip tempo persistence 用例。
+- 默认 Audacity Profile 的 `ProductProfile.*` 对照测试通过，证明默认 Profile 仍报告非诊断外链可用。
+- 一次 Workbench 空闲进程的 `lsof` 网络快照未发现套接字；这不是持续抓包，不能代替发布前网络流量观测。
+
+构建应用已用于检查实时效果面板和 About 文本渲染；开发工具外链的最后一项修复随后通过 QML 构建和回归测试。按照交付约定，最终 GUI 点击验收由使用者在最新提交的构建上执行；因此本记录把自动化与构建验证标记为完成，不把人工产品验收或 Crashpad 开启构建标记为完成。
