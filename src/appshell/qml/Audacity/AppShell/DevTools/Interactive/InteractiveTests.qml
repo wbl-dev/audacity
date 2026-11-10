@@ -5,6 +5,7 @@ import QtQuick 2.7
 import Muse.Interactive
 import Muse.Ui
 import Muse.UiComponents
+import Audacity.AppShell
 
 Rectangle {
 
@@ -28,6 +29,10 @@ Rectangle {
 
     InteractiveTestsModel {
         id: testModel
+    }
+
+    AboutModel {
+        id: productPolicyModel
     }
 
     Component.onCompleted: {
@@ -114,6 +119,7 @@ Rectangle {
             width: 200
             navigation.panel: navPanel
             navigation.row: 6
+            visible: productPolicyModel.externalLinksAvailable
             text: "Open musescore.com"
             onClicked: {
                 api.launcher.openUrl("https://musescore.com/")

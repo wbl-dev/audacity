@@ -4,6 +4,8 @@
 
 #include <algorithm>
 
+#include <QFile>
+
 #include <gtest/gtest.h>
 
 #include "appshellcommands.h"
@@ -85,6 +87,19 @@ TEST(workbench_online_surfaces_appshell, removes_about_dialog_external_links)
     }
 
     EXPECT_FALSE(model.gplText().contains("<a href", Qt::CaseInsensitive));
+}
+
+TEST(workbench_online_surfaces_appshell, guards_devtools_external_url_test)
+{
+    ASSERT_TRUE(shared::isWorkbenchProfile());
+
+    QFile qmlFile(QString::fromUtf8(appshell_tests_DATA_ROOT)
+                  + "/../qml/Audacity/AppShell/DevTools/Interactive/InteractiveTests.qml");
+    ASSERT_TRUE(qmlFile.open(QIODevice::ReadOnly));
+
+    const QByteArray source = qmlFile.readAll();
+    EXPECT_TRUE(source.contains("AboutModel {"));
+    EXPECT_TRUE(source.contains("visible: productPolicyModel.externalLinksAvailable"));
 }
 
 } // namespace
