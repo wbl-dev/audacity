@@ -469,18 +469,23 @@ MenuItem* AppMenuModel::makeHelpMenu()
 
 muse::uicomponents::MenuItem* AppMenuModel::makeDiagnosticMenu()
 {
-    MenuItemList systemItems {
-        makeMenuItem(diagnostics::DIAGNOSTICS_SHOW_PATHS_COMMAND),
-        makeMenuItem(diagnostics::DIAGNOSTICS_SHOW_GRAPHICSINFO_COMMAND),
-        makeMenuItem(diagnostics::DIAGNOSTICS_SHOW_PROFILER_COMMAND),
-    };
+    const DiagnosticMenuPolicy policy = diagnosticMenuPolicy();
 
-    MenuItemList items {
-        makeMenuItem(diagnostics::DIAGNOSTICS_SAVE_FILES_COMMAND),
-        makeMenu(TranslatableString("appshell-menu-diagnostics", "&System"), systemItems, "menu-system")
-    };
+    MenuItemList items;
+    if (policy.saveFiles) {
+        items << makeMenuItem(diagnostics::DIAGNOSTICS_SAVE_FILES_COMMAND);
+    }
 
-    if (globalConfiguration()->devModeEnabled()) {
+    if (policy.systemTools) {
+        MenuItemList systemItems {
+            makeMenuItem(diagnostics::DIAGNOSTICS_SHOW_PATHS_COMMAND),
+            makeMenuItem(diagnostics::DIAGNOSTICS_SHOW_GRAPHICSINFO_COMMAND),
+            makeMenuItem(diagnostics::DIAGNOSTICS_SHOW_PROFILER_COMMAND),
+        };
+        items << makeMenu(TranslatableString("appshell-menu-diagnostics", "&System"), systemItems, "menu-system");
+    }
+
+    if (policy.developerTools && globalConfiguration()->devModeEnabled()) {
         MenuItemList actionsItems {
             makeMenuItem(diagnostics::DIAGNOSTICS_SHOW_ACTIONS_COMMAND)
         };

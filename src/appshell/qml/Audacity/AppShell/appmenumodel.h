@@ -56,6 +56,21 @@ Q_MOC_INCLUDE(< QWindow >)
 #include "update/iupdateconfiguration.h"
 
 namespace au::appshell {
+struct DiagnosticMenuPolicy {
+    bool saveFiles;
+    bool systemTools;
+    bool developerTools;
+};
+
+constexpr DiagnosticMenuPolicy diagnosticMenuPolicy() noexcept
+{
+    if constexpr (shared::isWorkbenchProfile()) {
+        return { true, false, false };
+    }
+
+    return { true, true, true };
+}
+
 inline bool isMenuCommandAllowed(const muse::rcommand::Command& command)
 {
     if (!shared::isWorkbenchProfile()) {

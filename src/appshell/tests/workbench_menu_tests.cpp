@@ -86,6 +86,16 @@ TEST(workbench_menu, keeps_local_workbench_commands_and_diagnostics)
     EXPECT_TRUE(isMenuCommandAllowed(muse::diagnostics::DIAGNOSTICS_SAVE_FILES_COMMAND));
 }
 
+TEST(workbench_menu, keeps_only_diagnostic_export_in_the_top_menu)
+{
+    ASSERT_TRUE(shared::isWorkbenchProfile());
+
+    const DiagnosticMenuPolicy policy = diagnosticMenuPolicy();
+    EXPECT_TRUE(policy.saveFiles);
+    EXPECT_FALSE(policy.systemTools);
+    EXPECT_FALSE(policy.developerTools);
+}
+
 TEST(workbench_online_surfaces_appshell, removes_about_dialog_external_links)
 {
     ASSERT_TRUE(shared::isWorkbenchProfile());
