@@ -27,7 +27,7 @@ public:
     Q_INVOKABLE bool changeLabelTitle(const LabelKey& key, const QString& newTitle);
     Q_INVOKABLE void titleEditRequestHandled(const LabelKey& key);
 
-    Q_INVOKABLE void toggleTracksDataSelectionByLabel(const LabelKey& key);
+    Q_INVOKABLE bool toggleTracksDataSelectionByLabel(const LabelKey& key);
 
     double findGuideline(const TrackItemKey& key, DirectionType::Direction direction) const override;
 

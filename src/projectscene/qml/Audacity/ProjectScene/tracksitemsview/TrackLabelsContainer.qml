@@ -473,14 +473,17 @@ TrackItemsContainer {
         target: root.container
 
         function onItemReleaseRequested(itemKey, modifiers) {
-            labelsModel.toggleTracksDataSelectionByLabel(itemKey)
             if (root.ignoreNextReleaseKey == itemKey) {
                 root.ignoreNextReleaseKey = null
                 return
             }
-            if (modifiers === Qt.NoModifier) {
+            const shouldActivate = labelsModel.toggleTracksDataSelectionByLabel(itemKey)
+            if (shouldActivate && modifiers === Qt.NoModifier) {
                 labelActivationTimer.pendingKey = itemKey
                 labelActivationTimer.restart()
+            } else if (labelActivationTimer.pendingKey == itemKey) {
+                labelActivationTimer.stop()
+                labelActivationTimer.pendingKey = null
             }
         }
 

@@ -326,18 +326,18 @@ void TrackLabelsListModel::selectLabel(const LabelKey& key)
         if (muse::contains(selectionController()->selectedLabels(), key.key)) {
             m_pendingToggleDeselect.labels = { key.key };
         } else {
-            selectionController()->addSelectedLabel(key.key);
+            selectionController()->resetDataSelection();
+            selectionController()->resetSelectedClips();
+            selectionController()->setSelectedLabels(LabelKeyList({ key.key }), true);
         }
     } else {
-        if (!muse::contains(selectionController()->selectedLabels(), key.key)) {
-            if (!selectionController()->timeSelectionIsEmpty()
-                && muse::contains(selectionController()->labelsIntersectingRangeSelection(), key.key)) {
-                selectionController()->addSelectedLabel(key.key);
-            } else {
-                selectionController()->resetDataSelection();
-                selectionController()->resetSelectedClips();
-                selectionController()->setSelectedLabels(LabelKeyList({ key.key }), true);
-            }
+        const LabelKeyList selected = selectionController()->selectedLabels();
+        if (selected.size() == 1 && selected.front() == key.key) {
+            m_pendingToggleDeselect.labels = { key.key };
+        } else {
+            selectionController()->resetDataSelection();
+            selectionController()->resetSelectedClips();
+            selectionController()->setSelectedLabels(LabelKeyList({ key.key }), true);
         }
     }
 
@@ -369,10 +369,12 @@ void TrackLabelsListModel::activateLabel(const LabelKey& key)
             return;
         }
         selectionController()->setSelectedAllAudioData(label.startTime, label.endTime);
+        selectionController()->addSelectedLabel(key.key);
         commandDispatcher()->dispatch(playback::PLAYBACK_PLAY_SELECTION_COMMAND);
     } else {
         selectionController()->resetTimeSelection();
         selectionController()->setSelectionStartTime(label.startTime);
+        selectionController()->addSelectedLabel(key.key);
         commandDispatcher()->dispatch(playback::PLAYBACK_SEEK_COMMAND, {
             { playback::PLAYBACK_SEEK_TIME_PARAM, muse::Val(label.startTime) },
             { playback::PLAYBACK_SEEK_TRIGGER_PLAY_PARAM, muse::Val(true) },
@@ -431,25 +433,25 @@ bool TrackLabelsListModel::changeLabelTitle(const LabelKey& key, const QString& 
     return trackeditInteraction()->changeLabelTitle(key.key, muse::String::fromQString(newTitle));
 }
 
-void TrackLabelsListModel::toggleTracksDataSelectionByLabel(const LabelKey& key)
+bool TrackLabelsListModel::toggleTracksDataSelectionByLabel(const LabelKey& key)
 {
     if (key.key.trackId != m_trackId) {
-        return;
+        return false;
     }
 
     if (muse::contains(m_pendingToggleDeselect.labels, key.key)) {
         handleItemRelease(key.key);
-        return;
+        return false;
     }
 
     if (!m_needToSelectTracksData) {
         m_needToSelectTracksData = true;
-        return;
+        return true;
     }
 
     TrackLabelItem* labelItem = labelItemByKey(key.key);
     if (!labelItem || labelItem->isEditing()) {
-        return;
+        return false;
     }
 
     TrackIdList selectedTracksIds = selectionController()->selectedTracks();
@@ -460,6 +462,7 @@ void TrackLabelsListModel::toggleTracksDataSelectionByLabel(const LabelKey& key)
         resetSelectedTracksData();
         selectionController()->setSelectedTracks({ key.key.trackId }, true);
     }
+    return true;
 }
 
 double TrackLabelsListModel::findGuideline(const TrackItemKey& key, DirectionType::Direction direction) const

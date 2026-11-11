@@ -299,6 +299,20 @@ PlaybackRegion PlaybackController::selectionPlaybackRegion() const
     return PlaybackRegion();
 }
 
+std::optional<PlaybackRegion> PlaybackController::selectedRangeLabelRegion() const
+{
+    if (selectionController()->selectedLabels().size() != 1) {
+        return std::nullopt;
+    }
+
+    const std::optional<secs_t> start = selectionController()->selectedLabelStartTime();
+    const std::optional<secs_t> end = selectionController()->selectedLabelEndTime();
+    if (!start || !end || *end <= *start) {
+        return std::nullopt;
+    }
+    return PlaybackRegion { *start, *end };
+}
+
 Notification PlaybackController::isPlayingChanged() const
 {
     return m_isPlayingChanged;
@@ -385,7 +399,7 @@ void PlaybackController::onSelectionChanged()
 
 void PlaybackController::onPlaybackPositionChanged()
 {
-    if (isPlaybackPositionOnTheEndOfProject() || isPlaybackPositionAtOrAfterPlaybackRegionEnd()) {
+    if (!isLoopRegionActive() && (isPlaybackPositionOnTheEndOfProject() || isPlaybackPositionAtOrAfterPlaybackRegionEnd())) {
         //! NOTE: just stop, without seek
         player()->stop();
     }
@@ -428,13 +442,19 @@ muse::Ret PlaybackController::togglePlay(TogglePlayMode mode)
         return make_ret(Ret::Code::Busy);
     }
 
+    const std::optional<PlaybackRegion> selectedLabelRegion = selectedRangeLabelRegion();
+
     if (isPlaying()) {
         switch (mode) {
         case TogglePlayMode::PlayStopAndSetCursor:
             stopAndSeekToPlaybackPosition();
             break;
         case TogglePlayMode::PlayStop:
-            stopAndSeekToLastSeekTime();
+            if (selectedLabelRegion) {
+                stopAndSeekToPlaybackPosition();
+            } else {
+                stopAndSeekToLastSeekTime();
+            }
             break;
         case TogglePlayMode::PlayPause:
             doPause();
@@ -450,6 +470,24 @@ muse::Ret PlaybackController::togglePlay(TogglePlayMode mode)
     }
 
     if (isStopped()) {
+        if (selectedLabelRegion) {
+            const PlaybackRegion region = *selectedLabelRegion;
+            const secs_t position = playbackPosition();
+            const bool looping = isLoopRegionActive();
+            const secs_t start = looping || position < region.start || position + TIME_EPS >= region.end
+                                   ? region.start : position;
+            if (looping) {
+                player()->setLoopRegion(region);
+            }
+            doChangePlaybackRegion(region);
+            if (!isPlaybackStartPositionValid()) {
+                return make_ret(Ret::Code::NotSupported);
+            }
+            player()->play(start);
+            m_isPlayingSelection = true;
+            return make_ok();
+        }
+
         if (isPlaybackPositionOnTheEndOfProject()) {
             //! NOTE: reached the project end — restart from the beginning
             doSeek(0.0, false);
@@ -537,6 +575,12 @@ muse::Ret PlaybackController::playSelectionAction()
     }
 
     if (isLoopRegionActive()) {
+        if (const auto labelRegion = selectedRangeLabelRegion()) {
+            player()->setLoopRegion(*labelRegion);
+            player()->play(labelRegion->start);
+            m_isPlayingSelection = true;
+            return make_ok();
+        }
         //! NOTE: the play region cannot be updated while a loop region is active —
         //! play the selected range directly so the selection is played, not the loop region
         player()->playRange(selection);
@@ -873,7 +917,13 @@ muse::Ret PlaybackController::unmuteSelectedTracks()
 
 void PlaybackController::toggleLoopPlayback()
 {
-    player()->setLoopRegionActive(!isLoopRegionActive());
+    if (isLoopRegionActive()) {
+        player()->setLoopRegionActive(false);
+    } else if (const auto labelRegion = selectedRangeLabelRegion()) {
+        player()->setLoopRegion(*labelRegion);
+    } else {
+        player()->setLoopRegionActive(true);
+    }
     notifyActionCheckedChanged(TOGGLE_LOOP_REGION_CODE);
 }
 

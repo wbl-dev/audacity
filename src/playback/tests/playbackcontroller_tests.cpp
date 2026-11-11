@@ -397,6 +397,117 @@ TEST_F(PlaybackControllerTests, TogglePlay_WhenStopped_OnTheEndOfPlaybackRegion)
     togglePlayStop();
 }
 
+TEST_F(PlaybackControllerTests, TogglePlay_WithSelectedRangeLabel_ReplaysItsRange)
+{
+    ON_CALL(*m_player, playbackStatus())
+    .WillByDefault(Return(PlaybackStatus::Stopped));
+    ON_CALL(*m_player, playbackPosition())
+    .WillByDefault(Return(secs_t(20.0)));
+
+    ON_CALL(*m_selectionController, selectedLabels())
+    .WillByDefault(Return(trackedit::LabelKeyList { trackedit::LabelKey(1, 42) }));
+    ON_CALL(*m_selectionController, selectedLabelStartTime())
+    .WillByDefault(Return(std::optional<secs_t>(10.0)));
+    ON_CALL(*m_selectionController, selectedLabelEndTime())
+    .WillByDefault(Return(std::optional<secs_t>(20.0)));
+    setTimeSelection(10.0, 20.0);
+
+    EXPECT_CALL(*m_player, setPlaybackRegion(PlaybackRegion { secs_t(10.0), secs_t(20.0) }))
+    .Times(1);
+    EXPECT_CALL(*m_player, setPlaybackRegion(PlaybackRegion { secs_t(20.0), secs_t(100.0) }))
+    .Times(0);
+    EXPECT_CALL(*m_player, play(std::optional<secs_t>(10.0)))
+    .Times(1);
+
+    togglePlayStop();
+}
+
+TEST_F(PlaybackControllerTests, TogglePlay_WithSelectedRangeLabel_ContinuesFromPlayhead)
+{
+    ON_CALL(*m_player, playbackStatus())
+    .WillByDefault(Return(PlaybackStatus::Stopped));
+    ON_CALL(*m_player, playbackPosition())
+    .WillByDefault(Return(secs_t(15.0)));
+    ON_CALL(*m_selectionController, selectedLabels())
+    .WillByDefault(Return(trackedit::LabelKeyList { trackedit::LabelKey(1, 42) }));
+    ON_CALL(*m_selectionController, selectedLabelStartTime())
+    .WillByDefault(Return(std::optional<secs_t>(10.0)));
+    ON_CALL(*m_selectionController, selectedLabelEndTime())
+    .WillByDefault(Return(std::optional<secs_t>(20.0)));
+
+    EXPECT_CALL(*m_player, setPlaybackRegion(PlaybackRegion { secs_t(10.0), secs_t(20.0) })).Times(1);
+    EXPECT_CALL(*m_player, play(std::optional<secs_t>(15.0))).Times(1);
+    togglePlayStop();
+}
+
+TEST_F(PlaybackControllerTests, TogglePlay_WithSelectedRangeLabelAndActiveLoop_LoopsFromLabelStart)
+{
+    ON_CALL(*m_player, playbackStatus()).WillByDefault(Return(PlaybackStatus::Stopped));
+    ON_CALL(*m_player, playbackPosition()).WillByDefault(Return(secs_t(15.0)));
+    ON_CALL(*m_player, isLoopRegionActive()).WillByDefault(Return(true));
+    ON_CALL(*m_selectionController, selectedLabels())
+    .WillByDefault(Return(trackedit::LabelKeyList { trackedit::LabelKey(1, 42) }));
+    ON_CALL(*m_selectionController, selectedLabelStartTime())
+    .WillByDefault(Return(std::optional<secs_t>(10.0)));
+    ON_CALL(*m_selectionController, selectedLabelEndTime())
+    .WillByDefault(Return(std::optional<secs_t>(20.0)));
+
+    EXPECT_CALL(*m_player, setLoopRegion(PlaybackRegion { secs_t(10.0), secs_t(20.0) })).Times(1);
+    EXPECT_CALL(*m_player, play(std::optional<secs_t>(10.0))).Times(1);
+    EXPECT_CALL(*m_player, playRange(_)).Times(0);
+    togglePlayStop();
+}
+
+TEST_F(PlaybackControllerTests, ToggleLoopPlayback_WithSelectedRangeLabel_UsesLabelBounds)
+{
+    ON_CALL(*m_player, isLoopRegionActive()).WillByDefault(Return(false));
+    ON_CALL(*m_selectionController, selectedLabels())
+    .WillByDefault(Return(trackedit::LabelKeyList { trackedit::LabelKey(1, 42) }));
+    ON_CALL(*m_selectionController, selectedLabelStartTime())
+    .WillByDefault(Return(std::optional<secs_t>(10.0)));
+    ON_CALL(*m_selectionController, selectedLabelEndTime())
+    .WillByDefault(Return(std::optional<secs_t>(20.0)));
+
+    EXPECT_CALL(*m_player, setLoopRegion(PlaybackRegion { secs_t(10.0), secs_t(20.0) })).Times(1);
+    m_controller->toggleLoopPlayback();
+}
+
+TEST_F(PlaybackControllerTests, TogglePlay_WithSelectedRangeLabel_StopsAtPlayhead)
+{
+    m_controller->setLastPlaybackSeekTime(10.0);
+    ON_CALL(*m_player, playbackStatus())
+    .WillByDefault(Return(PlaybackStatus::Running));
+    ON_CALL(*m_player, playbackPosition())
+    .WillByDefault(Return(secs_t(15.0)));
+    ON_CALL(*m_selectionController, selectedLabels())
+    .WillByDefault(Return(trackedit::LabelKeyList { trackedit::LabelKey(1, 42) }));
+    ON_CALL(*m_selectionController, selectedLabelStartTime())
+    .WillByDefault(Return(std::optional<secs_t>(10.0)));
+    ON_CALL(*m_selectionController, selectedLabelEndTime())
+    .WillByDefault(Return(std::optional<secs_t>(20.0)));
+
+    EXPECT_CALL(*m_player, stop()).Times(1);
+    EXPECT_CALL(*m_player, seek(secs_t(15.0), false)).Times(1);
+    togglePlayStop();
+}
+
+TEST_F(PlaybackControllerTests, TogglePlay_WithSelectedPointLabel_PlaysToProjectEnd)
+{
+    ON_CALL(*m_player, playbackStatus())
+    .WillByDefault(Return(PlaybackStatus::Stopped));
+    ON_CALL(*m_selectionController, selectedLabels())
+    .WillByDefault(Return(trackedit::LabelKeyList { trackedit::LabelKey(1, 42) }));
+    ON_CALL(*m_selectionController, selectedLabelStartTime())
+    .WillByDefault(Return(std::optional<secs_t>(10.0)));
+    ON_CALL(*m_selectionController, selectedLabelEndTime())
+    .WillByDefault(Return(std::optional<secs_t>(10.0)));
+    seek(10.0);
+
+    EXPECT_CALL(*m_player, setPlaybackRegion(PlaybackRegion { secs_t(10.0), secs_t(100.0) })).Times(1);
+    EXPECT_CALL(*m_player, play(_)).Times(1);
+    togglePlayStop();
+}
+
 /**
  * @brief Toggle play when there is selection
  * @details User made a selection, placed the playhead before it and clicked play
@@ -1224,6 +1335,16 @@ TEST_F(PlaybackControllerTests, PlaybackPosition_OnLoopRegionEnd_DoesNotStop)
     m_playbackPositionChanged.send(secs_t(20.0));
 }
 
+TEST_F(PlaybackControllerTests, PlaybackPosition_OnProjectEndWithActiveLoop_DoesNotStop)
+{
+    ON_CALL(*m_player, playbackStatus()).WillByDefault(Return(PlaybackStatus::Running));
+    ON_CALL(*m_player, isLoopRegionActive()).WillByDefault(Return(true));
+    ON_CALL(*m_player, playbackPosition()).WillByDefault(Return(secs_t(100.0)));
+
+    EXPECT_CALL(*m_player, stop()).Times(0);
+    m_playbackPositionChanged.send(secs_t(100.0));
+}
+
 /**
  * @brief Play selection plays exactly the selected time range
  * @details User triggered the "play-selection" action with a selection of 10-20 secs
@@ -1291,6 +1412,24 @@ TEST_F(PlaybackControllerTests, PlaySelection_WithActiveLoop_PlaysSelectionRange
     .Times(0);
 
     //! [WHEN] Play selection
+    playSelection();
+}
+
+TEST_F(PlaybackControllerTests, PlaySelection_WithSelectedRangeLabelAndActiveLoop_UpdatesLoopAndRepeats)
+{
+    ON_CALL(*m_player, playbackStatus()).WillByDefault(Return(PlaybackStatus::Stopped));
+    ON_CALL(*m_player, isLoopRegionActive()).WillByDefault(Return(true));
+    ON_CALL(*m_selectionController, selectedLabels())
+    .WillByDefault(Return(trackedit::LabelKeyList { trackedit::LabelKey(1, 42) }));
+    ON_CALL(*m_selectionController, selectedLabelStartTime())
+    .WillByDefault(Return(std::optional<secs_t>(10.0)));
+    ON_CALL(*m_selectionController, selectedLabelEndTime())
+    .WillByDefault(Return(std::optional<secs_t>(20.0)));
+    setTimeSelection(10.0, 20.0);
+
+    EXPECT_CALL(*m_player, setLoopRegion(PlaybackRegion { secs_t(10.0), secs_t(20.0) })).Times(1);
+    EXPECT_CALL(*m_player, play(std::optional<secs_t>(10.0))).Times(1);
+    EXPECT_CALL(*m_player, playRange(_)).Times(0);
     playSelection();
 }
 

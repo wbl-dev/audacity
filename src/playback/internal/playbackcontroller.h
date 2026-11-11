@@ -114,6 +114,7 @@ private:
     bool loopBoundariesSet() const;
 
     PlaybackRegion selectionPlaybackRegion() const;
+    std::optional<PlaybackRegion> selectedRangeLabelRegion() const;
 
     void onProjectChanged();
     void onPlaybackPositionChanged();

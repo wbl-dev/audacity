@@ -174,6 +174,7 @@ TEST_F(TrackLabelsSelectionTests, ActivateRangeSelectsAudioAndPlaysExactSelectio
     setupActivation(key, label);
 
     EXPECT_CALL(*m_selectionController, setSelectedAllAudioData(Optional(2.0), Optional(5.0)));
+    EXPECT_CALL(*m_selectionController, addSelectedLabel(key.key));
     muse::rcommand::Request captured;
     EXPECT_CALL(*m_commandDispatcher, dispatch(_)).WillOnce(DoAll(SaveArg<0>(&captured),
                                                                   Invoke([](const muse::rcommand::Request& request) {
@@ -198,6 +199,7 @@ TEST_F(TrackLabelsSelectionTests, ActivatePointSeeksAndStartsOrdinaryPlayback)
 
     EXPECT_CALL(*m_selectionController, resetTimeSelection());
     EXPECT_CALL(*m_selectionController, setSelectionStartTime(trackedit::secs_t(3.0)));
+    EXPECT_CALL(*m_selectionController, addSelectedLabel(key.key));
     muse::rcommand::Request captured;
     EXPECT_CALL(*m_commandDispatcher, dispatch(_)).WillOnce(DoAll(SaveArg<0>(&captured),
                                                                   Invoke([](const muse::rcommand::Request& request) {
@@ -264,5 +266,32 @@ TEST_F(TrackLabelsSelectionTests, SelectLabel_SetsFocusedItem_WhenAlreadySelecte
 
     EXPECT_CALL(*m_trackNavController, setFocus(trackedit::TrackFocus::item(key.key), _)).Times(1);
     m_model->selectLabel(key);
+}
+
+TEST_F(TrackLabelsSelectionTests, SelectLabel_ReplacesPreviouslySelectedLabel)
+{
+    const auto first = makeKey(1, 10);
+    const auto second = makeKey(1, 11);
+    ON_CALL(*m_selectionController, selectedLabels())
+    .WillByDefault(Return(trackedit::LabelKeyList { first.key }));
+    ON_CALL(*m_selectionController, timeSelectionIsEmpty()).WillByDefault(Return(false));
+    ON_CALL(*m_selectionController, labelsIntersectingRangeSelection())
+    .WillByDefault(Return(trackedit::LabelKeyList { second.key }));
+
+    EXPECT_CALL(*m_selectionController, setSelectedLabels(trackedit::LabelKeyList { second.key }, true)).Times(1);
+    EXPECT_CALL(*m_selectionController, addSelectedLabel(second.key)).Times(0);
+    m_model->selectLabel(second);
+    EXPECT_TRUE(m_model->toggleTracksDataSelectionByLabel(second));
+}
+
+TEST_F(TrackLabelsSelectionTests, ClickSelectedLabelDeselectsOnRelease)
+{
+    const auto key = makeKey(1, 10);
+    ON_CALL(*m_selectionController, selectedLabels())
+    .WillByDefault(Return(trackedit::LabelKeyList { key.key }));
+
+    m_model->selectLabel(key);
+    EXPECT_CALL(*m_selectionController, removeLabelSelection(key.key)).Times(1);
+    EXPECT_FALSE(m_model->toggleTracksDataSelectionByLabel(key));
 }
 }
