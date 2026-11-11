@@ -16,6 +16,7 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/labelsutils.h
     ${CMAKE_CURRENT_LIST_DIR}/labelstypes.h
     ${CMAKE_CURRENT_LIST_DIR}/labelparserprofile.h
+    ${CMAKE_CURRENT_LIST_DIR}/labelscommands.h
 
     #internals
     ${CMAKE_CURRENT_LIST_DIR}/internal/au3/au3labelsimporter.cpp
@@ -25,6 +26,12 @@ set(MODULE_SRC
 
     ${CMAKE_CURRENT_LIST_DIR}/internal/labelsconfiguration.cpp
     ${CMAKE_CURRENT_LIST_DIR}/internal/labelsconfiguration.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/labelscommandsregister.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/labelscommandsregister.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/labelscommandscontroller.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/labelscommandscontroller.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/labelscommandsstate.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/labelscommandsstate.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/labelscriptdata.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/labelscriptengine.cpp
     ${CMAKE_CURRENT_LIST_DIR}/internal/labelscriptengine.h
@@ -32,6 +39,8 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/internal/labelscriptworker.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/labelparserregistry.cpp
     ${CMAKE_CURRENT_LIST_DIR}/internal/labelparserregistry.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/labelparserrescan.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/labelparserrescan.h
 
     ${CMAKE_CURRENT_LIST_DIR}/view/exportlabelsmodel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/view/exportlabelsmodel.h

@@ -22,6 +22,8 @@ public:
     virtual std::vector<FileFilter> fileFilter() const = 0;
     virtual std::vector<FileFilter> importFileFilter() const = 0;
     virtual std::vector<LabelParserProfile> parserProfiles() const = 0;
+    virtual QString parserScriptsDirectoryPath() const = 0;
+    virtual muse::Ret reloadParserProfiles() = 0;
     virtual muse::Ret saveParserProfile(LabelParserProfile profile, bool allowBuiltinOverride = false) = 0;
     virtual muse::Ret removeParserProfile(const QString& id) = 0;
 

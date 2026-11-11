@@ -36,6 +36,7 @@
 #include "project/projectcommands.h"
 #include "projectscene/projectscenecommands.h"
 #include "record/recordcommands.h"
+#include "importexport/labels/labelscommands.h"
 #include "trackedit/trackeditcommands.h"
 
 #include "muse_framework_config.h"
@@ -676,6 +677,7 @@ MenuItemList AppMenuModel::makeToolItems()
 {
     MenuItemList items {
         makeMenuItem(effects::EFFECTS_PLUGIN_MANAGER_COMMAND),
+        makeMenuItem(importexport::RESCAN_LABEL_PARSERS_COMMAND),
         makeSeparator(),
         makeMenuItem(APP_TOGGLE_MACRO_MANAGER_PANEL_COMMAND),
         makeSeparator(),

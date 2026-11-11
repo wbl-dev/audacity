@@ -23,6 +23,10 @@ PreferencesPage {
         profiles = parserModel.profiles()
     }
 
+    function formatSuffixes(suffixes) {
+        return suffixes.length ? "." + suffixes.join(", .") : qsTrc("preferences", "None")
+    }
+
     function editProfile(profile) {
         currentId = profile.id
         currentReadOnly = profile.readOnly
@@ -59,7 +63,33 @@ PreferencesPage {
         Label {
             Layout.fillWidth: true
             wrapMode: Text.WordWrap
-            text: qsTrc("preferences", "Bind file suffixes to a JavaScript parse(input) function. The built-in TXT parser uses the same format and can be duplicated.")
+            text: qsTrc("preferences", "Save a JavaScript file named after its suffix, such as ann.js. Scripts are scanned at startup or when you rescan. The built-in TXT parser can be duplicated or overridden by txt.js.")
+        }
+        Label {
+            Layout.fillWidth: true
+            wrapMode: Text.WrapAnywhere
+            text: parserModel.scriptsDirectory()
+        }
+        RowLayout {
+            Button {
+                text: qsTrc("preferences", "Open scripts folder")
+                onClicked: {
+                    if (!parserModel.openScriptsDirectory())
+                        root.feedback = qsTrc("preferences", "Could not open scripts folder.")
+                }
+            }
+            Button {
+                text: qsTrc("preferences", "Rescan scripts")
+                onClicked: {
+                    const result = parserModel.rescan()
+                    root.refresh()
+                    const summary = qsTrc("preferences", "Currently supported: %1\nAdded: %2\nRemoved: %3")
+                                    .arg(root.formatSuffixes(result.supported))
+                                    .arg(root.formatSuffixes(result.added))
+                                    .arg(root.formatSuffixes(result.removed))
+                    root.feedback = result.ok ? summary : result.error + "\n" + summary
+                }
+            }
         }
 
         ListView {

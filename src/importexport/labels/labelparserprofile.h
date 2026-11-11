@@ -10,5 +10,6 @@ struct LabelParserProfile {
     QStringList suffixes;
     bool enabled = true;
     QString source;
+    QString sourcePath;
 };
 }

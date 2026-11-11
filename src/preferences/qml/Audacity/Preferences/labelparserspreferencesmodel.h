@@ -20,6 +20,9 @@ public:
     explicit LabelParsersPreferencesModel(QObject* parent = nullptr);
 
     Q_INVOKABLE QVariantList profiles() const;
+    Q_INVOKABLE QString scriptsDirectory() const;
+    Q_INVOKABLE QVariantMap rescan();
+    Q_INVOKABLE bool openScriptsDirectory() const;
     Q_INVOKABLE QVariantMap save(const QString& id, const QString& name, const QString& suffixes, bool enabled, const QString& script,
                                  bool allowBuiltinOverride = false);
     Q_INVOKABLE QVariantMap remove(const QString& id);

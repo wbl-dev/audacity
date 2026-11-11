@@ -8,6 +8,7 @@
 
 namespace au::importexport {
 class LabelsConfiguration;
+class LabelsCommandsController;
 class LabelsModule : public muse::modularity::IModuleSetup
 {
 public:
@@ -34,6 +35,11 @@ public:
         : muse::modularity::IContextSetup(ctx) {}
 
     void registerExports() override;
+    void resolveImports() override;
+    void onInit(const muse::IApplication::RunMode& mode) override;
     void onDeinit() override;
+
+private:
+    std::shared_ptr<LabelsCommandsController> m_commandsController;
 };
 }

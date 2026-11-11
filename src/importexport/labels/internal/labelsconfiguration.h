@@ -22,6 +22,8 @@ public:
     std::vector<FileFilter> fileFilter() const override;
     std::vector<FileFilter> importFileFilter() const override;
     std::vector<LabelParserProfile> parserProfiles() const override;
+    QString parserScriptsDirectoryPath() const override;
+    muse::Ret reloadParserProfiles() override;
     muse::Ret saveParserProfile(LabelParserProfile profile, bool allowBuiltinOverride = false) override;
     muse::Ret removeParserProfile(const QString& id) override;
 
@@ -30,9 +32,12 @@ public:
 
 private:
     std::vector<LabelParserProfile> readProfiles(bool* valid = nullptr) const;
-    muse::Ret writeProfiles(const std::vector<LabelParserProfile>& profiles) const;
     QString profileFilePath() const;
+    muse::Ret migrateLegacyProfiles(const QString& directoryPath);
+    muse::Ret writeProfileScript(const QString& filePath, const LabelParserProfile& profile) const;
 
     QString m_profileFilePath;
+    std::vector<LabelParserProfile> m_profiles;
+    bool m_profilesLoaded = false;
 };
 }

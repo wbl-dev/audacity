@@ -2,14 +2,27 @@
 
 #include "importexport/labels/internal/labelscriptengine.h"
 #include "importexport/labels/internal/labelparserregistry.h"
+#include "importexport/labels/internal/labelparserrescan.h"
 #include "importexport/labels/internal/au3/au3labelsimporter.h"
 #include "importexport/labels/internal/labelsconfiguration.h"
+#include "importexport/labels/internal/labelscommandsregister.h"
+#include "importexport/labels/internal/labelscommandsstate.h"
+#include "importexport/labels/labelscommands.h"
 
 #include <QTemporaryFile>
 #include <QTemporaryDir>
 #include <QDir>
+#include <QFile>
 
 using namespace au::importexport;
+
+TEST(LabelParserCommandTests, RescanHasEnabledCommandState)
+{
+    LabelsCommandsRegister commands;
+    LabelsCommandsState state;
+    EXPECT_EQ(commands.moduleName(), state.moduleName());
+    EXPECT_TRUE(state.commandState(RESCAN_LABEL_PARSERS_COMMAND).enabled);
+}
 
 namespace {
 LabelScriptEngine workerEngine()
@@ -20,6 +33,12 @@ LabelScriptEngine workerEngine()
 LabelScriptInput sampleInput()
 {
     return { "sample.ann", "ann", "ignored" };
+}
+
+bool writeFile(const QString& path, const QByteArray& bytes)
+{
+    QFile file(path);
+    return file.open(QIODevice::WriteOnly) && file.write(bytes) == bytes.size();
 }
 }
 
@@ -173,6 +192,24 @@ TEST(LabelParserProfileTests, SavesAndReloadsNormalizedSuffixes)
     EXPECT_EQ(registry.parserForSuffix("ann")->id, "one");
 }
 
+TEST(LabelParserDirectoryTests, DiscoversPlainSuffixScriptWithoutJsonProfile)
+{
+    QTemporaryDir directory;
+    ASSERT_TRUE(directory.isValid());
+    ASSERT_TRUE(QDir().mkpath(directory.filePath("LabelParsers")));
+    QFile script(directory.filePath("LabelParsers/ann.js"));
+    ASSERT_TRUE(script.open(QIODevice::WriteOnly));
+    ASSERT_GT(script.write("function parse(input) { return { trackName: input.fileName, labels: [] }; }"), 0);
+    script.close();
+
+    LabelsConfiguration config(directory.filePath("label-parsers.json"));
+    LabelParserRegistry registry(&config);
+    const auto profile = registry.parserForSuffix(".ANN");
+    ASSERT_TRUE(profile.has_value());
+    EXPECT_EQ(profile->source, "function parse(input) { return { trackName: input.fileName, labels: [] }; }");
+    EXPECT_EQ(registry.supportedExtensions(), (std::vector<std::string> { "txt", "ann" }));
+}
+
 TEST(LabelParserProfileTests, RejectsReservedAndConflictingSuffixesWithoutLosingValidProfile)
 {
     QTemporaryDir directory;
@@ -183,10 +220,127 @@ TEST(LabelParserProfileTests, RejectsReservedAndConflictingSuffixesWithoutLosing
     ASSERT_EQ(config.parserProfiles().size(), 1);
     EXPECT_EQ(config.parserProfiles()[0].suffixes, QStringList { "ann" });
 
-    ASSERT_TRUE(config.saveParserProfile({ "two", "Two", { "ANN" }, false, "function parse(){}" }).success());
+    EXPECT_FALSE(config.saveParserProfile({ "two", "Two", { "ANN" }, false, "function parse(){}" }).success());
     LabelParserRegistry registry(&config);
     EXPECT_EQ(registry.parserForSuffix("ann")->id, "one");
     EXPECT_FALSE(config.saveParserProfile({ "two", "Two", { "ANN" }, true, "function parse(){}" }).success());
+}
+
+TEST(LabelParserDirectoryTests, RescanAddsAndRemovesScripts)
+{
+    QTemporaryDir directory;
+    LabelsConfiguration config(directory.filePath("label-parsers.json"));
+    LabelParserRegistry registry(&config);
+    EXPECT_FALSE(registry.parserForSuffix("ann").has_value());
+    ASSERT_TRUE(writeFile(directory.filePath("LabelParsers/ann.js"), "function parse(){}"));
+    EXPECT_FALSE(registry.parserForSuffix("ann").has_value());
+    ASSERT_TRUE(config.reloadParserProfiles().success());
+    EXPECT_TRUE(registry.parserForSuffix("ann").has_value());
+    ASSERT_TRUE(QFile::remove(directory.filePath("LabelParsers/ann.js")));
+    EXPECT_TRUE(registry.parserForSuffix("ann").has_value());
+    ASSERT_TRUE(config.reloadParserProfiles().success());
+    EXPECT_FALSE(registry.parserForSuffix("ann").has_value());
+}
+
+TEST(LabelParserDirectoryTests, RescanReportsSupportedAddedAndRemovedSuffixes)
+{
+    QTemporaryDir directory;
+    LabelsConfiguration config(directory.filePath("label-parsers.json"));
+    const QString folder = directory.filePath("LabelParsers");
+    ASSERT_TRUE(rescanLabelParsers(config).ret.success());
+    ASSERT_TRUE(writeFile(folder + "/qrc.js", "function parse(){}"));
+
+    const auto added = rescanLabelParsers(config);
+    ASSERT_TRUE(added.ret.success());
+    EXPECT_EQ(added.supported, (QStringList { "qrc", "txt" }));
+    EXPECT_EQ(added.added, (QStringList { "qrc" }));
+    EXPECT_TRUE(added.removed.isEmpty());
+
+    const auto unchanged = rescanLabelParsers(config);
+    ASSERT_TRUE(unchanged.ret.success());
+    EXPECT_TRUE(unchanged.added.isEmpty());
+    EXPECT_TRUE(unchanged.removed.isEmpty());
+
+    ASSERT_TRUE(QFile::remove(folder + "/qrc.js"));
+    const auto removed = rescanLabelParsers(config);
+    ASSERT_TRUE(removed.ret.success());
+    EXPECT_EQ(removed.supported, (QStringList { "txt" }));
+    EXPECT_TRUE(removed.added.isEmpty());
+    EXPECT_EQ(removed.removed, (QStringList { "qrc" }));
+}
+
+TEST(LabelParserDirectoryTests, RescanReportsValidSuffixesWhenAnotherScriptIsInvalid)
+{
+    QTemporaryDir directory;
+    LabelsConfiguration config(directory.filePath("label-parsers.json"));
+    const QString folder = directory.filePath("LabelParsers");
+    ASSERT_TRUE(rescanLabelParsers(config).ret.success());
+    ASSERT_TRUE(writeFile(folder + "/qrc.js", "function parse(){}"));
+    ASSERT_TRUE(writeFile(folder + "/bad.js", QByteArray("\xff", 1)));
+
+    const auto result = rescanLabelParsers(config);
+    EXPECT_FALSE(result.ret.success());
+    EXPECT_EQ(result.supported, (QStringList { "qrc", "txt" }));
+    EXPECT_EQ(result.added, (QStringList { "qrc" }));
+    EXPECT_TRUE(result.removed.isEmpty());
+}
+
+TEST(LabelParserDirectoryTests, SkipsInvalidScriptsWithoutHidingValidOnes)
+{
+    QTemporaryDir directory;
+    const QString folder = directory.filePath("LabelParsers");
+    ASSERT_TRUE(QDir().mkpath(folder));
+    ASSERT_TRUE(writeFile(folder + "/ann.js", "function parse(){}"));
+    ASSERT_TRUE(writeFile(folder + "/wav.js", "function parse(){}"));
+    ASSERT_TRUE(writeFile(folder + "/bad.js", QByteArray("\xff", 1)));
+    LabelsConfiguration config(directory.filePath("label-parsers.json"));
+    EXPECT_FALSE(config.reloadParserProfiles().success());
+    LabelParserRegistry registry(&config);
+    EXPECT_TRUE(registry.parserForSuffix("ann").has_value());
+    EXPECT_FALSE(registry.parserForSuffix("wav").has_value());
+    EXPECT_FALSE(registry.parserForSuffix("bad").has_value());
+}
+
+TEST(LabelParserDirectoryTests, UserTxtOverridesBuiltinUntilRemoved)
+{
+    QTemporaryDir directory;
+    LabelsConfiguration config(directory.filePath("label-parsers.json"));
+    LabelParserRegistry registry(&config);
+    EXPECT_EQ(registry.parserForSuffix("txt")->id, "builtin-txt");
+    ASSERT_TRUE(writeFile(directory.filePath("LabelParsers/txt.js"), "function parse(){}"));
+    ASSERT_TRUE(config.reloadParserProfiles().success());
+    EXPECT_EQ(registry.parserForSuffix("txt")->id, "txt");
+    ASSERT_TRUE(QFile::remove(directory.filePath("LabelParsers/txt.js")));
+    ASSERT_TRUE(config.reloadParserProfiles().success());
+    EXPECT_EQ(registry.parserForSuffix("txt")->id, "builtin-txt");
+}
+
+TEST(LabelParserDirectoryTests, MigratesJsonOnlyOnceAndKeepsExistingScript)
+{
+    QTemporaryDir directory;
+    ASSERT_TRUE(QDir().mkpath(directory.filePath("LabelParsers")));
+    ASSERT_TRUE(writeFile(directory.filePath("LabelParsers/ann.js"), "existing"));
+    const QByteArray legacy = R"({"profiles":[{"id":"old","displayName":"Old","enabled":true,"source":"legacy","suffixes":["ann"]},{"id":"two","displayName":"Two","enabled":true,"source":"second","suffixes":["foo"]}]})";
+    ASSERT_TRUE(writeFile(directory.filePath("label-parsers.json"), legacy));
+    LabelsConfiguration config(directory.filePath("label-parsers.json"));
+    ASSERT_TRUE(config.reloadParserProfiles().success());
+    LabelParserRegistry registry(&config);
+    EXPECT_EQ(registry.parserForSuffix("ann")->source, "existing");
+    EXPECT_EQ(registry.parserForSuffix("foo")->source, "second");
+    ASSERT_TRUE(QFile::remove(directory.filePath("LabelParsers/foo.js")));
+    ASSERT_TRUE(config.reloadParserProfiles().success());
+    EXPECT_FALSE(registry.parserForSuffix("foo").has_value());
+}
+
+TEST(LabelParserDirectoryTests, InvalidLegacyJsonDoesNotBlockScriptDirectory)
+{
+    QTemporaryDir directory;
+    ASSERT_TRUE(QDir().mkpath(directory.filePath("LabelParsers")));
+    ASSERT_TRUE(writeFile(directory.filePath("label-parsers.json"), "broken json"));
+    ASSERT_TRUE(writeFile(directory.filePath("LabelParsers/ann.js"), "function parse(){}"));
+    LabelsConfiguration config(directory.filePath("label-parsers.json"));
+    EXPECT_FALSE(config.reloadParserProfiles().success());
+    EXPECT_TRUE(LabelParserRegistry(&config).parserForSuffix("ann").has_value());
 }
 
 TEST(LabelParserProfileTests, RejectsProjectSuffixes)

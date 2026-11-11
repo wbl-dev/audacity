@@ -2,12 +2,14 @@
 
 #include <QFile>
 #include <QFileInfo>
+#include <QDesktopServices>
 #include <QTextStream>
 #include <QUrl>
 #include <QUuid>
 #include <QStringDecoder>
 
 #include "importexport/labels/internal/labelparserregistry.h"
+#include "importexport/labels/internal/labelparserrescan.h"
 #include "importexport/labels/internal/labelscriptengine.h"
 
 using namespace au::appshell;
@@ -33,6 +35,23 @@ QVariantList LabelParsersPreferencesModel::profiles() const
                             { "script", profile.source }, { "readOnly", false } });
     }
     return items;
+}
+
+QString LabelParsersPreferencesModel::scriptsDirectory() const
+{
+    return configuration()->parserScriptsDirectoryPath();
+}
+
+QVariantMap LabelParsersPreferencesModel::rescan()
+{
+    const auto result = rescanLabelParsers(*configuration());
+    return { { "ok", result.ret.success() }, { "error", QString::fromStdString(result.ret.text()) },
+        { "supported", result.supported }, { "added", result.added }, { "removed", result.removed } };
+}
+
+bool LabelParsersPreferencesModel::openScriptsDirectory() const
+{
+    return QDesktopServices::openUrl(QUrl::fromLocalFile(scriptsDirectory()));
 }
 
 QVariantMap LabelParsersPreferencesModel::save(const QString& id, const QString& name, const QString& suffixes,
