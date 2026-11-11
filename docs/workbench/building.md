@@ -1,5 +1,7 @@
 # 构建与验证 Audacity Workbench
 
+最新阶段状态、已知测试失败和继续工作步骤见 [`2026-11-11 交接记录`](2026-11-11-handoff.md)。
+
 Workbench 是本仓库中的本地优先产品 Profile。它复用 Audacity 的音频编辑底座，但把 Cloud、MuseHub、UsageInfo、应用更新、在线语言更新及其他产品网络能力替换为 stub。Diagnostics 保留；Crashpad 是否启用由打包方决定。
 
 ## 环境要求
@@ -102,7 +104,7 @@ cmake --preset audacity-debug
 cmake --build build/audacity-debug
 ```
 
-如果 macOS 同时安装了 Command Line Tools 和完整 Xcode，且 CMake 选错 SDK，可在当前 shell 中设置 `DEVELOPER_DIR` 和 `SDKROOT` 指向同一套 Xcode 后重新配置。不要把本机 SDK 路径写入共享 Preset。
+如果 macOS 同时安装了 Command Line Tools 和完整 Xcode，且 CMake 选错 SDK，可在当前 shell 中设置 `DEVELOPER_DIR` 和 `SDKROOT` 指向同一套 Xcode，并在 `--fresh` 配置命令中用 `-DCMAKE_OSX_SYSROOT=/absolute/path/to/MacOSX.sdk` 选择同一套 SDK。不要把本机 SDK 路径写入共享 Preset。
 
 ## Crashpad 打包
 
