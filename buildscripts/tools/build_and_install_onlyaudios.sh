@@ -29,15 +29,29 @@ if [[ ! -x "${source_app}/Contents/MacOS/OnlyAudios" ]]; then
     exit 1
 fi
 
-if pgrep -x OnlyAudios >/dev/null; then
-    echo "Quit OnlyAudios before installing an update." >&2
-    exit 1
-fi
-
 if [[ ! -d "${install_dir}" || ! -w "${install_dir}" ]]; then
     echo "Installation directory is unavailable or not writable: ${install_dir}" >&2
     echo "Set ONLYAUDIOS_INSTALL_DIR to a writable Applications directory." >&2
     exit 1
+fi
+
+if pgrep -x OnlyAudios >/dev/null; then
+    echo "Asking OnlyAudios to quit before installing..."
+    if ! osascript -e 'tell application id "org.onlyaudios.app" to quit'; then
+        echo "Please quit OnlyAudios after saving your project." >&2
+    fi
+
+    for ((attempt = 0; attempt < 120; attempt++)); do
+        if ! pgrep -x OnlyAudios >/dev/null; then
+            break
+        fi
+        sleep 1
+    done
+
+    if pgrep -x OnlyAudios >/dev/null; then
+        echo "OnlyAudios is still running; installation was not changed." >&2
+        exit 1
+    fi
 fi
 
 stage_dir="$(mktemp -d "${install_dir}/.onlyaudios-install.XXXXXX")"
