@@ -21,6 +21,8 @@
  */
 #include "applicationuiactions.h"
 
+#include <algorithm>
+
 #include "ui/view/iconcodes.h"
 #include "context/uicontext.h"
 #include "context/shortcutcontext.h"
@@ -29,6 +31,7 @@
 #include "async/notification.h"
 
 #include "log.h"
+#include "../appshellcommands.h"
 
 using namespace au::appshell;
 
@@ -39,7 +42,17 @@ using namespace muse::dock;
 
 static const ActionCode FULL_SCREEN_CODE("fullscreen");
 
-const UiActionList ApplicationUiActions::m_actions = {
+namespace {
+UiActionList filterAppShellActions(UiActionList actions)
+{
+    std::erase_if(actions, [](const UiAction& action) {
+        return !isAppShellActionAllowed(action.code);
+    });
+    return actions;
+}
+}
+
+const UiActionList ApplicationUiActions::m_actions = filterAppShellActions({
     UiAction("quit",
              au::context::UiCtxAny,
              au::context::CTX_ANY,
@@ -255,7 +268,7 @@ const UiActionList ApplicationUiActions::m_actions = {
              //: Action description: shown as a tooltip; can be a full sentence
              TranslatableString("action_description", "Open the context menu of the focused item")
              ),
-};
+});
 
 ApplicationUiActions::ApplicationUiActions(const muse::modularity::ContextPtr& ctx, std::shared_ptr<ApplicationActionController> controller)
     : muse::Contextable(ctx), m_controller(controller)

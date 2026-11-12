@@ -145,6 +145,12 @@ set(MUSE_MODULE_WORKSPACE ON)
 set(MUSE_MODULE_VST ON)
 set(MUSE_MODULE_VST_QML ON)
 
+include(SetupProductProfile)
+
+if(AU4_WORKBENCH_PROFILE)
+    add_compile_definitions(AU4_WORKBENCH_PROFILE=1)
+endif()
+
 # Skip TestFlow in release builds
 if (AU4_BUILD_MODE STREQUAL "release")
     set(MUSE_MODULE_TESTFLOW OFF)

@@ -93,8 +93,12 @@ void ApplicationActionController::init()
     cd->onRequest(this, APP_TOGGLE_FULLSCREEN_COMMAND, [this]() { return toggleFullScreen(); });
     cd->onRequest(this, APP_ABOUT_COMMAND, [this]() { return openAboutDialog(); });
     cd->onRequest(this, APP_ABOUT_QT_COMMAND, [this]() { return openAboutQtDialog(); });
-    cd->onRequest(this, APP_ONLINE_HANDBOOK_COMMAND, [this]() { return openOnlineHandbookPage(); });
-    cd->onRequest(this, APP_ASK_HELP_COMMAND, [this]() { return openAskForHelpPage(); });
+    if (isAppShellCommandAllowed(APP_ONLINE_HANDBOOK_COMMAND)) {
+        cd->onRequest(this, APP_ONLINE_HANDBOOK_COMMAND, [this]() { return openOnlineHandbookPage(); });
+    }
+    if (isAppShellCommandAllowed(APP_ASK_HELP_COMMAND)) {
+        cd->onRequest(this, APP_ASK_HELP_COMMAND, [this]() { return openAskForHelpPage(); });
+    }
     cd->onRequest(this, APP_PREFERENCES_COMMAND, [this]() { return openPreferencesDialog(); });
     cd->onRequest(this, APP_REVERT_FACTORY_COMMAND, [this]() { return revertToFactorySettings(); });
     cd->onRequest(this, APP_AUDIO_SETTINGS_COMMAND, [this]() { return openAudioSettingsDialog(); });
@@ -123,7 +127,8 @@ void ApplicationActionController::init()
 
     //! Note: This table won't be necessary after the actions to commands complete refactor.
     //! It will be removed on https://github.com/audacity/audacity/issues/12321
-    static const std::vector<ActionToCommand> actionToCommand = {
+    static const std::vector<ActionToCommand> actionToCommand = [] {
+        std::vector<ActionToCommand> mappings {
         { "quit", APP_QUIT_COMMAND, quitConv },
         { "toggle-transport", APP_TOGGLE_TRANSPORT_TOOLBAR_COMMAND, {} },
         { "toggle-tracks", APP_TOGGLE_TRACKS_PANEL_COMMAND, {} },
@@ -153,7 +158,12 @@ void ApplicationActionController::init()
         { "action://enter", APP_ENTER_COMMAND, {} },
         { "action://shift-enter", APP_SHIFT_ENTER_COMMAND, {} },
         { "action://context-menu", APP_CONTEXT_MENU_COMMAND, {} },
-    };
+        };
+        std::erase_if(mappings, [](const ActionToCommand& mapping) {
+            return !isAppShellActionAllowed(mapping.actionCode);
+        });
+        return mappings;
+    }();
     registerActionToCommand(this, actionToCommand, commandDispatcher(), dispatcher());
 }
 

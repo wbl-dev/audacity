@@ -3,6 +3,8 @@
 */
 #include "projectcommandsregister.h"
 
+#include <algorithm>
+
 #include "framework/ui/view/iconcodes.h"
 #include "framework/global/types/translatablestring.h"
 
@@ -14,7 +16,7 @@ using namespace muse::rcommand;
 using namespace muse::ui;
 
 namespace {
-const std::vector<CommandInfo> commandInfos = {
+const std::vector<CommandInfo> allCommandInfos = {
     CommandInfo{
         PROJECT_NEW_COMMAND,
         //: Command title: shown as a menu item or a button label; keep it short
@@ -213,6 +215,18 @@ const std::vector<CommandInfo> commandInfos = {
         Decoration()
     },
 };
+
+const std::vector<CommandInfo>& commandInfos()
+{
+    static const std::vector<CommandInfo> infos = [] {
+        std::vector<CommandInfo> result = allCommandInfos;
+        std::erase_if(result, [](const CommandInfo& info) {
+            return !isProjectCommandAllowed(info.command);
+        });
+        return result;
+    }();
+    return infos;
+}
 }
 
 std::string ProjectCommandsRegister::moduleName() const
@@ -224,8 +238,9 @@ const std::vector<Command>& ProjectCommandsRegister::commandList() const
 {
     static std::vector<Command> commands;
     if (commands.empty()) {
-        commands.reserve(commandInfos.size());
-        for (const auto& info : commandInfos) {
+        const auto& infos = commandInfos();
+        commands.reserve(infos.size());
+        for (const auto& info : infos) {
             commands.push_back(info.command);
         }
     }
@@ -234,5 +249,5 @@ const std::vector<Command>& ProjectCommandsRegister::commandList() const
 
 const std::vector<CommandInfo>& ProjectCommandsRegister::commandInfoList() const
 {
-    return commandInfos;
+    return commandInfos();
 }

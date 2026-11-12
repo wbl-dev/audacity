@@ -26,6 +26,8 @@ import Muse.UiComponents
 import Muse.Dock 1.0
 import Muse.Toast 1.0
 
+import Audacity.AppShell
+
 import "./Gallery"
 import "./Interactive"
 import "./CrashHandler"
@@ -38,6 +40,10 @@ DockPage {
 
     objectName: "DevTools"
     uri: "audacity://devtools"
+
+    AboutModel {
+        id: productPolicyModel
+    }
 
     function setCurrentCentral(name) {
         switch (name) {
@@ -128,7 +134,9 @@ DockPage {
                             "name": "table",
                             "title": "Table"
                         }
-                    ]
+                    ].filter(function (item) {
+                        return productPolicyModel.externalLinksAvailable || item.name !== "cloud"
+                    })
 
                     onSelected: function (name) {
                         root.setCurrentCentral(name)
@@ -155,7 +163,9 @@ DockPage {
     Component {
         id: interactiveComp
 
-        InteractiveTests {}
+        InteractiveTests {
+            externalLinksAvailable: productPolicyModel.externalLinksAvailable
+        }
     }
 
     Component {

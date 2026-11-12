@@ -14,6 +14,12 @@ set(MODULE_TEST_SRC
     ${CMAKE_CURRENT_LIST_DIR}/realtimeeffectservice_tests.cpp
 )
 
+if(AU4_WORKBENCH_PROFILE)
+    list(APPEND MODULE_TEST_SRC
+        ${CMAKE_CURRENT_LIST_DIR}/workbench_effect_commands_tests.cpp
+    )
+endif()
+
 set(MODULE_TEST_LINK
     au3wrap
     au3-project
@@ -32,3 +38,10 @@ set(MODULE_TEST_INCLUDE
 set(MODULE_TEST_DATA_ROOT ${CMAKE_CURRENT_LIST_DIR})
 
 include(SetupGTest)
+
+if(AU4_WORKBENCH_PROFILE)
+    add_test(
+        NAME workbench_effect_commands
+        COMMAND effects_base_tests --gtest_filter=workbench_effect_commands.*
+    )
+endif()

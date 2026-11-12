@@ -21,8 +21,16 @@
 #include "framework/uicomponents/uicomponentsmodule.h"
 #include "framework/dockwindow/dockmodule.h"
 #include "framework/toast/toastmodule.h"
+#ifdef MUSE_MODULE_CLOUD
 #include "framework/cloud/cloudmodule.h"
+#else
+#include "framework/stubs/cloud/cloudstubmodule.h"
+#endif
+#ifdef MUSE_MODULE_NETWORK
 #include "framework/network/networkmodule.h"
+#else
+#include "framework/stubs/network/networkstubmodule.h"
+#endif
 #ifdef MUSE_MODULE_UPDATE
 #include "framework/update/updatemodule.h"
 #else

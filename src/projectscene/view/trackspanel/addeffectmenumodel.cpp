@@ -3,6 +3,7 @@
  */
 #include "addeffectmenumodel.h"
 #include "effects/effects_base/effectstypes.h"
+#include "shared/productprofile.h"
 #include "log.h"
 
 using namespace muse;
@@ -11,6 +12,11 @@ using namespace muse::uicomponents;
 
 AddEffectMenuModel::AddEffectMenuModel(QObject* parent)
     : RealtimeEffectMenuModelBase(parent) {}
+
+bool AddEffectMenuModel::externalLinksAvailable() const noexcept
+{
+    return au::shared::nonDiagnosticExternalLinksAvailable();
+}
 
 void AddEffectMenuModel::handleMenuItem(const QString& itemId)
 {

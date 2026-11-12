@@ -95,7 +95,7 @@ void MainToolBarModel::load()
     m_items << buildItem(muse::qtrc("appshell", "Project"), PROJECT_PAGE, false);
     // m_items << buildItem(muse::qtrc("appshell", "Publish"), PUBLISH_PAGE, false);
 
-    if (globalConfiguration()->devModeEnabled()) {
+    if (shouldShowDeveloperToolsInMainToolbar(globalConfiguration()->devModeEnabled())) {
         m_items << buildItem(muse::qtrc("appshell", "DevTools"), DEVTOOLS_PAGE, true);
     }
 

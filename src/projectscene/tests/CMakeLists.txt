@@ -28,6 +28,12 @@ set(MODULE_TEST_SRC
     ${CMAKE_CURRENT_LIST_DIR}/mocks/projectviewstatemock.h
 )
 
+if(AU4_WORKBENCH_PROFILE)
+    list(APPEND MODULE_TEST_SRC
+        ${CMAKE_CURRENT_LIST_DIR}/workbench_online_surfaces_tests.cpp
+    )
+endif()
+
 set(MODULE_TEST_LINK
     projectscene
     trackedit
@@ -46,3 +52,10 @@ set(MODULE_TEST_INCLUDE ${CMAKE_CURRENT_LIST_DIR}/..)
 set(MODULE_TEST_DATA_ROOT ${CMAKE_CURRENT_LIST_DIR})
 
 include(SetupGTest)
+
+if(AU4_WORKBENCH_PROFILE)
+    add_test(
+        NAME workbench_online_surfaces_projectscene
+        COMMAND projectscene_tests --gtest_filter=workbench_online_surfaces_projectscene.*
+    )
+endif()

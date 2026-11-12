@@ -20,6 +20,7 @@ class AboutModel : public QObject, public muse::Contextable
 {
     Q_OBJECT
     QML_ELEMENT
+    Q_PROPERTY(bool externalLinksAvailable READ externalLinksAvailable CONSTANT)
 
     muse::GlobalInject<IAppShellConfiguration> configuration;
     muse::GlobalInject<muse::IGlobalConfiguration> globalConfiguration;
@@ -29,6 +30,8 @@ class AboutModel : public QObject, public muse::Contextable
 
 public:
     explicit AboutModel(QObject* parent = nullptr);
+
+    bool externalLinksAvailable() const noexcept;
 
     Q_INVOKABLE QString appVersion() const;
     Q_INVOKABLE QString appRevision() const;

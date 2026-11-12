@@ -1,9 +1,13 @@
 #include "projectuiactions.h"
 
+#include <algorithm>
+
 #include "context/uicontext.h"
 #include "modularity/ioc.h"
 #include "types/translatablestring.h"
 #include "context/shortcutcontext.h"
+
+#include "../projectcommands.h"
 
 using namespace muse;
 using namespace muse::ui;
@@ -12,9 +16,17 @@ using namespace au::project;
 namespace {
 const muse::actions::ActionCode UPDATE_AUDIO_PREVIEW_ACTION_CODE("action://cloud/update-audio-preview");
 const muse::actions::ActionCode UPDATE_AUDIO_PREVIEW_FOR_PROJECT_ACTION_CODE("action://cloud/update-audio-preview-for-project");
+
+UiActionList filterProjectActions(UiActionList actions)
+{
+    std::erase_if(actions, [](const UiAction& action) {
+        return !isProjectActionAllowed(action.code);
+    });
+    return actions;
+}
 }
 
-const UiActionList ProjectUiActions::m_actions = {
+const UiActionList ProjectUiActions::m_actions = filterProjectActions({
     //! TODO AU4
     //! Here are all of app menu UiActions - not all of them belong here,
     //! it's temporary state.
@@ -775,7 +787,7 @@ const UiActionList ProjectUiActions::m_actions = {
              //: Action description: shown as a tooltip; can be a full sentence
              TranslatableString("action_description", "Project properties…")
              )
-};
+});
 
 ProjectUiActions::ProjectUiActions(const std::shared_ptr<ProjectActionsController>& controller)
     : muse::Contextable(controller->iocContext()), m_controller(controller)

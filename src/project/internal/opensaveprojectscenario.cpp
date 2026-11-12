@@ -28,6 +28,7 @@
 #include "translation.h"
 #include "types/uri.h"
 #include "au3cloud/au3clouderrors.h"
+#include "shared/productprofile.h"
 
 using namespace muse;
 using namespace au::project;
@@ -110,6 +111,10 @@ const char* PROJECT_NOT_FULLY_SYNCED_TEXT
 RetVal<SaveLocation> OpenSaveProjectScenario::askSaveLocation(IAudacityProjectPtr project, SaveMode mode,
                                                               SaveLocationType preselectedType) const
 {
+    if (shared::isWorkbenchProfile()) {
+        preselectedType = SaveLocationType::Local;
+    }
+
     SaveLocationType type = preselectedType;
 
     const bool shouldUpdateLastUsed = configuration()->shouldAskSaveLocationType();
@@ -241,6 +246,10 @@ RetVal<muse::io::path_t> OpenSaveProjectScenario::askLocalPath(IAudacityProjectP
 
 RetVal<SaveLocationType> OpenSaveProjectScenario::saveLocationType() const
 {
+    if (shared::isWorkbenchProfile()) {
+        return RetVal<SaveLocationType>::make_ok(SaveLocationType::Local);
+    }
+
     bool shouldAsk = configuration()->shouldAskSaveLocationType();
     SaveLocationType lastUsed = configuration()->lastUsedSaveLocationType();
     if (!shouldAsk && lastUsed != SaveLocationType::Undefined) {

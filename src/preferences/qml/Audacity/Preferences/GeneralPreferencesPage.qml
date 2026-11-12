@@ -59,6 +59,7 @@ PreferencesPage {
             languages: preferencesModel.languages
             currentLanguageCode: preferencesModel.currentLanguageCode
             isNeedRestart: preferencesModel.restartRequired
+            onlineUpdatesAvailable: preferencesModel.onlineLanguageUpdatesAvailable
 
             navigation.section: root.navigationSection
             navigation.order: root.navigationOrderStart + 1
@@ -68,7 +69,9 @@ PreferencesPage {
             }
 
             onCheckForUpdateRequested: {
-                preferencesModel.checkUpdateForCurrentLanguage()
+                if (preferencesModel.onlineLanguageUpdatesAvailable) {
+                    preferencesModel.checkUpdateForCurrentLanguage()
+                }
             }
 
             onFocusChanged: {
@@ -208,6 +211,8 @@ PreferencesPage {
 
         FFmpegLibrarySection {
             id: ffmpegLibrarySection
+
+            onlineDownloadsAvailable: preferencesModel.nonDiagnosticOnlineFeaturesAvailable
 
             navigation.section: root.navigationSection
             navigation.order: root.navigationOrderStart + 7

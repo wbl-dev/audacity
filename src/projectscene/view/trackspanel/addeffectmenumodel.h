@@ -9,9 +9,12 @@ namespace au::projectscene {
 class AddEffectMenuModel : public RealtimeEffectMenuModelBase
 {
     Q_OBJECT
+    Q_PROPERTY(bool externalLinksAvailable READ externalLinksAvailable CONSTANT)
 
 public:
     explicit AddEffectMenuModel(QObject* parent = nullptr);
+
+    bool externalLinksAvailable() const noexcept;
 
 private:
     void handleMenuItem(const QString& itemId) override;

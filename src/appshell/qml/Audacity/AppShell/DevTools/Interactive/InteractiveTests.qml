@@ -7,6 +7,9 @@ import Muse.Ui
 import Muse.UiComponents
 
 Rectangle {
+    id: root
+
+    required property bool externalLinksAvailable
 
     color: "#71C2EF"
 
@@ -114,6 +117,7 @@ Rectangle {
             width: 200
             navigation.panel: navPanel
             navigation.row: 6
+            visible: root.externalLinksAvailable
             text: "Open musescore.com"
             onClicked: {
                 api.launcher.openUrl("https://musescore.com/")

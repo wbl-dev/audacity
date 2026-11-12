@@ -3,6 +3,9 @@
  */
 #include "effectsuiactions.h"
 
+#include <algorithm>
+
+#include "../effectscommands.h"
 #include "effectsutils.h"
 
 #include "context/uicontext.h"
@@ -18,7 +21,17 @@ using namespace muse::actions;
 static const TranslatableString REPEAT_LAST_EFFECT_DEF_TITLE("action", "Repeat last effect");
 static const TranslatableString REPEAT_LAST_EFFECT_TITLE("action", "Repeat %1");
 
-static UiActionList STATIC_ACTIONS = {
+namespace {
+UiActionList filterEffectsActions(UiActionList actions)
+{
+    std::erase_if(actions, [](const UiAction& action) {
+        return !isEffectsActionAllowed(action.code);
+    });
+    return actions;
+}
+}
+
+static const UiActionList STATIC_ACTIONS = filterEffectsActions({
     UiAction("repeat-last-effect",
              au::context::UiCtxProjectOpened,
              au::context::CTX_PROJECT_OPENED,
@@ -93,7 +106,7 @@ static UiActionList STATIC_ACTIONS = {
              TranslatableString("effects", "Toggle between vendor UI and fallback UI"),
              Checkable::Yes
              )
-};
+});
 
 EffectsUiActions::EffectsUiActions(const muse::modularity::ContextPtr& ctx, EffectsActionsController* controller)
     : muse::Contextable(ctx), m_controller{controller}

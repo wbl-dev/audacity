@@ -98,7 +98,7 @@ void AppMenuModel::load()
         makeHelpMenu()
     };
 
-    if (globalConfiguration()->devModeEnabled()) {
+    if (globalConfiguration()->devModeEnabled() || shared::isWorkbenchProfile()) {
         const auto diagnosticMenu = makeDiagnosticMenu();
         items << diagnosticMenu;
     }
@@ -249,21 +249,29 @@ MenuItem* AppMenuModel::makeFileMenu()
         makeSeparator(),
 
         makeMenuItem(PROJECT_SAVE_COMMAND),
-        makeMenuItem(PROJECT_SAVE_TO_CLOUD_COMMAND),
-        makeMenuItem(PROJECT_SAVE_AS_COMMAND),
-        makeMenuItem(PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_COMMAND),
-
-        makeSeparator(),
-
-        makeMenuItem(PROJECT_EXPORT_AUDIO_COMMAND),
-        makeMenuItem(PROJECT_EXPORT_LABELS_COMMAND),
-        makeMenuItem(PROJECT_SHARE_AUDIO_COMMAND),
-
-        makeSeparator(),
-
-        makeMenuItem(PROJECT_CLOSE_COMMAND),
-        makeMenuItem(APP_QUIT_COMMAND, MenuItemRole::QuitRole)
     };
+
+    if (isMenuCommandAllowed(PROJECT_SAVE_TO_CLOUD_COMMAND)) {
+        fileItems << makeMenuItem(PROJECT_SAVE_TO_CLOUD_COMMAND);
+    }
+
+    fileItems << makeMenuItem(PROJECT_SAVE_AS_COMMAND);
+
+    if (isMenuCommandAllowed(PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_COMMAND)) {
+        fileItems << makeMenuItem(PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_COMMAND);
+    }
+
+    fileItems << makeSeparator()
+              << makeMenuItem(PROJECT_EXPORT_AUDIO_COMMAND)
+              << makeMenuItem(PROJECT_EXPORT_LABELS_COMMAND);
+
+    if (isMenuCommandAllowed(PROJECT_SHARE_AUDIO_COMMAND)) {
+        fileItems << makeMenuItem(PROJECT_SHARE_AUDIO_COMMAND);
+    }
+
+    fileItems << makeSeparator()
+              << makeMenuItem(PROJECT_CLOSE_COMMAND)
+              << makeMenuItem(APP_QUIT_COMMAND, MenuItemRole::QuitRole);
 
     return makeMenu(TranslatableString("appshell-menu-file", "&File"), fileItems, "menu-file");
 }
@@ -440,8 +448,6 @@ MenuItem* AppMenuModel::makeHelpMenu()
 {
     MenuItemList helpItems {
         // makeMenuItem("tutorials"),
-        makeMenuItem(APP_ONLINE_HANDBOOK_COMMAND),
-        makeSeparator(),
         // makeMenuItem("link-account"),
         makeMenuItem(APP_ABOUT_COMMAND, MenuItemRole::AboutRole),
         makeMenuItem(APP_ABOUT_QT_COMMAND, MenuItemRole::AboutQtRole),
@@ -449,7 +455,12 @@ MenuItem* AppMenuModel::makeHelpMenu()
         makeMenuItem(APP_REVERT_FACTORY_COMMAND)
     };
 
-    if (updateConfiguration()->isAppUpdatable()) {
+    if (isMenuCommandAllowed(APP_ONLINE_HANDBOOK_COMMAND)) {
+        helpItems.push_front(makeSeparator());
+        helpItems.push_front(makeMenuItem(APP_ONLINE_HANDBOOK_COMMAND));
+    }
+
+    if (isMenuCommandAllowed(update::UPDATE_CHECK_COMMAND) && updateConfiguration()->isAppUpdatable()) {
         helpItems.push_front(makeSeparator());
         helpItems.push_front(makeMenuItem(update::UPDATE_CHECK_COMMAND));
     }
@@ -459,18 +470,23 @@ MenuItem* AppMenuModel::makeHelpMenu()
 
 muse::uicomponents::MenuItem* AppMenuModel::makeDiagnosticMenu()
 {
-    MenuItemList systemItems {
-        makeMenuItem(diagnostics::DIAGNOSTICS_SHOW_PATHS_COMMAND),
-        makeMenuItem(diagnostics::DIAGNOSTICS_SHOW_GRAPHICSINFO_COMMAND),
-        makeMenuItem(diagnostics::DIAGNOSTICS_SHOW_PROFILER_COMMAND),
-    };
+    const DiagnosticMenuPolicy policy = diagnosticMenuPolicy();
 
-    MenuItemList items {
-        makeMenuItem(diagnostics::DIAGNOSTICS_SAVE_FILES_COMMAND),
-        makeMenu(TranslatableString("appshell-menu-diagnostics", "&System"), systemItems, "menu-system")
-    };
+    MenuItemList items;
+    if (policy.saveFiles) {
+        items << makeMenuItem(diagnostics::DIAGNOSTICS_SAVE_FILES_COMMAND);
+    }
 
-    if (globalConfiguration()->devModeEnabled()) {
+    if (policy.systemTools) {
+        MenuItemList systemItems {
+            makeMenuItem(diagnostics::DIAGNOSTICS_SHOW_PATHS_COMMAND),
+            makeMenuItem(diagnostics::DIAGNOSTICS_SHOW_GRAPHICSINFO_COMMAND),
+            makeMenuItem(diagnostics::DIAGNOSTICS_SHOW_PROFILER_COMMAND),
+        };
+        items << makeMenu(TranslatableString("appshell-menu-diagnostics", "&System"), systemItems, "menu-system");
+    }
+
+    if (policy.developerTools && globalConfiguration()->devModeEnabled()) {
         MenuItemList actionsItems {
             makeMenuItem(diagnostics::DIAGNOSTICS_SHOW_ACTIONS_COMMAND)
         };

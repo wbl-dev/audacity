@@ -32,6 +32,8 @@
 #include "framework/rcommand/icommandsstate.h"
 #include "framework/ui/iuiactionsregister.h"
 
+#include "shared/productprofile.h"
+
 #include "internal/applicationuiactions.h"
 #include "internal/applicationactioncontroller.h"
 #include "internal/appshellcommandsregister.h"
@@ -49,6 +51,32 @@
 using namespace au::appshell;
 
 static const std::string mname("appshell");
+
+AppShellPageManifest au::appshell::appShellPageManifest()
+{
+    AppShellPageManifest manifest {
+        {
+            muse::Uri("audacity://home"),
+            muse::Uri("audacity://project"),
+        },
+        {
+            muse::Uri("audacity://about/audacity"),
+            muse::Uri("audacity://firstLaunchSetup"),
+        },
+    };
+
+    if (shared::fullDeveloperToolsAvailable()) {
+        manifest.pages.emplace_back("audacity://devtools");
+    }
+
+    if (!shared::isWorkbenchProfile()) {
+        manifest.pages.emplace_back("audacity://publish");
+        manifest.dialogs.emplace_back("audacity://signin/audiocom");
+        manifest.dialogs.emplace_back("audacity://welcomedialog");
+    }
+
+    return manifest;
+}
 
 AppShellModule::AppShellModule()
 {
@@ -76,15 +104,22 @@ void AppShellModule::resolveImports()
 {
     auto ir = globalIoc()->resolve<muse::interactive::IInteractiveUriRegister>(mname);
     if (ir) {
-        ir->registerPageUri(muse::Uri("audacity://home"));
-        ir->registerPageUri(muse::Uri("audacity://project"));
-        ir->registerPageUri(muse::Uri("audacity://publish"));
-        ir->registerPageUri(muse::Uri("audacity://devtools"));
+        const AppShellPageManifest manifest = appShellPageManifest();
+        for (const muse::Uri& page : manifest.pages) {
+            ir->registerPageUri(page);
+        }
 
-        ir->registerQmlUri(muse::Uri("audacity://about/audacity"), "Audacity.AppShell", "AboutDialog");
-        ir->registerQmlUri(muse::Uri("audacity://firstLaunchSetup"), "Audacity.AppShell", "FirstLaunchSetupDialog");
-        ir->registerQmlUri(muse::Uri("audacity://signin/audiocom"), "Audacity.AppShell", "SigninAudiocomDialog");
-        ir->registerQmlUri(muse::Uri("audacity://welcomedialog"), "Audacity.AppShell", "WelcomeDialog");
+        for (const muse::Uri& dialog : manifest.dialogs) {
+            if (dialog == muse::Uri("audacity://about/audacity")) {
+                ir->registerQmlUri(dialog, "Audacity.AppShell", "AboutDialog");
+            } else if (dialog == muse::Uri("audacity://firstLaunchSetup")) {
+                ir->registerQmlUri(dialog, "Audacity.AppShell", "FirstLaunchSetupDialog");
+            } else if (dialog == muse::Uri("audacity://signin/audiocom")) {
+                ir->registerQmlUri(dialog, "Audacity.AppShell", "SigninAudiocomDialog");
+            } else if (dialog == muse::Uri("audacity://welcomedialog")) {
+                ir->registerQmlUri(dialog, "Audacity.AppShell", "WelcomeDialog");
+            }
+        }
     }
 
     auto cr = globalIoc()->resolve<muse::rcommand::ICommandsRegister>(mname);

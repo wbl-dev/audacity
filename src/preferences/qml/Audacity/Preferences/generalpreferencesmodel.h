@@ -51,6 +51,8 @@ class GeneralPreferencesModel : public QObject, public muse::async::Asyncable, p
 
     Q_PROPERTY(QVariantList languages READ languages NOTIFY languagesChanged)
     Q_PROPERTY(QString currentLanguageCode READ currentLanguageCode WRITE setCurrentLanguageCode NOTIFY currentLanguageCodeChanged)
+    Q_PROPERTY(bool onlineLanguageUpdatesAvailable READ onlineLanguageUpdatesAvailable CONSTANT)
+    Q_PROPERTY(bool nonDiagnosticOnlineFeaturesAvailable READ nonDiagnosticOnlineFeaturesAvailable CONSTANT)
 
     Q_PROPERTY(QStringList keyboardLayouts READ keyboardLayouts CONSTANT)
     Q_PROPERTY(QString currentKeyboardLayout READ currentKeyboardLayout WRITE setCurrentKeyboardLayout NOTIFY currentKeyboardLayoutChanged)
@@ -76,6 +78,8 @@ public:
 
     QVariantList languages() const;
     QString currentLanguageCode() const;
+    bool onlineLanguageUpdatesAvailable() const noexcept;
+    bool nonDiagnosticOnlineFeaturesAvailable() const noexcept;
 
     QStringList keyboardLayouts() const;
     QString currentKeyboardLayout() const;

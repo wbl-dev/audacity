@@ -23,10 +23,36 @@
 #define AU_PROJECT_PROJECTMODULE_H
 
 #include <memory>
+#include <vector>
 
 #include "modularity/imodulesetup.h"
+#include "shared/productprofile.h"
+#include "types/uri.h"
 
 namespace au::project {
+struct ProjectPageRegistration
+{
+    muse::Uri uri;
+    const char* qmlPath;
+};
+
+using ProjectPageManifest = std::vector<ProjectPageRegistration>;
+
+inline ProjectPageManifest projectPageManifest()
+{
+    ProjectPageManifest pages {
+        { muse::Uri("audacity://project/new"), "Audacity/Project/NewProjectDialog.qml" },
+    };
+
+    if (!shared::isWorkbenchProfile()) {
+        pages.push_back({ muse::Uri("audacity://project/asklocationtype"), "Audacity/Project/AskLocationTypeDialog.qml" });
+        pages.push_back({ muse::Uri("audacity://project/savetocloud"), "Audacity/Project/SaveToCloudDialog.qml" });
+        pages.push_back({ muse::Uri("audacity://project/cloudprojectsyncing"), "Audacity/Project/CloudProjectSyncDialog.qml" });
+    }
+
+    return pages;
+}
+
 class ProjectConfiguration;
 class ProjectActionsController;
 class ProjectUiActions;
