@@ -18,6 +18,8 @@ struct ScriptLabel {
     double start = 0.0;
     double end = 0.0;
     QString title;
+    QString color;
+    QString owner;
     std::optional<double> lowFrequency;
     std::optional<double> highFrequency;
 };

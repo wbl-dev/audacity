@@ -102,6 +102,8 @@ public:
 public:
     SelectedRegion selectedRegion;
     wxString title; /// Text of the label.
+    wxString color; /// Optional per-label #RRGGBB color.
+    wxString owner; /// Optional semantic owner; empty means the default group.
     mutable int width{}; /// width of the text in pixels.
 
 // Working storage for on-screen layout.

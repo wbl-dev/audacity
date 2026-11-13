@@ -322,6 +322,7 @@ void TrackLabelsListModel::selectLabel(const LabelKey& key)
         return;
     }
 
+    bool newlySelected = false;
     if (mode == SelectionMode::Toggle) {
         if (muse::contains(selectionController()->selectedLabels(), key.key)) {
             m_pendingToggleDeselect.labels = { key.key };
@@ -329,6 +330,7 @@ void TrackLabelsListModel::selectLabel(const LabelKey& key)
             selectionController()->resetDataSelection();
             selectionController()->resetSelectedClips();
             selectionController()->setSelectedLabels(LabelKeyList({ key.key }), true);
+            newlySelected = true;
         }
     } else {
         const LabelKeyList selected = selectionController()->selectedLabels();
@@ -338,6 +340,7 @@ void TrackLabelsListModel::selectLabel(const LabelKey& key)
             selectionController()->resetDataSelection();
             selectionController()->resetSelectedClips();
             selectionController()->setSelectedLabels(LabelKeyList({ key.key }), true);
+            newlySelected = true;
         }
     }
 
@@ -346,9 +349,25 @@ void TrackLabelsListModel::selectLabel(const LabelKey& key)
         selectionController()->setItemSelectionAnchor(m_context->mousePositionTime(), key.key);
     }
     m_needToSelectTracksData = false;
+
+    if (newlySelected && mode == SelectionMode::Replace) {
+        const auto project = globalContext()->currentTrackeditProject();
+        if (project) {
+            const trackedit::Label label = project->label(key.key);
+            if (label.isValid() && label.kind == trackedit::LabelKind::Point) {
+                selectionController()->resetTimeSelection();
+                selectionController()->setSelectionStartTime(label.startTime);
+                selectionController()->addSelectedLabel(key.key);
+                commandDispatcher()->dispatch(playback::PLAYBACK_SEEK_COMMAND, {
+                    { playback::PLAYBACK_SEEK_TIME_PARAM, muse::Val(label.startTime) },
+                    { playback::PLAYBACK_SEEK_TRIGGER_PLAY_PARAM, muse::Val(false) },
+                });
+            }
+        }
+    }
 }
 
-void TrackLabelsListModel::activateLabel(const LabelKey& key)
+void TrackLabelsListModel::applyLabelTimeSelection(const LabelKey& key)
 {
     if (key.key.trackId != m_trackId) {
         return;
@@ -370,14 +389,13 @@ void TrackLabelsListModel::activateLabel(const LabelKey& key)
         }
         selectionController()->setSelectedAllAudioData(label.startTime, label.endTime);
         selectionController()->addSelectedLabel(key.key);
-        commandDispatcher()->dispatch(playback::PLAYBACK_PLAY_SELECTION_COMMAND);
     } else {
         selectionController()->resetTimeSelection();
         selectionController()->setSelectionStartTime(label.startTime);
         selectionController()->addSelectedLabel(key.key);
         commandDispatcher()->dispatch(playback::PLAYBACK_SEEK_COMMAND, {
             { playback::PLAYBACK_SEEK_TIME_PARAM, muse::Val(label.startTime) },
-            { playback::PLAYBACK_SEEK_TRIGGER_PLAY_PARAM, muse::Val(true) },
+            { playback::PLAYBACK_SEEK_TRIGGER_PLAY_PARAM, muse::Val(false) },
         });
     }
 }

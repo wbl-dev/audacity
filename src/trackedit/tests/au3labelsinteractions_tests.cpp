@@ -2,6 +2,7 @@
  * Audacity: A Digital Audio Editor
  */
 #include <gtest/gtest.h>
+#include <wx/textfile.h>
 
 #include "../internal/au3/au3labelsinteraction.h"
 
@@ -97,6 +98,67 @@ TEST_F(Au3LabelsInteractionsTests, WritesPointAndRangeKindsToProjectXml)
     const std::string xml = writer.ToStdString();
     EXPECT_NE(xml.find("kind=\"point\""), std::string::npos);
     EXPECT_NE(xml.find("kind=\"range\""), std::string::npos);
+}
+
+TEST_F(Au3LabelsInteractionsTests, SavesAndReloadsLabelColorAndOwner)
+{
+    auto* labelTrack = ::LabelTrack::Create(Au3TrackList::Get(projectRef()));
+    ::LabelStruct label(SelectedRegion(1.0, 2.0), wxString("speech"));
+    label.color = wxString("#22C55E");
+    label.owner = wxString("TEN");
+    labelTrack->AddLabel(label);
+
+    XMLStringWriter writer;
+    labelTrack->WriteXML(writer);
+    const std::string xml = writer.ToStdString();
+    EXPECT_NE(xml.find("color=\"#22C55E\""), std::string::npos);
+    EXPECT_NE(xml.find("owner=\"TEN\""), std::string::npos);
+
+    const AttributesList attrs {
+        { "t", XMLAttributeValueView(1.0) },
+        { "t1", XMLAttributeValueView(2.0) },
+        { "title", XMLAttributeValueView(std::string_view("speech")) },
+        { "color", XMLAttributeValueView(std::string_view("#22C55E")) },
+        { "owner", XMLAttributeValueView(std::string_view("TEN")) },
+    };
+    ASSERT_TRUE(labelTrack->HandleXMLTag("label", attrs));
+    ASSERT_EQ(labelTrack->GetNumLabels(), 2);
+    EXPECT_EQ(labelTrack->GetLabel(1)->color, wxString("#22C55E"));
+    EXPECT_EQ(labelTrack->GetLabel(1)->owner, wxString("TEN"));
+    const auto converted = DomConverter::label(labelTrack, labelTrack->GetLabel(1));
+    EXPECT_EQ(converted.color.toQString(), "#22C55E");
+    EXPECT_EQ(converted.owner.toQString(), "TEN");
+}
+
+TEST_F(Au3LabelsInteractionsTests, TxtExportAndImportPreserveLabelMetadata)
+{
+    ::LabelStruct label(SelectedRegion(1.0, 2.0), wxString("Speech"));
+    label.color = wxString("#22C55E");
+    label.owner = wxString("TEN");
+    wxTextFile text;
+    label.Export(text, LabelFormat::TEXT, 0);
+    ASSERT_EQ(text.GetLineCount(), 1);
+    EXPECT_NE(text.GetLine(0).ToStdString().find("\t// color:#22C55E,owner:TEN"), std::string::npos);
+
+    int index = 0;
+    const auto imported = ::LabelStruct::Import(text, index, LabelFormat::TEXT);
+    EXPECT_EQ(imported.color, wxString("#22C55E"));
+    EXPECT_EQ(imported.owner, wxString("TEN"));
+}
+
+TEST_F(Au3LabelsInteractionsTests, TxtMetadataPreservesEmptyTitleAndOwnerOnly)
+{
+    ::LabelStruct label(SelectedRegion(1.0, 1.0), wxString());
+    label.owner = wxString("TEN");
+    wxTextFile text;
+    label.Export(text, LabelFormat::TEXT, 0);
+    ASSERT_EQ(text.GetLineCount(), 1);
+    EXPECT_NE(text.GetLine(0).ToStdString().find("\t\t// owner:TEN"), std::string::npos);
+
+    int index = 0;
+    const auto imported = ::LabelStruct::Import(text, index, LabelFormat::TEXT);
+    EXPECT_TRUE(imported.title.IsEmpty());
+    EXPECT_EQ(imported.owner, wxString("TEN"));
 }
 
 TEST_F(Au3LabelsInteractionsTests, LegacyProjectLabelsInferKindFromTimeSpan)

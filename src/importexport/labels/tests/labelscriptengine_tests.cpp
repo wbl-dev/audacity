@@ -94,6 +94,15 @@ TEST(LabelScriptEngineTests, RejectsNonFiniteTimesAndMissingTitles)
                               sampleInput()).ret.success());
 }
 
+TEST(LabelScriptEngineTests, RejectsOwnerContainingMetadataSeparator)
+{
+    const auto result = workerEngine().parse(
+        "function parse(){return {trackName:'x',labels:[{type:'point',start:1,title:'x',owner:'TEN,WebRTC'}]}}",
+        sampleInput());
+    EXPECT_FALSE(result.ret.success());
+    EXPECT_NE(result.ret.toString().find("owner is invalid"), std::string::npos);
+}
+
 TEST(LabelScriptEngineTests, KillsInfiniteLoop)
 {
     const auto result = workerEngine().parse("function parse(){while(true){}}", sampleInput());
@@ -128,6 +137,43 @@ TEST(LabelParserRegistryTests, BuiltinTxtAcceptsMixedCaseSuffixAndFrequencies)
     EXPECT_EQ(result.val.labels[1].kind, ScriptLabelKind::Range);
     EXPECT_DOUBLE_EQ(*result.val.labels[1].lowFrequency, 100);
     EXPECT_FALSE(result.val.labels[1].highFrequency.has_value());
+}
+
+TEST(LabelParserRegistryTests, BuiltinTxtParsesColorAndOwnerAfterTitle)
+{
+    LabelParserRegistry registry;
+    const auto profile = registry.parserForSuffix("txt");
+    ASSERT_TRUE(profile.has_value());
+    const LabelScriptInput input {
+        "vad.txt", "txt", "0.048\t0.096\t语音\t// color:#22C55E,owner:TEN\n"
+                          "0.096\t0.112\t非语音 // note\t// owner:TEN\n"
+    };
+    const auto result = workerEngine().parse(profile->source, input);
+    ASSERT_TRUE(result.ret.success()) << result.ret.toString();
+    ASSERT_EQ(result.val.labels.size(), 2);
+    EXPECT_EQ(result.val.labels[0].color, "#22C55E");
+    EXPECT_EQ(result.val.labels[0].owner, "TEN");
+    EXPECT_EQ(result.val.labels[1].title, "非语音 // note");
+    EXPECT_TRUE(result.val.labels[1].color.isEmpty());
+    EXPECT_EQ(result.val.labels[1].owner, "TEN");
+}
+
+TEST(LabelParserRegistryTests, BuiltinTxtRejectsInvalidMetadataWithLineNumber)
+{
+    LabelParserRegistry registry;
+    const auto profile = registry.parserForSuffix("txt");
+    ASSERT_TRUE(profile.has_value());
+    for (const auto& [metadata, reason] : std::vector<std::pair<QString, std::string> > {
+             { "// color:blue", "invalid color" },
+             { "// owner:TEN,owner:WebRTC", "duplicate key" },
+             { "// lane:vad", "unknown key" },
+         }) {
+        const LabelScriptInput input { "bad.txt", "txt", "1\t2\tSpeech\t" + metadata + "\n" };
+        const auto result = workerEngine().parse(profile->source, input);
+        EXPECT_FALSE(result.ret.success());
+        EXPECT_NE(result.ret.toString().find("Line 1"), std::string::npos);
+        EXPECT_NE(result.ret.toString().find(reason), std::string::npos);
+    }
 }
 
 TEST(LabelParserRegistryTests, MalformedTxtFailsWholeFileWithLineNumber)

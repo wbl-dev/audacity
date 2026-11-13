@@ -63,6 +63,8 @@ muse::Ret Au3LabelsImporter::importData(const muse::io::path_t& filePath)
         region.setFrequencies(label.lowFrequency.value_or(-1.0), label.highFrequency.value_or(-1.0));
         ::LabelStruct value(region, wxFromString(muse::String::fromQString(label.title)));
         value.SetKind(label.kind == ScriptLabelKind::Point ? ::LabelKind::Point : ::LabelKind::Range);
+        value.color = wxFromString(muse::String::fromQString(label.color));
+        value.owner = wxFromString(muse::String::fromQString(label.owner));
         labelTrack->AddLabel(value);
     }
 

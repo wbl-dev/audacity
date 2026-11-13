@@ -2,6 +2,7 @@
  * Audacity: A Digital Audio Editor
  */
 #include <gtest/gtest.h>
+#include <QCoreApplication>
 
 #include "projectscene/view/tracksitemsview/tracklabelslayoutmanager.h"
 #include "projectscene/view/tracksitemsview/tracklabelslistmodel.h"
@@ -48,9 +49,9 @@ protected:
     void addItem(trackedit::TrackItemId itemId, const muse::String& title, double startTime, double endTime, int visualWidth = -1)
     {
         trackedit::TrackItemKey key(1, itemId);
-        m_labelsModel->m_allLabelList.push_back(au::trackedit::Label { key,
-                                                                       title,
-                                                                       1, startTime, endTime });
+        au::trackedit::Label label { key, title, 1, startTime, endTime };
+        label.kind = startTime == endTime ? trackedit::LabelKind::Point : trackedit::LabelKind::Range;
+        m_labelsModel->m_allLabelList.push_back(label);
 
         ON_CALL(*m_trackEditProject, label(key))
         .WillByDefault(testing::Return(m_labelsModel->m_allLabelList.back()));
@@ -65,6 +66,20 @@ protected:
     TrackLabelItem* item(int index) const
     {
         return static_cast<TrackLabelItem*>(m_labelsModel->m_items.at(index));
+    }
+
+    void setItemColor(int index, const QString& color)
+    {
+        auto label = m_labelsModel->m_allLabelList.at(index);
+        label.color = muse::String::fromQString(color);
+        item(index)->setLabel(label);
+    }
+
+    void setItemOwner(int index, const QString& owner)
+    {
+        auto label = m_labelsModel->m_allLabelList.at(index);
+        label.owner = muse::String::fromQString(owner);
+        item(index)->setLabel(label);
     }
 
     void relayout()
@@ -124,6 +139,103 @@ TEST_F(TrackLabelsLayoutManagerTests, ItemsOnSameLine)
     ASSERT_EQ(item1->level(), item2->level()) << "Items should be on the same level";
 }
 
+TEST_F(TrackLabelsLayoutManagerTests, PerLabelColorOverridesTrackColor)
+{
+    addItem(1, u"Speech", 0.0, 1.0);
+    setItemColor(0, "#22C55E");
+    EXPECT_EQ(item(0)->color(), QColor("#22C55E"));
+}
+
+TEST_F(TrackLabelsLayoutManagerTests, TinyAdjacentRangesIgnoreMinimumVisualWidth)
+{
+    m_layoutManager->setLabelsModel(m_labelsModel);
+    addItem(1, u"A", 0.00, 0.01, 100);
+    addItem(2, u"B", 0.01, 0.02, 100);
+    addItem(3, u"C", 0.02, 0.03, 100);
+    m_layoutManager->init();
+
+    EXPECT_EQ(item(0)->level(), 0);
+    EXPECT_EQ(item(1)->level(), 0);
+    EXPECT_EQ(item(2)->level(), 0);
+}
+
+TEST_F(TrackLabelsLayoutManagerTests, OwnersGetSeparateBlocksWithBlankRow)
+{
+    m_layoutManager->setLabelsModel(m_labelsModel);
+    addItem(1, u"Default", 0.0, 1.0);
+    addItem(2, u"TEN", 2.0, 3.0);
+    addItem(3, u"WebRTC", 4.0, 5.0);
+    setItemOwner(1, "TEN");
+    setItemOwner(2, "WebRTC");
+    m_layoutManager->init();
+
+    EXPECT_EQ(item(0)->level(), 0);
+    EXPECT_EQ(item(1)->level(), 2);
+    EXPECT_EQ(item(2)->level(), 4);
+}
+
+TEST_F(TrackLabelsLayoutManagerTests, ChangingOwnerMovesLabelToItsOwnerBlock)
+{
+    m_layoutManager->setLabelsModel(m_labelsModel);
+    addItem(1, u"Default", 0.0, 1.0);
+    addItem(2, u"Moved", 2.0, 3.0);
+    m_layoutManager->init();
+    QCoreApplication::processEvents();
+    ASSERT_EQ(item(1)->level(), 0);
+
+    setItemOwner(1, "TEN");
+    QCoreApplication::processEvents();
+
+    EXPECT_EQ(item(0)->level(), 0);
+    EXPECT_EQ(item(1)->level(), 2);
+}
+
+TEST_F(TrackLabelsLayoutManagerTests, OverlappingRangesUseMinimumSubrows)
+{
+    m_layoutManager->setLabelsModel(m_labelsModel);
+    addItem(1, u"A", 0.0, 10.0);
+    addItem(2, u"B", 1.0, 3.0);
+    addItem(3, u"C", 3.0, 4.0);
+    m_layoutManager->init();
+
+    EXPECT_EQ(item(0)->level(), 0);
+    EXPECT_EQ(item(1)->level(), 1);
+    EXPECT_EQ(item(2)->level(), 1);
+}
+
+TEST_F(TrackLabelsLayoutManagerTests, TinyRealOverlapStillUsesAnotherSubrow)
+{
+    m_layoutManager->setLabelsModel(m_labelsModel);
+    addItem(1, u"A", 0.0, 1.0);
+    addItem(2, u"B", 1.0 - 5e-10, 2.0);
+    m_layoutManager->init();
+
+    EXPECT_EQ(item(0)->level(), 0);
+    EXPECT_EQ(item(1)->level(), 1);
+}
+
+TEST_F(TrackLabelsLayoutManagerTests, NearbyDistinctPointsStayOnOneRow)
+{
+    m_layoutManager->setLabelsModel(m_labelsModel);
+    addItem(1, u"A", 1.0, 1.0);
+    addItem(2, u"B", 1.0 + 5e-10, 1.0 + 5e-10);
+    m_layoutManager->init();
+
+    EXPECT_EQ(item(0)->level(), 0);
+    EXPECT_EQ(item(1)->level(), 0);
+}
+
+TEST_F(TrackLabelsLayoutManagerTests, PointAndRangeUseSeparateRowsWithinOwner)
+{
+    m_layoutManager->setLabelsModel(m_labelsModel);
+    addItem(1, u"Range", 0.0, 1.0);
+    addItem(2, u"Point", 10.0, 10.0, 16);
+    m_layoutManager->init();
+
+    EXPECT_EQ(item(0)->level(), 0);
+    EXPECT_EQ(item(1)->level(), 1);
+}
+
 TEST_F(TrackLabelsLayoutManagerTests, ItemsOnDifferentLines)
 {
     //! [GIVEN] A layout manager with a model set
@@ -162,7 +274,7 @@ TEST_F(TrackLabelsLayoutManagerTests, Points)
     ASSERT_EQ(item2->level(), 0) << "Item 2 should be on level 0";
 }
 
-TEST_F(TrackLabelsLayoutManagerTests, PointsOverlap)
+TEST_F(TrackLabelsLayoutManagerTests, DifferentTimePointsShareRowDespiteVisualOverlap)
 {
     //! [GIVEN] A layout manager with a model set
     m_layoutManager->setLabelsModel(m_labelsModel);
@@ -173,12 +285,11 @@ TEST_F(TrackLabelsLayoutManagerTests, PointsOverlap)
 
     m_layoutManager->init();
 
-    //! [THEN] The items should be on different levels
+    //! [THEN] Visual hit targets do not create extra rows
     TrackLabelItem* item1 = item(0);
     TrackLabelItem* item2 = item(1);
-    ASSERT_NE(item1->level(), item2->level()) << "Items should be on different levels";
     ASSERT_EQ(item1->level(), 0) << "Item 1 should be on level 0";
-    ASSERT_EQ(item2->level(), 1) << "Item 2 should be on level 1";
+    ASSERT_EQ(item2->level(), 0) << "Item 2 should be on level 0";
 }
 
 TEST_F(TrackLabelsLayoutManagerTests, PointsAtSamePosition_LargerIndexOnHigherLevel)
@@ -290,7 +401,7 @@ TEST_F(TrackLabelsLayoutManagerTests, AdjacentRegions_ShouldBeOnSameLevel)
     ASSERT_EQ(item2->level(), 0) << "Region 2 should be on level 0 (no overlap)";
 }
 
-TEST_F(TrackLabelsLayoutManagerTests, TwoPointsOverlap_LeftmostOnLowerLevel)
+TEST_F(TrackLabelsLayoutManagerTests, TwoDifferentTimePointsShareRow)
 {
     //! [GIVEN] A layout manager with a model set
     m_layoutManager->setLabelsModel(m_labelsModel);
@@ -301,11 +412,11 @@ TEST_F(TrackLabelsLayoutManagerTests, TwoPointsOverlap_LeftmostOnLowerLevel)
 
     m_layoutManager->init();
 
-    //! [THEN] Points should be on different levels, leftmost on lower level
+    //! [THEN] Point cards do not determine semantic rows
     TrackLabelItem* item1 = item(0);
     TrackLabelItem* item2 = item(1);
     ASSERT_EQ(item1->level(), 0) << "Point 1 (smaller x) should be on level 0";
-    ASSERT_EQ(item2->level(), 1) << "Point 2 should be on level 1";
+    ASSERT_EQ(item2->level(), 0) << "Point 2 should be on level 0";
 }
 
 TEST_F(TrackLabelsLayoutManagerTests, ThreeRegionsOverlap_LevelsByPosition)
@@ -476,6 +587,12 @@ TEST_F(TrackLabelsLayoutManagerTests, DragPreviewsStackWithoutHiddenOriginals)
     EXPECT_EQ(item(2)->level(), 1);
 
     // Moving a preview away releases its level for the other visible labels.
+    auto movedTime = item(1)->time();
+    movedTime.startTime = 40.0;
+    movedTime.endTime = 50.0;
+    movedTime.itemStartTime = 40.0;
+    movedTime.itemEndTime = 50.0;
+    item(1)->setTime(movedTime);
     item(1)->setX(40.0);
     relayout();
     EXPECT_EQ(item(1)->level(), 0);

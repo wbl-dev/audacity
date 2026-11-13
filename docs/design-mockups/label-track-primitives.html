@@ -1,0 +1,216 @@
+<div id="label-primitives-preview" class="viz-dotted-background">
+  <style>
+    #label-primitives-preview { color-scheme: light dark; }
+    #label-primitives-preview .variant { min-height: 300px; padding: 8px 0 24px; }
+    #label-primitives-preview .oa-mock {
+      --oa-background: light-dark(#f1f3f5, #292e35);
+      --oa-panel: light-dark(#ffffff, #373e47);
+      --oa-foreground: light-dark(#24292f, #f1f3f6);
+      --oa-muted: light-dark(#626b75, #b8c2cd);
+      --oa-grid: light-dark(#d6dce2, #4a535e);
+      --oa-accent: #e79a57;
+      width: 100%;
+      max-width: 760px;
+      margin: auto;
+      border: 1px solid var(--oa-grid);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--oa-background);
+      color: var(--oa-foreground);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+    }
+    #label-primitives-preview .oa-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 37px;
+      padding: 0 12px;
+      background: var(--oa-panel);
+      font-weight: 500;
+    }
+    #label-primitives-preview .oa-bar span:last-child { color: var(--oa-muted); font-weight: 400; }
+    #label-primitives-preview .oa-track { display: grid; grid-template-columns: 105px minmax(0, 1fr); }
+    #label-primitives-preview .oa-head {
+      padding: 12px 9px;
+      background: var(--oa-panel);
+      border-right: 1px solid var(--oa-grid);
+      font-weight: 500;
+    }
+    #label-primitives-preview .oa-head small { display: block; margin-top: 6px; color: var(--oa-muted); font-weight: 400; }
+    #label-primitives-preview .oa-timeline { min-width: 0; }
+    #label-primitives-preview .oa-ruler {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--oa-grid);
+      color: var(--oa-muted);
+      font-variant-numeric: tabular-nums;
+    }
+    #label-primitives-preview .oa-canvas {
+      position: relative;
+      height: 150px;
+      background-image: linear-gradient(to right, var(--oa-grid) 1px, transparent 1px);
+      background-size: 25% 100%;
+    }
+    #label-primitives-preview .oa-range {
+      position: absolute;
+      box-sizing: border-box;
+      height: 12px;
+      padding: 0 7px;
+      border: 0;
+      border-radius: 4px;
+      background: var(--oa-accent);
+      color: #1d2024;
+      font: inherit;
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 12px;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    #label-primitives-preview .oa-range[aria-pressed="true"] { outline: 2px solid var(--oa-foreground); outline-offset: 2px; }
+    #label-primitives-preview .oa-range[aria-pressed="true"]::before,
+    #label-primitives-preview .oa-range[aria-pressed="true"]::after {
+      content: "";
+      position: absolute;
+      top: 1px;
+      width: 3px;
+      height: 11px;
+      border-radius: 2px;
+      background: #1d2024;
+    }
+    #label-primitives-preview .oa-range[aria-pressed="true"]::before { left: 2px; }
+    #label-primitives-preview .oa-range[aria-pressed="true"]::after { right: 2px; }
+    #label-primitives-preview .oa-point {
+      position: absolute;
+      height: 24px;
+      min-width: 36px;
+      padding: 0 0 0 13px;
+      border: 0;
+      background: transparent;
+      color: var(--oa-foreground);
+      font: inherit;
+      text-align: left;
+      white-space: nowrap;
+    }
+    #label-primitives-preview .oa-point::before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 0;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--oa-accent);
+    }
+    #label-primitives-preview .oa-point::after {
+      content: "";
+      position: absolute;
+      top: 12px;
+      left: 5px;
+      width: 2px;
+      height: 12px;
+      background: var(--oa-accent);
+    }
+    #label-primitives-preview .oa-point span {
+      display: inline-block;
+      padding: 2px 5px;
+      border-radius: 4px;
+      background: var(--oa-panel);
+    }
+    #label-primitives-preview .oa-point[aria-pressed="true"] span { outline: 2px solid var(--oa-accent); }
+    #label-primitives-preview .oa-summary {
+      min-height: 37px;
+      box-sizing: border-box;
+      padding: 9px 12px;
+      background: var(--oa-panel);
+      color: var(--oa-muted);
+    }
+    #label-primitives-preview .oa-dense .oa-canvas { height: 88px; }
+    #label-primitives-preview .oa-dense .oa-range {
+      height: 12px;
+      padding: 0;
+      border-radius: 3px;
+      font-size: 0;
+    }
+    #label-primitives-preview .oa-dense .oa-range[aria-pressed="true"]::before,
+    #label-primitives-preview .oa-dense .oa-range[aria-pressed="true"]::after { display: none; }
+    #label-primitives-preview .oa-dense .oa-point { width: 26px; min-width: 26px; padding: 0; }
+    #label-primitives-preview .oa-dense .oa-point span { display: none; }
+    #label-primitives-preview .oa-dense .oa-point[aria-pressed="true"]::before { outline: 2px solid var(--oa-foreground); outline-offset: 2px; }
+    #label-primitives-preview .oa-mock button { cursor: pointer; }
+    #label-primitives-preview .oa-mock button:focus-visible { outline: 2px solid var(--oa-foreground); outline-offset: 2px; }
+    @media (max-width: 500px) {
+      #label-primitives-preview .oa-track { grid-template-columns: 75px minmax(0, 1fr); }
+      #label-primitives-preview .oa-head { padding: 10px 6px; }
+      #label-primitives-preview .oa-point span { max-width: 64px; overflow: hidden; text-overflow: ellipsis; }
+    }
+  </style>
+  <div class="viz-carousel" aria-label="通用标签轨的两种密度" data-previous-label="上一视图" data-next-label="下一视图">
+    <section class="variant" data-variant="展开视图" aria-label="通用标签轨展开视图">
+      <div class="oa-mock" id="label-open-view" aria-label="展开视图标签轨">
+        <div class="oa-bar"><span>Labels</span><span>point · range</span></div>
+        <div class="oa-track">
+          <div class="oa-head">标签轨<small>5 个标签</small></div>
+          <div class="oa-timeline">
+            <div class="oa-ruler"><span>0:00</span><span>0:05</span><span>0:10</span><span>0:15</span></div>
+            <div class="oa-canvas">
+              <button class="oa-range" type="button" style="left:7%;top:14px;width:31%" data-label="范围 A · 0:01.0–0:05.7" aria-pressed="true">范围 A</button>
+              <button class="oa-range" type="button" style="left:31%;top:52px;width:37%" data-label="范围 B · 0:04.7–0:10.2" aria-pressed="false">范围 B</button>
+              <button class="oa-range" type="button" style="left:71%;top:14px;width:19%" data-label="范围 C · 0:10.7–0:13.5" aria-pressed="false">范围 C</button>
+              <button class="oa-point" type="button" style="left:43%;top:101px" data-label="时间点 P · 0:06.5" aria-label="时间点 P，0:06.5" aria-pressed="false"><span>点 P</span></button>
+              <button class="oa-point" type="button" style="left:79%;top:101px" data-label="时间点 Q · 0:11.9" aria-label="时间点 Q，0:11.9" aria-pressed="false"><span>点 Q</span></button>
+            </div>
+          </div>
+        </div>
+        <div class="oa-summary" aria-live="polite">已选中：范围 A · 0:01.0–0:05.7</div>
+      </div>
+    </section>
+    <section class="variant" data-variant="密集视图" aria-label="通用标签轨密集视图" hidden>
+      <div class="oa-mock oa-dense" id="label-dense-view" aria-label="密集视图标签轨">
+        <div class="oa-bar"><span>Labels</span><span>point · range</span></div>
+        <div class="oa-track">
+          <div class="oa-head">标签轨<small>缩小时间轴</small></div>
+          <div class="oa-timeline">
+            <div class="oa-ruler"><span>0:00</span><span>0:20</span><span>0:40</span><span>1:00</span></div>
+            <div class="oa-canvas">
+              <button class="oa-range" type="button" style="left:5%;top:14px;width:16%" data-label="范围 A · 0:03–0:13" aria-label="范围 A，0:03–0:13" aria-pressed="true">范围 A</button>
+              <button class="oa-range" type="button" style="left:18%;top:35px;width:14%" data-label="范围 B · 0:11–0:19" aria-label="范围 B，0:11–0:19" aria-pressed="false">范围 B</button>
+              <button class="oa-range" type="button" style="left:37%;top:14px;width:12%" data-label="范围 C · 0:22–0:29" aria-label="范围 C，0:22–0:29" aria-pressed="false">范围 C</button>
+              <button class="oa-range" type="button" style="left:53%;top:35px;width:16%" data-label="范围 D · 0:32–0:42" aria-label="范围 D，0:32–0:42" aria-pressed="false">范围 D</button>
+              <button class="oa-range" type="button" style="left:76%;top:14px;width:17%" data-label="范围 E · 0:46–0:56" aria-label="范围 E，0:46–0:56" aria-pressed="false">范围 E</button>
+              <button class="oa-point" type="button" style="left:29%;top:51px" data-label="时间点 P · 0:18" aria-label="时间点 P，0:18" aria-pressed="false"><span>点 P</span></button>
+              <button class="oa-point" type="button" style="left:72%;top:51px" data-label="时间点 Q · 0:43" aria-label="时间点 Q，0:43" aria-pressed="false"><span>点 Q</span></button>
+            </div>
+          </div>
+        </div>
+        <div class="oa-summary" aria-live="polite">已选中：范围 A · 0:03–0:13</div>
+      </div>
+    </section>
+  </div>
+  <script>
+    const preview = document.getElementById("label-primitives-preview");
+    for (const mock of preview.querySelectorAll(".oa-mock")) {
+      mock.addEventListener("click", event => {
+        const label = event.target.closest("button[data-label]");
+        if (!label || !mock.contains(label)) return;
+        const selected = label.getAttribute("aria-pressed") === "true";
+        for (const other of mock.querySelectorAll("button[data-label]")) other.setAttribute("aria-pressed", "false");
+        if (!selected) label.setAttribute("aria-pressed", "true");
+        mock.querySelector(".oa-summary").textContent = selected ? "未选中标签" : "已选中：" + label.dataset.label;
+      });
+    }
+    if (globalThis.Tweak) {
+      for (const mock of preview.querySelectorAll(".oa-mock")) {
+        const appearance = { color: "#e79a57" };
+        const render = () => mock.style.setProperty("--oa-accent", appearance.color);
+        render();
+        const tweak = new Tweak({ container: mock, onChange: render });
+        tweak.addColorPicker(appearance, "color", { label: "默认标签色" });
+      }
+    }
+  </script>
+</div>

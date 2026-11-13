@@ -16,13 +16,26 @@ void TrackLabelItem::setLabel(const trackedit::Label& label)
 {
     m_key = TrackItemKey(label.key);
     m_title = label.title;
-    m_color = configuration()->clipColor(label.colorIndex).toQColor();
-    m_selectedColor = configuration()->clipSelectedColor(label.colorIndex).toQColor();
+    const QColor customColor(label.color.toQString());
+    if (customColor.isValid()) {
+        m_color = customColor;
+        m_selectedColor = customColor.lighter(130);
+    } else {
+        m_color = configuration()->clipColor(label.colorIndex).toQColor();
+        m_selectedColor = configuration()->clipSelectedColor(label.colorIndex).toQColor();
+    }
     m_kind = label.kind;
+    m_owner = label.owner.toQString();
 
     emit titleChanged();
     emit colorChanged();
     emit timeChanged();
+    emit ownerChanged();
+}
+
+QString TrackLabelItem::owner() const
+{
+    return m_owner;
 }
 
 int TrackLabelItem::level() const

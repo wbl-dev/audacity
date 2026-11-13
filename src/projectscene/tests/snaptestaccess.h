@@ -35,6 +35,14 @@ struct SnapTestAccess {
         ctx->playback.set(playback);
     }
 
+    static void wireTimelineSelection(TimelineContext* ctx,
+                                      const std::shared_ptr<context::IGlobalContext>& globalContext,
+                                      const std::shared_ptr<trackedit::ISelectionController>& selectionController)
+    {
+        ctx->globalContext.set(globalContext);
+        ctx->selectionController.set(selectionController);
+    }
+
     static void wireCursor(PlayCursorController* cursor,
                            const std::shared_ptr<context::IGlobalContext>& globalContext,
                            const std::shared_ptr<muse::rcommand::ICommandDispatcher>& commandDispatcher,

@@ -10,8 +10,14 @@ Rectangle {
 
     property bool isPoint: false
     property bool isSelected: false
+    property bool compactRange: false
+    property bool showTitle: true
+    readonly property bool editing: titleLoader.isEditState
+    readonly property bool hovered: headerDragArea.containsMouse
     property real pointAnchorX: 0
     property real pointAnchorY: 0
+    property real timelineX: 0
+    property real timelineWidth: 0
 
     property color backgroundColor: "transparent"
     property color labelColor: ui.theme.extra["black_color"]
@@ -45,11 +51,11 @@ Rectangle {
     property int contentWidth: Math.max(50, Math.min(400, titleLoader.contentWidth + 8))
     property int contentHeight: titleLoader.isEditState && titleLoader.item ? titleLoader.item.contentHeight : 14
 
-    x: root.isPoint ? root.pointAnchorX + 16 : 0
+    x: root.isPoint ? Math.max(4, Math.min(root.pointAnchorX + 12, root.parent.width - width - 4)) : 0
     y: root.isPoint ? root.pointAnchorY : 0
 
-    color: root.backgroundColor
-    radius: root.isPoint ? 4 : 0
+    color: root.isPoint ? root.backgroundColor : "transparent"
+    radius: 4
     border.width: root.isPoint && root.isSelected ? 1 : 0
     border.color: ui.theme.fontPrimaryColor
 
@@ -65,14 +71,29 @@ Rectangle {
     }
 
     Rectangle {
+        id: rangeBar
+
+        anchors.left: parent.left
+        anchors.right: parent.right
+        y: 5
+        height: 12
+        radius: 3
+        color: root.backgroundColor
+        border.width: root.isSelected ? 1 : 0
+        border.color: ui.theme.fontPrimaryColor
+        visible: !root.isPoint
+    }
+
+    Rectangle {
         id: selectionHighlight
 
         readonly property real startX: Math.max(0, root.timeSelection.start)
         readonly property real endX: Math.min(root.width, root.timeSelection.start + root.timeSelection.width)
 
         x: startX
+        y: root.isPoint ? 0 : rangeBar.y
         width: Math.max(0, endX - startX)
-        height: root.height
+        height: root.isPoint ? root.height : rangeBar.height
 
         radius: root.radius
         color: root.timeSelection.color
@@ -93,6 +114,8 @@ Rectangle {
         visible: root.enableCursorInteraction
 
         onPressed: function (e) {
+            root.headerHoveredChanged(true)
+            root.mousePositionChanged(e.x, e.y)
             var currentTime = Date.now()
 
             if (currentTime - lastClickTime < prv.doubleClickInterval) {
@@ -134,14 +157,14 @@ Rectangle {
     Item {
         id: titleViewport
 
+        visible: root.showTitle || root.editing
+
         anchors.top: parent.top
-        anchors.topMargin: titleLoader.isEditState ? 0 : 2
-        anchors.left: parent.left
-        anchors.leftMargin: root.isPoint ? 4 : root.earWidth
-        anchors.right: parent.right
-        anchors.rightMargin: root.isPoint ? 4 : root.earWidth
+        anchors.topMargin: titleLoader.isEditState ? 0 : root.isPoint ? 2 : 4
+        x: root.editing && !root.isPoint ? Math.max(4 - root.timelineX, Math.min(root.earWidth, root.timelineWidth - root.timelineX - width - 4)) : root.isPoint ? 4 : root.earWidth
+        width: root.editing && !root.isPoint ? Math.min(Math.max(140, root.contentWidth), Math.max(40, root.timelineWidth - 8)) : parent.width - x - (root.isPoint ? 4 : root.earWidth)
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 2
+        anchors.bottomMargin: root.isPoint || titleLoader.isEditState ? 2 : 4
 
         clip: true
 
@@ -174,6 +197,7 @@ Rectangle {
                     text: root.title
 
                     color: root.labelColor
+                    font.pixelSize: root.isPoint ? ui.theme.bodyFont.pixelSize : 11
 
                     horizontalAlignment: Qt.AlignLeft
                     elide: Text.ElideNone

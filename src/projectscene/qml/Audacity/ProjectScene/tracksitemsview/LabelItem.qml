@@ -25,10 +25,17 @@ Item {
     property bool isRightLinked: false
     property bool isLinkedActive: false
     property bool isPoint: false
+    property real pixelsPerSecond: 100
 
-    property int visualWidth: prv.isPoint ? 16 + header.width : header.width
-    readonly property int headerDefaultHeight: 14
-    readonly property int pointCardHeight: 22
+    readonly property bool compactPoint: isPoint && pixelsPerSecond < 40
+    readonly property bool compactRange: !isPoint && width < header.contentWidth + 6
+    readonly property real pointPositionX: root.parent ? root.parent.x + root.parent.width / 2 : -1
+    readonly property bool pointInViewport: root.container && pointPositionX >= 0 && pointPositionX <= root.container.width
+    readonly property bool rangeInViewport: root.container && root.parent && root.parent.x + root.width > 0 && root.parent.x < root.container.width
+
+    property int visualWidth: prv.isPoint ? (compactPoint ? 24 : 16 + header.width) : Math.max(width, 8)
+    readonly property int headerDefaultHeight: 22
+    readonly property int pointCardHeight: 18
 
     property var container: null
 
@@ -53,7 +60,7 @@ Item {
 
     property alias navigation: navCtrl
 
-    height: prv.isPoint ? pointCardHeight : header.height
+    height: prv.isPoint ? pointCardHeight : headerDefaultHeight
 
     signal requestSelected
     signal requestSingleSelected
@@ -217,6 +224,7 @@ Item {
         height: root.headerDefaultHeight
         enabled: root.enabled
         visible: !prv.isPoint
+        opacity: root.isSelected || root.headerHovered || hovered ? 1 : 0
 
         isRight: false
         enableCursorInteraction: root.enableCursorInteraction
@@ -267,6 +275,7 @@ Item {
         height: root.headerDefaultHeight
         enabled: root.enabled
         visible: !prv.isPoint
+        opacity: root.isSelected || root.headerHovered || hovered ? 1 : 0
 
         isRight: true
         enableCursorInteraction: root.enableCursorInteraction
@@ -309,20 +318,25 @@ Item {
         id: header
 
         parent: prv.isPoint && root.container ? root.container : root
-        z: prv.isPoint && root.parent ? root.parent.z : 0
+        z: prv.isPoint && (root.isSelected || root.headerHovered || header.hovered || pointMarker.hovered) ? 1000 : 0
         enabled: root.enabled
 
-        width: prv.isPoint ? contentWidth : root.width
-        height: prv.isPoint ? root.pointCardHeight : Math.min(root.height, contentHeight)
+        width: prv.isPoint ? Math.min(contentWidth, Math.max(40, parent.width - 8)) : Math.max(root.width, 8)
+        height: prv.isPoint ? root.pointCardHeight : root.headerDefaultHeight
 
         title: root.title
 
         isPoint: prv.isPoint
         isSelected: root.isSelected
-        pointAnchorX: root.parent ? root.parent.x : 0
-        pointAnchorY: root.parent ? root.parent.y : 0
+        compactRange: root.compactRange
+        showTitle: prv.isPoint || !root.compactRange
+        pointAnchorX: root.pointPositionX
+        pointAnchorY: root.parent ? root.parent.y + 3 : 0
+        timelineX: root.parent ? root.parent.x : 0
+        timelineWidth: root.container ? root.container.width : 0
 
-        backgroundColor: prv.backgroundColor
+        backgroundColor: prv.isPoint ? ui.theme.backgroundSecondaryColor : prv.backgroundColor
+        labelColor: prv.isPoint ? ui.theme.fontPrimaryColor : ui.theme.extra["black_color"]
 
         timeSelection.start: prv.isPoint ? 0 : root.timeSelection.start
         timeSelection.width: !prv.overlapsSelection ? 0 : prv.isPoint ? header.width : root.timeSelection.width
@@ -336,7 +350,7 @@ Item {
 
         navigationPanel: root.labelNavigationPanel
 
-        visible: root.visible
+        visible: root.visible && (!prv.isPoint || root.pointInViewport) && (!prv.isPoint || !root.compactPoint || root.isSelected || root.headerHovered || header.hovered || pointMarker.hovered || editing)
 
         onTitleEditAccepted: function (newTitle) {
             root.titleEditAccepted(newTitle)
@@ -364,13 +378,41 @@ Item {
         }
     }
 
+    Rectangle {
+        id: compactRangeTitle
+
+        parent: root.container
+        z: 2000
+        width: root.container ? Math.min(Math.max(0, root.container.width - 8), Math.max(64, fullTitle.implicitWidth + 12)) : 0
+        height: 24
+        x: root.container ? Math.max(4, Math.min(root.parent.x, root.container.width - width - 4)) : 0
+        y: root.container && root.parent.y + root.headerDefaultHeight + height + 2 <= root.container.height ? root.parent.y + root.headerDefaultHeight + 2 : Math.max(0, root.parent.y - height - 2)
+        radius: 4
+        color: ui.theme.backgroundSecondaryColor
+        border.color: ui.theme.strokeColor
+        visible: root.visible && root.rangeInViewport && root.title.length > 0 && root.compactRange && (root.isSelected || root.headerHovered) && !header.editing
+
+        StyledTextLabel {
+            id: fullTitle
+            anchors.fill: parent
+            anchors.leftMargin: 6
+            anchors.rightMargin: 6
+            text: root.title
+            color: ui.theme.fontPrimaryColor
+            elide: Text.ElideRight
+            wrapMode: Text.NoWrap
+            maximumLineCount: 1
+        }
+    }
+
     // Point's Stalk
     Item {
         id: pointMarker
+        readonly property bool hovered: pointMarkerMouseArea.containsMouse
         parent: root.container
         width: 24
         height: 24
-        x: root.parent.x + root.parent.width / 2 - width / 2
+        x: root.pointPositionX - width / 2
         y: root.parent.y
         z: root.parent.z + 1
         enabled: root.enabled
@@ -387,11 +429,20 @@ Item {
         }
 
         MouseArea {
+            id: pointMarkerMouseArea
             anchors.fill: parent
             hoverEnabled: true
             cursorShape: Qt.OpenHandCursor
             onPressed: function (e) {
-                root.requestSingleSelected()
+                const titleCardHandledPress = header.hovered
+                root.headerHovered = true
+                const pos = pointMarker.mapToItem(root.container, e.x, e.y)
+                root.labelItemMousePositionChanged(pos.x - root.parent.x, pos.y)
+                // The title card can overlap the marker near the viewport edge.
+                // Its MouseArea has already selected this point in that case.
+                if (!titleCardHandledPress) {
+                    root.requestSingleSelected()
+                }
                 e.accepted = false
             }
             onPositionChanged: function (e) {
@@ -409,15 +460,15 @@ Item {
         //! To draw on top of other labels, we need to change the parent and increase z
         parent: root.container
         width: 2
-        x: root.parent.x + root.parent.width / 2 - width / 2
+        x: root.pointPositionX - width / 2
         y: root.parent.y
         z: root.parent.z
 
-        height: root.parent.height
+        height: 24
 
         enabled: root.enabled
         isForPoint: true
-        enableCursorInteraction: root.enableCursorInteraction
+        enableCursorInteraction: false
         backgroundColor: prv.leftEdgeInSelection ? root.timeSelection.color : leftEar.hovered ? prv.leftEarBackgroundColor : prv.rightEarBackgroundColor
 
         visible: prv.isPoint
@@ -447,7 +498,7 @@ Item {
         y: root.parent.y
         z: root.parent.z
 
-        height: root.height
+        height: root.headerDefaultHeight
 
         enabled: root.enabled
         isRight: false
@@ -456,6 +507,7 @@ Item {
         isSelected: root.isSelected
 
         visible: !prv.isPoint
+        opacity: root.isSelected || root.headerHovered || hovered ? 1 : 0
 
         onHeaderHoveredChanged: function (value) {
             root.headerHovered = value
@@ -490,7 +542,7 @@ Item {
         y: root.parent.y
         z: root.parent.z
 
-        height: root.height
+        height: root.headerDefaultHeight
 
         enabled: root.enabled
         isRight: true
@@ -499,6 +551,7 @@ Item {
         isSelected: root.isSelected
 
         visible: !prv.isPoint
+        opacity: root.isSelected || root.headerHovered || hovered ? 1 : 0
 
         onHeaderHoveredChanged: function (value) {
             root.headerHovered = value

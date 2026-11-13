@@ -105,6 +105,8 @@ void LabelStruct::CopyAttributesFrom(const LabelStruct& other)
     mSelected = other.mSelected;
     mGroupId = other.mGroupId;
     mKind = other.mKind;
+    color = other.color;
+    owner = other.owner;
 }
 
 LabelTrack::Interval::~Interval() = default;
@@ -489,6 +491,8 @@ LabelStruct LabelStruct::Import(wxTextFile& file, int& index, LabelFormat format
 {
     SelectedRegion sr;
     wxString title;
+    wxString color;
+    wxString owner;
 
     wxString firstLine = file.GetLine(index++);
 
@@ -496,6 +500,59 @@ LabelStruct LabelStruct::Import(wxTextFile& file, int& index, LabelFormat format
     case LabelFormat::TEXT:
     {
         static const wxString continuation{ wxT("\\") };
+
+        const auto firstTab = firstLine.find(wxT('\t'));
+        const auto secondTab = firstTab == wxString::npos ? wxString::npos : firstLine.find(wxT('\t'), firstTab + 1);
+        const auto thirdTab = secondTab == wxString::npos ? wxString::npos : firstLine.find(wxT('\t'), secondTab + 1);
+        if (thirdTab != wxString::npos) {
+            wxString metadata = firstLine.Mid(thirdTab + 1);
+            metadata.Trim(true).Trim(false);
+            if (!metadata.StartsWith(wxT("//"))) {
+                throw BadFormatException{};
+            }
+            metadata = metadata.Mid(2);
+            bool hasColor = false;
+            bool hasOwner = false;
+            wxStringTokenizer entries{ metadata, wxT(","), wxTOKEN_RET_EMPTY_ALL };
+            while (entries.HasMoreTokens()) {
+                wxString entry = entries.GetNextToken();
+                const auto separator = entry.find(wxT(':'));
+                if (separator == wxString::npos) {
+                    throw BadFormatException{};
+                }
+                wxString key = entry.Left(separator);
+                wxString value = entry.Mid(separator + 1);
+                key.Trim(true).Trim(false);
+                value.Trim(true).Trim(false);
+                if (key == wxT("color") && !hasColor) {
+                    if (value.length() != 7 || value[0] != wxT('#')) {
+                        throw BadFormatException{};
+                    }
+                    for (size_t i = 1; i < value.length(); ++i) {
+                        const auto digit = value[i];
+                        if (!((digit >= wxT('0') && digit <= wxT('9'))
+                              || (digit >= wxT('a') && digit <= wxT('f'))
+                              || (digit >= wxT('A') && digit <= wxT('F')))) {
+                            throw BadFormatException{};
+                        }
+                    }
+                    color = value;
+                    hasColor = true;
+                } else if (key == wxT("owner") && !hasOwner) {
+                    if (value.empty() || value.length() > 128) {
+                        throw BadFormatException{};
+                    }
+                    owner = value;
+                    hasOwner = true;
+                } else {
+                    throw BadFormatException{};
+                }
+            }
+            if (!hasColor && !hasOwner) {
+                throw BadFormatException{};
+            }
+            firstLine.Truncate(thirdTab);
+        }
 
         {
             // Assume tab is an impossible character within the exported text
@@ -613,7 +670,10 @@ LabelStruct LabelStruct::Import(wxTextFile& file, int& index, LabelFormat format
         throw BadFormatException{};
     }
 
-    return LabelStruct{ sr, title };
+    LabelStruct label{ sr, title };
+    label.color = color;
+    label.owner = owner;
+    return label;
 }
 
 static wxString SubRipTimestampFromDouble(double timestamp, bool webvtt)
@@ -639,11 +699,23 @@ void LabelStruct::Export(wxTextFile& file, LabelFormat format, int index) const
     case LabelFormat::TEXT:
     default:
     {
-        file.AddLine(wxString::Format(wxT("%s\t%s\t%s"),
-                                      Internat::ToString(getT0(), FLT_DIG),
-                                      Internat::ToString(getT1(), FLT_DIG),
-                                      title
-                                      ));
+        wxString line = wxString::Format(wxT("%s\t%s\t%s"),
+                                         Internat::ToString(getT0(), FLT_DIG),
+                                         Internat::ToString(getT1(), FLT_DIG),
+                                         title);
+        if (!color.IsEmpty() || !owner.IsEmpty()) {
+            line += wxT("\t// ");
+            if (!color.IsEmpty()) {
+                line += wxT("color:") + color;
+            }
+            if (!owner.IsEmpty()) {
+                if (!color.IsEmpty()) {
+                    line += wxT(",");
+                }
+                line += wxT("owner:") + owner;
+            }
+        }
+        file.AddLine(line);
 
         // Do we need more lines?
         auto f0 = selectedRegion.f0();
@@ -808,6 +880,8 @@ bool LabelTrack::HandleXMLTag(const std::string_view& tag, const AttributesList&
     if (tag == "label") {
         SelectedRegion selectedRegion;
         wxString title;
+        wxString color;
+        wxString owner;
         bool selected = false;
         long groupId = -1;
         bool hasKind = false;
@@ -824,6 +898,10 @@ bool LabelTrack::HandleXMLTag(const std::string_view& tag, const AttributesList&
             // Bug 1905 no longer applies, as valueView has no limits anyway
             else if (attr == "title") {
                 title = value.ToWString();
+            } else if (attr == "color") {
+                color = value.ToWString();
+            } else if (attr == "owner") {
+                owner = value.ToWString();
             } else if (attr == "isSelected") {
                 value.TryGet(selected);
             } else if (attr == "groupId") {
@@ -849,6 +927,8 @@ bool LabelTrack::HandleXMLTag(const std::string_view& tag, const AttributesList&
         }
 
         LabelStruct l { selectedRegion, title };
+        l.color = color;
+        l.owner = owner;
         if (hasKind) {
             l.SetKind(kind);
         }
@@ -905,6 +985,12 @@ void LabelTrack::WriteXML(XMLWriter& xmlFile) const
         xmlFile.WriteAttr(wxT("kind"), labelStruct.GetKind() == LabelKind::Point ? wxT("point") : wxT("range"));
         // PRL: to do: write other selection fields
         xmlFile.WriteAttr(wxT("title"), labelStruct.title);
+        if (!labelStruct.color.IsEmpty()) {
+            xmlFile.WriteAttr(wxT("color"), labelStruct.color);
+        }
+        if (!labelStruct.owner.IsEmpty()) {
+            xmlFile.WriteAttr(wxT("owner"), labelStruct.owner);
+        }
         xmlFile.WriteAttr(wxT("isSelected"), labelStruct.GetSelected());
         xmlFile.WriteAttr(wxT("groupId"), static_cast<long>(labelStruct.GetGroupId()));
         xmlFile.EndTag(wxT("label"));

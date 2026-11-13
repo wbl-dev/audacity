@@ -135,16 +135,7 @@ void TrackLabelsLayoutManager::subscribeToLabelsChanges()
     for (const LabelInfo& label : labels) {
         connect(label.item, &TrackLabelItem::startTimeChanged, this, &TrackLabelsLayoutManager::scheduleRelayout);
         connect(label.item, &TrackLabelItem::endTimeChanged, this, &TrackLabelsLayoutManager::scheduleRelayout);
-        connect(label.item, &TrackLabelItem::visualWidthChanged, this, [this, labelKey = label.key]() {
-            QList<LabelInfo> labels = collectLabelsInfo();
-            for (const LabelInfo& label : labels) {
-                if (label.key == labelKey && !label.isEditing) {
-                    scheduleRelayout();
-                    break;
-                }
-            }
-        });
-
+        connect(label.item, &TrackLabelItem::ownerChanged, this, &TrackLabelsLayoutManager::scheduleRelayout);
         connect(label.item, &TrackLabelItem::draggedChanged, this, &TrackLabelsLayoutManager::scheduleRelayout);
         connect(label.item, &TrackLabelItem::isEditingChanged, this, &TrackLabelsLayoutManager::relink);
     }
@@ -215,13 +206,9 @@ QList<TrackLabelsLayoutManager::LabelInfo> TrackLabelsLayoutManager::collectLabe
 
             TrackItemTime time = labelItem->time();
             info.startTime = time.startTime;
-            info.width = time.endTime - time.startTime;
-            info.isPoint = std::abs(time.endTime - time.startTime) < COMPARE_EPS;
-
-            info.x = labelItem->x();
-            info.visualWidth = labelItem->visualWidth();
-            info.level = labelItem->level();
-            info.isEditing = labelItem->isEditing();
+            info.endTime = time.endTime;
+            info.isPoint = labelItem->isPoint();
+            info.owner = labelItem->owner();
 
             labels << info;
         }
@@ -261,85 +248,55 @@ void TrackLabelsLayoutManager::relayout()
     QList<LabelInfo> labels = collectLabelsInfo();
     labels.removeIf([](const LabelInfo& label) { return label.item->dragged(); });
 
-    std::sort(labels.begin(), labels.end(), [](const LabelInfo& a, const LabelInfo& b) {
-        if (a.x != b.x) {
-            return a.x < b.x;
+    QMap<QString, QList<LabelInfo*> > byOwner;
+    for (LabelInfo& label : labels) {
+        byOwner[label.owner].append(&label);
+    }
+
+    int nextLevel = 0;
+    bool firstOwner = true;
+    for (auto ownerIt = byOwner.begin(); ownerIt != byOwner.end(); ++ownerIt) {
+        if (!firstOwner) {
+            ++nextLevel; // A blank row separates semantic owner groups.
         }
-        return a.visualWidth > b.visualWidth;
-    });
+        firstOwner = false;
 
-    for (int i = 0; i < labels.size(); ++i) {
-        LabelInfo& current = labels[i];
+        QList<LabelInfo*> ranges;
+        QList<LabelInfo*> points;
+        for (LabelInfo* label : ownerIt.value()) {
+            (label->isPoint ? points : ranges).append(label);
+        }
+        const auto byStart = [](const LabelInfo* a, const LabelInfo* b) {
+            return a->startTime < b->startTime;
+        };
+        std::stable_sort(ranges.begin(), ranges.end(), byStart);
+        std::stable_sort(points.begin(), points.end(), byStart);
 
-        current.level = 0;
-        bool foundLevel = false;
-
-        while (!foundLevel) {
-            bool hasOverlap = false;
-            int conflictingIndex = -1;
-
-            for (int j = 0; j < i; ++j) {
-                LabelInfo& other = labels[j];
-
-                if (other.level == current.level) {
-                    if (current.isPoint && other.isPoint && std::abs(current.startTime - other.startTime) < COMPARE_EPS) {
-                        hasOverlap = true;
-                        conflictingIndex = j;
-                        break;
-                    }
-
-                    double currentRight = current.x + current.visualWidth;
-                    double otherRight = other.x + other.visualWidth;
-                    if (current.x < otherRight && other.x < currentRight) {
-                        hasOverlap = true;
-                        conflictingIndex = j;
-                        break;
-                    }
-                }
+        QList<double> rowEndTimes;
+        for (LabelInfo* range : ranges) {
+            int row = 0;
+            while (row < rowEndTimes.size() && rowEndTimes[row] > range->startTime) {
+                ++row;
             }
-
-            if (!hasOverlap) {
-                break;
-            }
-
-            if (conflictingIndex >= 0) {
-                auto& conflictingLabel = labels[conflictingIndex];
-
-                // If one is a point, the point should be on a higher level
-                if (current.isPoint && !conflictingLabel.isPoint) {
-                    current.level++;
-                } else if (!current.isPoint && conflictingLabel.isPoint) {
-                    conflictingLabel.level++;
-                    conflictingLabel.item->setLevel(conflictingLabel.level);
-                    continue;
-                } else {
-                    // Both are points or both are not points
-                    if (current.isPoint && conflictingLabel.isPoint
-                        && std::abs(current.startTime - conflictingLabel.startTime) < COMPARE_EPS) {
-                        current.level++;
-                        continue;
-                    } else {
-                        // Compare by x
-                        double conflictingLabelRight = conflictingLabel.startTime + conflictingLabel.width;
-                        if (current.x < conflictingLabel.x) {
-                            // current has smaller x, push conflicting to higher level
-                            conflictingLabel.level++;
-                            conflictingLabel.item->setLevel(conflictingLabel.level);
-                            continue;
-                        } else if (current.startTime == conflictingLabelRight) {
-                            foundLevel = true;
-                            continue;
-                        } else {
-                            current.level++;
-                        }
-                    }
-                }
+            if (row == rowEndTimes.size()) {
+                rowEndTimes.append(range->endTime);
             } else {
-                current.level++;
+                rowEndTimes[row] = range->endTime;
             }
+            range->item->setLevel(nextLevel + row);
         }
+        nextLevel += rowEndTimes.size();
 
-        current.item->setLevel(current.level);
+        int pointRows = 0;
+        int sameTimeIndex = 0;
+        double previousTime = -1.0;
+        for (LabelInfo* point : points) {
+            sameTimeIndex = point->startTime == previousTime ? sameTimeIndex + 1 : 0;
+            previousTime = point->startTime;
+            point->item->setLevel(nextLevel + sameTimeIndex);
+            pointRows = std::max(pointRows, sameTimeIndex + 1);
+        }
+        nextLevel += pointRows;
     }
 }
 
@@ -377,7 +334,7 @@ void TrackLabelsLayoutManager::relink()
             continue;
         }
 
-        double currentRightEdge = current.startTime + current.width;
+        double currentRightEdge = current.endTime;
         double currentLeftEdge = current.startTime;
 
         for (int j = 0; j < labels.size(); ++j) {
@@ -390,7 +347,7 @@ void TrackLabelsLayoutManager::relink()
                 continue;
             }
 
-            double otherRightEdge = other.startTime + other.width;
+            double otherRightEdge = other.endTime;
             double otherLeftEdge = other.startTime;
 
             if (std::abs(currentRightEdge - otherLeftEdge) < COMPARE_EPS) {

@@ -7,6 +7,7 @@
 
 #include "playback/iaudiooutput.h"
 #include "playback/playbackcommands.h"
+#include "trackedit/dom/label.h"
 #include "snaptimeformatter.h"
 #include "timelineviewcontroller.h"
 #include "../playcursor/playpositionactioncontroller.h"
@@ -604,12 +605,38 @@ qreal TimelineContext::findZoomFocusPosition() const
     if (m_selectionActive) {
         // Active range selection: zoom at the center of the selection
         result = selectionCenterPosition();
+    } else if (const auto pointTime = selectedPointLabelTime()) {
+        result = timeToPosition(*pointTime);
     } else {
         // No range selection: zoom at the current playback position
         result = timeToPosition(playbackState()->playbackPosition());
     }
 
     return std::clamp(result, 0.0, m_frameWidth);
+}
+
+std::optional<double> TimelineContext::selectedPointLabelTime() const
+{
+    if (m_selectionActive || !selectionController()->selectedClips().empty()) {
+        return std::nullopt;
+    }
+
+    const auto selectedLabels = selectionController()->selectedLabels();
+    if (selectedLabels.size() != 1) {
+        return std::nullopt;
+    }
+
+    const auto project = globalContext()->currentTrackeditProject();
+    if (!project) {
+        return std::nullopt;
+    }
+
+    const auto label = project->label(selectedLabels.front());
+    if (!label.isValid() || label.kind != trackedit::LabelKind::Point) {
+        return std::nullopt;
+    }
+
+    return label.startTime;
 }
 
 std::pair<double, double> TimelineContext::selectionRange() const
@@ -746,7 +773,7 @@ void TimelineContext::zoomToggle()
         auto [selStart, selEnd] = selectionRange();
         double focusTime = (selEnd > selStart)
                            ? selStart + (selEnd - selStart) / 2.0
-                           : static_cast<double>(playbackState()->playbackPosition());
+                           : selectedPointLabelTime().value_or(static_cast<double>(playbackState()->playbackPosition()));
 
         setZoom(chosenZoom, frameCenterPosition());
 
@@ -972,6 +999,10 @@ void TimelineContext::setZoom(double zoom, double mouseX)
 
     emit verticalScrollChanged();
     emit frameTimeChanged();
+
+    if (const auto pointTime = selectedPointLabelTime()) {
+        centerOnTime(*pointTime);
+    }
 
     saveViewState();
 }

@@ -12,6 +12,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QProcess>
+#include <QRegularExpression>
 
 #if defined(Q_OS_WIN)
 #include <windows.h>
@@ -177,6 +178,20 @@ muse::RetVal<ParsedLabelTrack> LabelScriptEngine::parse(const QString& source, c
         label.start = row.value("start").toDouble();
         label.end = label.start;
         label.title = row.value("title").toString();
+        if (row.contains("color")) {
+            static const QRegularExpression colorPattern("^#[0-9a-fA-F]{6}$");
+            if (!row.value("color").isString() || !colorPattern.match(row.value("color").toString()).hasMatch()) {
+                return failure(input, prefix + "color must be #RRGGBB");
+            }
+            label.color = row.value("color").toString();
+        }
+        if (row.contains("owner")) {
+            if (!row.value("owner").isString() || row.value("owner").toString().trimmed().isEmpty()
+                || row.value("owner").toString().size() > 128 || row.value("owner").toString().contains(',')) {
+                return failure(input, prefix + "owner is invalid");
+            }
+            label.owner = row.value("owner").toString();
+        }
         if (label.kind == ScriptLabelKind::Range) {
             if (!validNumber(row.value("end")) || row.value("end").toDouble() <= label.start) {
                 return failure(input, prefix + "range end must be greater than start");

@@ -129,10 +129,12 @@ protected:
         m_selectionController = std::make_shared<NiceMock<trackedit::SelectionControllerMock> >();
         m_trackNavController = std::make_shared<NiceMock<trackedit::TrackNavigationControllerMock> >();
         m_trackeditInteraction = std::make_shared<NiceMock<trackedit::TrackeditInteractionMock> >();
+        m_globalContext = std::make_shared<NiceMock<context::GlobalContextMock> >();
 
         m_model->selectionController.set(m_selectionController);
         m_model->trackNavigationController.set(m_trackNavController);
         m_model->trackeditInteraction.set(m_trackeditInteraction);
+        m_model->globalContext.set(m_globalContext);
 
         ON_CALL(*m_trackeditInteraction, itemGroupId(_))
         .WillByDefault(Return(int64_t(-1)));
@@ -145,10 +147,8 @@ protected:
 
     void setupActivation(const TrackItemKey& key, trackedit::Label label)
     {
-        m_globalContext = std::make_shared<NiceMock<context::GlobalContextMock> >();
         m_trackeditProject = std::make_shared<NiceMock<trackedit::TrackeditProjectMock> >();
         m_commandDispatcher = std::make_shared<NiceMock<muse::rcommand::CommandDispatcherMock> >();
-        m_model->globalContext.set(m_globalContext);
         m_model->commandDispatcher.set(m_commandDispatcher);
         ON_CALL(*m_globalContext, currentTrackeditProject()).WillByDefault(Return(m_trackeditProject));
         ON_CALL(*m_trackeditProject, label(key.key)).WillByDefault(Return(label));
@@ -163,7 +163,7 @@ protected:
     std::shared_ptr<NiceMock<muse::rcommand::CommandDispatcherMock> > m_commandDispatcher;
 };
 
-TEST_F(TrackLabelsSelectionTests, ActivateRangeSelectsAudioAndPlaysExactSelection)
+TEST_F(TrackLabelsSelectionTests, ApplyRangeSelectsAudioWithoutPlayback)
 {
     const auto key = makeKey(1, 42);
     trackedit::Label label;
@@ -175,19 +175,12 @@ TEST_F(TrackLabelsSelectionTests, ActivateRangeSelectsAudioAndPlaysExactSelectio
 
     EXPECT_CALL(*m_selectionController, setSelectedAllAudioData(Optional(2.0), Optional(5.0)));
     EXPECT_CALL(*m_selectionController, addSelectedLabel(key.key));
-    muse::rcommand::Request captured;
-    EXPECT_CALL(*m_commandDispatcher, dispatch(_)).WillOnce(DoAll(SaveArg<0>(&captured),
-                                                                  Invoke([](const muse::rcommand::Request& request) {
-        return muse::async::make_promise<muse::rcommand::Response>([request](auto resolve) {
-            return resolve(muse::rcommand::make_response(request, muse::make_ok()));
-        });
-    })));
+    EXPECT_CALL(*m_commandDispatcher, dispatch(_)).Times(0);
 
-    m_model->activateLabel(key);
-    EXPECT_EQ(captured.command, playback::PLAYBACK_PLAY_SELECTION_COMMAND);
+    m_model->applyLabelTimeSelection(key);
 }
 
-TEST_F(TrackLabelsSelectionTests, ActivatePointSeeksAndStartsOrdinaryPlayback)
+TEST_F(TrackLabelsSelectionTests, ApplyPointSeeksWithoutPlayback)
 {
     const auto key = makeKey(1, 43);
     trackedit::Label label;
@@ -208,10 +201,38 @@ TEST_F(TrackLabelsSelectionTests, ActivatePointSeeksAndStartsOrdinaryPlayback)
         });
     })));
 
-    m_model->activateLabel(key);
+    m_model->applyLabelTimeSelection(key);
     EXPECT_EQ(captured.command, playback::PLAYBACK_SEEK_COMMAND);
     EXPECT_DOUBLE_EQ(captured.params.at(playback::PLAYBACK_SEEK_TIME_PARAM).toDouble(), 3.0);
-    EXPECT_TRUE(captured.params.at(playback::PLAYBACK_SEEK_TRIGGER_PLAY_PARAM).toBool());
+    EXPECT_FALSE(captured.params.at(playback::PLAYBACK_SEEK_TRIGGER_PLAY_PARAM).toBool());
+}
+
+TEST_F(TrackLabelsSelectionTests, SelectingPointMovesTimeCursorWithoutStartingPlayback)
+{
+    const auto key = makeKey(1, 44);
+    trackedit::Label point;
+    point.key = key.key;
+    point.startTime = 56.25;
+    point.endTime = 56.25;
+    point.kind = trackedit::LabelKind::Point;
+    setupActivation(key, point);
+
+    EXPECT_CALL(*m_selectionController, resetTimeSelection());
+    EXPECT_CALL(*m_selectionController, setSelectionStartTime(trackedit::secs_t(56.25)));
+    EXPECT_CALL(*m_selectionController, addSelectedLabel(key.key));
+    muse::rcommand::Request captured;
+    EXPECT_CALL(*m_commandDispatcher, dispatch(_)).WillOnce(DoAll(SaveArg<0>(&captured),
+                                                                  Invoke([](const muse::rcommand::Request& request) {
+        return muse::async::make_promise<muse::rcommand::Response>([request](auto resolve) {
+            return resolve(muse::rcommand::make_response(request, muse::make_ok()));
+        });
+    })));
+
+    m_model->selectLabel(key);
+
+    EXPECT_EQ(captured.command, playback::PLAYBACK_SEEK_COMMAND);
+    EXPECT_DOUBLE_EQ(captured.params.at(playback::PLAYBACK_SEEK_TIME_PARAM).toDouble(), 56.25);
+    EXPECT_FALSE(captured.params.at(playback::PLAYBACK_SEEK_TRIGGER_PLAY_PARAM).toBool());
 }
 
 TEST_F(TrackLabelsSelectionTests, SelectLabel_SetsRangeAnchor_GroupedLabel)

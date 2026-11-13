@@ -3,6 +3,7 @@
 #include <QObject>
 #include <QTimer>
 #include <QVariantAnimation>
+#include <optional>
 
 #include "modularity/ioc.h"
 #include "global/iapplication.h"
@@ -226,6 +227,7 @@ private:
     qreal frameCenterPosition() const;
     qreal selectionCenterPosition() const;
     qreal findZoomFocusPosition() const;
+    std::optional<double> selectedPointLabelTime() const;
 
     double getZoomOfPreset(ZoomPresets::Preset preset) const;
     double clampedZoom(double zoom) const;

@@ -53,11 +53,8 @@ private:
         TrackLabelItem* item = nullptr;
         LabelKey key;
         double startTime = 0;
-        double width = 0;
-        double x = 0;
-        double visualWidth = 0;
-        int level = 0;
-        bool isEditing = false;
+        double endTime = 0;
+        QString owner;
         bool isPoint = false;
     };
 

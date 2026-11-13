@@ -8,7 +8,7 @@ import Audacity.ProjectScene
 TrackItemsContainer {
     id: root
 
-    readonly property int labelRowHeight: 22
+    readonly property int labelRowHeight: 24
 
     TrackLabelsListModel {
         id: labelsModel
@@ -24,20 +24,6 @@ TrackItemsContainer {
     }
 
     property var ignoreNextReleaseKey: null
-
-    // Wait for Qt's double-click interval before starting playback, so editing
-    // a title never plays the first click of the double-click gesture.
-    Timer {
-        id: labelActivationTimer
-        interval: Qt.styleHints.mouseDoubleClickInterval
-        property var pendingKey: null
-        onTriggered: {
-            if (pendingKey) {
-                labelsModel.activateLabel(pendingKey)
-            }
-            pendingKey = null
-        }
-    }
 
     onInitRequired: function () {
         labelsModel.init()
@@ -205,7 +191,7 @@ TrackItemsContainer {
                             height: parent.height - y
                             width: itemData.width
                             x: itemData.x
-                            y: (root.labelRowHeight + 2) * itemData.level
+                            y: root.labelRowHeight * itemData.level
                             z: Boolean(itemData) && itemData.isEditing ? 1000 : itemData.level
 
                             asynchronous: true
@@ -276,6 +262,7 @@ TrackItemsContainer {
                                     isRightLinked: Boolean(itemData) && itemData.isRightLinked
                                     isLinkedActive: Boolean(itemData) && itemData.isLinkedActive
                                     isPoint: Boolean(itemData) && itemData.isPoint
+                                    pixelsPerSecond: root.context ? root.context.zoom : 100
                                     leftVisibleMargin: Boolean(itemData) ? itemData.leftVisibleMargin : 0
 
                                     startTime: Boolean(itemData) ? itemData.time.startTime : 0
@@ -288,7 +275,7 @@ TrackItemsContainer {
                                     timeSelection.width: Boolean(itemData) ? Math.floor(root.context.selectionEndPosition - itemData.x + 0.5) - timeSelection.start : 0
                                     timeSelection.color: Boolean(itemData) ? labelsModel.timeSelectionColor(itemData.color) : "transparent"
 
-                                    container: repeater
+                                    container: labelsContainer
 
                                     navigation.name: Boolean(itemData) ? itemData.key.itemId() : ""
                                     navigation.panel: root.navigationPanel
@@ -477,22 +464,14 @@ TrackItemsContainer {
                 root.ignoreNextReleaseKey = null
                 return
             }
-            const shouldActivate = labelsModel.toggleTracksDataSelectionByLabel(itemKey)
-            if (shouldActivate && modifiers === Qt.NoModifier) {
-                labelActivationTimer.pendingKey = itemKey
-                labelActivationTimer.restart()
-            } else if (labelActivationTimer.pendingKey == itemKey) {
-                labelActivationTimer.stop()
-                labelActivationTimer.pendingKey = null
+            const shouldSelectTime = labelsModel.toggleTracksDataSelectionByLabel(itemKey)
+            if (shouldSelectTime && modifiers === Qt.NoModifier) {
+                labelsModel.applyLabelTimeSelection(itemKey)
             }
         }
 
         function onItemDoubleClicked(itemKey) {
             root.ignoreNextReleaseKey = itemKey
-            if (labelActivationTimer.pendingKey == itemKey) {
-                labelActivationTimer.stop()
-                labelActivationTimer.pendingKey = null
-            }
         }
 
         function onCancelItemDragEditRequested(itemKey) {

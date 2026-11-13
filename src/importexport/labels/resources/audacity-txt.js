@@ -24,13 +24,13 @@ function parse(input) {
             throw new Error("Line " + lineNumber + ": frequency line has no label");
         }
         const fields = line.split("\t");
-        if (fields.length < 2 || fields.length > 3) {
-            throw new Error("Line " + lineNumber + ": expected start, end, and title");
+        if (fields.length < 2 || fields.length > 4) {
+            throw new Error("Line " + lineNumber + ": expected start, end, title, and optional metadata");
         }
         const first = number(fields[0], lineNumber, "start time", false);
         let second = first;
         let title;
-        if (fields.length === 3) {
+        if (fields.length >= 3) {
             second = number(fields[1], lineNumber, "end time", false);
             title = fields[2];
         } else if (numberPattern.test(fields[1].trim())) {
@@ -44,6 +44,39 @@ function parse(input) {
         const label = start === end
             ? { type: "point", start, title }
             : { type: "range", start, end, title };
+
+        if (fields.length === 4) {
+            const extension = fields[3].trim();
+            if (!extension.startsWith("//")) {
+                throw new Error("Line " + lineNumber + ": metadata must start with //");
+            }
+            const entries = extension.slice(2).trim().split(",");
+            const seen = new Set();
+            for (const entry of entries) {
+                const separator = entry.indexOf(":");
+                if (separator < 1) {
+                    throw new Error("Line " + lineNumber + ": invalid metadata entry");
+                }
+                const key = entry.slice(0, separator).trim();
+                const value = entry.slice(separator + 1).trim();
+                if (seen.has(key)) {
+                    throw new Error("Line " + lineNumber + ": duplicate key " + key);
+                }
+                seen.add(key);
+                if (key === "color") {
+                    if (!/^#[0-9a-fA-F]{6}$/.test(value)) {
+                        throw new Error("Line " + lineNumber + ": invalid color");
+                    }
+                } else if (key === "owner") {
+                    if (!value || value.length > 128) {
+                        throw new Error("Line " + lineNumber + ": invalid owner");
+                    }
+                } else {
+                    throw new Error("Line " + lineNumber + ": unknown key " + key);
+                }
+                label[key] = value;
+            }
+        }
 
         if (index + 1 < lines.length && lines[index + 1].startsWith("\\")) {
             index++;

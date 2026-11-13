@@ -25,6 +25,8 @@ struct Label {
     double highFrequency = 0.0;
     int64_t groupId = -1;
     LabelKind kind = LabelKind::Point;
+    muse::String color = {};
+    muse::String owner = {};
 
     inline bool isValid() const { return key.isValid(); }
 };
