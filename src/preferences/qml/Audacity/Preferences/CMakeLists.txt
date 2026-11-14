@@ -1,9 +1,5 @@
 muse_create_qml_module(preferences_qml FOR preferences)
 
-if (AU_BUILD_CLOUD_AUDIOCOM)
-    target_compile_definitions(preferences_qml PRIVATE AU_BUILD_CLOUD_AUDIOCOM)
-endif()
-
 qt_add_qml_module(preferences_qml
     URI Audacity.Preferences
     VERSION 1.0
@@ -16,8 +12,6 @@ qt_add_qml_module(preferences_qml
         commonaudioapiconfigurationmodel.h
         editpreferencesmodel.cpp
         editpreferencesmodel.h
-        exportpreferencespagemodel.cpp
-        exportpreferencespagemodel.h
         foreign.h
         generalpreferencesmodel.cpp
         generalpreferencesmodel.h
@@ -35,16 +29,13 @@ qt_add_qml_module(preferences_qml
         preferencesmodel.h
         recordingpreferencesmodel.cpp
         recordingpreferencesmodel.h
-        updatepreferencesmodel.cpp
-        updatepreferencesmodel.h
-        usageinfopreferencesmodel.cpp
-        usageinfopreferencesmodel.h
+        crashreportspreferencesmodel.cpp
+        crashreportspreferencesmodel.h
     QML_FILES
         AdvancedPreferencesPage.qml
         AppearancePreferencesPage.qml
         AudioPreferencesPage.qml
         EditPreferencesPage.qml
-        ExportPreferencesPage.qml
         GeneralPreferencesPage.qml
         LabelParsersPreferencesPage.qml
         internal/AccentColorsSection.qml
@@ -53,7 +44,6 @@ qt_add_qml_module(preferences_qml
         internal/AsymmetricStereoHeightsSection.qml
         internal/AudioApiSection.qml
         internal/AudioEngineSection.qml
-        internal/AutomaticUpdateSection.qml
         internal/AutoSaveSection.qml
         internal/BufferAndLatencySection.qml
         internal/CharsetsSection.qml
@@ -66,7 +56,6 @@ qt_add_qml_module(preferences_qml
         internal/DeleteBehaviorSection.qml
         internal/EffectBehaviorSection.qml
         internal/EffectOptionsSection.qml
-        internal/ExportBehaviorSection.qml
         internal/ExtensionPreferencesSection.qml
         internal/FFmpegLibrarySection.qml
         internal/FoldersSection.qml
@@ -91,8 +80,6 @@ qt_add_qml_module(preferences_qml
         internal/RecordingBehaviorSection.qml
         internal/RemoteControlSection.qml
         internal/SampleRateSection.qml
-        internal/SaveBehaviorSection.qml
-        internal/SaveToCloudSection.qml
         internal/ScrollPagesSection.qml
         internal/SpectrogramAlgorithmSection.qml
         internal/SpectrogramBaseSection.qml
@@ -104,7 +91,6 @@ qt_add_qml_module(preferences_qml
         internal/ThemesSection.qml
         internal/UiColorsSection.qml
         internal/UiFontSection.qml
-        internal/UsageInfoSection.qml
         internal/WorkspacesAsymmetricChannelsSection.qml
         internal/WorkspacesTempoDetectionSection.qml
         internal/ZoomSection.qml
@@ -115,7 +101,6 @@ qt_add_qml_module(preferences_qml
         PreferencesPage.qml
         ShortcutsPreferencesPage.qml
         SpectrogramPreferencesPage.qml
-        UpdatePreferencesPage.qml
     RESOURCES
         resources/AsymmetricStereoHeights.svg
         resources/StereoHeightsCursor.png

@@ -28,8 +28,6 @@ namespace {
 const char* THEMES_PAGE = "ThemesPage.qml";
 const char* CLIP_VISUALIZATION_PAGE = "ClipVisualizationPage.qml";
 const char* WORKSPACE_LAYOUT_PAGE = "WorkspaceLayoutPage.qml";
-const char* SIGNIN_AUDIO_COM_PAGE = "SigninAudiocomPage.qml";
-const char* APP_UPDATES_AND_USAGE_INFO_PAGE = "AppUpdatesAndUsageInfoPage.qml";
 }
 
 using namespace muse;
@@ -49,11 +47,6 @@ void FirstLaunchSetupModel::load()
 {
     if (m_loaded) {
         return;
-    }
-
-    if (au3CloudService()->enabled()) {
-        m_pages.append(Page { SIGNIN_AUDIO_COM_PAGE, "audacity://project", { { "isCreateAccountMode", true } } });
-        m_pages.append(Page { APP_UPDATES_AND_USAGE_INFO_PAGE, "audacity://project" });
     }
 
     setCurrentPageIndex(0);
@@ -131,10 +124,6 @@ QString FirstLaunchSetupModel::nextButtonText() const
 {
     if (m_currentPageIndex < 0 || m_currentPageIndex >= m_pages.size()) {
         return "";
-    }
-
-    if (m_pages.at(m_currentPageIndex).m_url.contains(SIGNIN_AUDIO_COM_PAGE)) {
-        return muse::qtrc("global", "Skip");
     }
 
     return !canFinish() ? muse::qtrc("global", "Next") : muse::qtrc("appshell/gettingstarted", "Accept & continue");

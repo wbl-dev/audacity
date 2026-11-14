@@ -110,7 +110,6 @@ void GUIPrefs::PopulateOrExchange(ShuttleGui& S)
         S.StartMultiColumn(2);
         {
             S.TieChoice(XXO("&Language:"), LanguageSetting);
-            // S.TieChoice( XXO("Location of &Manual:"), GUIManualLocation);
             S.TieChoice(XXO("Th&eme:"), GUITheme());
             S.TieChoice(XXO("Meter dB &range:"), DBSetting);
         }

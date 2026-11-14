@@ -12,7 +12,6 @@
 #include <QVariantList>
 
 #include "framework/global/translation.h"
-#include "shared/productprofile.h"
 
 using namespace muse;
 using namespace au::appshell;
@@ -279,7 +278,7 @@ AboutModel::AboutModel(QObject* parent)
 
 bool AboutModel::externalLinksAvailable() const noexcept
 {
-    return au::shared::nonDiagnosticExternalLinksAvailable();
+    return false;
 }
 
 QString AboutModel::appVersion() const
@@ -311,12 +310,6 @@ QVariantMap AboutModel::forumUrl() const
 QVariantMap AboutModel::contributionUrl() const
 {
     QUrl url(QString::fromStdString(configuration()->contributionUrl()));
-    return makeUrl(url);
-}
-
-QVariantMap AboutModel::privacyPolicyUrl() const
-{
-    QUrl url(QString::fromStdString(updateConfiguration()->privacyPolicyUrl()));
     return makeUrl(url);
 }
 
@@ -365,21 +358,19 @@ QVariantList AboutModel::creditList() const
                                       buildCredits(sLibraries)));
         creditList.append(makeSection(QT_TRANSLATE_NOOP("appshell/about", "Special Thanks"), buildCredits(sThanks)));
 
-        if (!au::shared::nonDiagnosticExternalLinksAvailable()) {
-            for (QVariant& sectionValue : creditList) {
-                QVariantMap section = sectionValue.toMap();
-                QVariantList credits = section.value("credits").toList();
-                for (QVariant& creditValue : credits) {
-                    QVariantMap credit = creditValue.toMap();
-                    credit["url"] = QString();
-                    if (credit.contains("raw")) {
-                        credit["raw"] = withoutHtmlAnchors(credit.value("raw").toString());
-                    }
-                    creditValue = credit;
+        for (QVariant& sectionValue : creditList) {
+            QVariantMap section = sectionValue.toMap();
+            QVariantList credits = section.value("credits").toList();
+            for (QVariant& creditValue : credits) {
+                QVariantMap credit = creditValue.toMap();
+                credit["url"] = QString();
+                if (credit.contains("raw")) {
+                    credit["raw"] = withoutHtmlAnchors(credit.value("raw").toString());
                 }
-                section["credits"] = credits;
-                sectionValue = section;
+                creditValue = credit;
             }
+            section["credits"] = credits;
+            sectionValue = section;
         }
 
         return creditList;

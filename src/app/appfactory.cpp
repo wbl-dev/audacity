@@ -21,26 +21,6 @@
 #include "framework/uicomponents/uicomponentsmodule.h"
 #include "framework/dockwindow/dockmodule.h"
 #include "framework/toast/toastmodule.h"
-#ifdef MUSE_MODULE_CLOUD
-#include "framework/cloud/cloudmodule.h"
-#else
-#include "framework/stubs/cloud/cloudstubmodule.h"
-#endif
-#ifdef MUSE_MODULE_NETWORK
-#include "framework/network/networkmodule.h"
-#else
-#include "framework/stubs/network/networkstubmodule.h"
-#endif
-#ifdef MUSE_MODULE_UPDATE
-#include "framework/update/updatemodule.h"
-#else
-#include "framework/stubs/update/updatestubmodule.h"
-#endif
-#ifdef MUSE_MODULE_LEARN
-#include "framework/learn/learnmodule.h"
-#else
-#include "framework/stubs/learn/learnmodule.h"
-#endif
 #include "framework/languages/languagesmodule.h"
 #include "framework/workspace/workspacemodule.h"
 
@@ -65,21 +45,6 @@
 #include "importexport/import/importermodule.h"
 #include "importexport/export/exportermodule.h"
 #include "importexport/labels/labelsmodule.h"
-#ifdef AU_BUILD_CLOUD_AUDIOCOM
-#include "au3cloud/au3cloudmodule.h"
-#else
-#include "stubs/au3cloud/au3cloudstubmodule.h"
-#endif
-#ifdef AU_BUILD_MUSEHUB_MODULE
-#include "musehub/musehubmodule.h"
-#else
-#include "stubs/musehub/musehubstubmodule.h"
-#endif
-#ifdef AU_BUILD_USAGEINFO_MODULE
-#include "usageinfo/usageinfomodule.h"
-#else
-#include "stubs/usageinfo/usageinfostubmodule.h"
-#endif
 #include "automation/automationmodule.h"
 
 #if AU_MODULE_EFFECTS_NYQUIST
@@ -157,7 +122,6 @@ std::shared_ptr<muse::IApplication> AppFactory::newGuiApp(const std::shared_ptr<
     app->addModule(new muse::accessibility::AccessibilityModule());
     app->addModule(new muse::interactive::InteractiveModule());
     app->addModule(new muse::mi::MultiWindowsModule());
-    app->addModule(new muse::learn::LearnModule());
     app->addModule(new muse::languages::LanguagesModule());
     app->addModule(new muse::ui::UiModule());
     app->addModule(new muse::uicomponents::UiComponentsModule());
@@ -166,9 +130,6 @@ std::shared_ptr<muse::IApplication> AppFactory::newGuiApp(const std::shared_ptr<
 #ifdef MUSE_MODULE_SHORTCUTS
     app->addModule(new muse::shortcuts::ShortcutsModule());
 #endif
-    app->addModule(new muse::cloud::CloudModule());
-    app->addModule(new muse::network::NetworkModule());
-    app->addModule(new muse::update::UpdateModule());
     app->addModule(new muse::extensions::ExtensionsModule());
 #ifdef MUSE_MODULE_TESTFLOW
     app->addModule(new muse::testflow::TestflowModule());
@@ -176,7 +137,6 @@ std::shared_ptr<muse::IApplication> AppFactory::newGuiApp(const std::shared_ptr<
 
     // Audacity modules
     app->addModule(new au::appshell::AppShellModule());
-    app->addModule(new au::usageinfo::UsageInfoModule());
     app->addModule(new au::preferences::PreferencesModule());
     app->addModule(new au::uicomponents::UiComponentsModule());
     app->addModule(new au::extensions::AudacityExtensionsModule());
@@ -186,7 +146,6 @@ std::shared_ptr<muse::IApplication> AppFactory::newGuiApp(const std::shared_ptr<
     app->addModule(new au::effects::NyquistEffectsModule());
     app->addModule(new au::effects::extensions::ExtensionEffectsModule());
     app->addModule(new au::context::ContextModule());
-    app->addModule(new au::musehub::MuseHubModule());
     app->addModule(new au::audio::AudioModule());
     app->addModule(new au::au3audio::Au3AudioModule());
     app->addModule(new au::projectscene::ProjectSceneModule());
@@ -200,7 +159,6 @@ std::shared_ptr<muse::IApplication> AppFactory::newGuiApp(const std::shared_ptr<
     app->addModule(new au::importexport::ImporterModule());
     app->addModule(new au::importexport::LabelsModule());
     app->addModule(new au::au3::Au3WrapModule());
-    app->addModule(new au::au3cloud::Au3CloudModule());
     app->addModule(new au::effects::EffectsModule());
     app->addModule(new au::effects::BuiltinEffectsModule());
     app->addModule(new au::effects::BuiltinEffectsCollectionModule());

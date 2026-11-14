@@ -41,22 +41,18 @@ SRC_DIRS=(
     tools/translations/nyquist_strings.cpp.generated
     muse/framework/accessibility
     muse/framework/audioplugins
-    muse/framework/cloud
     muse/framework/diagnostics
     muse/framework/dockwindow/qml
     muse/framework/extensions
     muse/framework/global
     muse/framework/interactive
     muse/framework/languages
-    muse/framework/learn
     muse/framework/multiwindows
-    muse/framework/network
     muse/framework/shortcuts
     muse/framework/testflow
     muse/framework/toast
     muse/framework/ui
     muse/framework/uicomponents
-    muse/framework/update
     muse/framework/vst
     muse/framework/workspace
 )

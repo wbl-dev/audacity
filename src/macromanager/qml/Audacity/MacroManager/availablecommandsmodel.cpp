@@ -18,13 +18,11 @@ const std::vector<std::string> EXCLUDED_PATH_PREFIXES {
     "effects/plugin-manager",
     "effects/repeat-last-effect",
     "effects/toggle-vendor-ui",
-    "cloud/",
     "dock/",
     "diagnostics/",
     "navigation/",
     "track-navigation/",
     "testflow/",
-    "update/",
 };
 
 bool isMacroEligible(const rcommand::CommandInfo& info)

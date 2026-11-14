@@ -6,11 +6,11 @@ set(MODULE_TEST appshell_tests)
 
 set(MODULE_TEST_SRC
     ${CMAKE_CURRENT_LIST_DIR}/factoryreset_actioncontroller_tests.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/localnetworkpolicy_tests.cpp
 
     ${CMAKE_CURRENT_LIST_DIR}/mocks/appshellconfigurationmock.h
 )
 
-if(AU4_WORKBENCH_PROFILE)
     list(APPEND MODULE_TEST_SRC
         ${CMAKE_CURRENT_LIST_DIR}/../qml/Audacity/AppShell/aboutmodel.cpp
         ${CMAKE_CURRENT_LIST_DIR}/../qml/Audacity/AppShell/aboutmodel.h
@@ -19,7 +19,6 @@ if(AU4_WORKBENCH_PROFILE)
         ${CMAKE_CURRENT_LIST_DIR}/workbench_menu_tests.cpp
         ${CMAKE_CURRENT_LIST_DIR}/workbench_startup_tests.cpp
     )
-endif()
 
 set(MODULE_TEST_LINK
     appshell
@@ -27,6 +26,7 @@ set(MODULE_TEST_LINK
 
     muse::ui
     Qt::Widgets
+    Qt::Network
 )
 
 set(MODULE_TEST_INCLUDE
@@ -43,7 +43,6 @@ set(MODULE_TEST_DATA_ROOT ${CMAKE_CURRENT_LIST_DIR})
 
 include(SetupGTest)
 
-if(AU4_WORKBENCH_PROFILE)
     add_test(
         NAME workbench_page_manifest
         COMMAND appshell_tests --gtest_filter=workbench_page_manifest.*
@@ -60,4 +59,3 @@ if(AU4_WORKBENCH_PROFILE)
         NAME workbench_online_surfaces_appshell
         COMMAND appshell_tests --gtest_filter=workbench_online_surfaces_appshell.*
     )
-endif()

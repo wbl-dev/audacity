@@ -21,17 +21,7 @@ using namespace muse::actions;
 static const TranslatableString REPEAT_LAST_EFFECT_DEF_TITLE("action", "Repeat last effect");
 static const TranslatableString REPEAT_LAST_EFFECT_TITLE("action", "Repeat %1");
 
-namespace {
-UiActionList filterEffectsActions(UiActionList actions)
-{
-    std::erase_if(actions, [](const UiAction& action) {
-        return !isEffectsActionAllowed(action.code);
-    });
-    return actions;
-}
-}
-
-static const UiActionList STATIC_ACTIONS = filterEffectsActions({
+static const UiActionList STATIC_ACTIONS = {
     UiAction("repeat-last-effect",
              au::context::UiCtxProjectOpened,
              au::context::CTX_PROJECT_OPENED,
@@ -46,15 +36,6 @@ static const UiActionList STATIC_ACTIONS = filterEffectsActions({
              TranslatableString("action", "Remove realtime effect"),
              //: Action description: shown as a tooltip; can be a full sentence
              TranslatableString("action_description", "Remove realtime effect")
-             ),
-    UiAction("get-effects",
-             au::context::UiCtxAny,
-             au::context::CTX_ANY,
-             //: Action title: shown as a menu item or a button label; keep it short
-             TranslatableString("action", "Get effects"),
-             //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Open Get effects dialog"),
-             IconCode::Code::PLUGIN
              ),
     UiAction("action://effects/presets/apply",
              au::context::UiCtxAny,
@@ -106,7 +87,7 @@ static const UiActionList STATIC_ACTIONS = filterEffectsActions({
              TranslatableString("effects", "Toggle between vendor UI and fallback UI"),
              Checkable::Yes
              )
-});
+};
 
 EffectsUiActions::EffectsUiActions(const muse::modularity::ContextPtr& ctx, EffectsActionsController* controller)
     : muse::Contextable(ctx), m_controller{controller}

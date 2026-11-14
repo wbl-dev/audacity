@@ -42,17 +42,7 @@ using namespace muse::dock;
 
 static const ActionCode FULL_SCREEN_CODE("fullscreen");
 
-namespace {
-UiActionList filterAppShellActions(UiActionList actions)
-{
-    std::erase_if(actions, [](const UiAction& action) {
-        return !isAppShellActionAllowed(action.code);
-    });
-    return actions;
-}
-}
-
-const UiActionList ApplicationUiActions::m_actions = filterAppShellActions({
+const UiActionList ApplicationUiActions::m_actions = {
     UiAction("quit",
              au::context::UiCtxAny,
              au::context::CTX_ANY,
@@ -87,20 +77,6 @@ const UiActionList ApplicationUiActions::m_actions = filterAppShellActions({
              au::context::CTX_DISABLED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "About &Qt…")
-             ),
-    UiAction("online-handbook",
-             au::context::UiCtxUnknown,
-             au::context::CTX_DISABLED,
-             //: Action title: shown as a menu item or a button label; keep it short
-             TranslatableString("action", "Online &handbook"),
-             //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Open online handbook")
-             ),
-    UiAction("ask-help",
-             au::context::UiCtxAny,
-             au::context::CTX_DISABLED,
-             //: Action title: shown as a menu item or a button label; keep it short
-             TranslatableString("action", "As&k for help")
              ),
     UiAction("revert-factory",
              au::context::UiCtxAny,
@@ -268,7 +244,7 @@ const UiActionList ApplicationUiActions::m_actions = filterAppShellActions({
              //: Action description: shown as a tooltip; can be a full sentence
              TranslatableString("action_description", "Open the context menu of the focused item")
              ),
-});
+};
 
 ApplicationUiActions::ApplicationUiActions(const muse::modularity::ContextPtr& ctx, std::shared_ptr<ApplicationActionController> controller)
     : muse::Contextable(ctx), m_controller(controller)

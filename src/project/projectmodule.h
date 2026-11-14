@@ -26,7 +26,6 @@
 #include <vector>
 
 #include "modularity/imodulesetup.h"
-#include "shared/productprofile.h"
 #include "types/uri.h"
 
 namespace au::project {
@@ -40,17 +39,9 @@ using ProjectPageManifest = std::vector<ProjectPageRegistration>;
 
 inline ProjectPageManifest projectPageManifest()
 {
-    ProjectPageManifest pages {
+    return {
         { muse::Uri("audacity://project/new"), "Audacity/Project/NewProjectDialog.qml" },
     };
-
-    if (!shared::isWorkbenchProfile()) {
-        pages.push_back({ muse::Uri("audacity://project/asklocationtype"), "Audacity/Project/AskLocationTypeDialog.qml" });
-        pages.push_back({ muse::Uri("audacity://project/savetocloud"), "Audacity/Project/SaveToCloudDialog.qml" });
-        pages.push_back({ muse::Uri("audacity://project/cloudprojectsyncing"), "Audacity/Project/CloudProjectSyncDialog.qml" });
-    }
-
-    return pages;
 }
 
 class ProjectConfiguration;

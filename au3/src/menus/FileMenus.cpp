@@ -41,7 +41,7 @@
 // private helper classes and functions
 namespace {
 void DoExport(
-    AudacityProject& project, const FileExtension& format, AudiocomTrace trace)
+    AudacityProject& project, const FileExtension& format)
 {
     auto& tracks = TrackList::Get(project);
 
@@ -61,7 +61,7 @@ void DoExport(
             return;
         }
 
-        ExportUtils::PerformInteractiveExport(project, format, trace, false);
+        ExportUtils::PerformInteractiveExport(project, format, false);
     } else {
         // We either use a configured output path,
         // or we use the default documents folder - just as for exports.
@@ -267,32 +267,28 @@ void OnExportMp3(const CommandContext& context)
 {
     auto& project = context.project;
     DoExport(
-        project, "MP3",
-        AudiocomTrace::ShareAudioExportExtraMenu);
+        project, "MP3");
 }
 
 void OnExportWav(const CommandContext& context)
 {
     auto& project = context.project;
     DoExport(
-        project, "WAV",
-        AudiocomTrace::ShareAudioExportExtraMenu);
+        project, "WAV");
 }
 
 void OnExportOgg(const CommandContext& context)
 {
     auto& project = context.project;
     DoExport(
-        project, "OGG",
-        AudiocomTrace::ShareAudioExportExtraMenu);
+        project, "OGG");
 }
 
 void OnExportAudio(const CommandContext& context)
 {
     auto& project = context.project;
     DoExport(
-        project, "",
-        AudiocomTrace::ShareAudioExportMenu);
+        project, "");
 }
 
 void OnExportLabels(const CommandContext& context)
@@ -429,8 +425,7 @@ void OnExit(const CommandContext& WXUNUSED(context))
 void OnExportFLAC(const CommandContext& context)
 {
     DoExport(
-        context.project, "FLAC",
-        AudiocomTrace::ShareAudioExportExtraMenu);
+        context.project, "FLAC");
 }
 
 void OnExportSelectedAudio(const CommandContext& context)
@@ -440,9 +435,7 @@ void OnExportSelectedAudio(const CommandContext& context)
     }
 
     ExportUtils::PerformInteractiveExport(
-        context.project, "",
-        AudiocomTrace::ignore, // Local save, no need.
-        true);
+        context.project, "", true);
 }
 
 // Menu definitions

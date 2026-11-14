@@ -25,8 +25,7 @@ ColumnLayout {
         readonly property int contentTextMargin: 12
 
         readonly property string privacyTitle: qsTrc("appshell/about", "Privacy")
-        readonly property string privacySubtitle: qsTrc("appshell/about", "App update checking and error reporting require network access. These features are optional.<br>See our %1 for more info.")
-        readonly property string workbenchPrivacySubtitle: qsTrc("appshell/about", "Optional crash reporting requires network access. Other online product services are disabled in this build.")
+        readonly property string workbenchPrivacySubtitle: qsTrc("appshell/about", "Optional crash reporting requires network access. Projects and audio editing stay on this device.")
     }
 
     Column {
@@ -50,13 +49,7 @@ ColumnLayout {
             horizontalAlignment: Text.AlignHCenter
             textFormat: Text.RichText
 
-            text: {
-                if (!root.model.externalLinksAvailable) {
-                    return prv.workbenchPrivacySubtitle
-                }
-                let privacyUrl = root.model.privacyPolicyUrl()
-                return prv.privacySubtitle.arg("<a href=\"%1\">%2</a>".arg(privacyUrl.url).arg(qsTrc("appshell/about", "privacy policy")))
-            }
+            text: prv.workbenchPrivacySubtitle
             font: ui.theme.bodyFont
         }
     }

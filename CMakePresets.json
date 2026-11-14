@@ -19,8 +19,8 @@
       }
     },
     {
-      "name": "audacity-debug",
-      "displayName": "Audacity [Debug]",
+      "name": "workbench-debug",
+      "displayName": "OnlyAudios [Debug]",
       "description": "Debug profile with debug symbols and no optimizations.",
       "inherits": "base",
       "cacheVariables": {
@@ -29,39 +29,21 @@
       }
     },
     {
-      "name": "audacity-asan",
-      "displayName": "Audacity [ASan]",
+      "name": "workbench-asan",
+      "displayName": "OnlyAudios [ASan]",
       "description": "Debug profile with AddressSanitizer enabled.",
-      "inherits": "audacity-debug",
+      "inherits": "workbench-debug",
       "cacheVariables": {
         "MUSE_COMPILE_ASAN": "ON"
       }
     },
     {
-      "name": "workbench-debug",
-      "displayName": "Audacity Workbench [Debug]",
-      "description": "Local-first Workbench profile with debug symbols and no optimizations.",
-      "inherits": "audacity-debug",
-      "cacheVariables": {
-        "AU4_PRODUCT_PROFILE": "workbench"
-      }
-    },
-    {
-      "name": "audacity-release",
-      "displayName": "Audacity [RelWithDebInfo]",
+      "name": "workbench-release",
+      "displayName": "OnlyAudios [RelWithDebInfo]",
       "description": "Release profile with optimizations and debug information.",
       "inherits": "base",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "RelWithDebInfo"
-      }
-    },
-    {
-      "name": "workbench-release",
-      "displayName": "Audacity Workbench [RelWithDebInfo]",
-      "description": "Local-first Workbench profile with optimizations and debug information.",
-      "inherits": "audacity-release",
-      "cacheVariables": {
-        "AU4_PRODUCT_PROFILE": "workbench"
       }
     }
   ]

@@ -11,10 +11,6 @@ set( SOURCES
    AudacityLogoAlpha.xpm
    AudacityMessageBox.cpp
    AudacityMessageBox.h
-   $<$<BOOL:${${_OPT}has_sentry_reporting}>:
-      ErrorReportDialog.cpp
-      ErrorReportDialog.h
-   >
    ErrorDialog.cpp
    ErrorDialog.h
    HelpSystem.cpp
@@ -52,8 +48,6 @@ PUBLIC
    au3-strings
 PRIVATE
    au3-files
-   # If Sentry reporting is disabled, au3-sentry-reporting is a header-only INTERFACE library
-   au3-sentry-reporting
    au3-shuttlegui
    au3-string-utils
    au3-theme

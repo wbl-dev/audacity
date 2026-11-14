@@ -24,9 +24,6 @@
 #include "record/irecordcontroller.h"
 #include "importexport/export/internal/exportconfiguration.h"
 #include "importexport/import/iimporter.h"
-#include "au3cloud/iau3audiocomservice.h"
-#include "au3cloud/iauthorization.h"
-#include "au3cloud/icloudprojectsprovider.h"
 #include "effects/effects_base/imissingeffectchecker.h"
 
 #include "project/iprojectconfiguration.h"
@@ -46,8 +43,6 @@ class ProjectActionsController : public IProjectFilesController, public muse::ac
     muse::GlobalInject<IRecentFilesController> recentFilesController;
     muse::GlobalInject<muse::mi::IMultiWindowsProvider> multiwindowsProvider;
     muse::GlobalInject<muse::toast::IToastService> toastService;
-    muse::GlobalInject<au3cloud::IAuthorization> authorization;
-    muse::GlobalInject<au3cloud::ICloudProjectsProvider> cloudProjectsProvider;
 
     muse::ContextInject<muse::actions::IActionsDispatcher> dispatcher { this };
     muse::ContextInject<muse::rcommand::ICommandDispatcher> commandDispatcher { this };
@@ -58,7 +53,6 @@ class ProjectActionsController : public IProjectFilesController, public muse::ac
     muse::ContextInject<trackedit::IProjectHistory> projectHistory { this };
     muse::ContextInject<record::IRecordController> recordController { this };
     muse::ContextInject<importexport::IImporter> importer { this };
-    muse::ContextInject<au3cloud::IAu3AudioComService> audioComService { this };
     muse::ContextInject<effects::IMissingEffectChecker> missingEffectChecker { this };
 
 public:
@@ -75,12 +69,6 @@ public:
     bool quitDiscardingUnsavedChanges() override;
     bool saveProject(const muse::io::path_t& path = muse::io::path_t()) override;
     bool saveProjectLocally(const muse::io::path_t& filePath = muse::io::path_t(), SaveMode saveMode = SaveMode::Save) override;
-    muse::Ret saveProjectToCloud(const CloudProjectInfo& cloudInfo, CloudSaveMode cloudSaveMode = CloudSaveMode::NormalUpdate,
-                                 std::function<void()> onSuccess = nullptr) override;
-
-    const ProjectBeingDownloaded& projectBeingDownloaded() const override;
-    muse::async::Notification projectBeingDownloadedChanged() const override;
-
     bool isProjectOpened(const muse::io::path_t& projectPath) const;
     muse::async::Channel<muse::actions::ActionCodeList> actionEnabledChanged() const;
 
@@ -90,8 +78,6 @@ private:
 
     muse::Ret newProject();
     muse::Ret open(const muse::rcommand::Params& params);
-    muse::Ret openCloudProject(const muse::rcommand::Params& params);
-    muse::Ret openCloudProject(const QString& cloudProjectId, const QString& snapshotId);
     muse::Ret importFiles(const muse::rcommand::Params& params);
 
     muse::Ret importStartupMedia(const muse::rcommand::Params& params);
@@ -99,12 +85,10 @@ private:
     muse::Ret closeProject();
 
     muse::Ret openProject(const muse::io::path_t& path,
-                          const muse::String& displayNameOverride = muse::String(), const muse::String& projectId = muse::String());
+                          const muse::String& displayNameOverride = muse::String());
     muse::Ret loadWithFallback(const IAudacityProjectPtr& project, const muse::io::path_t& loadPath, const std::string& format);
     muse::Ret doOpenProject(const muse::io::path_t& filePath);
     IAudacityProjectPtr createProjectInCurrentWindow();
-    muse::Ret openCloudProject(const muse::io::path_t& localPath, const muse::String& projectId,
-                               const muse::String& snapshotId = muse::String(), bool forceOverwrite = false);
     //! TODO AU4
     // muse::Ret openAudacityUrl(const QUrl& url);
     muse::RetVal<IAudacityProjectPtr> loadProject(const muse::io::path_t& filePath);
@@ -117,9 +101,7 @@ private:
     muse::IInteractive::Button askAboutSavingProject(IAudacityProjectPtr project);
 
     muse::Ret canSaveProject() const;
-    bool saveProject(SaveMode saveMode, SaveLocationType saveLocationType = SaveLocationType::Undefined, bool force = false);
-    bool saveProjectAt(const SaveLocation& saveLocation, SaveMode saveMode = SaveMode::Save, bool force = false);
-    bool doSaveProjectLocally(const muse::io::path_t& filePath, SaveMode saveMode);
+    bool saveProject(SaveMode saveMode);
 
     RecentFile makeRecentFile(IAudacityProjectPtr project);
     muse::Ret clearRecentProjects();
@@ -131,37 +113,18 @@ private:
     void undo();
     void redo();
 
-    bool askAboutStoppingCloudSync();
     muse::Ret openPageIfNeed(muse::Uri pageUri);
-
-    void handleCloudOpenError(const muse::Ret& error, const muse::io::path_t& localPath, const std::string& cloudProjectId = {});
-    void handleCloudAudioOpenError(const muse::Ret& error);
-    void handleCloudSaveError(const muse::Ret& error);
-
-    muse::Ret shareAudio();
-    muse::Ret openCloudAudioFile(const muse::rcommand::Params& params);
-
-    muse::Ret updateCloudAudioPreview(const muse::rcommand::Params& params);
-    void doUpdateCloudAudioPreview(const IAudacityProjectPtr& project, const std::function<void()>& onFinished = nullptr);
-    void downloadCloudProject(const std::string& projectId, const muse::io::path_t& localPath,
-                              std::function<void(IAudacityProjectPtr)> onSuccess);
-    bool dispatchAudioPreviewToWindowWithProject(const muse::io::path_t& projectPath, const std::string& projectId);
 
     muse::Ret openCustomFFmpegOptions();
     muse::Ret openMetadataDialog();
     muse::Ret openCustomMapping();
 
-    muse::Ret ensureAuthorization();
-
     void listenTrackeditProjectChanges();
-    void listenCloudProjectChanges();
 
     bool m_isProjectSaving = false;
     bool m_isProjectClosing = false;
     bool m_isProjectProcessing = false;
 
-    ProjectBeingDownloaded m_projectBeingDownloaded;
-    muse::async::Notification m_projectBeingDownloadedChanged;
     muse::async::Channel<muse::actions::ActionCodeList> m_actionEnabledChanged;
 };
 }

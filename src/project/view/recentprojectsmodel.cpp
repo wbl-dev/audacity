@@ -78,7 +78,6 @@ void RecentProjectsModel::updateRecentProjects()
     addItem[NAME_KEY] = muse::qtrc("project", "New project");
     addItem[IS_CREATE_NEW_KEY] = true;
     addItem[IS_NO_RESULTS_FOUND_KEY] = false;
-    addItem[IS_CLOUD_KEY] = false;
     items.push_back(addItem);
 
     for (const RecentFile& file : recentProjects) {
@@ -89,22 +88,16 @@ void RecentProjectsModel::updateRecentProjects()
         RetVal<uint64_t> fileSize = fileSystem()->fileSize(file.path);
         QString fileSizeString = (fileSize.ret && fileSize.val > 0) ? DataFormatter::formatFileSize(fileSize.val).toQString() : QString();
 
-        const bool isCloud = file.cloudRecord.has_value();
-        const QString cloudProjectId = isCloud ? QString::fromStdString(file.cloudRecord->projectId) : QString();
-
         obj[NAME_KEY] = file.displayName(false);
         obj[PATH_KEY] = file.path.toQString();
         obj[THUMBNAIL_URL_KEY] = obj[PATH_KEY];
         obj[FILE_SIZE_KEY] = fileSizeString;
-        obj[IS_CLOUD_KEY] = isCloud;
-        obj[CLOUD_ITEM_ID_KEY] = cloudProjectId;
-        obj[SHOW_INDICATOR_KEY] = obj[IS_CLOUD_KEY];
         obj[TIME_SINCE_MODIFIED_KEY] = DataFormatter::formatTimeSince(io::FileInfo(file.path).lastModified().date()).toQString();
         obj[IS_CREATE_NEW_KEY] = false;
         obj[IS_NO_RESULTS_FOUND_KEY] = false;
 
         obj[CONTEXT_MENU_MODEL_KEY] = QVariant::fromValue(
-            new RecentProjectContextMenuModel(isCloud, file.path.toQString(), file.displayNameOverride, cloudProjectId, this));
+            new RecentProjectContextMenuModel(file.path.toQString(), file.displayNameOverride, this));
 
         items.push_back(obj);
     }
@@ -113,7 +106,6 @@ void RecentProjectsModel::updateRecentProjects()
     noResultsFoundItem[NAME_KEY] = "";
     noResultsFoundItem[IS_CREATE_NEW_KEY] = false;
     noResultsFoundItem[IS_NO_RESULTS_FOUND_KEY] = true;
-    noResultsFoundItem[IS_CLOUD_KEY] = false;
     items.push_back(noResultsFoundItem);
 
     setRecentProjects(items);

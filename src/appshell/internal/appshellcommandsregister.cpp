@@ -23,9 +23,7 @@ const std::vector<CommandInfo> s_allCommandInfos = {
         TranslatableString("command", "Exit"),
         //: Command description: shown as a tooltip; can be a full sentence
         TranslatableString("command_description", "Exit"),
-        InputSchema({
-                { INSTALLER_PATH_PARAM, Arg(DataType::String, u"Path of an update package to apply after all windows are closed") },
-            }),
+        InputSchema(),
         Decoration()
     },
     CommandInfo{
@@ -65,24 +63,6 @@ const std::vector<CommandInfo> s_allCommandInfos = {
         InputSchema(),
         Decoration(),
         Availability::Dispatch | Availability::Shortcut
-    },
-    CommandInfo{
-        APP_ONLINE_HANDBOOK_COMMAND,
-        //: Command title: shown as a menu item or a button label; keep it short
-        TranslatableString("command", "Online &handbook"),
-        //: Command description: shown as a tooltip; can be a full sentence
-        TranslatableString("command_description", "Open online handbook"),
-        InputSchema(),
-        Decoration()
-    },
-    CommandInfo{
-        APP_ASK_HELP_COMMAND,
-        //: Command title: shown as a menu item or a button label; keep it short
-        TranslatableString("command", "As&k for help"),
-        //: Command description: shown as a tooltip; can be a full sentence
-        TranslatableString("command_description", "Ask for help"),
-        InputSchema(),
-        Decoration()
     },
     CommandInfo{
         APP_PREFERENCES_COMMAND,
@@ -283,18 +263,6 @@ const std::vector<CommandInfo> s_allCommandInfos = {
         Decoration(rcommand::Checkable::Yes)
     },
 };
-
-const std::vector<CommandInfo>& commandInfos()
-{
-    static const std::vector<CommandInfo> infos = [] {
-        std::vector<CommandInfo> result = s_allCommandInfos;
-        std::erase_if(result, [](const CommandInfo& info) {
-            return !isAppShellCommandAllowed(info.command);
-        });
-        return result;
-    }();
-    return infos;
-}
 }
 
 std::string AppShellCommandsRegister::moduleName() const
@@ -306,8 +274,8 @@ const std::vector<Command>& AppShellCommandsRegister::commandList() const
 {
     static std::vector<Command> commands;
     if (commands.empty()) {
-        commands.reserve(commandInfos().size());
-        for (const auto& info : commandInfos()) {
+        commands.reserve(s_allCommandInfos.size());
+        for (const auto& info : s_allCommandInfos) {
             commands.push_back(info.command);
         }
     }
@@ -316,5 +284,5 @@ const std::vector<Command>& AppShellCommandsRegister::commandList() const
 
 const std::vector<CommandInfo>& AppShellCommandsRegister::commandInfoList() const
 {
-    return commandInfos();
+    return s_allCommandInfos;
 }

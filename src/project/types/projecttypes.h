@@ -24,7 +24,6 @@
 
 #include <filesystem>
 #include <optional>
-#include <variant>
 
 #include <QString>
 #include <QUrl>
@@ -35,8 +34,6 @@
 
 #include "projectmeta.h"
 
-#include "cloud/cloudtypes.h"
-#include "au3cloud/cloudtypes.h"
 
 namespace au::project {
 struct ProjectCreateOptions
@@ -57,94 +54,6 @@ enum class SaveMode
     SaveCopy,
     SaveSelection,
     AutoSave
-};
-
-enum class CloudSaveMode
-{
-    CreateNew,
-    NormalUpdate,
-    ForceOverwrite,
-};
-
-enum class SaveLocationType
-{
-    Undefined,
-    Local,
-    Cloud
-};
-
-using CloudProjectRecord = au3cloud::CloudProjectRecord;
-
-struct CloudProjectInfo {
-    QString name;
-    muse::cloud::Visibility visibility = muse::cloud::Visibility::Private;
-};
-
-struct CloudAudioInfo {
-    QString name;
-    QUrl url;
-    muse::cloud::Visibility visibility = muse::cloud::Visibility::Private;
-    bool replaceExisting = false;
-
-    bool isValid() const
-    {
-        return !name.isEmpty();
-    }
-};
-
-struct SaveLocation
-{
-    SaveLocationType type = SaveLocationType::Undefined;
-
-    std::variant<muse::io::path_t, CloudProjectInfo> data;
-
-    bool isLocal() const
-    {
-        return type == SaveLocationType::Local
-               && std::holds_alternative<muse::io::path_t>(data);
-    }
-
-    bool isCloud() const
-    {
-        return type == SaveLocationType::Cloud
-               && std::holds_alternative<CloudProjectInfo>(data);
-    }
-
-    bool isValid() const
-    {
-        return isLocal() || isCloud();
-    }
-
-    const muse::io::path_t& localPath() const
-    {
-        IF_ASSERT_FAILED(isLocal()) {
-            static muse::io::path_t null;
-            return null;
-        }
-
-        return std::get<muse::io::path_t>(data);
-    }
-
-    const CloudProjectInfo& cloudInfo() const
-    {
-        IF_ASSERT_FAILED(isCloud()) {
-            static CloudProjectInfo null;
-            return null;
-        }
-
-        return std::get<CloudProjectInfo>(data);
-    }
-
-    SaveLocation() = default;
-
-    SaveLocation(SaveLocationType type, const std::variant<muse::io::path_t, CloudProjectInfo>& data = {})
-        : type(type), data(data) {}
-
-    SaveLocation(const muse::io::path_t& localPath)
-        : type(SaveLocationType::Local), data(localPath) {}
-
-    SaveLocation(const CloudProjectInfo& cloudInfo)
-        : type(SaveLocationType::Cloud), data(cloudInfo) {}
 };
 
 struct ProjectFile {
@@ -211,7 +120,6 @@ using ProjectFilesList = std::vector<ProjectFile>;
 struct RecentFile {
     muse::io::path_t path;
     QString displayNameOverride = {};
-    std::optional<CloudProjectRecord> cloudRecord;
 
     RecentFile() = default;
 
@@ -244,16 +152,6 @@ struct RecentFile {
 
     bool operator ==(const RecentFile& other) const
     {
-        if (cloudRecord.has_value() != other.cloudRecord.has_value()) {
-            return false;
-        }
-
-        if (cloudRecord.has_value()
-            && (cloudRecord->projectId != other.cloudRecord->projectId
-                || cloudRecord->snapshotId != other.cloudRecord->snapshotId)) {
-            return false;
-        }
-
         return path == other.path
                && displayNameOverride == other.displayNameOverride;
     }
@@ -274,11 +172,6 @@ struct Template
 };
 
 using Templates = QList<Template>;
-
-struct ProjectBeingDownloaded {
-    int scoreId = 0;
-    muse::ProgressPtr progress;
-};
 
 class GenerateAudioTimePeriod
 {

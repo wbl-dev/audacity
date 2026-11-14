@@ -6,12 +6,9 @@ set( TARGET au3-theme-resources )
 
 # Names of the image files (and Colors.txt) expected in each theme
 set( IMAGE_LIST
-   AnonymousUser.png
    AudacityLogo48x48.png
    BandWidthCursor.png
    BottomFrequencyCursor.png
-   Cloud.png
-   CloudProgress.png
    Cogwheel.png
    Colors.txt
    Copy.png
@@ -33,10 +30,8 @@ set( IMAGE_LIST
    EditEffects.png
    EnvCursor.png
    Envelope.png
-   FacebookLogo.png
    FFwd.png
    FFwdDisabled.png
-   GoogleLogo.png
    GrabberDropLoc.png
    HelpIcon.png
    HiliteButtonExpand.png

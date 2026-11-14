@@ -41,9 +41,6 @@
 #include "view/projectpropertiesmodel.h"
 #include "view/projectspagemodel.h"
 #include "view/recentprojectsmodel.h"
-#include "view/cloudprojectsmodel.h"
-#include "view/cloudprojectsyncmodel.h"
-#include "view/cloudaudiofilesmodel.h"
 #include "view/projectthumbnailloader.h"
 #include "view/thumbnailloader.h"
 #include "view/pixmapprojectthumbnailview.h"
@@ -115,18 +112,11 @@ void ProjectModule::registerUiTypes()
     qmlRegisterUncreatableType<AbstractItemModel>("Audacity.Project", 1, 0, "AbstractItemModel",
                                                   "Not creatable as it is an abstract type");
     qmlRegisterType<RecentProjectsModel>("Audacity.Project", 1, 0, "RecentProjectsModel");
-    if (!shared::isWorkbenchProfile()) {
-        qmlRegisterType<CloudProjectsModel>("Audacity.Project", 1, 0, "CloudProjectsModel");
-        qmlRegisterType<CloudAudioFilesModel>("Audacity.Project", 1, 0, "CloudAudioFilesModel");
-        qmlRegisterType<CloudProjectSyncModel>("Audacity.Project", 1, 0, "CloudProjectSyncModel");
-    }
     qmlRegisterType<NewProjectModel>("Audacity.Project", 1, 0, "NewProjectModel");
     qmlRegisterType<ProjectThumbnailLoader>("Audacity.Project", 1, 0, "ProjectThumbnailLoader");
     qmlRegisterType<ThumbnailLoader>("Audacity.Project", 1, 0, "ThumbnailLoader");
     qmlRegisterType<PixmapProjectThumbnailView>("Audacity.Project", 1, 0, "PixmapProjectThumbnailView");
     qmlRegisterType<ProjectPropertiesModel>("Audacity.Project", 1, 0, "ProjectPropertiesModel");
-    qmlRegisterUncreatableType<QMLSaveLocationType>("Audacity.Project", 1, 0, "SaveLocationType",
-                                                    "Not creatable as it is an enum type");
 }
 
 void ProjectModule::onInit(const muse::IApplication::RunMode&)

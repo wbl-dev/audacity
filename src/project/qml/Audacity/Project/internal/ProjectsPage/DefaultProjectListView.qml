@@ -19,7 +19,6 @@ Item {
     property real sideMargin: 46
 
     property bool showNewProjectItem: false
-    property bool cloudIndicatorAlwaysVisible: false
     property string placeholder: ":/resources/ProjectPlaceholder.svg"
 
     property NavigationSection navigationSection
@@ -32,23 +31,11 @@ Item {
 
     signal createNewProjectRequested
     signal openProjectRequested(var projectPath, var displayName)
-    signal openCloudProjectRequested(var projectId)
 
     Loader {
         id: loader
         anchors.fill: parent
         sourceComponent: root.viewType === ProjectsPageModel.List ? listComp : gridComp
-    }
-
-    Component {
-        id: cloudIndicatorComp
-
-        CloudProjectIndicatorButton {
-            mouseArea.enabled: false
-
-            isProgress: false
-            isDownloadedAndUpToDate: true
-        }
     }
 
     Component {
@@ -64,7 +51,6 @@ Item {
             sideMargin: root.sideMargin
             placeholder: root.placeholder
 
-            indicatorButton: cloudIndicatorComp
 
             navigation.section: root.navigationSection
             navigation.order: root.navigationOrder
@@ -77,9 +63,6 @@ Item {
                 root.openProjectRequested(projectPath, displayName)
             }
 
-            onOpenCloudProjectRequested: function (projectId) {
-                root.openCloudProjectRequested(projectId)
-            }
         }
     }
 
@@ -90,7 +73,6 @@ Item {
             id: list
 
             readonly property int nameColumnWidth: 100 + thumbnailWidth + nameSpacing
-            readonly property int iconColumnWidth: 48
             readonly property int modifiedColumnWidth: 100
             readonly property int sizeColumnWidth: 75
             readonly property int btnColumnWidth: 44
@@ -119,10 +101,6 @@ Item {
 
             onOpenProjectRequested: function (projectPath, displayName) {
                 root.openProjectRequested(projectPath, displayName)
-            }
-
-            onOpenCloudProjectRequested: function (projectId) {
-                root.openCloudProjectRequested(projectId)
             }
 
             columns: [
@@ -184,50 +162,6 @@ Item {
                                     onActiveChanged: function (active) {
                                         if (active) {
                                             listItem.scrollIntoView()
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                ProjectsListView.ColumnItem {
-                    id: cloudIndicatorColumn
-
-                    header: ""
-
-                    width: iconColumnWidth
-
-                    delegate: Item {
-                        readonly property bool isCloud: root.cloudIndicatorAlwaysVisible || (item.isCloud ?? false)
-
-                        width: parent.width
-                        height: parent.height
-
-                        Loader {
-                            active: isCloud
-                            anchors.centerIn: parent
-
-                            sourceComponent: CloudProjectIndicatorButton {
-                                mouseArea.enabled: false
-                                isProgress: false
-                                isDownloadedAndUpToDate: true
-
-                                NavigationFocusBorder {
-                                    navigationCtrl: NavigationControl {
-                                        name: "CloudIndicator"
-                                        panel: navigationPanel
-                                        row: navigationRow
-                                        column: navigationColumnStart
-                                        enabled: isCloud
-                                        accessible.name: qsTrc("project", "Cloud project indicator")
-                                        accessible.role: MUAccessible.Information
-
-                                        onActiveChanged: function (active) {
-                                            if (active) {
-                                                listItem.scrollIntoView()
-                                                listItem.scrollColumnIntoView(remainingColumnIndex)
-                                            }
                                         }
                                     }
                                 }

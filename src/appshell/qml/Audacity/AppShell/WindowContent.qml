@@ -93,10 +93,6 @@ DockWindow {
         },
         ProjectPage {
             topToolKeyNavSec: root.topToolKeyNavSec
-        },
-        PublishPage {
-            topToolKeyNavSec: root.topToolKeyNavSec
-        },
-        DevToolsPage {}
+        }
     ]
 }

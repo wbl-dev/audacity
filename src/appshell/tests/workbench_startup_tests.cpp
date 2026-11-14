@@ -10,7 +10,6 @@
 #include "internal/startupscenario.h"
 #include "qml/Audacity/AppShell/FirstLaunchSetup/firstlaunchsetupmodel.h"
 #include "qml/Audacity/AppShell/maintoolbarmodel.h"
-#include "shared/productprofile.h"
 
 namespace au::appshell {
 namespace {
@@ -31,7 +30,6 @@ bool contains(const std::vector<muse::Uri>& uris, const char* uri)
 
 TEST(workbench_page_manifest, contains_only_local_product_destinations)
 {
-    ASSERT_TRUE(shared::isWorkbenchProfile());
 
     const AppShellPageManifest manifest = appShellPageManifest();
 
@@ -46,17 +44,8 @@ TEST(workbench_page_manifest, contains_only_local_product_destinations)
     EXPECT_FALSE(contains(manifest.dialogs, "audacity://welcomedialog"));
 }
 
-TEST(workbench_page_manifest, developer_mode_does_not_restore_the_devtools_tab)
-{
-    ASSERT_TRUE(shared::isWorkbenchProfile());
-
-    EXPECT_FALSE(shouldShowDeveloperToolsInMainToolbar(false));
-    EXPECT_FALSE(shouldShowDeveloperToolsInMainToolbar(true));
-}
-
 TEST(workbench_startup, preserves_local_startup_and_disables_online_flows)
 {
-    ASSERT_TRUE(shared::isWorkbenchProfile());
 
     const StartupPolicy policy = startupPolicy();
 
@@ -64,28 +53,10 @@ TEST(workbench_startup, preserves_local_startup_and_disables_online_flows)
     EXPECT_TRUE(policy.createFirstLaunchProject);
     EXPECT_TRUE(policy.allowSessionRecovery);
     EXPECT_TRUE(policy.allowExplicitLocalProject);
-    EXPECT_FALSE(policy.showWelcomeDialog);
-    EXPECT_FALSE(policy.checkForUpdates);
-    EXPECT_FALSE(policy.dispatchCloudUrls);
-}
-
-TEST(workbench_startup, ignores_cloud_deep_links_and_skips_update_dependencies)
-{
-    ASSERT_TRUE(shared::isWorkbenchProfile());
-
-    TestableStartupScenario scenario;
-    scenario.setStartupUrl("audacity://open?audioId=remote");
-    EXPECT_FALSE(scenario.hasExplicitStartupTarget());
-
-    EXPECT_NO_THROW({
-        auto splashResult = scenario.runOnSplashScreen();
-        (void)splashResult;
-    });
 }
 
 TEST(workbench_startup, first_launch_setup_contains_only_local_configuration_pages)
 {
-    ASSERT_TRUE(shared::isWorkbenchProfile());
 
     FirstLaunchSetupModel model;
     ASSERT_EQ(model.numberOfPages(), 3);

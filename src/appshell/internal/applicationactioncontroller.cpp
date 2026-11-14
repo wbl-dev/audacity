@@ -36,7 +36,6 @@
 #include "framework/global/translation.h"
 #include "framework/rcommand/actiontocommand.h"
 
-#include "au3cloud/cloudcommands.h"
 #include "playback/playbackcommands.h"
 #include "project/projectcommands.h"
 #include "project/types/projecttypes.h"
@@ -53,15 +52,6 @@ using namespace muse::rcommand;
 static const QString TRACK_VIEW_SECTION_NAME("TrackViewSection");
 static const QString TIMELINE_SECTION_NAME("TimelineSection");
 static const QString VERTICAL_RULER_CONTROL_NAME("VerticalRuler");
-
-static CommandQuery quitConv(const Command& command, const ActionData& args)
-{
-    CommandQuery query(command);
-    if (args.count() > 1) {
-        query.addParam(INSTALLER_PATH_PARAM, Val(args.arg<std::string>(1)));
-    }
-    return query;
-}
 
 void ApplicationActionController::preInit()
 {
@@ -85,20 +75,13 @@ void ApplicationActionController::preInit()
 void ApplicationActionController::init()
 {
     auto cd = commandDispatcher();
-    cd->onRequest(this, APP_QUIT_COMMAND, [this](const Params& params) {
-        const muse::io::path_t installerPath = params.at(INSTALLER_PATH_PARAM).toString();
-        return quit(installerPath) ? make_ok() : make_ret(Ret::Code::Cancel);
+    cd->onRequest(this, APP_QUIT_COMMAND, [this]() {
+        return quit() ? make_ok() : make_ret(Ret::Code::Cancel);
     });
     cd->onRequest(this, APP_RESTART_COMMAND, [this]() { return restart(); });
     cd->onRequest(this, APP_TOGGLE_FULLSCREEN_COMMAND, [this]() { return toggleFullScreen(); });
     cd->onRequest(this, APP_ABOUT_COMMAND, [this]() { return openAboutDialog(); });
     cd->onRequest(this, APP_ABOUT_QT_COMMAND, [this]() { return openAboutQtDialog(); });
-    if (isAppShellCommandAllowed(APP_ONLINE_HANDBOOK_COMMAND)) {
-        cd->onRequest(this, APP_ONLINE_HANDBOOK_COMMAND, [this]() { return openOnlineHandbookPage(); });
-    }
-    if (isAppShellCommandAllowed(APP_ASK_HELP_COMMAND)) {
-        cd->onRequest(this, APP_ASK_HELP_COMMAND, [this]() { return openAskForHelpPage(); });
-    }
     cd->onRequest(this, APP_PREFERENCES_COMMAND, [this]() { return openPreferencesDialog(); });
     cd->onRequest(this, APP_REVERT_FACTORY_COMMAND, [this]() { return revertToFactorySettings(); });
     cd->onRequest(this, APP_AUDIO_SETTINGS_COMMAND, [this]() { return openAudioSettingsDialog(); });
@@ -127,9 +110,8 @@ void ApplicationActionController::init()
 
     //! Note: This table won't be necessary after the actions to commands complete refactor.
     //! It will be removed on https://github.com/audacity/audacity/issues/12321
-    static const std::vector<ActionToCommand> actionToCommand = [] {
-        std::vector<ActionToCommand> mappings {
-        { "quit", APP_QUIT_COMMAND, quitConv },
+    static const std::vector<ActionToCommand> actionToCommand {
+        { "quit", APP_QUIT_COMMAND, {} },
         { "toggle-transport", APP_TOGGLE_TRANSPORT_TOOLBAR_COMMAND, {} },
         { "toggle-tracks", APP_TOGGLE_TRACKS_PANEL_COMMAND, {} },
         { "toggle-history", APP_TOGGLE_HISTORY_PANEL_COMMAND, {} },
@@ -139,8 +121,6 @@ void ApplicationActionController::init()
         { "fullscreen", APP_TOGGLE_FULLSCREEN_COMMAND, {} },
         { "about-audacity", APP_ABOUT_COMMAND, {} },
         { "about-qt", APP_ABOUT_QT_COMMAND, {} },
-        { "online-handbook", APP_ONLINE_HANDBOOK_COMMAND, {} },
-        { "ask-help", APP_ASK_HELP_COMMAND, {} },
         { "preference-dialog", APP_PREFERENCES_COMMAND, {} },
         { "revert-factory", APP_REVERT_FACTORY_COMMAND, {} },
         { "audio-settings", APP_AUDIO_SETTINGS_COMMAND, {} },
@@ -158,12 +138,7 @@ void ApplicationActionController::init()
         { "action://enter", APP_ENTER_COMMAND, {} },
         { "action://shift-enter", APP_SHIFT_ENTER_COMMAND, {} },
         { "action://context-menu", APP_CONTEXT_MENU_COMMAND, {} },
-        };
-        std::erase_if(mappings, [](const ActionToCommand& mapping) {
-            return !isAppShellActionAllowed(mapping.actionCode);
-        });
-        return mappings;
-    }();
+    };
     registerActionToCommand(this, actionToCommand, commandDispatcher(), dispatcher());
 }
 
@@ -353,7 +328,6 @@ void ApplicationActionController::handleFileOpenEvent(const QFileOpenEvent* even
 {
     const QUrl url = event->url();
 
-    // TODO: isUrlSupported - is misleading, as it does not handle audio.com urls
     if (projectFilesController()->isUrlSupported(url)) {
         if (startupScenario()->startupCompleted()) {
             // On macos the main window may be hidden, show and raise it
@@ -372,21 +346,9 @@ void ApplicationActionController::handleFileOpenEvent(const QFileOpenEvent* even
         return;
     }
 
-    const QString urlStr = url.toString(QUrl::FullyEncoded);
-    if (startupScenario()->startupCompleted()) {
-        if (auto mw = mainWindow()) {
-            if (QWindow* window = mw->qWindow(); window && !window->isVisible()) {
-                window->setVisible(true);
-            }
-            mw->requestShowOnFront();
-        }
-        commandDispatcher()->dispatch(au3cloud::CLOUD_OPEN_URL_COMMAND, { { au3cloud::CLOUD_OPEN_URL_URL_PARAM, Val(urlStr) } });
-    } else {
-        startupScenario()->setStartupUrl(urlStr);
-    }
 }
 
-bool ApplicationActionController::quit(const muse::io::path_t& installerPath)
+bool ApplicationActionController::quit()
 {
     if (m_quiting) {
         return false;
@@ -411,22 +373,7 @@ bool ApplicationActionController::quit(const muse::io::path_t& installerPath)
         }
     }
 
-    if (!installerPath.empty()) {
-        //! NOTE: All windows are quitting to complete the update, apply it
-        //! in-place, falling back to handing the package to the user.
-        bool applied = false;
-        if (appUpdateService()->canAutoInstall()) {
-            applied = bool(appUpdateService()->installUpdate());
-        }
 
-        if (!applied) {
-#if defined(Q_OS_LINUX)
-            platformInteractive()->revealInFileBrowser(installerPath);
-#else
-            platformInteractive()->openUrl(QUrl::fromLocalFile(installerPath.toQString()));
-#endif
-        }
-    }
 
     QCoreApplication::exit();
     return true;
@@ -464,20 +411,6 @@ muse::Ret ApplicationActionController::openAboutDialog()
 muse::Ret ApplicationActionController::openAboutQtDialog()
 {
     QApplication::aboutQt();
-    return make_ok();
-}
-
-muse::Ret ApplicationActionController::openOnlineHandbookPage()
-{
-    std::string handbookUrl = configuration()->handbookUrl();
-    platformInteractive()->openUrl(handbookUrl);
-    return make_ok();
-}
-
-muse::Ret ApplicationActionController::openAskForHelpPage()
-{
-    std::string askForHelpUrl = configuration()->askForHelpUrl();
-    platformInteractive()->openUrl(askForHelpUrl);
     return make_ok();
 }
 

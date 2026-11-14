@@ -32,7 +32,6 @@
 #include "framework/rcommand/icommandsstate.h"
 #include "framework/ui/iuiactionsregister.h"
 
-#include "shared/productprofile.h"
 
 #include "internal/applicationuiactions.h"
 #include "internal/applicationactioncontroller.h"
@@ -64,16 +63,6 @@ AppShellPageManifest au::appshell::appShellPageManifest()
             muse::Uri("audacity://firstLaunchSetup"),
         },
     };
-
-    if (shared::fullDeveloperToolsAvailable()) {
-        manifest.pages.emplace_back("audacity://devtools");
-    }
-
-    if (!shared::isWorkbenchProfile()) {
-        manifest.pages.emplace_back("audacity://publish");
-        manifest.dialogs.emplace_back("audacity://signin/audiocom");
-        manifest.dialogs.emplace_back("audacity://welcomedialog");
-    }
 
     return manifest;
 }
@@ -114,10 +103,6 @@ void AppShellModule::resolveImports()
                 ir->registerQmlUri(dialog, "Audacity.AppShell", "AboutDialog");
             } else if (dialog == muse::Uri("audacity://firstLaunchSetup")) {
                 ir->registerQmlUri(dialog, "Audacity.AppShell", "FirstLaunchSetupDialog");
-            } else if (dialog == muse::Uri("audacity://signin/audiocom")) {
-                ir->registerQmlUri(dialog, "Audacity.AppShell", "SigninAudiocomDialog");
-            } else if (dialog == muse::Uri("audacity://welcomedialog")) {
-                ir->registerQmlUri(dialog, "Audacity.AppShell", "WelcomeDialog");
             }
         }
     }

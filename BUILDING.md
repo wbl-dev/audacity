@@ -60,7 +60,7 @@ cmake --build build/            # build (every build)
 cmake --install build/          # install (every successful build)
 ```
 
-On macOS, after configuring the `audacity-debug` preset, quit OnlyAudios and run
+On macOS, after configuring the `workbench-debug` preset, quit OnlyAudios and run
 `./buildscripts/tools/build_and_install_onlyaudios.sh` from the repository root.
 The script builds the app and replaces `/Applications/OnlyAudios.app`.
 

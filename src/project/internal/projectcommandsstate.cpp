@@ -16,34 +16,21 @@ namespace {
 const std::vector<Command> commandsAllowedWithoutProject {
     PROJECT_NEW_COMMAND,
     PROJECT_OPEN_COMMAND,
-    PROJECT_OPEN_CLOUD_COMMAND,
     PROJECT_CLEAR_RECENT_COMMAND,
     PROJECT_IMPORT_STARTUP_MEDIA_COMMAND,
-    PROJECT_OPEN_CLOUD_AUDIO_FILE_COMMAND,
-    PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_FOR_PROJECT_COMMAND,
 };
 
 const std::vector<Command> commandsDisabledDuringRecording {
     PROJECT_CLOSE_COMMAND,
     PROJECT_IMPORT_COMMAND,
     PROJECT_SAVE_COMMAND,
-    PROJECT_SAVE_TO_CLOUD_COMMAND,
     PROJECT_SAVE_AS_COMMAND,
     PROJECT_EXPORT_AUDIO_COMMAND,
     PROJECT_EXPORT_LABELS_COMMAND,
     PROJECT_EXPORT_MIDI_COMMAND,
-    PROJECT_SHARE_AUDIO_COMMAND,
-    PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_COMMAND,
-    PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_FOR_PROJECT_COMMAND,
-};
-
-const std::vector<Command> cloudProjectCommands {
-    PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_COMMAND,
 };
 
 const std::vector<Command> audioContentCommands {
-    PROJECT_SHARE_AUDIO_COMMAND,
-    PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_COMMAND,
     PROJECT_EXPORT_AUDIO_COMMAND,
 };
 
@@ -87,9 +74,6 @@ void ProjectCommandsState::deinit()
         prj->hasLabels().ch.disconnect(this);
     }
 
-    if (const IAudacityProjectPtr prj = globalContext()->currentProject()) {
-        prj->isCloudProjectChanged().disconnect(this);
-    }
 }
 
 void ProjectCommandsState::listenProjectChanges()
@@ -104,11 +88,6 @@ void ProjectCommandsState::listenProjectChanges()
         }, muse::async::Asyncable::Mode::SetReplace);
     }
 
-    if (const IAudacityProjectPtr prj = globalContext()->currentProject()) {
-        prj->isCloudProjectChanged().onNotify(this, [this]() {
-            updateCommandStates(cloudProjectCommands);
-        }, muse::async::Asyncable::Mode::SetReplace);
-    }
 }
 
 void ProjectCommandsState::updateCommandStates(const std::vector<Command>& commands)
@@ -133,10 +112,6 @@ CommandState ProjectCommandsState::commandState(const Command& command) const
     const IAudacityProjectPtr project = globalContext()->currentProject();
     if (!project) {
         return CommandState(muse::contains(commandsAllowedWithoutProject, command));
-    }
-
-    if (muse::contains(cloudProjectCommands, command) && !project->isCloudProject()) {
-        return CommandState(false);
     }
 
     const trackedit::ITrackeditProjectPtr trackeditProject = globalContext()->currentTrackeditProject();

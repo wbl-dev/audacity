@@ -10,13 +10,13 @@ Paul Licameli split from Prefs.cpp
 
 #include "AudacityFileConfig.h"
 
-#include "HelpSystem.h"
 #include "wxPanelWrapper.h"
 #include "ShuttleGui.h"
 #include "../images/Help.xpm"
 
 #include <wx/app.h>
 #include <wx/bmpbuttn.h>
+#include <wx/msgdlg.h>
 #include <wx/sizer.h>
 #include <wx/wfstream.h>
 
@@ -195,12 +195,8 @@ void AudacityFileConfig::Warn() const
 
     switch (dlg.ShowModal()) {
     case wxID_HELP:
-        // Can't use the HelpSystem since the theme manager may not
-        // yet be initialized and it requires a configuration file.
-        OpenInDefaultBrowser("https://"
-                             + HelpSystem::HelpHostname
-                             + HelpSystem::HelpServerHomeDir
-                             + "Error:_Audacity_settings_file_unwritable");
+        wxMessageBox(XO("Check that the settings file and its directory are writable, then retry.").Translation(),
+                     XO("Settings file is not writable").Translation(), wxOK | wxICON_INFORMATION, &dlg);
         break;
 
     case wxID_CANCEL:

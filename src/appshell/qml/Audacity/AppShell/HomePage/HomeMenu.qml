@@ -25,14 +25,12 @@ import QtQuick.Layouts 1.3
 
 import Muse.Ui 1.0
 import Muse.UiComponents
-import Muse.Cloud 1.0
 
 Item {
     id: root
 
     property string currentPageName: ""
     property bool iconsOnly: false
-    property bool cloudEnabled: false
 
     signal selected(string name)
 
@@ -58,26 +56,6 @@ Item {
         anchors.fill: parent
 
         spacing: 0
-
-        AccountInfoButton {
-            visible: root.cloudEnabled
-            title: qsTrc("appshell", "Cloud account")
-
-            Layout.fillWidth: true
-            Layout.preferredHeight: 60
-            Layout.topMargin: 20
-
-            navigation.name: "AccountInfo"
-            navigation.panel: navPanel
-            navigation.row: 1
-
-            checked: root.currentPageName === "account"
-            iconOnly: root.iconsOnly
-
-            onToggled: {
-                root.selected("account")
-            }
-        }
 
         RadioButtonGroup {
             id: radioButtonList

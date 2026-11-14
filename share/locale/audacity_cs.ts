@@ -274,18 +274,6 @@
         <translation>Změnit zvuk na ticho</translation>
     </message>
     <message>
-        <location filename="../../src/au3cloud/internal/clouduiactions.cpp" line="16"/>
-        <source>View project on audio.com</source>
-        <extracomment>Action title: shown as a menu item or a button label; keep it short</extracomment>
-        <translation>Zobrazit projekt na audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/clouduiactions.cpp" line="24"/>
-        <source>View on audio.com</source>
-        <extracomment>Action title: shown as a menu item or a button label; keep it short</extracomment>
-        <translation>Zobrazit na audio.com</translation>
-    </message>
-    <message>
         <location filename="../../src/effects/effects_base/internal/effectsuiactions.cpp" line="27"/>
         <source>Repeat last effect</source>
         <extracomment>Action title: shown as a menu item or a button label; keep it short</extracomment>
@@ -2083,11 +2071,6 @@
         <translation>Zobrazit skripty</translation>
     </message>
     <message>
-        <location filename="../../muse/framework/update/internal/updateuiactions.cpp" line="36"/>
-        <source>Check for &amp;update</source>
-        <translation>Vyhledat &amp;aktualizaci</translation>
-    </message>
-    <message>
         <location filename="../../muse/framework/vst/internal/vstuiactions.cpp" line="38"/>
         <source>Use old view</source>
         <translation>Použít staré zobrazení</translation>
@@ -2240,18 +2223,6 @@
         <source>Open the context menu of the focused item</source>
         <extracomment>Action description: shown as a tooltip; can be a full sentence</extracomment>
         <translation>Otevřít kontextovou nabídku zaměřené položky</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/clouduiactions.cpp" line="18"/>
-        <source>View project on audio.com</source>
-        <extracomment>Action description: shown as a tooltip; can be a full sentence</extracomment>
-        <translation>Zobrazit projekt na audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/clouduiactions.cpp" line="26"/>
-        <source>View on audio.com</source>
-        <extracomment>Action description: shown as a tooltip; can be a full sentence</extracomment>
-        <translation>Zobrazit na audio.com</translation>
     </message>
     <message>
         <location filename="../../src/effects/effects_base/internal/effectsuiactions.cpp" line="35"/>
@@ -3696,7 +3667,6 @@
 <context>
     <name>appshell</name>
     <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/AccountPage.qml" line="63"/>
         <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/HomeMenu.qml" line="65"/>
         <source>Cloud account</source>
         <translation>Účet v cloudu</translation>
@@ -3715,28 +3685,6 @@
     <message>
         <source>Learn</source>
         <translation type="vanished">Učení</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/PluginsPage.qml" line="73"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/PluginsPage.qml" line="97"/>
-        <source>Plugins</source>
-        <translation>Zásuvné moduly</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/PluginsPage.qml" line="110"/>
-        <source>Plugins search</source>
-        <translation>Hledání zásuvných modulů</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/PluginsPage.qml" line="129"/>
-        <source>Category:</source>
-        <translation>Kategorie:</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/PluginsPage.qml" line="138"/>
-        <source>All</source>
-        <extracomment>The title of an option to display the plugins from all categories.</extracomment>
-        <translation>Vše</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/MainToolBar.qml" line="64"/>
@@ -3914,7 +3862,6 @@ Tato akce nesmaže žádný z vašich projektů.</translation>
         <translation>Vývojářské nástroje</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/Main.wasm.qml" line="36"/>
         <location filename="../../src/appshell/qml/Audacity/AppShell/platform/win/AppTitleBar.qml" line="96"/>
         <source>Audacity</source>
         <translation>Audacity</translation>
@@ -3933,11 +3880,6 @@ Tato akce nesmaže žádný z vašich projektů.</translation>
         <location filename="../../src/appshell/qml/Audacity/AppShell/ProjectPage/ProjectStatusBar.qml" line="43"/>
         <source>Selection status</source>
         <translation>Stav výběru</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/AccountPage.qml" line="76"/>
-        <source>Accounts</source>
-        <translation>Účty</translation>
     </message>
 </context>
 <context>
@@ -4312,11 +4254,6 @@ Tato akce nesmaže žádný z vašich projektů.</translation>
 <context>
     <name>appshell/about</name>
     <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/AlphaWelcomePopup.qml" line="14"/>
-        <source>Audacity 4</source>
-        <translation>Audacity 4</translation>
-    </message>
-    <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/aboutmodel.cpp" line="273"/>
         <source>Unstable prerelease for %1</source>
         <translation>Nestabilní předběžná verze %1</translation>
@@ -4456,70 +4393,8 @@ Tato akce nesmaže žádný z vašich projektů.</translation>
         <translation type="vanished">Aktualizace aplikace</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="39"/>
-        <source>Audacity notifies you in-app when a new version is available to download.</source>
-        <translation>Audacity vás v aplikaci upozorní, když je nová verze dostupná ke stažení.</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="40"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="43"/>
-        <source>You can turn this off anytime in %1.</source>
-        <translation>Tuto možnost můžete kdykoli vypnout v %1.</translation>
-    </message>
-    <message>
         <source>Usage Info</source>
         <translation type="vanished">Údaje o používání</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="36"/>
-        <source>Preferences → General</source>
-        <translation>Nastavení → Obecné</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="38"/>
-        <source>App updates</source>
-        <translation>Aktualizace aplikace</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="41"/>
-        <source>Crash reports</source>
-        <translation>Hlášení o pádech</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="42"/>
-        <source>Audacity automatically sends crash reports to help us improve product quality.</source>
-        <translation>Audacity automaticky odesílá hlášení o pádech, která nám pomáhají zlepšovat kvalitu aplikace.</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="44"/>
-        <source>Usage info</source>
-        <translation>Údaje o používání</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="46"/>
-        <source>privacy policy</source>
-        <translation>zásady ochrany soukromí</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="47"/>
-        <source>To help us understand how often people use Audacity, we generate a random ID (UUID) for each installation. This ID does not contain any personally identifiable information. Want to know more? Check out our %1.</source>
-        <translation>Abychom zjistili, jak často lidé používají Audacity, vytváříme pro každou instalaci náhodný identifikátor (UUID). Tento identifikátor neobsahuje žádné údaje umožňující zjistit totožnost osoby. Chcete vědět více? Přečtěte si naše %1.</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="48"/>
-        <source>You can disable this anytime in %1.</source>
-        <translation>Tuto možnost můžete kdykoli vypnout v %1.</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="49"/>
-        <source>Disable UUID</source>
-        <translation>Vypnout UUID</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="82"/>
-        <source>UpdatesUsage. %1</source>
-        <extracomment>%1 is the page title, %2 is the active button title (e.g. &quot;Next&quot; or &quot;Done&quot;)</extracomment>
-        <translation>Aktualizace a údaje o používání. %1</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/DoublePage.qml" line="48"/>
@@ -4541,137 +4416,8 @@ Tato akce nesmaže žádný z vašich projektů.</translation>
         <translation>%1. %2</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/PlaybackPage.qml" line="31"/>
-        <source>Playback</source>
-        <translation>Přehrávání</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/PlaybackPage.qml" line="36"/>
-        <source>Watch video</source>
-        <translation>Přehrát video</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="16"/>
-        <source>Connect to your audio.com account</source>
-        <translation>Připojte se ke svému účtu audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="29"/>
-        <source>Continue with Google</source>
-        <translation>Pokračovat přes Google</translation>
-    </message>
-    <message>
         <source>Continue with Facebook</source>
         <translation type="vanished">Pokračovat přes Facebook</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="30"/>
-        <source>Or use email and password</source>
-        <translation>Nebo použijte e-mail a heslo</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="36"/>
-        <source>Email</source>
-        <translation>E-mail</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="37"/>
-        <source>Password</source>
-        <translation>Heslo</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="38"/>
-        <source>&lt;a href=&quot;%1&quot;&gt;Forgot your password?&lt;/a&gt;</source>
-        <translation>&lt;a href=&quot;%1&quot;&gt;Zapomněli jste heslo?&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="40"/>
-        <source>Don’t have an account?</source>
-        <translation>Nemáte účet?</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="41"/>
-        <source>Create new account</source>
-        <translation>Vytvořit nový účet</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="42"/>
-        <source>Already have an account?</source>
-        <translation>Už máte účet?</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="43"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="47"/>
-        <source>Sign in</source>
-        <translation>Přihlásit se</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="46"/>
-        <source>Loading…</source>
-        <translation>Načítání…</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="48"/>
-        <source>Create account</source>
-        <translation>Vytvořit účet</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="99"/>
-        <source>Social sign-in options</source>
-        <translation>Možnosti přihlášení přes externí účty</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="164"/>
-        <source>Email field</source>
-        <translation>Pole pro e-mail</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="224"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="231"/>
-        <source>Forgot password</source>
-        <translation>Zapomenuté heslo</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="266"/>
-        <source>Password field</source>
-        <translation>Pole pro heslo</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="311"/>
-        <source>Form action</source>
-        <translation>Akce formuláře</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="355"/>
-        <source>Sign in link</source>
-        <translation>Odkaz pro přihlášení</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="355"/>
-        <source>Create account link</source>
-        <translation>Odkaz pro vytvoření účtu</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/TutorialsPage.qml" line="31"/>
-        <source>Video tutorials</source>
-        <translation>Videonávody</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/TutorialsPage.qml" line="32"/>
-        <source>Behind this dialog is the ‘Learn’ section, where you’ll find tutorials to get you started
-(Video tutorials require an internet connection)</source>
-        <translation>Za tímto dialogem je sekce „Výuka“, kde najdete návody pro začátečníky
-(Videonávody vyžadují připojení k internetu)</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/UnderConstructionPage.qml" line="12"/>
-        <source>Pre-alpha build</source>
-        <translation>Verze před fází alfa</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/UnderConstructionPage.qml" line="13"/>
-        <source>Many features are currently unavailable, but our team is actively developing and implementing them for future releases.</source>
-        <translation>Mnoho funkcí zatím není k dispozici, ale náš tým je aktivně vyvíjí a připravuje pro budoucí vydání.</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/shared/ThemeSamplesList.qml" line="91"/>
@@ -4944,42 +4690,6 @@ Tato akce nesmaže žádný z vašich projektů.</translation>
         <source>Preview of the selected workspace layout showing the arrangement of interface elements</source>
         <translation>Náhled rozložení vybraného pracovního prostoru s uspořádáním prvků rozhraní</translation>
     </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3cloudservice.cpp" line="120"/>
-        <source>Authorization failed</source>
-        <translation>Autorizace se nezdařila</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3cloudservice.cpp" line="34"/>
-        <source>No access token</source>
-        <translation>Chybí přístupový token</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3cloudservice.cpp" line="84"/>
-        <source>Not authorized</source>
-        <translation>Nepřihlášeno</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3cloudservice.cpp" line="141"/>
-        <location filename="../../src/au3cloud/internal/au3cloudservice.cpp" line="148"/>
-        <source>Registration failed. Please try again.</source>
-        <translation>Registrace se nezdařila. Zkuste to prosím znovu.</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3cloudservice.cpp" line="162"/>
-        <source>Incorrect email or password. Please try again.</source>
-        <translation>Nesprávný e-mail nebo heslo. Zkuste to prosím znovu.</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3cloudservice.cpp" line="170"/>
-        <source>Authentication failed. Please try again.</source>
-        <translation>Ověření totožnosti se nezdařilo. Zkuste to prosím znovu.</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3cloudservice.cpp" line="178"/>
-        <source>Could not start the sign-in process. Please try again.</source>
-        <translation>Proces přihlášení se nepodařilo spustit. Zkuste to prosím znovu.</translation>
-    </message>
 </context>
 <context>
     <name>appshell/preferences</name>
@@ -5012,21 +4722,6 @@ Tato akce nesmaže žádný z vašich projektů.</translation>
         <location filename="../../src/preferences/qml/Audacity/Preferences/internal/AudioEngineSection.qml" line="36"/>
         <source>Restart audio and MIDI devices</source>
         <translation>Restartovat zvuková zařízení a zařízení MIDI</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/AutomaticUpdateSection.qml" line="32"/>
-        <source>Automatic update check</source>
-        <translation>Automatická kontrola aktualizací</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/AutomaticUpdateSection.qml" line="44"/>
-        <source>Check to see if a new version of Audacity is available</source>
-        <translation>Kontrolovat, zda je dostupná nová verze Audacity</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/AutomaticUpdateSection.qml" line="60"/>
-        <source>Update checking requires network access. In order to protect your privacy, Audacity does not store any personal information. See our &lt;a href=&quot;%1&quot;&gt;privacy policy&lt;/a&gt; for more info.</source>
-        <translation>Kontrola aktualizací vyžaduje přístup k síti. Kvůli ochraně soukromí Audacity neukládá žádné osobní údaje. Další informace najdete v našich &lt;a href=&quot;%1&quot;&gt;zásadách ochrany soukromí&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../../src/preferences/qml/Audacity/Preferences/internal/AutoSaveSection.qml" line="32"/>
@@ -5296,21 +4991,6 @@ Tato akce nesmaže žádný z vašich projektů.</translation>
         <translation>Barva zvýraznění</translation>
     </message>
     <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/UsageInfoSection.qml" line="14"/>
-        <source>Usage info</source>
-        <translation>Údaje o používání</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/UsageInfoSection.qml" line="25"/>
-        <source>Send anonymous usage info</source>
-        <translation>Odesílat anonymní údaje o používání</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/UsageInfoSection.qml" line="39"/>
-        <source>To help us understand how often people use Audacity, we generate a random ID (UUID) for each installation. This ID does not contain any personally identifiable information. Want to know more? Check out our &lt;a href=&quot;%1&quot;&gt;privacy policy&lt;/a&gt;.</source>
-        <translation>Abychom lépe rozuměli tomu, jak často lidé používají Audacity, generujeme pro každou instalaci náhodný identifikátor (UUID). Tento identifikátor neobsahuje žádné údaje umožňující identifikaci osob. Chcete vědět více? Přečtěte si naše &lt;a href=&quot;%1&quot;&gt;zásady ochrany soukromí&lt;/a&gt;.</translation>
-    </message>
-    <message>
         <location filename="../../src/preferences/qml/Audacity/Preferences/internal/ZoomToggleSection.qml" line="14"/>
         <source>Zoom toggle (magnifying glass)</source>
         <translation>Přepínání zvětšení (lupa)</translation>
@@ -5450,76 +5130,6 @@ Tato akce nesmaže žádný z vašich projektů.</translation>
 </context>
 <context>
     <name>appshell/welcome</name>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/WelcomeDialog.qml" line="34"/>
-        <source>Welcome</source>
-        <translation>Vítejte</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/WelcomeDialog.qml" line="115"/>
-        <source>Previous item</source>
-        <translation>Předchozí položka</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/WelcomeDialog.qml" line="165"/>
-        <source>Next item</source>
-        <translation>Další položka</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/WelcomeDialog.qml" line="276"/>
-        <source>Don’t show welcome dialog on startup</source>
-        <translation>Nezobrazovat uvítací dialog při spuštění</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="47"/>
-        <source>Video: find out what’s new in Audacity 4</source>
-        <translation>Video: zjistěte, co je nového v Audacity 4</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="50"/>
-        <source>Watch video</source>
-        <translation>Přehrát video</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="56"/>
-        <source>Complete your Audacity cloud setup with Audio.com</source>
-        <translation>Dokončete nastavení cloudu Audacity se službou Audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="77"/>
-        <source>Help us decide the future of Audacity</source>
-        <translation>Pomozte nám rozhodnout o budoucnosti Audacity</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="80"/>
-        <source>Take part in survey</source>
-        <translation>Zúčastnit se průzkumu</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="86"/>
-        <source>Soap Voice Cleaner: studio-quality voice-over sound</source>
-        <translation>Soap Voice Cleaner: zvuk mluveného komentáře ve studiové kvalitě</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="89"/>
-        <source>Get it on MuseHub</source>
-        <translation>Získat na MuseHubu</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="59"/>
-        <source>Continue</source>
-        <translation>Pokračovat</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="67"/>
-        <source>Explore free plugins for sculpting your audio</source>
-        <translation>Objevte bezplatné zásuvné moduly pro tvarování svého zvuku</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="70"/>
-        <source>View free plugins</source>
-        <translation>Zobrazit bezplatné zásuvné moduly</translation>
-    </message>
 </context>
 <context>
     <name>au/uicomponents</name>
@@ -6756,143 +6366,10 @@ Zkuste resetovat protažené klipy nebo před analýzou smíchat a vykreslit sto
 <context>
     <name>cloud</name>
     <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/AccountPage.qml" line="18"/>
-        <source>Audio.com</source>
-        <translation>Audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/CloudItem.qml" line="51"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/CloudItem.qml" line="106"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/internal/CloudItem.qml" line="73"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/internal/CloudItem.qml" line="129"/>
-        <source>Not signed in</source>
-        <translation>Nepřihlášeno</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/CloudItem.qml" line="136"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/internal/CloudItem.qml" line="159"/>
-        <source>My profile</source>
-        <translation>Můj profil</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/CloudItem.qml" line="136"/>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="538"/>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="253"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/internal/CloudItem.qml" line="159"/>
-        <source>Sign in</source>
-        <translation>Přihlásit se</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/CloudItem.qml" line="164"/>
-        <location filename="../../src/project/qml/Audacity/Project/SaveToCloudDialog.qml" line="29"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/internal/CloudItem.qml" line="187"/>
-        <source>Sign out</source>
-        <translation>Odhlásit se</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/CloudItem.qml" line="164"/>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="548"/>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="263"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/internal/CloudItem.qml" line="187"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/RequireAuthorizationDialog.qml" line="75"/>
-        <source>Create account</source>
-        <translation>Vytvořit účet</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/SaveToCloudDialog.qml" line="21"/>
-        <source>Project name</source>
-        <translation>Název projektu</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/SaveToCloudDialog.qml" line="22"/>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="566"/>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="700"/>
         <source>Save</source>
         <translation>Uložit</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/SaveToCloudDialog.qml" line="36"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/RequireAuthorizationDialog.qml" line="69"/>
-        <source>You are not signed in</source>
-        <translation>Nejste přihlášeni</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="402"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="471"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="488"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="566"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="578"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="583"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="633"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="753"/>
-        <source>Invalid project</source>
-        <extracomment>Error message of a failed cloud operation</extracomment>
-        <translation>Neplatný projekt</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="482"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="545"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="627"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="997"/>
-        <source>Service destroyed</source>
-        <extracomment>Error message shown when a cloud operation is interrupted by the application closing</extracomment>
-        <translation>Služba byla ukončena</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="501"/>
-        <source>Internal error</source>
-        <translation>Vnitřní chyba</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="588"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="594"/>
-        <source>Project is not saved to the cloud</source>
-        <translation>Projekt v cloudu není uložen</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="600"/>
-        <source>Project is not synced with the cloud</source>
-        <translation>Projekt není synchronizován s cloudem</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="709"/>
-        <source>Failed to get audio preview upload URLs</source>
-        <translation>Nepodařilo se získat adresy URL pro nahrání zvukového náhledu</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="859"/>
-        <source>Invalid audio ID</source>
-        <translation>Neplatné ID zvuku</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="926"/>
-        <source>Project not found in cloud database</source>
-        <translation>Projekt nebyl nalezen v databázi cloudových projektů</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="1009"/>
-        <source>No valid current project</source>
-        <translation>Není k dispozici platný aktuální projekt</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="1072"/>
-        <source>Upload succeeded but payload is missing</source>
-        <translation>Nahrání bylo úspěšné, ale chybí data výsledku</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="1097"/>
-        <source>Failed to delete cloud project from database</source>
-        <translation>Cloudový projekt se nepodařilo odstranit z databáze</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/oauthhttpserverreplyhandler.cpp" line="188"/>
-        <source>Sign in successful! You’re good to go back to Audacity.</source>
-        <translation>Přihlášení proběhlo úspěšně! Můžete se vrátit do Audacity.</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/oauthhttpserverreplyhandler.cpp" line="200"/>
-        <source>Sign in failed. Please return to Audacity and try again.</source>
-        <translation>Přihlášení selhalo. Vraťte se do Audacity a zkuste to znovu.</translation>
     </message>
     <message>
         <location filename="../../src/project/internal/projectactionscontroller.cpp" line="722"/>
@@ -7002,100 +6479,12 @@ Zkuste resetovat protažené klipy nebo před analýzou smíchat a vykreslit sto
         <source>Open audio from cloud</source>
         <translation>Otevření zvuku z cloudu</translation>
     </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/SigninAudiocomDialog.qml" line="16"/>
-        <source>Create an account on audio.com</source>
-        <translation>Vytvořit účet na audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/SigninAudiocomDialog.qml" line="16"/>
-        <source>Sign in to audio.com</source>
-        <translation>Přihlásit se na audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="531"/>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="246"/>
-        <source>Sign in buttons</source>
-        <translation>Tlačítka přihlášení</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/AccountInfoButton.qml" line="45"/>
-        <source>My accounts</source>
-        <translation>Moje účty</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/RequireAuthorizationDialog.qml" line="78"/>
-        <source>Log in</source>
-        <translation>Přihlásit se</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/internal/oauthhttpserverreplyhandler.cpp" line="184"/>
-        <source>Sign in successful! You’re good to go back to MuseScore Studio.</source>
-        <translation>Přihlášení proběhlo úspěšně! Můžete se vrátit zpět do MuseScore Studio.</translation>
-    </message>
 </context>
 <context>
     <name>cloud-audiocom</name>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/DataUploader.cpp" line="262"/>
-        <source>File not found</source>
-        <translation>Soubor nebyl nalezen</translation>
-    </message>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/LocalProjectSnapshot.cpp" line="369"/>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/LocalProjectSnapshot.cpp" line="469"/>
-        <source>Project was closed before snapshot was created</source>
-        <translation>Projekt byl zavřen před vytvořením snímku</translation>
-    </message>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/LocalProjectSnapshot.cpp" line="450"/>
-        <source>Invalid Response: %1</source>
-        <translation>Neplatná odpověď: %1</translation>
-    </message>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/MixdownUploader.cpp" line="178"/>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/MixdownUploader.cpp" line="189"/>
-        <source>Export failed</source>
-        <translation>Export se nezdařil</translation>
-    </message>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/MixdownUploader.cpp" line="196"/>
-        <source>Export error</source>
-        <translation>Chyba exportu</translation>
-    </message>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/RemoteProjectSnapshot.cpp" line="169"/>
-        <source>Failed to attach to the Cloud project database</source>
-        <translation>Nepodařilo se připojit k databázi cloudového projektu</translation>
-    </message>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/RemoteProjectSnapshot.cpp" line="552"/>
-        <source>Failed to decompress the Cloud project block</source>
-        <translation>Nepodařilo se dekomprimovat blok cloudového projektu</translation>
-    </message>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/ResumedSnaphotUploadOperation.cpp" line="238"/>
-        <source>Local project data was removed before the sync has completed</source>
-        <translation>Místní data projektu byla odstraněna před dokončením synchronizace</translation>
-    </message>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/ResumedSnaphotUploadOperation.cpp" line="323"/>
-        <source>Failed to deserialize the response</source>
-        <translation>Nepodařilo se deserializovat odpověď</translation>
-    </message>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/UploadService.cpp" line="617"/>
-        <source>Cannot proceed to upload.</source>
-        <translation>Nelze pokračovat v odesílání.</translation>
-    </message>
 </context>
 <context>
     <name>cloud/save</name>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/SaveToCloudDialog.qml" line="16"/>
-        <source>Save to audio.com</source>
-        <translation>Uložit na audio.com</translation>
-    </message>
 </context>
 <context>
     <name>diagnostics</name>
@@ -12267,11 +11656,6 @@ Po exportu budou efekty masteru znovu zapnuty.</translation>
 <context>
     <name>extensions</name>
     <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/PluginsPage.qml" line="168"/>
-        <source>Reload plugins</source>
-        <translation>Znovu načíst zásuvné moduly</translation>
-    </message>
-    <message>
         <location filename="../../muse/framework/extensions/qml/Muse/Extensions/ExtensionsListPanel.qml" line="112"/>
         <source>Enabled</source>
         <translation>Povolené</translation>
@@ -12622,8 +12006,6 @@ Rady k výběru vhodné jednotky zobrazíte kliknutím na tlačítko nápovědy.
 <context>
     <name>global</name>
     <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/AlphaWelcomePopup.qml" line="146"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/WelcomeDialog.qml" line="299"/>
         <location filename="../../src/effects/effects_base/qml/Audacity/Effects/PresetNameDialog.qml" line="116"/>
         <location filename="../../src/importexport/export/qml/Export/CustomFFmpegDialog.qml" line="167"/>
         <location filename="../../src/trackedit/qml/Audacity/TrackEdit/DeleteBehaviorOnboardingFollowupDialog.qml" line="100"/>
@@ -12666,7 +12048,6 @@ Rady k výběru vhodné jednotky zobrazíte kliknutím na tlačítko nápovědy.
         <location filename="../../src/playback/qml/Audacity/Playback/dialogs/LoopRegionInOut.qml" line="141"/>
         <location filename="../../src/project/qml/Audacity/Project/NewProjectDialog.qml" line="115"/>
         <location filename="../../src/projectscene/qml/Audacity/ProjectScene/tracksitemsview/labeleditor/AddNewLabelTrackDialog.qml" line="101"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/RequireAuthorizationDialog.qml" line="72"/>
         <location filename="../../muse/framework/interactive/qml/Muse/Interactive/ProgressDialog.qml" line="98"/>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="482"/>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="504"/>
@@ -12697,7 +12078,6 @@ Rady k výběru vhodné jednotky zobrazíte kliknutím na tlačítko nápovědy.
     <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/AboutDialog.qml" line="81"/>
         <location filename="../../src/importexport/export/qml/Export/MetadataDialog.qml" line="115"/>
-        <location filename="../../src/project/qml/Audacity/Project/ProjectUploadedDialog.qml" line="258"/>
         <location filename="../../muse/framework/uicomponents/qml/Muse/UiComponents/PopupPanel.qml" line="160"/>
         <location filename="../../muse/framework/interactive/internal/interactive.cpp" line="133"/>
         <source>Close</source>
@@ -12747,11 +12127,6 @@ Rady k výběru vhodné jednotky zobrazíte kliknutím na tlačítko nápovědy.
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="138"/>
-        <source>Don’t show again</source>
-        <translation>Znovu nezobrazovat</translation>
-    </message>
-    <message>
         <location filename="../../src/project/qml/Audacity/Project/internal/NewProject/TitleListView.qml" line="124"/>
         <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/ProjectGridItem.qml" line="297"/>
         <location filename="../../src/project/qml/Audacity/Project/ProjectsGridView.qml" line="212"/>
@@ -12762,32 +12137,16 @@ Rady k výběru vhodné jednotky zobrazíte kliknutím na tlačítko nápovědy.
         <translation>Nebyly nalezeny žádné výsledky</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="310"/>
-        <source>Duration</source>
-        <comment>file duration</comment>
-        <translation>Doba trvání</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="328"/>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="365"/>
         <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/DefaultProjectListView.qml" line="296"/>
         <location filename="../../muse/framework/uicomponents/qml/Muse/UiComponents/filteredflyoutmodel.cpp" line="63"/>
         <source>Unknown</source>
         <translation>Neznámé</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="347"/>
         <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/DefaultProjectListView.qml" line="278"/>
         <source>Size</source>
         <comment>file size</comment>
         <translation>Velikost</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="472"/>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="187"/>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/internal/Playlist.qml" line="149"/>
-        <source>Please check your internet connection or try again later.</source>
-        <translation>Prověřte, prosím, své internetové připojení nebo to zkuste později.</translation>
     </message>
     <message>
         <location filename="../../src/project/qml/Audacity/Project/NewProjectDialog.qml" line="125"/>
@@ -12805,11 +12164,6 @@ Rady k výběru vhodné jednotky zobrazíte kliknutím na tlačítko nápovědy.
         <location filename="../../src/project/qml/Audacity/Project/NewProjectDialog.qml" line="148"/>
         <source>Done</source>
         <translation>Hotovo</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/ProjectUploadedDialog.qml" line="104"/>
-        <source>Success!</source>
-        <translation>Úspěch!</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/firstlaunchsetupmodel.cpp" line="137"/>
@@ -12840,8 +12194,6 @@ Rady k výběru vhodné jednotky zobrazíte kliknutím na tlačítko nápovědy.
         <translation>Úspěch</translation>
     </message>
     <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/UpdateCompletedContent.qml" line="73"/>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/UpdateReadyContent.qml" line="61"/>
         <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1373"/>
         <source>Dismiss</source>
         <translation>Zavřít</translation>
@@ -12865,7 +12217,6 @@ Rady k výběru vhodné jednotky zobrazíte kliknutím na tlačítko nápovědy.
         <translation>s</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/CloudProjectSyncDialog.qml" line="75"/>
         <location filename="../../src/project/internal/projectactionscontroller.cpp" line="745"/>
         <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1156"/>
         <source>Stop</source>
@@ -16062,81 +15413,6 @@ Libsndfile hlásí „%2“</translation>
 </context>
 <context>
     <name>learn</name>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/internal/ClassesPage.qml" line="199"/>
-        <source>Open %1</source>
-        <translation>Otevřít %1</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/internal/Playlist.qml" line="144"/>
-        <source>Sorry, we are unable to load these videos right now</source>
-        <translation>Omlouváme se, ale tato videa se nám nyní nedaří načíst</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/LearnPage.qml" line="96"/>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/LearnPage.qml" line="103"/>
-        <source>Learn</source>
-        <translation>Výuka</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/LearnPage.qml" line="152"/>
-        <source>Learn tab bar</source>
-        <translation>Panel karet sekce Výuka</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/LearnPage.qml" line="163"/>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/LearnPage.qml" line="227"/>
-        <source>Get started</source>
-        <translation>Začínáme</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/LearnPage.qml" line="182"/>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/LearnPage.qml" line="271"/>
-        <source>Classes</source>
-        <translation>Kurzy</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/learnerrors.h" line="45"/>
-        <source>The received playlist is empty.</source>
-        <translation>Přijatý seznam videí je prázdný.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/learnpagemodel.cpp" line="64"/>
-        <source>Marc Sabatella</source>
-        <translation>Marc Sabatella</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/learnpagemodel.cpp" line="65"/>
-        <source>Instructor</source>
-        <translation>Lektor</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/learnpagemodel.cpp" line="68"/>
-        <source>Creator, Mastering MuseScore</source>
-        <translation>Autor, Mastering MuseScore</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/learnpagemodel.cpp" line="69"/>
-        <source>Welcome to Mastering MuseScore – the most comprehensive resource for learning the world’s most popular music notation software! My name is Marc Sabatella, and I have been helping develop, support, and promote MuseScore since its initial release over ten years ago.
-
-Whether you are just getting started with music notation software, or are a power user eager to explore advanced engraving and playback techniques, my flagship online course Mastering MuseScore covers everything you need to know to get the most out of MuseScore.
-
-In addition, Mastering MuseScore features a supportive community of musicians, with discussion spaces, live streams, and other related courses and services to help you create your best music. Take advantage of this opportunity to learn MuseScore from one of its most recognized experts!
-
-(Note: Mastering MuseScore is available in English only)</source>
-        <translation>Vítejte v Mastering MuseScore – nejobsáhlejším zdroji pro výuku práce s nejoblíbenějším notačním programem na světě! Jmenuji se Marc Sabatella a pomáhám vyvíjet, podporovat a propagovat MuseScore od jeho prvního vydání před více než deseti lety.
-
-Ať už s notačním programem teprve začínáte, nebo patříte ke zkušeným uživatelům, kteří chtějí prozkoumat pokročilé techniky notosazby a přehrávání, můj stěžejní online kurz Mastering MuseScore obsahuje vše, co potřebujete vědět, abyste z MuseScore vytěžili co nejvíce.
-
-Mastering MuseScore navíc nabízí komunitu hudebníků, která vás podpoří, s prostorem pro diskuze, živými přenosy a dalšími souvisejícími kurzy a službami, které vám pomohou vytvářet co nejlepší hudbu. Využijte této příležitosti a naučte se MuseScore od jednoho z jeho nejuznávanějších odborníků!
-
-(Poznámka: Mastering MuseScore je k dispozici pouze v angličtině)</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/learnpagemodel.cpp" line="83"/>
-        <source>Mastering MuseScore</source>
-        <translation>Mastering MuseScore</translation>
-    </message>
 </context>
 <context>
     <name>math</name>
@@ -16819,40 +16095,9 @@ Nebude načten.</translation>
 </context>
 <context>
     <name>network</name>
-    <message>
-        <location filename="../../muse/framework/network/networkerrors.h" line="49"/>
-        <source>The request was aborted</source>
-        <translation>Požadavek byl přerušen</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/network/networkerrors.h" line="50"/>
-        <source>The connection to the remote server timed out</source>
-        <translation>Vypršel časový limit spojení se vzdáleným serverem</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/network/networkerrors.h" line="51"/>
-        <source>An unknown network-related error occurred</source>
-        <translation>Došlo k neznámé chybě související se sítí</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/network/networkerrors.h" line="52"/>
-        <source>The I/O device was not opened for reading</source>
-        <translation>Zařízení I/O nebylo otevřeno pro čtení</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/network/networkerrors.h" line="53"/>
-        <source>The I/O device was not opened for writing</source>
-        <translation>Zařízení I/O nebylo otevřeno pro zápis</translation>
-    </message>
 </context>
 <context>
     <name>network-manager</name>
-    <message>
-        <location filename="../../au3/libraries/au3-network-manager/MultipartData.cpp" line="102"/>
-        <location filename="../../au3/libraries/au3-network-manager/MultipartData.cpp" line="109"/>
-        <source>Failed to open the file for upload: %1</source>
-        <translation>Nepodařilo se otevřít soubor pro odeslání: %1</translation>
-    </message>
 </context>
 <context>
     <name>notation</name>
@@ -18180,36 +17425,6 @@ Nebude načten.</translation>
         <source>Driver settings</source>
         <translation>Nastavení ovladače</translation>
     </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/ExportBehaviorSection.qml" line="14"/>
-        <source>Export behavior</source>
-        <translation>Chování exportu</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/ExportBehaviorSection.qml" line="25"/>
-        <source>Show ‘How would you like to export?’ dialog</source>
-        <translation>Zobrazovat dialog „Jak chcete vyvést?“</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/SaveBehaviorSection.qml" line="15"/>
-        <source>Save behavior</source>
-        <translation>Chování ukládání</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/SaveBehaviorSection.qml" line="29"/>
-        <source>Always ask</source>
-        <translation>Vždy se zeptat</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/SaveBehaviorSection.qml" line="42"/>
-        <source>Always save to cloud</source>
-        <translation>Vždy ukládat do cloudu</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/SaveBehaviorSection.qml" line="55"/>
-        <source>Always save to computer</source>
-        <translation>Vždy ukládat do počítače</translation>
-    </message>
 </context>
 <context>
     <name>preferences/spectrogram</name>
@@ -18283,88 +17498,15 @@ Nebude načten.</translation>
         <translation>Autorská práva</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="167"/>
-        <source>Cloud audio files grid</source>
-        <translation>Mřížka zvukových souborů v cloudu</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="273"/>
         <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/DefaultProjectListView.qml" line="241"/>
         <source>Modified</source>
         <translation>Změněno</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="435"/>
         <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/DefaultProjectListView.qml" line="366"/>
         <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/ProjectGridItem.qml" line="217"/>
         <source>Project item menu</source>
         <translation>Nabídka položky projektu</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="471"/>
-        <source>Unable to load online files</source>
-        <translation>Nelze načíst online soubory</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="491"/>
-        <source>You don’t have any online files yet</source>
-        <translation>Zatím nemáte žádné online soubory</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="492"/>
-        <source>Files will appear here when you save a file to the cloud, or publish a project</source>
-        <translation>Soubory se zde zobrazí, když soubor uložíte do cloudu nebo zveřejníte projekt</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="516"/>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="231"/>
-        <source>You are not signed in</source>
-        <translation>Nejste přihlášeni</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="517"/>
-        <source>Please sign in to view your online files</source>
-        <translation>Pro zobrazení svých online souborů se přihlaste</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectIndicatorButton.qml" line="44"/>
-        <source>Stop download</source>
-        <translation>Zastavit stahování</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectIndicatorButton.qml" line="44"/>
-        <source>Download project</source>
-        <translation>Stáhnout projekt</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="163"/>
-        <source>Cloud projects grid</source>
-        <translation>Mřížka projektů v cloudu</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="164"/>
-        <source>Cloud projects list</source>
-        <translation>Seznam projektů v cloudu</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="186"/>
-        <source>Unable to load online projects</source>
-        <translation>Nelze načíst online projekty</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="206"/>
-        <source>You don’t have any online projects yet</source>
-        <translation>Zatím nemáte žádné online projekty</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="207"/>
-        <source>Projects will appear here when you publish a project</source>
-        <translation>Projekty se zde zobrazí, když zveřejníte projekt</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="232"/>
-        <source>Please sign in to view your online projects</source>
-        <translation>Pro zobrazení svých online projektů se přihlaste</translation>
     </message>
     <message>
         <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/RecentProjectsView.qml" line="41"/>
@@ -18399,7 +17541,6 @@ Nebude načten.</translation>
         <translation>Seznam projektů</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="213"/>
         <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/DefaultProjectListView.qml" line="132"/>
         <source>Name</source>
         <translation>Název</translation>
@@ -18477,41 +17618,6 @@ Nebude načten.</translation>
         <translation>Otevřít jiný…</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/ProjectUploadedDialog.qml" line="116"/>
-        <source>All saved changes will now update to the cloud</source>
-        <translation>Všechny uložené změny se nyní budou synchronizovat do cloudu</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/ProjectUploadedDialog.qml" line="158"/>
-        <source>Publish your finished projects on Audio.com</source>
-        <translation>Zveřejněte své dokončené projekty na Audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/ProjectUploadedDialog.qml" line="182"/>
-        <source>Create a portfolio to showcase your music</source>
-        <translation>Vytvořte portfolio a představte svou hudbu</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/ProjectUploadedDialog.qml" line="182"/>
-        <source>Gain followers and receive project comments and ratings</source>
-        <translation>Získejte sledující, komentáře a hodnocení svých projektů</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/ProjectUploadedDialog.qml" line="182"/>
-        <source>Share your projects and collaborate with other musicians</source>
-        <translation>Sdílejte své projekty a spolupracujte s ostatními hudebníky</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/ProjectUploadedDialog.qml" line="215"/>
-        <source>Watch video</source>
-        <translation>Přehrát video</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/ProjectUploadedDialog.qml" line="243"/>
-        <source>View project online</source>
-        <translation>Zobrazit projekt online</translation>
-    </message>
-    <message>
         <location filename="../../src/project/qml/Audacity/Project/UploadProgressDialog.qml" line="48"/>
         <source>Saving online…</source>
         <translation>Ukládá se online…</translation>
@@ -18520,11 +17626,6 @@ Nebude načten.</translation>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/themespagemodel.cpp" line="215"/>
         <source>Accent color</source>
         <translation>Barva zvýraznění</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="530"/>
-        <source>Could not save project locally</source>
-        <translation>Projekt se nepodařilo uložit místně</translation>
     </message>
     <message>
         <location filename="../../src/au3wrap/internal/au3project.cpp" line="153"/>
@@ -19305,70 +18406,9 @@ Chcete-li projekt obnovit, musíte spustit tuto verzi Audacity.</translation>
 </context>
 <context>
     <name>project/cloud</name>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AlsoShareAudioComDialog.qml" line="117"/>
-        <source>Would you also like to share your music on Audio.com?</source>
-        <translation>Chcete také sdílet svou hudbu na Audio.com?</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AlsoShareAudioComDialog.qml" line="126"/>
-        <source>Share your project’s audio with millions of listeners on this free streaming platform</source>
-        <translation>Sdílejte zvuk svého projektu s miliony posluchačů na této bezplatné streamovací platformě</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AlsoShareAudioComDialog.qml" line="145"/>
-        <source>You can change this setting in Preferences at any time.</source>
-        <translation>Toto nastavení můžete kdykoli změnit v předvolbách.</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AlsoShareAudioComDialog.qml" line="165"/>
-        <source>Remember my choice</source>
-        <translation>Zapamatovat si mou volbu</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/CloudProjectSyncDialog.qml" line="11"/>
-        <source>Syncing with audio.com</source>
-        <translation>Synchronizace s audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/CloudProjectSyncDialog.qml" line="57"/>
-        <source>Project is syncing with audio.com. Do you want to stop the sync process?</source>
-        <translation>Projekt se synchronizuje s audio.com. Chcete synchronizaci zastavit?</translation>
-    </message>
 </context>
 <context>
     <name>project/export</name>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="34"/>
-        <source>Export audio</source>
-        <translation>Vyvedení zvuku</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="69"/>
-        <source>How would you like to export?</source>
-        <translation>Jak chcete vyvést?</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="87"/>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="89"/>
-        <source>Share to audio.com</source>
-        <translation>Sdílet na audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="88"/>
-        <source>Uploads an uncompressed audio file and generates a shareable link. This link allows others to download the file in either .wav or .mp3 format.</source>
-        <translation>Nahraje nekomprimovaný zvukový soubor a vytvoří odkaz pro sdílení. Pomocí tohoto odkazu mohou ostatní stáhnout soubor ve formátu .wav nebo .mp3.</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="105"/>
-        <source>Export MP3s, WAVs, FLACs and other formats to your computer.</source>
-        <translation>Exportujte soubory MP3, WAV, FLAC a další formáty do počítače.</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="106"/>
-        <source>Export to computer</source>
-        <translation>Vyvést do počítače</translation>
-    </message>
 </context>
 <context>
     <name>project/history</name>
@@ -19491,38 +18531,6 @@ Chcete-li projekt obnovit, musíte spustit tuto verzi Audacity.</translation>
 <context>
     <name>project/save</name>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="69"/>
-        <source>How would you like to save?</source>
-        <translation>Jak chcete uložit?</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="88"/>
-        <source>Your project is backed up privately on audio.com. You can access your work from any device and collaborate on your project with others. Cloud saving is free for a limited number of projects.</source>
-        <translation>Váš projekt je soukromě zálohován na audio.com. Ke své práci můžete přistupovat z libovolného zařízení a spolupracovat na projektu s ostatními. Ukládání do cloudu je pro omezený počet projektů zdarma.</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="89"/>
-        <source>Save to cloud</source>
-        <translation>Uložit do cloudu</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="87"/>
-        <source>Save to the cloud (free)</source>
-        <translation>Uložit do cloudu (zdarma)</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="104"/>
-        <source>On your computer</source>
-        <translation>V počítači</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="105"/>
-        <source>If you prefer to save your files on your computer, you can do that here.</source>
-        <translation>Pokud chcete ukládat soubory do počítače, můžete to udělat tady.</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="106"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/RequireAuthorizationDialog.qml" line="75"/>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="505"/>
         <source>Save to computer</source>
         <translation>Uložit do počítače</translation>
@@ -19532,7 +18540,6 @@ Chcete-li projekt obnovit, musíte spustit tuto verzi Audacity.</translation>
         <translation type="vanished">Uložit do počítače</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="34"/>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="172"/>
         <source>Save project</source>
         <translation>Uložit projekt</translation>
@@ -19556,7 +18563,6 @@ Chcete-li projekt obnovit, musíte spustit tuto verzi Audacity.</translation>
     </message>
     <message>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="483"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="195"/>
         <source>Publish</source>
         <translation>Zveřejnit</translation>
     </message>
@@ -19587,58 +18593,6 @@ Chcete-li projekt obnovit, musíte spustit tuto verzi Audacity.</translation>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="522"/>
         <source>Unable to connect to Audio.com</source>
         <translation>Nelze se připojit k Audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="162"/>
-        <source>Public</source>
-        <translation>Veřejné</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="167"/>
-        <source>Unlisted</source>
-        <translation>Neveřejné</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="173"/>
-        <source>Private</source>
-        <translation>Soukromé</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="185"/>
-        <source>Publish to MuseScore.com</source>
-        <translation>Zveřejnit na MuseScore.com</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="189"/>
-        <source>Replace the existing &lt;a href=&quot;%1&quot;&gt;online score&lt;/a&gt;</source>
-        <extracomment>The text between `&lt;a href=&quot;%1&quot;&gt;` and `&lt;/a&gt;` will be a clickable link to the online score in question</extracomment>
-        <translation>Nahradit stávající &lt;a href=&quot;%1&quot;&gt;notový zápis na internetu&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="192"/>
-        <source>Publish as new online score</source>
-        <translation>Zveřejnit jako nový notový zápis na internetu</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="199"/>
-        <source>Share on Audio.com</source>
-        <translation>Sdílet na Audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="203"/>
-        <source>Replace the &lt;a href=&quot;%1&quot;&gt;existing audio&lt;/a&gt;</source>
-        <extracomment>The text between `&lt;a href=&quot;%1&quot;&gt;` and `&lt;/a&gt;` will be a clickable link to the online audio in question</extracomment>
-        <translation>Nahradit &lt;a href=&quot;%1&quot;&gt;stávající zvukový záznam&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="206"/>
-        <source>Upload as new audio file</source>
-        <translation>Nahrát jako nový zvukový soubor</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="209"/>
-        <source>Share</source>
-        <translation>Sdílet</translation>
     </message>
 </context>
 <context>
@@ -22771,153 +21725,8 @@ Chcete pokračovat?</translation>
 <context>
     <name>update</name>
     <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/AppReleaseInfoDialog.qml" line="85"/>
-        <source>A new update is ready to install</source>
-        <translation>Nová aktualizace je připravena k instalaci</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/AppReleaseInfoDialog.qml" line="86"/>
-        <source>A new version of %1 is available!</source>
-        <translation>Je k dispozici nová verze aplikace %1!</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/AppReleaseInfoDialog.qml" line="97"/>
-        <source>%1 has downloaded an update and is ready to install. %1 will restart to complete the installation. If you have any unsaved changes, you will be prompted to save them first.</source>
-        <translation>Aplikace %1 stáhla aktualizaci a je připravena ji nainstalovat. K dokončení instalace se %1 restartuje. Pokud máte neuložené změny, nejprve budete vyzváni k jejich uložení.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/AppReleaseInfoDialog.qml" line="110"/>
-        <location filename="../../muse/framework/update/qml/Muse/Update/AppReleaseInfoDialog.qml" line="132"/>
-        <source>Release notes</source>
-        <translation>Poznámky k vydání</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/AppReleaseInfoDialog.qml" line="131"/>
-        <source>%1 Release notes</source>
-        <translation>Poznámky k vydání %1</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/AppReleaseInfoBottomPanel.qml" line="51"/>
-        <source>Skip this version</source>
-        <translation>Přeskočit tuto verzi</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/AppReleaseInfoBottomPanel.qml" line="70"/>
-        <source>Remind me later</source>
-        <translation>Připomenout později</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/AppReleaseInfoBottomPanel.qml" line="89"/>
-        <source>Update now</source>
-        <translation>Aktualizovat nyní</translation>
-    </message>
-    <message>
         <source>Install update</source>
         <translation type="vanished">Nainstalovat aktualizaci</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/ReleaseNotesView.qml" line="80"/>
-        <source>Read the %1 release notes</source>
-        <translation>Přečtěte si poznámky k vydání %1</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="136"/>
-        <source>You already have the latest version of %1. Please visit &lt;a href=&quot;%2&quot;&gt;%3&lt;/a&gt; for news on what’s coming next.</source>
-        <translation>Máte již nejnovější verzi aplikace %1. Novinky o tom, co se chystá, najdete na &lt;a href=&quot;%2&quot;&gt;%3&lt;/a&gt;.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="143"/>
-        <source>You’re up to date!</source>
-        <translation>Máte nejnovější verzi!</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="175"/>
-        <source>Cannot connect to server</source>
-        <translation>Nelze se připojit k serveru</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="176"/>
-        <source>Sorry - please try again later</source>
-        <translation>Promiňte – zkuste to prosím později</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="178"/>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="190"/>
-        <location filename="../../muse/framework/update/internal/updatecommandsregister.cpp" line="34"/>
-        <location filename="../../muse/framework/update/internal/updatecommandsregister.cpp" line="35"/>
-        <source>Check for update</source>
-        <translation>Zkontrolovat aktualizace</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="188"/>
-        <source>Not enough disk space</source>
-        <translation>Nedostatek místa na disku</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="265"/>
-        <source>%1 has downloaded an update and is ready to install it. %1 will restart to complete the installation. If you have any unsaved changes, you will be prompted to save them first.</source>
-        <translation>Aplikace %1 stáhla aktualizaci a je připravena ji nainstalovat. K dokončení instalace se %1 restartuje. Pokud máte neuložené změny, nejprve budete vyzváni k jejich uložení.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="272"/>
-        <source>Restart</source>
-        <translation>Restartovat</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="302"/>
-        <source>%1 needs to close to complete the installation. If you have any unsaved changes, you will be prompted to save them before %1 closes.</source>
-        <translation>K dokončení instalace je třeba zavřít aplikaci %1. Pokud máte neuložené změny, před zavřením aplikace %1 budete vyzváni k jejich uložení.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="308"/>
-        <source>Close</source>
-        <translation>Zavřít</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/appupdatemodel.cpp" line="33"/>
-        <source>Updating %1</source>
-        <translation>Aktualizuje se %1</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/appupdatemodel.cpp" line="63"/>
-        <source>Downloading %1 %2</source>
-        <extracomment>Means that the download is currently in progress. %1 will be replaced by the app name, %2 by the version number of the version that is being downloaded.</extracomment>
-        <translation>Stahuje se %1 %2</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/UpdateCompletedContent.qml" line="65"/>
-        <source>Updated successfully</source>
-        <translation>Úspěšně aktualizováno</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/UpdateReadyContent.qml" line="53"/>
-        <source>Update available</source>
-        <translation>Je k dispozici aktualizace</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/UpdateReadyContent.qml" line="87"/>
-        <source>See details</source>
-        <translation>Zobrazit podrobnosti</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/UpdateReadyContent.qml" line="97"/>
-        <source>Update</source>
-        <translation>Aktualizovat</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdateservice.cpp" line="375"/>
-        <source>Free up at least %1 MB of disk space and try again.</source>
-        <translation>Uvolněte alespoň %1 MB místa na disku a zkuste to znovu.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdateservice.cpp" line="546"/>
-        <source>Installing %1</source>
-        <translation>Instaluje se %1</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdateservice.cpp" line="547"/>
-        <source>Installing %1 %2</source>
-        <translation>Instaluje se %1 %2</translation>
     </message>
 </context>
 <context>

@@ -44,7 +44,6 @@ enum class Err {
     ProjectFileNotFound,
     ProjectFileIsReadProtected,
     ProjectFileIsWriteProtected,
-    InvalidCloudProjectId,
 
     UnsupportedUrl,
     MalformedOpenProjectUrl,

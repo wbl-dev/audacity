@@ -10,7 +10,6 @@
 #include "iappshellconfiguration.h"
 #include "framework/global/iglobalconfiguration.h"
 #include "framework/global/iapplication.h"
-#include "framework/update/iupdateconfiguration.h"
 #include "framework/global/io/ifilesystem.h"
 
 class QUrl;
@@ -25,7 +24,6 @@ class AboutModel : public QObject, public muse::Contextable
     muse::GlobalInject<IAppShellConfiguration> configuration;
     muse::GlobalInject<muse::IGlobalConfiguration> globalConfiguration;
     muse::GlobalInject<muse::IApplication> application;
-    muse::GlobalInject<muse::update::IUpdateConfiguration> updateConfiguration;
     muse::GlobalInject<muse::io::IFileSystem> fileSystem;
 
 public:
@@ -38,7 +36,6 @@ public:
     Q_INVOKABLE QVariantMap appUrl() const;
     Q_INVOKABLE QVariantMap forumUrl() const;
     Q_INVOKABLE QVariantMap contributionUrl() const;
-    Q_INVOKABLE QVariantMap privacyPolicyUrl() const;
     Q_INVOKABLE QVariantList creditList() const;
     Q_INVOKABLE QString gplText() const;
 

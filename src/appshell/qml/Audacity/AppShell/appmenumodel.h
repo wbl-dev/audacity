@@ -39,7 +39,6 @@ Q_MOC_INCLUDE(< QWindow >)
 #include "ui/iuiconfiguration.h"
 #include "iappshellconfiguration.h"
 #include "internal/iappmenumodelhook.h"
-#include "global/iglobalconfiguration.h"
 #include "effects/effects_base/ieffectexecutionscenario.h"
 #include "effects/effects_base/ieffectsprovider.h"
 #include "effects/effects_base/ieffectsconfiguration.h"
@@ -47,58 +46,23 @@ Q_MOC_INCLUDE(< QWindow >)
 #include "effects/effects_base/ieffectsmenuprovider.h"
 #include "trackedit/iprojecthistory.h"
 #include "trackedit/iselectioncontroller.h"
-#include "shared/productprofile.h"
 
 //! TODO AU4
 // #include "workspace/iworkspacemanager.h"
 #include "project/irecentfilescontroller.h"
 #include "extensions/iextensionsprovider.h"
-#include "update/iupdateconfiguration.h"
 
 namespace au::appshell {
-struct DiagnosticMenuPolicy {
-    bool saveFiles;
-    bool systemTools;
-    bool developerTools;
-};
-
-constexpr DiagnosticMenuPolicy diagnosticMenuPolicy() noexcept
-{
-    if constexpr (shared::isWorkbenchProfile()) {
-        return { true, false, false };
-    }
-
-    return { true, true, true };
-}
-
-inline bool isMenuCommandAllowed(const muse::rcommand::Command& command)
-{
-    if (!shared::isWorkbenchProfile()) {
-        return true;
-    }
-
-    const std::string commandUri = command.toString();
-    return commandUri != "command://project/save-to-cloud"
-           && commandUri != "command://project/update-cloud-audio-preview"
-           && commandUri != "command://project/share-audio"
-           && commandUri != "command://app/online-handbook"
-           && commandUri != "command://app/ask-help"
-           && commandUri != "command://update/check"
-           && commandUri != "command://effects/get-effects";
-}
-
 class AppMenuModel : public muse::uicomponents::AbstractMenuModel, public effects::IEffectMenuItemFactory
 {
     Q_OBJECT
 public:
-    muse::GlobalInject<muse::IGlobalConfiguration> globalConfiguration;
     muse::GlobalInject<muse::ui::IUiConfiguration> uiConfiguration;
     muse::GlobalInject<au::project::IRecentFilesController> recentFilesController;
     muse::GlobalInject<effects::IEffectsConfiguration> effectsConfiguration;
     muse::GlobalInject<IAppShellConfiguration> configuration;
     muse::GlobalInject<IAppMenuModelHook> appMenuModelHook;
     muse::GlobalInject<effects::IEffectsProvider> effectsProvider;
-    muse::GlobalInject<muse::update::IUpdateConfiguration> updateConfiguration;
 
     muse::ContextInject<muse::ui::IMainWindow> mainWindow { this };
     muse::ContextInject<muse::ui::INavigationController> navigationController = { this };

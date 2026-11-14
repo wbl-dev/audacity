@@ -50,7 +50,6 @@ Paul Licameli split from AudacityProject.cpp
 #include "au3-basic-ui/BasicUI.h"
 #include "au3-files/wxFileNameWrapper.h"
 #include "au3-xml/XMLFileReader.h"
-#include "au3-sentry-reporting/SentryHelper.h"
 #include "au3-utility/MemoryX.h"
 #include "au3-realtime-effects/SavedMasterEffectList.h"
 
@@ -673,8 +672,6 @@ int ProjectFileIO::Exec(const char* query, const ExecCB& callback, bool silent)
                           const_cast<void*>(ptr), &errmsg);
 
     if (rc != SQLITE_ABORT && errmsg && !silent) {
-        ADD_EXCEPTION_CONTEXT("sqlite3.query", query);
-        ADD_EXCEPTION_CONTEXT("sqlite3.rc", std::to_string(rc));
 
         SetDBError(
             //: %1 is the SQL command that failed to execute
@@ -892,8 +889,6 @@ bool ProjectFileIO::DeleteBlocks(const BlockIDs& blockids, bool complement)
     // Add the function used to verify each row's blockid against the set of active blockids
     rc = sqlite3_create_function(db, "inset", 1, SQLITE_UTF8 | SQLITE_DETERMINISTIC, &contextData, InSet, nullptr, nullptr);
     if (rc != SQLITE_OK) {
-        ADD_EXCEPTION_CONTEXT("sqlite3.rc", std::to_string(rc));
-        ADD_EXCEPTION_CONTEXT("sqlite3.context", "ProjectGileIO::DeleteBlocks::create_function");
 
         /*: An error message.  Don't translate inset or blockids.*/
         SetDBError(TranslatableString("project-file-io", "Unable to add ‘inset’ function (can’t verify blockids)"));
@@ -908,9 +903,6 @@ bool ProjectFileIO::DeleteBlocks(const BlockIDs& blockids, bool complement)
         complement ? "NOT " : "");
     rc = sqlite3_exec(db, sql, nullptr, nullptr, nullptr);
     if (rc != SQLITE_OK) {
-        ADD_EXCEPTION_CONTEXT("sqlite3.query", sql.ToStdString());
-        ADD_EXCEPTION_CONTEXT("sqlite3.rc", std::to_string(rc));
-        ADD_EXCEPTION_CONTEXT("sqlite3.context", "ProjectGileIO::GetBlob");
 
         if (rc == SQLITE_READONLY) {
             /*: An error message.  Don't translate blockfiles.*/
@@ -1072,9 +1064,6 @@ bool ProjectFileIO::CopyTo(const FilePath& destpath,
 
             // Only capture the error if there wasn't a previous error
             if (result != SQLITE_OK && (rc == SQLITE_DONE || rc == SQLITE_OK)) {
-                ADD_EXCEPTION_CONTEXT("sqlite3.rc", std::to_string(rc));
-                ADD_EXCEPTION_CONTEXT(
-                    "sqlite3.context", "ProjectFileIO::CopyTo.cleanup");
 
                 SetDBError(
                     TranslatableString("project-file-io", "Failed to rollback transaction during import")
@@ -1148,9 +1137,6 @@ bool ProjectFileIO::CopyTo(const FilePath& destpath,
                                 &stmt,
                                 nullptr);
         if (rc != SQLITE_OK) {
-            ADD_EXCEPTION_CONTEXT("sqlite3.rc", std::to_string(rc));
-            ADD_EXCEPTION_CONTEXT(
-                "sqlite3.context", "ProjectGileIO::CopyTo.prepare");
 
             SetDBError(
                 //: %1 is the SQL command that could not be prepared
@@ -1182,9 +1168,6 @@ bool ProjectFileIO::CopyTo(const FilePath& destpath,
             // Bind statement parameters
             rc = sqlite3_bind_int64(stmt, 1, blockid);
             if (rc != SQLITE_OK) {
-                ADD_EXCEPTION_CONTEXT("sqlite3.rc", std::to_string(rc));
-                ADD_EXCEPTION_CONTEXT(
-                    "sqlite3.context", "ProjectGileIO::CopyTo.bind");
 
                 SetDBError(
                     TranslatableString("project-file-io", "Failed to bind SQL parameter")
@@ -1196,9 +1179,6 @@ bool ProjectFileIO::CopyTo(const FilePath& destpath,
             // Process it
             rc = sqlite3_step(stmt);
             if (rc != SQLITE_DONE) {
-                ADD_EXCEPTION_CONTEXT("sqlite3.rc", std::to_string(rc));
-                ADD_EXCEPTION_CONTEXT(
-                    "sqlite3.context", "ProjectGileIO::CopyTo.step");
 
                 SetDBError(
                     //: %1 is the SQL command that failed
@@ -1209,9 +1189,6 @@ bool ProjectFileIO::CopyTo(const FilePath& destpath,
 
             // Reset statement to beginning
             if (sqlite3_reset(stmt) != SQLITE_OK) {
-                ADD_EXCEPTION_CONTEXT("sqlite3.rc", std::to_string(rc));
-                ADD_EXCEPTION_CONTEXT(
-                    "sqlite3.context", "ProjectGileIO::CopyTo.reset");
 
                 THROW_INCONSISTENCY_EXCEPTION;
             }
@@ -1262,8 +1239,6 @@ bool ProjectFileIO::CopyTo(const FilePath& destpath,
     // Detach the destination database
     rc = sqlite3_exec(db, "DETACH DATABASE outbound;", nullptr, nullptr, nullptr);
     if (rc != SQLITE_OK) {
-        ADD_EXCEPTION_CONTEXT("sqlite3.rc", std::to_string(rc));
-        ADD_EXCEPTION_CONTEXT("sqlite3.context", "ProjectGileIO::CopyTo::detach");
 
         SetDBError(
             TranslatableString("project-file-io", "Destination project could not be detached")
@@ -1964,8 +1939,6 @@ bool ProjectFileIO::AutoSaveDelete(sqlite3* db /* = nullptr */)
 
     rc = sqlite3_exec(db, "DELETE FROM autosave;", nullptr, nullptr, nullptr);
     if (rc != SQLITE_OK) {
-        ADD_EXCEPTION_CONTEXT("sqlite3.rc", std::to_string(rc));
-        ADD_EXCEPTION_CONTEXT("sqlite3.context", "ProjectGileIO::AutoSaveDelete");
 
         SetDBError(
             TranslatableString("project-file-io", "Failed to remove the autosave information from the project file.")
@@ -2008,9 +1981,6 @@ bool ProjectFileIO::WriteDoc(const char* table,
 
     rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
-        ADD_EXCEPTION_CONTEXT("sqlite3.query", sql);
-        ADD_EXCEPTION_CONTEXT("sqlite3.rc", std::to_string(rc));
-        ADD_EXCEPTION_CONTEXT("sqlite3.context", "ProjectGileIO::WriteDoc::prepare");
 
         SetDBError(
             //: %1 is the SQL command that could not be prepared
@@ -2028,9 +1998,6 @@ bool ProjectFileIO::WriteDoc(const char* table,
     if (
         sqlite3_bind_zeroblob(stmt, 1, dict.GetSize())
         || sqlite3_bind_zeroblob(stmt, 2, data.GetSize())) {
-        ADD_EXCEPTION_CONTEXT("sqlite3.query", sql);
-        ADD_EXCEPTION_CONTEXT("sqlite3.rc", std::to_string(rc));
-        ADD_EXCEPTION_CONTEXT("sqlite3.context", "ProjectGileIO::WriteDoc::bind");
 
         SetDBError(TranslatableString("project-file-io", "Unable to bind to blob"));
         return false;
@@ -2046,9 +2013,6 @@ bool ProjectFileIO::WriteDoc(const char* table,
     rc = sqlite3_step(stmt);
 
     if (rc != SQLITE_DONE) {
-        ADD_EXCEPTION_CONTEXT("sqlite3.query", sql);
-        ADD_EXCEPTION_CONTEXT("sqlite3.rc", std::to_string(rc));
-        ADD_EXCEPTION_CONTEXT("sqlite3.context", "ProjectGileIO::WriteDoc::step");
 
         reportError(sql);
         return false;
@@ -2066,8 +2030,6 @@ bool ProjectFileIO::WriteDoc(const char* table,
         =wxString::Format("SELECT ROWID FROM %s.%s WHERE id = 1;", schema, table);
 
     if (!GetValue(rowIDSql, rowID, true)) {
-        ADD_EXCEPTION_CONTEXT("sqlite3.rc", std::to_string(sqlite3_errcode(db)));
-        ADD_EXCEPTION_CONTEXT("sqlite3.context", "ProjectGileIO::WriteDoc::rowid");
 
         reportError(rowIDSql);
         return false;
@@ -2078,9 +2040,6 @@ bool ProjectFileIO::WriteDoc(const char* table,
             =SQLiteBlobStream::Open(db, schema, table, column, rowID, false);
 
         if (!blobStream) {
-            ADD_EXCEPTION_CONTEXT("sqlite3.rc", std::to_string(sqlite3_errcode(db)));
-            ADD_EXCEPTION_CONTEXT("sqlite3.col", column);
-            ADD_EXCEPTION_CONTEXT("sqlite3.context", "ProjectGileIO::WriteDoc::openBlobStream");
 
             SetDBError(TranslatableString("project-file-io", "Unable to bind to blob"));
             return false;
@@ -2088,9 +2047,6 @@ bool ProjectFileIO::WriteDoc(const char* table,
 
         for (auto chunk : stream) {
             if (SQLITE_OK != blobStream->Write(chunk.first, chunk.second)) {
-                ADD_EXCEPTION_CONTEXT("sqlite3.rc", std::to_string(sqlite3_errcode(db)));
-                ADD_EXCEPTION_CONTEXT("sqlite3.col", column);
-                ADD_EXCEPTION_CONTEXT("sqlite3.context", "ProjectGileIO::WriteDoc::writeBlobStream");
                 // The user visible message is not changed, so there is no need for new strings
                 SetDBError(TranslatableString("project-file-io", "Unable to bind to blob"));
                 return false;
@@ -2098,11 +2054,6 @@ bool ProjectFileIO::WriteDoc(const char* table,
         }
 
         if (blobStream->Close() != SQLITE_OK) {
-            ADD_EXCEPTION_CONTEXT(
-                "sqlite3.rc", std::to_string(sqlite3_errcode(db)));
-            ADD_EXCEPTION_CONTEXT("sqlite3.col", column);
-            ADD_EXCEPTION_CONTEXT(
-                "sqlite3.context", "ProjectGileIO::WriteDoc::writeBlobStream");
             // The user visible message is not changed, so there is no need for new
             // strings
             SetDBError(TranslatableString("project-file-io", "Unable to bind to blob"));
@@ -2754,11 +2705,7 @@ FROM sampleblocks WHERE blockid = ?1;)";
         int rc = sqlite3_bind_int64(stmt, 1, blockid);
 
         if (rc != SQLITE_OK) {
-            ADD_EXCEPTION_CONTEXT(
-                "sqlite3.rc", std::to_string(rc));
 
-            ADD_EXCEPTION_CONTEXT(
-                "sqlite3.context", "ProjectFileIO::GetDiskUsage::bind");
 
             conn.ThrowException(false);
         }
@@ -2767,10 +2714,7 @@ FROM sampleblocks WHERE blockid = ?1;)";
     int rc = sqlite3_step(stmt);
 
     if (rc != SQLITE_ROW) {
-        ADD_EXCEPTION_CONTEXT("sqlite3.rc", std::to_string(rc));
 
-        ADD_EXCEPTION_CONTEXT(
-            "sqlite3.context", "ProjectFileIO::GetDiskUsage::step");
 
         conn.ThrowException(false);
     }

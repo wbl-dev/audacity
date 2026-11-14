@@ -5,7 +5,6 @@
 #include "framework/global/io/ioretcodes.h"
 
 #include "project/projecterrors.h"
-#include "shared/productprofile.h"
 
 using namespace muse;
 using namespace au::project;
@@ -291,11 +290,6 @@ QString Audacity4Project::displayName() const
         return io::filename(m_path).toQString();
     }
 
-    //! TODO AU4
-    // if (isCloudProject()) {
-    //     return m_cloudRecord.name;
-    // }
-
     return io::filename(m_path, false /*isSuffixInteresting*/).toQString();
 }
 
@@ -313,11 +307,6 @@ void Audacity4Project::setPath(const io::path_t& path)
     m_path = path;
     m_pathChanged.notify();
 
-    const bool isCloud = isCloudProject();
-    if (m_isCloudProject != isCloud) {
-        m_isCloudProject = isCloud;
-        m_isCloudProjectChanged.notify();
-    }
 }
 
 bool Audacity4Project::isNewlyCreated() const
@@ -328,25 +317,6 @@ bool Audacity4Project::isNewlyCreated() const
 bool Audacity4Project::isImported() const
 {
     return m_isImported;
-}
-
-bool Audacity4Project::isCloudProject() const
-{
-    if (shared::isWorkbenchProfile()) {
-        return false;
-    }
-
-    return cloudProjectsProvider()->projectRecordForPath(m_path).has_value();
-}
-
-muse::async::Notification Audacity4Project::isCloudProjectChanged() const
-{
-    return m_isCloudProjectChanged;
-}
-
-const std::optional<CloudProjectRecord> Audacity4Project::cloudRecord() const
-{
-    return cloudProjectsProvider()->projectRecordForPath(m_path);
 }
 
 String Audacity4Project::title() const

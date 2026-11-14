@@ -42,10 +42,6 @@
 
 #include "au3-basic-ui/BasicUI.h"
 
-const wxString HelpSystem::HelpHostname = wxT("manual.audacityteam.org");
-const wxString HelpSystem::HelpServerHomeDir = wxT("/");
-const wxString HelpSystem::HelpServerManDir = wxT("/man/");
-
 const wxString HelpSystem::LocalHelpManDir = wxT("/man/");
 
 namespace {
@@ -226,70 +222,22 @@ void HelpSystem::ShowHtmlText(wxWindow* pParent,
     return;
 }
 
-// Shows help in browser, or possibly in own dialog.
+// Shows only locally installed help.
 void HelpSystem::ShowHelp(wxWindow* parent,
                           const FilePath& localFileName,
-                          const URLString& remoteURL,
+                          const URLString&,
                           bool bModal,
                           bool alwaysDefaultBrowser)
 {
     wxASSERT(parent); // to justify safenew
-    wxString HelpMode = wxT("Local"); //this probably always gets overwritten to FromInternet
-                                      //TODO: remove code which handles local manual
-
-    gPrefs->Read(wxT("/GUI/Help"), &HelpMode, { "FromInternet" });
-
-    {
-        // these next lines are for legacy cfg files (pre 2.0) where we had different modes
-        if ((HelpMode == wxT("Standard")) || (HelpMode == wxT("InBrowser"))) {
-            HelpMode = GUIManualLocation.Default().Internal();
-            GUIManualLocation.Write(HelpMode);
-            gPrefs->Flush();
-        }
-    }
-
-    // Anchors (URLs with a '#' in them) are not supported by many OSs for local file names
-    // See, for example, https://groups.google.com/forum/#!topic/wx-users/pC0uOZJalRQ
-    // Problems have been reported on Win, Mac and some versions of Linux.
-    // So we set HelpMode to use the internet if an anchor is found.
-    if (localFileName.Find('#', true) != wxNOT_FOUND) {
-        HelpMode = wxT("FromInternet");
-    }
-    // Until a solution is found for this, the next few lines are irrelevant.
-
-    // Obtain the local file system file name, without the anchor if present.
-    wxString localfile;
-    if (localFileName.Find('#', true) != wxNOT_FOUND) {
-        localfile = localFileName.BeforeLast('#');
-    } else {
-        localfile = localFileName;
-    }
-
-    if ((HelpMode == wxT("FromInternet")) && !remoteURL.empty()) {
-        // Always go to remote URL.  Use External browser.
-        OpenInDefaultBrowser(remoteURL);
-    } else if (localfile.empty() || !wxFileExists(localfile)) {
-        if (remoteURL.empty()) {
-            // If you give an empty remote URL, you should have already ensured
-            // that the file exists!
-            wxASSERT(!remoteURL.empty());
-            // I can't find it'.
-            // Use Built-in browser to suggest you use the remote url.
-            wxString Text = HelpText(wxT("remotehelp"));
-            Text.Replace(wxT("*URL*"), remoteURL.GET());
-            // Always make the 'help on the internet' dialog modal.
-            // Fixes Bug 1411.
-            ShowHtmlText(parent, XO("Help on the Internet"), Text, false, true);
-        } else {
-            // Use External browser to go to remote URL.
-            OpenInDefaultBrowser(remoteURL);
-        }
-    } else if (HelpMode == wxT("Local") || alwaysDefaultBrowser) {
-        // Local file, External browser
+    const auto localfile = localFileName.BeforeFirst('#');
+    if (localfile.empty() || !wxFileExists(localfile)) {
+        ShowHtmlText(parent, XO("Help"),
+                     XO("The local help page is not installed.").Translation(), false, true);
+    } else if (alwaysDefaultBrowser) {
         OpenInDefaultBrowser(L"file:" + localFileName);
     } else {
-        // Local file, Built-in browser
-        ShowHtmlText(parent, {}, localFileName, true, bModal);
+        ShowHtmlText(parent, {}, localfile, true, bModal);
     }
 }
 
@@ -302,8 +250,6 @@ void HelpSystem::ShowHelp(wxWindow* parent,
     const wxString ReleaseSuffix = L".html";
 
     FilePath localHelpPage;
-    wxString webHelpPath;
-    wxString webHelpPage;
     wxString releasePageName;
     wxString anchor;    // optional part of URL after (and including) the '#'
     const auto& PageNameStr = PageName.GET();
@@ -330,18 +276,13 @@ void HelpSystem::ShowHelp(wxWindow* parent,
     if (releasePageName == L"Main_Page") {
         releasePageName = L"index" + ReleaseSuffix + anchor;
         localHelpPage = wxFileName(FileNames::HtmlHelpDir(), releasePageName).GetFullPath();
-        webHelpPath = L"https://" + HelpSystem::HelpHostname + HelpSystem::HelpServerHomeDir;
     } else if (releasePageName == L"Quick_Help") {
         releasePageName = L"quick_help" + ReleaseSuffix + anchor;
         localHelpPage = wxFileName(FileNames::HtmlHelpDir(), releasePageName).GetFullPath();
-        webHelpPath = L"https://" + HelpSystem::HelpHostname + HelpSystem::HelpServerHomeDir;
     }
-    // not a page name, but rather a full path (e.g. to wiki)
-    // in which case do not do any substitutions.
+    // Remote page identifiers have no local counterpart.
     else if (releasePageName.StartsWith("http")) {
         localHelpPage = "";
-        releasePageName += anchor;
-        // webHelpPath remains empty
     } else {
         // Handle all other pages.
         // Change to lower case.
@@ -369,23 +310,18 @@ void HelpSystem::ShowHelp(wxWindow* parent,
         releasePageName = releasePageName + ReleaseSuffix + anchor;
         // Other than index and quick_help, all local pages are in subdirectory 'LocalHelpManDir'.
         localHelpPage = wxFileName(FileNames::HtmlHelpDir() + LocalHelpManDir, releasePageName).GetFullPath();
-        // Other than index and quick_help, all on-line pages are in subdirectory 'HelpServerManDir'.
-        webHelpPath = L"https://" + HelpSystem::HelpHostname + HelpSystem::HelpServerManDir;
     }
-
-    webHelpPage = webHelpPath + releasePageName;
 
     wxLogMessage(wxT("Help button pressed: PageName %s, releasePageName %s"),
                  PageName.GET(), releasePageName);
-    wxLogMessage(wxT("webHelpPage %s, localHelpPage %s"),
-                 webHelpPage, localHelpPage);
+    wxLogMessage(wxT("localHelpPage %s"), localHelpPage);
 
     wxASSERT(parent); // to justify safenew
 
     HelpSystem::ShowHelp(
         parent,
         localHelpPage,
-        webHelpPage,
+        {},
         bModal
         );
 }
@@ -514,13 +450,12 @@ void LinkingHtmlWindow::OnLinkClicked(const wxHtmlLinkInfo& link)
             SetPage(HelpText(href.Mid(10)));
             wxGetTopLevelParent(this)->SetLabel(TitleText(href.Mid(10)).Translation());
         }
-    } else if (href.StartsWith(wxT("mailto:")) || href.StartsWith(wxT("file:"))) {
+    } else if (href.StartsWith(wxT("file:"))) {
         OpenInDefaultBrowser(link.GetHref());
         return;
     } else if (!href.StartsWith(wxT("http:")) && !href.StartsWith(wxT("https:"))) {
         HtmlWindow::OnLinkClicked(link);
     } else {
-        OpenInDefaultBrowser(link.GetHref());
         return;
     }
     wxFrame* pFrame = GetRelatedFrame();
@@ -537,13 +472,3 @@ void LinkingHtmlWindow::OnLinkClicked(const wxHtmlLinkInfo& link)
     }
     pDlg->UpdateButtons();
 }
-
-ChoiceSetting GUIManualLocation{
-    wxT("/GUI/Help"),
-    {
-        ByColumns,
-        { XO("Local"),  XO("From Internet"), },
-        { wxT("Local"), wxT("FromInternet"), }
-    },
-    1 // "FromInternet"
-};

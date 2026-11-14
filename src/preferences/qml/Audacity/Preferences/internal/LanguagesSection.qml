@@ -35,16 +35,8 @@ BaseSection {
     property alias languages: dropdown.model
     property string currentLanguageCode: ""
     property bool isNeedRestart: false
-    property bool onlineUpdatesAvailable: true
 
     signal languageSelected(string languageCode)
-    signal checkForUpdateRequested
-
-    function setUpdateProgress(current, total, status) {
-        progressBtn.to = total
-        progressBtn.value = current
-        progressBtn.progressStatus = status
-    }
 
     Column {
         spacing: 12

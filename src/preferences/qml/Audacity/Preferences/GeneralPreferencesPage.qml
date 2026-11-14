@@ -36,17 +36,10 @@ PreferencesPage {
     GeneralPreferencesModel {
         id: preferencesModel
 
-        onReceivingUpdateForCurrentLanguage: function (current, total, status) {
-            languagesSection.setUpdateProgress(current, total, status)
-        }
     }
 
-    UpdatePreferencesModel {
-        id: updateModel
-    }
-
-    UsageInfoPreferencesModel {
-        id: usageInfoModel
+    CrashReportsPreferencesModel {
+        id: crashReportsModel
     }
 
     Column {
@@ -59,19 +52,12 @@ PreferencesPage {
             languages: preferencesModel.languages
             currentLanguageCode: preferencesModel.currentLanguageCode
             isNeedRestart: preferencesModel.restartRequired
-            onlineUpdatesAvailable: preferencesModel.onlineLanguageUpdatesAvailable
 
             navigation.section: root.navigationSection
             navigation.order: root.navigationOrderStart + 1
 
             onLanguageSelected: function (languageCode) {
                 preferencesModel.currentLanguageCode = languageCode
-            }
-
-            onCheckForUpdateRequested: {
-                if (preferencesModel.onlineLanguageUpdatesAvailable) {
-                    preferencesModel.checkUpdateForCurrentLanguage()
-                }
             }
 
             onFocusChanged: {
@@ -102,75 +88,21 @@ PreferencesPage {
         }
 
         SeparatorLine {
-            visible: automaticUpdateSection.visible
-        }
-
-        AutomaticUpdateSection {
-            id: automaticUpdateSection
-
-            visible: updateModel.isAppUpdatable()
-
-            isAppUpdatable: updateModel.isAppUpdatable()
-            needCheckForNewAppVersion: updateModel.needCheckForNewAppVersion
-            privacyPolicyUrl: updateModel.privacyPolicyUrl()
-
-            navigation.section: root.navigationSection
-            navigation.order: root.navigationOrderStart + 3
-
-            onNeedCheckForNewAppVersionChangeRequested: function (check) {
-                updateModel.needCheckForNewAppVersion = check
-            }
-
-            onFocusChanged: {
-                if (activeFocus) {
-                    root.ensureContentVisibleRequested(Qt.rect(x, y, width, height))
-                }
-            }
-        }
-
-        SeparatorLine {
             visible: crashReportsSection.visible
         }
 
         CrashReportsSection {
             id: crashReportsSection
 
-            visible: usageInfoModel.isCrashReportingAvailable()
+            visible: crashReportsModel.isCrashReportingAvailable()
 
-            sendCrashReports: usageInfoModel.sendCrashReports
-            privacyPolicyUrl: updateModel.privacyPolicyUrl()
+            sendCrashReports: crashReportsModel.sendCrashReports
 
             navigation.section: root.navigationSection
             navigation.order: root.navigationOrderStart + 4
 
             onSendCrashReportsChangeRequested: function (send) {
-                usageInfoModel.sendCrashReports = send
-            }
-
-            onFocusChanged: {
-                if (activeFocus) {
-                    root.ensureContentVisibleRequested(Qt.rect(x, y, width, height))
-                }
-            }
-        }
-
-        SeparatorLine {
-            visible: usageInfoSection.visible
-        }
-
-        UsageInfoSection {
-            id: usageInfoSection
-
-            visible: usageInfoModel.isUsageInfoAvailable()
-
-            sendAnonymousUsageInfo: usageInfoModel.sendAnonymousUsageInfo
-            privacyPolicyUrl: updateModel.privacyPolicyUrl()
-
-            navigation.section: root.navigationSection
-            navigation.order: root.navigationOrderStart + 5
-
-            onSendAnonymousUsageInfoChangeRequested: function (send) {
-                usageInfoModel.sendAnonymousUsageInfo = send
+                crashReportsModel.sendCrashReports = send
             }
 
             onFocusChanged: {
@@ -212,7 +144,7 @@ PreferencesPage {
         FFmpegLibrarySection {
             id: ffmpegLibrarySection
 
-            onlineDownloadsAvailable: preferencesModel.nonDiagnosticOnlineFeaturesAvailable
+            onlineDownloadsAvailable: false
 
             navigation.section: root.navigationSection
             navigation.order: root.navigationOrderStart + 7

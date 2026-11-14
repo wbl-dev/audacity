@@ -125,21 +125,13 @@ public:
 
         int commandId = wxID_NONE;
 
-#if defined(__WXMSW__) || defined(__WXMAC__)
-        menu.AppendSeparator();
-        menu.Append(wxID_MORE, _("Get more effects..."));
-#endif
         menu.Bind(wxEVT_MENU, [&](wxCommandEvent evt) { commandId = evt.GetId(); });
 
         if (parent->PopupMenu(&menu, parent->GetClientRect().GetLeftBottom()) && commandId != wxID_NONE) {
             if (commandId == wxID_REMOVE) {
                 return wxString {}
             }
-            if (commandId == wxID_MORE) {
-                OpenInDefaultBrowser("https://www.musehub.com");
-            } else {
-                return visitor.GetPluginID(commandId).GET();
-            }
+            return visitor.GetPluginID(commandId).GET();
         }
 
         return {};
@@ -1465,18 +1457,8 @@ void RealtimeEffectPanel::MakeTrackEffectPane()
         //Workaround: text is set in the OnSizeChange
         addEffectHint->SetForegroundColorIndex(clrTrackPanelText);
 
-        auto addEffectTutorialLink = safenew ThemedWindowWrapper<wxHyperlinkCtrl>(
-            footer, wxID_ANY, _("Watch video"),
-            "https://www.audacityteam.org/realtime-video", wxDefaultPosition,
-            wxDefaultSize, wxHL_ALIGN_LEFT | wxHL_CONTEXTMENU);
-
-        addEffectTutorialLink->Bind(
-            wxEVT_HYPERLINK, [](wxHyperlinkEvent& event)
-        { BasicUI::OpenInDefaultBrowser(event.GetURL()); });
-
         auto footerSizer = std::make_unique<wxBoxSizer>(wxVERTICAL);
         footerSizer->Add(addEffectHint, 0, wxLEFT | wxRIGHT | wxBOTTOM | wxEXPAND, 20);
-        footerSizer->Add(addEffectTutorialLink, 0, wxLEFT | wxRIGHT | wxEXPAND, 20);
         footer->SetSizer(footerSizer.release());
 
         footer->Bind(wxEVT_SIZE, [=](wxSizeEvent& event)

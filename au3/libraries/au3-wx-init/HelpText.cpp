@@ -175,38 +175,16 @@ static wxString HelpTextBuiltIn(const wxString& Key)
             << wxT("<p>")
             << XO(
             "Audacity can import unprotected files in many other formats (such as M4A and WMA, \
-compressed WAV files from portable recorders and audio from video files) if you download and install \
-the optional [[https://support.audacityteam.org/basics/installing-ffmpeg| \
-FFmpeg library]] to your computer.")
+compressed WAV files from portable recorders and audio from video files) if the optional FFmpeg \
+library is installed on your computer.")
             << wxT("</p><p>")
             << XO(
-            "You can also read our help on importing \
-[[https://manual.audacityteam.org/man/playing_and_recording.html#midi|MIDI files]] \
-and tracks from [[https://manual.audacityteam.org/man/faq_opening_and_saving_files.html#fromcd| \
-audio CDs]].")
+            "The locally installed manual also covers importing MIDI files and audio CDs.")
             << wxT("</p>")
         ;
         return WrapText(o.GetString());
     }
 
-    // Remote help allows us to link to a local copy of the help if it exists,
-    // or provide a message that takes you to the Internet if it does not.
-    // It's used by the menu item Help > Index
-    if (Key == wxT("remotehelp")) {
-        wxStringOutputStream o;
-        wxTextOutputStream s(o);
-        s
-// *URL* will be replaced by whatever URL we are looking for.
-            << XO(
-            "The Manual does not appear to be installed. \
-Please [[*URL*|view the Manual online]] or \
-[[https://manual.audacityteam.org/man/unzipping_the_manual.html| \
-download the Manual]].<br><br>\
-To always view the Manual online, change \"Location of Manual\" in \
-Interface Preferences to \"From Internet\".")
-        ;
-        return WrapText(o.GetString());
-    }
     return {};
 }
 

@@ -29,22 +29,14 @@
 #include "async/asyncable.h"
 
 #include "modularity/ioc.h"
-#include "iglobalconfiguration.h"
 #include "context/iglobalcontext.h"
-#include "shared/productprofile.h"
 
 namespace au::appshell {
-constexpr bool shouldShowDeveloperToolsInMainToolbar(bool developerModeEnabled) noexcept
-{
-    return developerModeEnabled && shared::fullDeveloperToolsAvailable();
-}
-
 class MainToolBarModel : public QAbstractListModel, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT
     QML_ELEMENT
 
-    muse::GlobalInject<muse::IGlobalConfiguration> globalConfiguration;
 
     muse::ContextInject<au::context::IGlobalContext> context { this };
 

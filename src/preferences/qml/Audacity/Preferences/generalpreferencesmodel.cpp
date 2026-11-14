@@ -21,12 +21,10 @@
  */
 #include "generalpreferencesmodel.h"
 
-#include "languages/languageserrors.h"
 
 #include <QStorageInfo>
 
 #include "log.h"
-#include "shared/productprofile.h"
 #include "translation.h"
 
 using namespace au::appshell;
@@ -50,30 +48,6 @@ void GeneralPreferencesModel::load()
 
     projectConfiguration()->temporaryDirChanged().onReceive(this, [this](muse::io::path_t) {
         emit temporaryDirChanged();
-    });
-}
-
-void GeneralPreferencesModel::checkUpdateForCurrentLanguage()
-{
-    if (!onlineLanguageUpdatesAvailable()) {
-        return;
-    }
-
-    QString languageCode = currentLanguageCode();
-
-    m_languageUpdateProgress = languagesService()->update(languageCode);
-
-    m_languageUpdateProgress.progressChanged().onReceive(this, [this](int64_t current, int64_t total, const std::string& status) {
-        emit receivingUpdateForCurrentLanguage(current, total, QString::fromStdString(status));
-    });
-
-    m_languageUpdateProgress.finished().onReceive(this, [this, languageCode](const muse::ProgressResult& res) {
-        if (res.ret.code() == static_cast<int>(Err::AlreadyUpToDate)) {
-            //: %1 is the name of the language whose translation files are up to date
-            QString msg = muse::qtrc("preferences", "Your version of “%1” is up to date.")
-                          .arg(languagesService()->language(languageCode).name);
-            interactive()->info(msg.toStdString(), std::string());
-        }
     });
 }
 
@@ -112,16 +86,6 @@ QVariantList GeneralPreferencesModel::languages() const
 QString GeneralPreferencesModel::currentLanguageCode() const
 {
     return languagesConfiguration()->currentLanguageCode().val;
-}
-
-bool GeneralPreferencesModel::onlineLanguageUpdatesAvailable() const noexcept
-{
-    return !au::shared::isWorkbenchProfile();
-}
-
-bool GeneralPreferencesModel::nonDiagnosticOnlineFeaturesAvailable() const noexcept
-{
-    return !au::shared::isWorkbenchProfile();
 }
 
 QStringList GeneralPreferencesModel::keyboardLayouts() const

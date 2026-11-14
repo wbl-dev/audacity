@@ -274,18 +274,6 @@
         <translation>Silenzia audio</translation>
     </message>
     <message>
-        <location filename="../../src/au3cloud/internal/clouduiactions.cpp" line="16"/>
-        <source>View project on audio.com</source>
-        <extracomment>Action title: shown as a menu item or a button label; keep it short</extracomment>
-        <translation>Vedi il progetto su audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/clouduiactions.cpp" line="24"/>
-        <source>View on audio.com</source>
-        <extracomment>Action title: shown as a menu item or a button label; keep it short</extracomment>
-        <translation>Vedi su audio.com</translation>
-    </message>
-    <message>
         <location filename="../../src/effects/effects_base/internal/effectsuiactions.cpp" line="27"/>
         <source>Repeat last effect</source>
         <extracomment>Action title: shown as a menu item or a button label; keep it short</extracomment>
@@ -2083,11 +2071,6 @@
         <translation>Mostra script</translation>
     </message>
     <message>
-        <location filename="../../muse/framework/update/internal/updateuiactions.cpp" line="36"/>
-        <source>Check for &amp;update</source>
-        <translation>Controlla &amp;aggiornamenti</translation>
-    </message>
-    <message>
         <location filename="../../muse/framework/vst/internal/vstuiactions.cpp" line="38"/>
         <source>Use old view</source>
         <translation>Usa la vecchia visualizzazione</translation>
@@ -2240,18 +2223,6 @@
         <source>Open the context menu of the focused item</source>
         <extracomment>Action description: shown as a tooltip; can be a full sentence</extracomment>
         <translation>Apri il menu contestuale dell&apos;elemento attivo</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/clouduiactions.cpp" line="18"/>
-        <source>View project on audio.com</source>
-        <extracomment>Action description: shown as a tooltip; can be a full sentence</extracomment>
-        <translation>Vedi il progetto su audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/clouduiactions.cpp" line="26"/>
-        <source>View on audio.com</source>
-        <extracomment>Action description: shown as a tooltip; can be a full sentence</extracomment>
-        <translation>Vedi su audio.com</translation>
     </message>
     <message>
         <location filename="../../src/effects/effects_base/internal/effectsuiactions.cpp" line="35"/>
@@ -3696,7 +3667,6 @@
 <context>
     <name>appshell</name>
     <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/AccountPage.qml" line="63"/>
         <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/HomeMenu.qml" line="65"/>
         <source>Cloud account</source>
         <translation>Account cloud</translation>
@@ -3715,28 +3685,6 @@
     <message>
         <source>Learn</source>
         <translation type="vanished">Impara</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/PluginsPage.qml" line="73"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/PluginsPage.qml" line="97"/>
-        <source>Plugins</source>
-        <translation>Estensioni</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/PluginsPage.qml" line="110"/>
-        <source>Plugins search</source>
-        <translation>Ricerca estensioni</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/PluginsPage.qml" line="129"/>
-        <source>Category:</source>
-        <translation>Categoria:</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/PluginsPage.qml" line="138"/>
-        <source>All</source>
-        <extracomment>The title of an option to display the plugins from all categories.</extracomment>
-        <translation>Tutti</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/MainToolBar.qml" line="64"/>
@@ -3914,7 +3862,6 @@ Questa azione non eliminerà alcun progetto.</translation>
         <translation>Strumenti di sviluppo</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/Main.wasm.qml" line="36"/>
         <location filename="../../src/appshell/qml/Audacity/AppShell/platform/win/AppTitleBar.qml" line="96"/>
         <source>Audacity</source>
         <translation>Audacity</translation>
@@ -3933,11 +3880,6 @@ Questa azione non eliminerà alcun progetto.</translation>
         <location filename="../../src/appshell/qml/Audacity/AppShell/ProjectPage/ProjectStatusBar.qml" line="43"/>
         <source>Selection status</source>
         <translation>Stato della selezione</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/AccountPage.qml" line="76"/>
-        <source>Accounts</source>
-        <translation>Account</translation>
     </message>
 </context>
 <context>
@@ -4312,11 +4254,6 @@ Questa azione non eliminerà alcun progetto.</translation>
 <context>
     <name>appshell/about</name>
     <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/AlphaWelcomePopup.qml" line="14"/>
-        <source>Audacity 4</source>
-        <translation>Audacity 4</translation>
-    </message>
-    <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/aboutmodel.cpp" line="273"/>
         <source>Unstable prerelease for %1</source>
         <translation>Prerilascio instabile per %1</translation>
@@ -4456,70 +4393,8 @@ Questa azione non eliminerà alcun progetto.</translation>
         <translation type="vanished">Aggiornamenti dell&apos;applicazione</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="39"/>
-        <source>Audacity notifies you in-app when a new version is available to download.</source>
-        <translation>Audacity ti avvisa nell&apos;app quando una nuova versione è disponibile per il download.</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="40"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="43"/>
-        <source>You can turn this off anytime in %1.</source>
-        <translation>Puoi disattivarlo in qualsiasi momento in %1.</translation>
-    </message>
-    <message>
         <source>Usage Info</source>
         <translation type="vanished">Informazioni sull&apos;utilizzo</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="36"/>
-        <source>Preferences → General</source>
-        <translation>Preferenze → Generale</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="38"/>
-        <source>App updates</source>
-        <translation>Aggiornamenti applicazione</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="41"/>
-        <source>Crash reports</source>
-        <translation>Segnalazioni di errori critici</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="42"/>
-        <source>Audacity automatically sends crash reports to help us improve product quality.</source>
-        <translation>Audacity invia automaticamente le segnalazioni degli errori critici per aiutarci a migliorare la qualità del prodotto.</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="44"/>
-        <source>Usage info</source>
-        <translation>Informazioni sull&apos;utilizzo</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="46"/>
-        <source>privacy policy</source>
-        <translation>informativa sulla privacy</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="47"/>
-        <source>To help us understand how often people use Audacity, we generate a random ID (UUID) for each installation. This ID does not contain any personally identifiable information. Want to know more? Check out our %1.</source>
-        <translation>Per aiutarci a capire quanto spesso le persone usano Audacity, generiamo un ID casuale (UUID) per ogni installazione. Questo ID non contiene alcuna informazione personale identificativa. Vuoi saperne di più? Consulta la nostra %1.</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="48"/>
-        <source>You can disable this anytime in %1.</source>
-        <translation>Puoi disattivarlo in qualsiasi momento in %1.</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="49"/>
-        <source>Disable UUID</source>
-        <translation>Disabilita UUID</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/AppUpdatesAndUsageInfoPage.qml" line="82"/>
-        <source>UpdatesUsage. %1</source>
-        <extracomment>%1 is the page title, %2 is the active button title (e.g. &quot;Next&quot; or &quot;Done&quot;)</extracomment>
-        <translation>AggiornamentiUtilizzo. %1</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/DoublePage.qml" line="48"/>
@@ -4541,137 +4416,8 @@ Questa azione non eliminerà alcun progetto.</translation>
         <translation>%1. %2</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/PlaybackPage.qml" line="31"/>
-        <source>Playback</source>
-        <translation>Riproduzione</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/PlaybackPage.qml" line="36"/>
-        <source>Watch video</source>
-        <translation>Guarda video</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="16"/>
-        <source>Connect to your audio.com account</source>
-        <translation>Connettiti al tuo account audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="29"/>
-        <source>Continue with Google</source>
-        <translation>Continua con Google</translation>
-    </message>
-    <message>
         <source>Continue with Facebook</source>
         <translation type="vanished">Continua con Facebook</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="30"/>
-        <source>Or use email and password</source>
-        <translation>Oppure usa email e password</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="36"/>
-        <source>Email</source>
-        <translation>Email</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="37"/>
-        <source>Password</source>
-        <translation>Password</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="38"/>
-        <source>&lt;a href=&quot;%1&quot;&gt;Forgot your password?&lt;/a&gt;</source>
-        <translation>&lt;a href=&quot;%1&quot;&gt;Password dimenticata?&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="40"/>
-        <source>Don’t have an account?</source>
-        <translation>Non hai un account?</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="41"/>
-        <source>Create new account</source>
-        <translation>Crea un nuovo account</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="42"/>
-        <source>Already have an account?</source>
-        <translation>Hai già un account?</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="43"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="47"/>
-        <source>Sign in</source>
-        <translation>Accedi</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="46"/>
-        <source>Loading…</source>
-        <translation>Caricamento…</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="48"/>
-        <source>Create account</source>
-        <translation>Crea account</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="99"/>
-        <source>Social sign-in options</source>
-        <translation>Opzioni di accesso con account social</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="164"/>
-        <source>Email field</source>
-        <translation>Campo email</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="224"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="231"/>
-        <source>Forgot password</source>
-        <translation>Password dimenticata</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="266"/>
-        <source>Password field</source>
-        <translation>Campo password</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="311"/>
-        <source>Form action</source>
-        <translation>Azione del modulo</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="355"/>
-        <source>Sign in link</source>
-        <translation>Collegamento di accesso</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/SigninAudiocomPage.qml" line="355"/>
-        <source>Create account link</source>
-        <translation>Collegamento per creare un account</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/TutorialsPage.qml" line="31"/>
-        <source>Video tutorials</source>
-        <translation>Video tutorial</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/TutorialsPage.qml" line="32"/>
-        <source>Behind this dialog is the ‘Learn’ section, where you’ll find tutorials to get you started
-(Video tutorials require an internet connection)</source>
-        <translation>Dietro a questa finestra c&apos;è la sezione ‘Impara’, dove troverai i tutorial per iniziare
-(i video tutorial richiedono una connessione a internet)</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/UnderConstructionPage.qml" line="12"/>
-        <source>Pre-alpha build</source>
-        <translation>Versione pre-alpha</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/UnderConstructionPage.qml" line="13"/>
-        <source>Many features are currently unavailable, but our team is actively developing and implementing them for future releases.</source>
-        <translation>Molte funzionalità non sono attualmente disponibili, ma il nostro team le sta sviluppando e implementando attivamente per le versioni future.</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/shared/ThemeSamplesList.qml" line="91"/>
@@ -4944,42 +4690,6 @@ Questa azione non eliminerà alcun progetto.</translation>
         <source>Preview of the selected workspace layout showing the arrangement of interface elements</source>
         <translation>Anteprima della disposizione dello spazio di lavoro selezionata che mostra la sistemazione degli elementi dell&apos;interfaccia</translation>
     </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3cloudservice.cpp" line="120"/>
-        <source>Authorization failed</source>
-        <translation>Autorizzazione non riuscita</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3cloudservice.cpp" line="34"/>
-        <source>No access token</source>
-        <translation>Nessun token di accesso</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3cloudservice.cpp" line="84"/>
-        <source>Not authorized</source>
-        <translation>Non autorizzato</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3cloudservice.cpp" line="141"/>
-        <location filename="../../src/au3cloud/internal/au3cloudservice.cpp" line="148"/>
-        <source>Registration failed. Please try again.</source>
-        <translation>Registrazione non riuscita. Riprova.</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3cloudservice.cpp" line="162"/>
-        <source>Incorrect email or password. Please try again.</source>
-        <translation>Email o password errata. Riprova.</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3cloudservice.cpp" line="170"/>
-        <source>Authentication failed. Please try again.</source>
-        <translation>Autenticazione non riuscita. Riprova.</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3cloudservice.cpp" line="178"/>
-        <source>Could not start the sign-in process. Please try again.</source>
-        <translation>Impossibile avviare la procedura di accesso. Riprova.</translation>
-    </message>
 </context>
 <context>
     <name>appshell/preferences</name>
@@ -5012,21 +4722,6 @@ Questa azione non eliminerà alcun progetto.</translation>
         <location filename="../../src/preferences/qml/Audacity/Preferences/internal/AudioEngineSection.qml" line="36"/>
         <source>Restart audio and MIDI devices</source>
         <translation>Riavvia i dispositivi audio e MIDI</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/AutomaticUpdateSection.qml" line="32"/>
-        <source>Automatic update check</source>
-        <translation>Controllo automatico degli aggiornamenti</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/AutomaticUpdateSection.qml" line="44"/>
-        <source>Check to see if a new version of Audacity is available</source>
-        <translation>Controlla se è disponibile una nuova versione di Audacity</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/AutomaticUpdateSection.qml" line="60"/>
-        <source>Update checking requires network access. In order to protect your privacy, Audacity does not store any personal information. See our &lt;a href=&quot;%1&quot;&gt;privacy policy&lt;/a&gt; for more info.</source>
-        <translation>Il controllo degli aggiornamenti richiede l&apos;accesso alla rete. Per proteggere la tua riservatezza, Audacity non memorizza alcuna informazione personale. Vedi la nostra &lt;a href=&quot;%1&quot;&gt;informativa sulla privacy&lt;/a&gt; per maggiori informazioni.</translation>
     </message>
     <message>
         <location filename="../../src/preferences/qml/Audacity/Preferences/internal/AutoSaveSection.qml" line="32"/>
@@ -5296,21 +4991,6 @@ Questa azione non eliminerà alcun progetto.</translation>
         <translation>Colore di accento</translation>
     </message>
     <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/UsageInfoSection.qml" line="14"/>
-        <source>Usage info</source>
-        <translation>Informazioni sull&apos;utilizzo</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/UsageInfoSection.qml" line="25"/>
-        <source>Send anonymous usage info</source>
-        <translation>Invia informazioni anonime sull&apos;utilizzo</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/UsageInfoSection.qml" line="39"/>
-        <source>To help us understand how often people use Audacity, we generate a random ID (UUID) for each installation. This ID does not contain any personally identifiable information. Want to know more? Check out our &lt;a href=&quot;%1&quot;&gt;privacy policy&lt;/a&gt;.</source>
-        <translation>Per aiutarci a capire quanto spesso le persone usano Audacity, generiamo un ID casuale (UUID) per ogni installazione. Questo ID non contiene alcuna informazione personale identificativa. Vuoi saperne di più? Consulta la nostra &lt;a href=&quot;%1&quot;&gt;informativa sulla privacy&lt;/a&gt;.</translation>
-    </message>
-    <message>
         <location filename="../../src/preferences/qml/Audacity/Preferences/internal/ZoomToggleSection.qml" line="14"/>
         <source>Zoom toggle (magnifying glass)</source>
         <translation>Alterna zoom (lente d&apos;ingrandimento)</translation>
@@ -5450,76 +5130,6 @@ Questa azione non eliminerà alcun progetto.</translation>
 </context>
 <context>
     <name>appshell/welcome</name>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/WelcomeDialog.qml" line="34"/>
-        <source>Welcome</source>
-        <translation>Benvenuto</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/WelcomeDialog.qml" line="115"/>
-        <source>Previous item</source>
-        <translation>Elemento precedente</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/WelcomeDialog.qml" line="165"/>
-        <source>Next item</source>
-        <translation>Elemento successivo</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/WelcomeDialog.qml" line="276"/>
-        <source>Don’t show welcome dialog on startup</source>
-        <translation>Non mostrare la finestra di benvenuto all&apos;avvio</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="47"/>
-        <source>Video: find out what’s new in Audacity 4</source>
-        <translation>Video: scopri le novità di Audacity 4</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="50"/>
-        <source>Watch video</source>
-        <translation>Guarda video</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="56"/>
-        <source>Complete your Audacity cloud setup with Audio.com</source>
-        <translation>Completa la configurazione del tuo cloud Audacity con Audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="77"/>
-        <source>Help us decide the future of Audacity</source>
-        <translation>Aiutaci a decidere il futuro di Audacity</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="80"/>
-        <source>Take part in survey</source>
-        <translation>Partecipa al sondaggio</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="86"/>
-        <source>Soap Voice Cleaner: studio-quality voice-over sound</source>
-        <translation>Soap Voice Cleaner: doppiaggio audio di qualità professionale</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="89"/>
-        <source>Get it on MuseHub</source>
-        <translation>Ottienilo da MuseHub</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="59"/>
-        <source>Continue</source>
-        <translation>Continua</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="67"/>
-        <source>Explore free plugins for sculpting your audio</source>
-        <translation>Scopri estensioni gratuite per modellare i tuoi file audio</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/welcomedialogmodel.cpp" line="70"/>
-        <source>View free plugins</source>
-        <translation>Vedi estensioni gratuite</translation>
-    </message>
 </context>
 <context>
     <name>au/uicomponents</name>
@@ -6756,143 +6366,10 @@ Provare a reimpostare eventuali clip allungate o a mixare e renderizzare le trac
 <context>
     <name>cloud</name>
     <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/AccountPage.qml" line="18"/>
-        <source>Audio.com</source>
-        <translation>Audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/CloudItem.qml" line="51"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/CloudItem.qml" line="106"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/internal/CloudItem.qml" line="73"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/internal/CloudItem.qml" line="129"/>
-        <source>Not signed in</source>
-        <translation>Accesso non effettuato</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/CloudItem.qml" line="136"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/internal/CloudItem.qml" line="159"/>
-        <source>My profile</source>
-        <translation>Il mio profilo</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/CloudItem.qml" line="136"/>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="538"/>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="253"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/internal/CloudItem.qml" line="159"/>
-        <source>Sign in</source>
-        <translation>Accedi</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/CloudItem.qml" line="164"/>
-        <location filename="../../src/project/qml/Audacity/Project/SaveToCloudDialog.qml" line="29"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/internal/CloudItem.qml" line="187"/>
-        <source>Sign out</source>
-        <translation>Disconnetti</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/CloudItem.qml" line="164"/>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="548"/>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="263"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/internal/CloudItem.qml" line="187"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/RequireAuthorizationDialog.qml" line="75"/>
-        <source>Create account</source>
-        <translation>Crea account</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/SaveToCloudDialog.qml" line="21"/>
-        <source>Project name</source>
-        <translation>Nome del progetto</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/SaveToCloudDialog.qml" line="22"/>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="566"/>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="700"/>
         <source>Save</source>
         <translation>Salva</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/SaveToCloudDialog.qml" line="36"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/RequireAuthorizationDialog.qml" line="69"/>
-        <source>You are not signed in</source>
-        <translation>Non sei registrato</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="402"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="471"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="488"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="566"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="578"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="583"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="633"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="753"/>
-        <source>Invalid project</source>
-        <extracomment>Error message of a failed cloud operation</extracomment>
-        <translation>Progetto non valido</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="482"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="545"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="627"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="997"/>
-        <source>Service destroyed</source>
-        <extracomment>Error message shown when a cloud operation is interrupted by the application closing</extracomment>
-        <translation>Servizio distrutto</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="501"/>
-        <source>Internal error</source>
-        <translation>Errore interno</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="588"/>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="594"/>
-        <source>Project is not saved to the cloud</source>
-        <translation>Il progetto non è salvato nel cloud</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="600"/>
-        <source>Project is not synced with the cloud</source>
-        <translation>Il progetto non è sincronizzato con il cloud</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="709"/>
-        <source>Failed to get audio preview upload URLs</source>
-        <translation>Non è stato possibile ottenere gli URL di caricamento dell&apos;anteprima audio</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="859"/>
-        <source>Invalid audio ID</source>
-        <translation>ID audio non valido</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="926"/>
-        <source>Project not found in cloud database</source>
-        <translation>Progetto non trovato nel database cloud</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="1009"/>
-        <source>No valid current project</source>
-        <translation>Nessun progetto corrente valido</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="1072"/>
-        <source>Upload succeeded but payload is missing</source>
-        <translation>Caricamento riuscito ma manca il payload</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="1097"/>
-        <source>Failed to delete cloud project from database</source>
-        <translation>Non è stato possibile eliminare il progetto cloud dal database</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/oauthhttpserverreplyhandler.cpp" line="188"/>
-        <source>Sign in successful! You’re good to go back to Audacity.</source>
-        <translation>Accesso riuscito! Puoi tornare ad Audacity.</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/oauthhttpserverreplyhandler.cpp" line="200"/>
-        <source>Sign in failed. Please return to Audacity and try again.</source>
-        <translation>Accesso non riuscito. Torna ad Audacity e riprova.</translation>
     </message>
     <message>
         <location filename="../../src/project/internal/projectactionscontroller.cpp" line="722"/>
@@ -7002,100 +6479,12 @@ Provare a reimpostare eventuali clip allungate o a mixare e renderizzare le trac
         <source>Open audio from cloud</source>
         <translation>Apri audio dal cloud</translation>
     </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/SigninAudiocomDialog.qml" line="16"/>
-        <source>Create an account on audio.com</source>
-        <translation>Crea un account su audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/SigninAudiocomDialog.qml" line="16"/>
-        <source>Sign in to audio.com</source>
-        <translation>Accedi ad audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="531"/>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="246"/>
-        <source>Sign in buttons</source>
-        <translation>Pulsanti di accesso</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/AccountInfoButton.qml" line="45"/>
-        <source>My accounts</source>
-        <translation>I miei account</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/RequireAuthorizationDialog.qml" line="78"/>
-        <source>Log in</source>
-        <translation>Accedi</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/internal/oauthhttpserverreplyhandler.cpp" line="184"/>
-        <source>Sign in successful! You’re good to go back to MuseScore Studio.</source>
-        <translation>Accesso riuscito! Puoi tornare a MuseScore Studio.</translation>
-    </message>
 </context>
 <context>
     <name>cloud-audiocom</name>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/DataUploader.cpp" line="262"/>
-        <source>File not found</source>
-        <translation>File non trovato</translation>
-    </message>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/LocalProjectSnapshot.cpp" line="369"/>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/LocalProjectSnapshot.cpp" line="469"/>
-        <source>Project was closed before snapshot was created</source>
-        <translation>Il progetto è stato chiuso prima della creazione dello snapshot</translation>
-    </message>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/LocalProjectSnapshot.cpp" line="450"/>
-        <source>Invalid Response: %1</source>
-        <translation>Risposta non valida: %1</translation>
-    </message>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/MixdownUploader.cpp" line="178"/>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/MixdownUploader.cpp" line="189"/>
-        <source>Export failed</source>
-        <translation>Esportazione non riuscita</translation>
-    </message>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/MixdownUploader.cpp" line="196"/>
-        <source>Export error</source>
-        <translation>Errore di esportazione</translation>
-    </message>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/RemoteProjectSnapshot.cpp" line="169"/>
-        <source>Failed to attach to the Cloud project database</source>
-        <translation>Collegamento al database del progetto cloud non riuscito</translation>
-    </message>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/RemoteProjectSnapshot.cpp" line="552"/>
-        <source>Failed to decompress the Cloud project block</source>
-        <translation>Decompressione del blocco del progetto cloud non riuscita</translation>
-    </message>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/ResumedSnaphotUploadOperation.cpp" line="238"/>
-        <source>Local project data was removed before the sync has completed</source>
-        <translation>I dati del progetto locale sono stati rimossi prima del completamento della sincronizzazione</translation>
-    </message>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/sync/ResumedSnaphotUploadOperation.cpp" line="323"/>
-        <source>Failed to deserialize the response</source>
-        <translation>Non è stato possibile deserializzare la risposta</translation>
-    </message>
-    <message>
-        <location filename="../../au3/libraries/au3-cloud-audiocom/UploadService.cpp" line="617"/>
-        <source>Cannot proceed to upload.</source>
-        <translation>Impossibile procedere con l&apos;upload.</translation>
-    </message>
 </context>
 <context>
     <name>cloud/save</name>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/SaveToCloudDialog.qml" line="16"/>
-        <source>Save to audio.com</source>
-        <translation>Salva su audio.com</translation>
-    </message>
 </context>
 <context>
     <name>diagnostics</name>
@@ -12267,11 +11656,6 @@ Gli effetti master verranno riattivati dopo l&apos;esportazione.</translation>
 <context>
     <name>extensions</name>
     <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/HomePage/PluginsPage.qml" line="168"/>
-        <source>Reload plugins</source>
-        <translation>Ricarica le estensioni</translation>
-    </message>
-    <message>
         <location filename="../../muse/framework/extensions/qml/Muse/Extensions/ExtensionsListPanel.qml" line="112"/>
         <source>Enabled</source>
         <translation>Abilitato(i)</translation>
@@ -12622,8 +12006,6 @@ Per consigli sui dischi idonei fare clic sul pulsante di aiuto.</translation>
 <context>
     <name>global</name>
     <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/AlphaWelcomePopup.qml" line="146"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/WelcomeDialog.qml" line="299"/>
         <location filename="../../src/effects/effects_base/qml/Audacity/Effects/PresetNameDialog.qml" line="116"/>
         <location filename="../../src/importexport/export/qml/Export/CustomFFmpegDialog.qml" line="167"/>
         <location filename="../../src/trackedit/qml/Audacity/TrackEdit/DeleteBehaviorOnboardingFollowupDialog.qml" line="100"/>
@@ -12666,7 +12048,6 @@ Per consigli sui dischi idonei fare clic sul pulsante di aiuto.</translation>
         <location filename="../../src/playback/qml/Audacity/Playback/dialogs/LoopRegionInOut.qml" line="141"/>
         <location filename="../../src/project/qml/Audacity/Project/NewProjectDialog.qml" line="115"/>
         <location filename="../../src/projectscene/qml/Audacity/ProjectScene/tracksitemsview/labeleditor/AddNewLabelTrackDialog.qml" line="101"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/RequireAuthorizationDialog.qml" line="72"/>
         <location filename="../../muse/framework/interactive/qml/Muse/Interactive/ProgressDialog.qml" line="98"/>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="482"/>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="504"/>
@@ -12697,7 +12078,6 @@ Per consigli sui dischi idonei fare clic sul pulsante di aiuto.</translation>
     <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/AboutDialog.qml" line="81"/>
         <location filename="../../src/importexport/export/qml/Export/MetadataDialog.qml" line="115"/>
-        <location filename="../../src/project/qml/Audacity/Project/ProjectUploadedDialog.qml" line="258"/>
         <location filename="../../muse/framework/uicomponents/qml/Muse/UiComponents/PopupPanel.qml" line="160"/>
         <location filename="../../muse/framework/interactive/internal/interactive.cpp" line="133"/>
         <source>Close</source>
@@ -12747,11 +12127,6 @@ Per consigli sui dischi idonei fare clic sul pulsante di aiuto.</translation>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="138"/>
-        <source>Don’t show again</source>
-        <translation>Non mostrare più</translation>
-    </message>
-    <message>
         <location filename="../../src/project/qml/Audacity/Project/internal/NewProject/TitleListView.qml" line="124"/>
         <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/ProjectGridItem.qml" line="297"/>
         <location filename="../../src/project/qml/Audacity/Project/ProjectsGridView.qml" line="212"/>
@@ -12762,32 +12137,16 @@ Per consigli sui dischi idonei fare clic sul pulsante di aiuto.</translation>
         <translation>Nessun risultato trovato</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="310"/>
-        <source>Duration</source>
-        <comment>file duration</comment>
-        <translation>Durata</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="328"/>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="365"/>
         <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/DefaultProjectListView.qml" line="296"/>
         <location filename="../../muse/framework/uicomponents/qml/Muse/UiComponents/filteredflyoutmodel.cpp" line="63"/>
         <source>Unknown</source>
         <translation>Sconosciuto</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="347"/>
         <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/DefaultProjectListView.qml" line="278"/>
         <source>Size</source>
         <comment>file size</comment>
         <translation>Dimensione</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="472"/>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="187"/>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/internal/Playlist.qml" line="149"/>
-        <source>Please check your internet connection or try again later.</source>
-        <translation>Per favore controlla la connessione internet o prova ancora più tardi.</translation>
     </message>
     <message>
         <location filename="../../src/project/qml/Audacity/Project/NewProjectDialog.qml" line="125"/>
@@ -12805,11 +12164,6 @@ Per consigli sui dischi idonei fare clic sul pulsante di aiuto.</translation>
         <location filename="../../src/project/qml/Audacity/Project/NewProjectDialog.qml" line="148"/>
         <source>Done</source>
         <translation>Fatto</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/ProjectUploadedDialog.qml" line="104"/>
-        <source>Success!</source>
-        <translation>Successo!</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/firstlaunchsetupmodel.cpp" line="137"/>
@@ -12840,8 +12194,6 @@ Per consigli sui dischi idonei fare clic sul pulsante di aiuto.</translation>
         <translation>Successo</translation>
     </message>
     <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/UpdateCompletedContent.qml" line="73"/>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/UpdateReadyContent.qml" line="61"/>
         <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1373"/>
         <source>Dismiss</source>
         <translation>Ignora</translation>
@@ -12865,7 +12217,6 @@ Per consigli sui dischi idonei fare clic sul pulsante di aiuto.</translation>
         <translation>s</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/CloudProjectSyncDialog.qml" line="75"/>
         <location filename="../../src/project/internal/projectactionscontroller.cpp" line="745"/>
         <location filename="../../src/project/internal/projectactionscontroller.cpp" line="1156"/>
         <source>Stop</source>
@@ -16062,81 +15413,6 @@ Libsndfile dice “%2”</translation>
 </context>
 <context>
     <name>learn</name>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/internal/ClassesPage.qml" line="199"/>
-        <source>Open %1</source>
-        <translation>Apri %1</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/internal/Playlist.qml" line="144"/>
-        <source>Sorry, we are unable to load these videos right now</source>
-        <translation>Spiacenti, non siamo in grado di caricare questi video al momento</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/LearnPage.qml" line="96"/>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/LearnPage.qml" line="103"/>
-        <source>Learn</source>
-        <translation>Impara</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/LearnPage.qml" line="152"/>
-        <source>Learn tab bar</source>
-        <translation>Impara la barra delle schede</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/LearnPage.qml" line="163"/>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/LearnPage.qml" line="227"/>
-        <source>Get started</source>
-        <translation>Per iniziare</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/LearnPage.qml" line="182"/>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/LearnPage.qml" line="271"/>
-        <source>Classes</source>
-        <translation>Classi</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/learnerrors.h" line="45"/>
-        <source>The received playlist is empty.</source>
-        <translation>L&apos;elenco di riproduzione ricevuto è vuoto.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/learnpagemodel.cpp" line="64"/>
-        <source>Marc Sabatella</source>
-        <translation>Marc Sabatella</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/learnpagemodel.cpp" line="65"/>
-        <source>Instructor</source>
-        <translation>Istruttore</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/learnpagemodel.cpp" line="68"/>
-        <source>Creator, Mastering MuseScore</source>
-        <translation>Creatore, Mastering MuseScore</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/learnpagemodel.cpp" line="69"/>
-        <source>Welcome to Mastering MuseScore – the most comprehensive resource for learning the world’s most popular music notation software! My name is Marc Sabatella, and I have been helping develop, support, and promote MuseScore since its initial release over ten years ago.
-
-Whether you are just getting started with music notation software, or are a power user eager to explore advanced engraving and playback techniques, my flagship online course Mastering MuseScore covers everything you need to know to get the most out of MuseScore.
-
-In addition, Mastering MuseScore features a supportive community of musicians, with discussion spaces, live streams, and other related courses and services to help you create your best music. Take advantage of this opportunity to learn MuseScore from one of its most recognized experts!
-
-(Note: Mastering MuseScore is available in English only)</source>
-        <translation>Benevenuti a Mastering MuseScore – la risorsa più completa per imparare il software di notazione musicale più popolare al mondo! Il mio nome è Marc Sabatella, e ho aiutato a sviluppare, supportare, e promuovere MuseScore sin dal suo rilascio iniziale oltre dieci anni fa.
-
-Che tu stia appena iniziando ad utilizzare un software di notazione musicale, o che tu sia un utente esperto desideroso di esplorare tecniche avanzate di incisione e riproduzione, il mio corso online Mastering MuseScore copre tutto ciò che devi sapere per ottenere il massimo da MuseScore.
-
-Inoltre, Mastering MuseScore offre una communità di musicisti di supporto, con spazi di discussione, live stream, e altri corsi e servizi correlati per aiutarti a creare la tua migliore musica. Approfitta di questa opportunità per imparare MuseScore da uno dei suoi esperti più riconosciuti!
-
-(Nota: Mastering MuseScore è disponibile solo in inglese)</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/learn/qml/Muse/Learn/learnpagemodel.cpp" line="83"/>
-        <source>Mastering MuseScore</source>
-        <translation>Mastering MuseScore</translation>
-    </message>
 </context>
 <context>
     <name>math</name>
@@ -16818,40 +16094,9 @@ Non verrà caricato.</translation>
 </context>
 <context>
     <name>network</name>
-    <message>
-        <location filename="../../muse/framework/network/networkerrors.h" line="49"/>
-        <source>The request was aborted</source>
-        <translation>La richiesta è stata interrotta</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/network/networkerrors.h" line="50"/>
-        <source>The connection to the remote server timed out</source>
-        <translation>La connessione al server remoto è scaduta</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/network/networkerrors.h" line="51"/>
-        <source>An unknown network-related error occurred</source>
-        <translation>È stato rilevato un errore sconosciuto relativo alla rete</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/network/networkerrors.h" line="52"/>
-        <source>The I/O device was not opened for reading</source>
-        <translation>Il dispositivo I/O non è stato aperto per la lettura</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/network/networkerrors.h" line="53"/>
-        <source>The I/O device was not opened for writing</source>
-        <translation>Il dispositivo I/O non è stato aperto per la scrittura</translation>
-    </message>
 </context>
 <context>
     <name>network-manager</name>
-    <message>
-        <location filename="../../au3/libraries/au3-network-manager/MultipartData.cpp" line="102"/>
-        <location filename="../../au3/libraries/au3-network-manager/MultipartData.cpp" line="109"/>
-        <source>Failed to open the file for upload: %1</source>
-        <translation>Impossibile aprire il file per l&apos;upload: %1</translation>
-    </message>
 </context>
 <context>
     <name>notation</name>
@@ -18179,36 +17424,6 @@ Non verrà caricato.</translation>
         <source>Driver settings</source>
         <translation>Impostazioni del driver</translation>
     </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/ExportBehaviorSection.qml" line="14"/>
-        <source>Export behavior</source>
-        <translation>Comportamento dell&apos;esportazione</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/ExportBehaviorSection.qml" line="25"/>
-        <source>Show ‘How would you like to export?’ dialog</source>
-        <translation>Mostra la finestra di dialogo &apos;Come esportare?&apos;</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/SaveBehaviorSection.qml" line="15"/>
-        <source>Save behavior</source>
-        <translation>Comportamento del salvataggio</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/SaveBehaviorSection.qml" line="29"/>
-        <source>Always ask</source>
-        <translation>Chiedi sempre</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/SaveBehaviorSection.qml" line="42"/>
-        <source>Always save to cloud</source>
-        <translation>Salva sempre nel cloud</translation>
-    </message>
-    <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/SaveBehaviorSection.qml" line="55"/>
-        <source>Always save to computer</source>
-        <translation>Salva sempre nel computer</translation>
-    </message>
 </context>
 <context>
     <name>preferences/spectrogram</name>
@@ -18282,88 +17497,15 @@ Non verrà caricato.</translation>
         <translation>Copyright</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="167"/>
-        <source>Cloud audio files grid</source>
-        <translation>Griglia dei file audio nel cloud</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="273"/>
         <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/DefaultProjectListView.qml" line="241"/>
         <source>Modified</source>
         <translation>Modificato</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="435"/>
         <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/DefaultProjectListView.qml" line="366"/>
         <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/ProjectGridItem.qml" line="217"/>
         <source>Project item menu</source>
         <translation>Menu dell&apos;elemento del progetto</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="471"/>
-        <source>Unable to load online files</source>
-        <translation>Non è possibile caricare i file in linea</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="491"/>
-        <source>You don’t have any online files yet</source>
-        <translation>Non hai ancora alcun file in linea</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="492"/>
-        <source>Files will appear here when you save a file to the cloud, or publish a project</source>
-        <translation>I file appariranno qui quando salverai un file nel cloud o pubblicherai un progetto</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="516"/>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="231"/>
-        <source>You are not signed in</source>
-        <translation>Non sei registrato</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="517"/>
-        <source>Please sign in to view your online files</source>
-        <translation>Accedi per vedere i tuoi file in linea</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectIndicatorButton.qml" line="44"/>
-        <source>Stop download</source>
-        <translation>Ferma lo scaricamento</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectIndicatorButton.qml" line="44"/>
-        <source>Download project</source>
-        <translation>Scarica il progetto</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="163"/>
-        <source>Cloud projects grid</source>
-        <translation>Griglia dei progetti nel cloud</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="164"/>
-        <source>Cloud projects list</source>
-        <translation>Elenco dei progetti nel cloud</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="186"/>
-        <source>Unable to load online projects</source>
-        <translation>Non è possibile caricare i progetti in linea</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="206"/>
-        <source>You don’t have any online projects yet</source>
-        <translation>Non hai ancora alcun progetto in linea</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="207"/>
-        <source>Projects will appear here when you publish a project</source>
-        <translation>I progetti appariranno qui quando pubblicherai un progetto</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudProjectsView.qml" line="232"/>
-        <source>Please sign in to view your online projects</source>
-        <translation>Accedi per vedere i tuoi progetti in linea</translation>
     </message>
     <message>
         <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/RecentProjectsView.qml" line="41"/>
@@ -18398,7 +17540,6 @@ Non verrà caricato.</translation>
         <translation>Elenco dei progetti</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/CloudAudioFilesView.qml" line="213"/>
         <location filename="../../src/project/qml/Audacity/Project/internal/ProjectsPage/DefaultProjectListView.qml" line="132"/>
         <source>Name</source>
         <translation>Nome</translation>
@@ -18476,41 +17617,6 @@ Non verrà caricato.</translation>
         <translation>Apri altro…</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/ProjectUploadedDialog.qml" line="116"/>
-        <source>All saved changes will now update to the cloud</source>
-        <translation>Tutte le modifiche salvate verranno ora aggiornate nel cloud</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/ProjectUploadedDialog.qml" line="158"/>
-        <source>Publish your finished projects on Audio.com</source>
-        <translation>Pubblica i tuoi progetti finiti su Audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/ProjectUploadedDialog.qml" line="182"/>
-        <source>Create a portfolio to showcase your music</source>
-        <translation>Crea un portfolio per mettere in mostra la tua musica</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/ProjectUploadedDialog.qml" line="182"/>
-        <source>Gain followers and receive project comments and ratings</source>
-        <translation>Ottieni follower e ricevi commenti e valutazioni sui progetti</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/ProjectUploadedDialog.qml" line="182"/>
-        <source>Share your projects and collaborate with other musicians</source>
-        <translation>Condividi i tuoi progetti e collabora con altri musicisti</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/ProjectUploadedDialog.qml" line="215"/>
-        <source>Watch video</source>
-        <translation>Guarda video</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/ProjectUploadedDialog.qml" line="243"/>
-        <source>View project online</source>
-        <translation>Vedi il progetto in linea</translation>
-    </message>
-    <message>
         <location filename="../../src/project/qml/Audacity/Project/UploadProgressDialog.qml" line="48"/>
         <source>Saving online…</source>
         <translation>Salvataggio in linea…</translation>
@@ -18519,11 +17625,6 @@ Non verrà caricato.</translation>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/themespagemodel.cpp" line="215"/>
         <source>Accent color</source>
         <translation>Colore di accento</translation>
-    </message>
-    <message>
-        <location filename="../../src/au3cloud/internal/au3audiocomservice.cpp" line="530"/>
-        <source>Could not save project locally</source>
-        <translation>Non è stato possibile salvare il progetto in locale</translation>
     </message>
     <message>
         <location filename="../../src/au3wrap/internal/au3project.cpp" line="153"/>
@@ -19305,70 +18406,9 @@ You need to run that version of Audacity to recover the project.</source>
 </context>
 <context>
     <name>project/cloud</name>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AlsoShareAudioComDialog.qml" line="117"/>
-        <source>Would you also like to share your music on Audio.com?</source>
-        <translation>Vuoi condividere la tua musica anche su Audio.com?</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AlsoShareAudioComDialog.qml" line="126"/>
-        <source>Share your project’s audio with millions of listeners on this free streaming platform</source>
-        <translation>Condividi l&apos;audio del tuo progetto con milioni di ascoltatori su questa piattaforma di streaming gratuita</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AlsoShareAudioComDialog.qml" line="145"/>
-        <source>You can change this setting in Preferences at any time.</source>
-        <translation>Puoi cambiare questa impostazione nelle Preferenze in qualsiasi momento.</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AlsoShareAudioComDialog.qml" line="165"/>
-        <source>Remember my choice</source>
-        <translation>Ricorda la mia scelta</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/CloudProjectSyncDialog.qml" line="11"/>
-        <source>Syncing with audio.com</source>
-        <translation>Sincronizzazione con audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/CloudProjectSyncDialog.qml" line="57"/>
-        <source>Project is syncing with audio.com. Do you want to stop the sync process?</source>
-        <translation>Il progetto si sta sincronizzando con audio.com. Interrompere il processo di sincronizzazione?</translation>
-    </message>
 </context>
 <context>
     <name>project/export</name>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="34"/>
-        <source>Export audio</source>
-        <translation>Esporta audio</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="69"/>
-        <source>How would you like to export?</source>
-        <translation>Come esportare?</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="87"/>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="89"/>
-        <source>Share to audio.com</source>
-        <translation>Condividi su audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="88"/>
-        <source>Uploads an uncompressed audio file and generates a shareable link. This link allows others to download the file in either .wav or .mp3 format.</source>
-        <translation>Carica un file audio non compresso e genera un collegamento condivisibile. Questo collegamento consente ad altri di scaricare il file in formato .wav o .mp3.</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="105"/>
-        <source>Export MP3s, WAVs, FLACs and other formats to your computer.</source>
-        <translation>Esporta MP3, WAV, FLAC e altri formati sul proprio computer.</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="106"/>
-        <source>Export to computer</source>
-        <translation>Esporta nel computer</translation>
-    </message>
 </context>
 <context>
     <name>project/history</name>
@@ -19491,38 +18531,6 @@ You need to run that version of Audacity to recover the project.</source>
 <context>
     <name>project/save</name>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="69"/>
-        <source>How would you like to save?</source>
-        <translation>Come salvare?</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="88"/>
-        <source>Your project is backed up privately on audio.com. You can access your work from any device and collaborate on your project with others. Cloud saving is free for a limited number of projects.</source>
-        <translation>Il backup del progetto viene salvato privatamente su audio.com. È possibile accedere al proprio lavoro da qualsiasi dispositivo e collaborare al progetto con altri. Il salvataggio nel cloud è gratuito per un numero limitato di progetti.</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="89"/>
-        <source>Save to cloud</source>
-        <translation>Salva nel cloud</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="87"/>
-        <source>Save to the cloud (free)</source>
-        <translation>Salva nel cloud (gratuito)</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="104"/>
-        <source>On your computer</source>
-        <translation>Sul proprio computer</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="105"/>
-        <source>If you prefer to save your files on your computer, you can do that here.</source>
-        <translation>Se preferisci salvare i tuoi file nel computer, puoi farlo qui.</translation>
-    </message>
-    <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="106"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/RequireAuthorizationDialog.qml" line="75"/>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="505"/>
         <source>Save to computer</source>
         <translation>Salva nel computer</translation>
@@ -19532,7 +18540,6 @@ You need to run that version of Audacity to recover the project.</source>
         <translation type="vanished">Salva nel tuo computer</translation>
     </message>
     <message>
-        <location filename="../../src/project/qml/Audacity/Project/AskLocationTypeDialog.qml" line="34"/>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="172"/>
         <source>Save project</source>
         <translation>Salva il progetto</translation>
@@ -19556,7 +18563,6 @@ You need to run that version of Audacity to recover the project.</source>
     </message>
     <message>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="483"/>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="195"/>
         <source>Publish</source>
         <translation>pubblicA</translation>
     </message>
@@ -19587,58 +18593,6 @@ You need to run that version of Audacity to recover the project.</source>
         <location filename="../../src/project/internal/opensaveprojectscenario.cpp" line="522"/>
         <source>Unable to connect to Audio.com</source>
         <translation>Non è possibile connettersi ad Audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="162"/>
-        <source>Public</source>
-        <translation>Pubblica</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="167"/>
-        <source>Unlisted</source>
-        <translation>Non elencato</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="173"/>
-        <source>Private</source>
-        <translation>Privata</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="185"/>
-        <source>Publish to MuseScore.com</source>
-        <translation>Pubblica su MuseScore.com</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="189"/>
-        <source>Replace the existing &lt;a href=&quot;%1&quot;&gt;online score&lt;/a&gt;</source>
-        <extracomment>The text between `&lt;a href=&quot;%1&quot;&gt;` and `&lt;/a&gt;` will be a clickable link to the online score in question</extracomment>
-        <translation>Sostituisci la &lt;a href=&quot;%1&quot;&gt;partitura online&lt;/a&gt; esistente</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="192"/>
-        <source>Publish as new online score</source>
-        <translation>Pubblica come nuova partitura online</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="199"/>
-        <source>Share on Audio.com</source>
-        <translation>Condividi su Audio.com</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="203"/>
-        <source>Replace the &lt;a href=&quot;%1&quot;&gt;existing audio&lt;/a&gt;</source>
-        <extracomment>The text between `&lt;a href=&quot;%1&quot;&gt;` and `&lt;/a&gt;` will be a clickable link to the online audio in question</extracomment>
-        <translation>Sostituisci l&apos;&lt;a href=&quot;%1&quot;&gt;audio esistente&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="206"/>
-        <source>Upload as new audio file</source>
-        <translation>Carica come nuovo file audio</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.cpp" line="209"/>
-        <source>Share</source>
-        <translation>Condividi</translation>
     </message>
 </context>
 <context>
@@ -22771,153 +21725,8 @@ Vuoi continuare?</translation>
 <context>
     <name>update</name>
     <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/AppReleaseInfoDialog.qml" line="85"/>
-        <source>A new update is ready to install</source>
-        <translation>Un nuovo aggiornamento è pronto per essere installato</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/AppReleaseInfoDialog.qml" line="86"/>
-        <source>A new version of %1 is available!</source>
-        <translation>È disponibile una nuova versione di %1!</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/AppReleaseInfoDialog.qml" line="97"/>
-        <source>%1 has downloaded an update and is ready to install. %1 will restart to complete the installation. If you have any unsaved changes, you will be prompted to save them first.</source>
-        <translation>%1 ha scaricato un aggiornamento ed è pronto a installarlo. %1 verrà riavviato per completare l&apos;installazione. Se hai modifiche non salvate, ti verrà chiesto prima di salvarle.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/AppReleaseInfoDialog.qml" line="110"/>
-        <location filename="../../muse/framework/update/qml/Muse/Update/AppReleaseInfoDialog.qml" line="132"/>
-        <source>Release notes</source>
-        <translation>Note di rilascio</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/AppReleaseInfoDialog.qml" line="131"/>
-        <source>%1 Release notes</source>
-        <translation>Note di rilascio di %1</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/AppReleaseInfoBottomPanel.qml" line="51"/>
-        <source>Skip this version</source>
-        <translation>Salta questa versione</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/AppReleaseInfoBottomPanel.qml" line="70"/>
-        <source>Remind me later</source>
-        <translation>Ricordami più tardi</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/AppReleaseInfoBottomPanel.qml" line="89"/>
-        <source>Update now</source>
-        <translation>Aggiorna ora</translation>
-    </message>
-    <message>
         <source>Install update</source>
         <translation type="vanished">Installa aggiornamento</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/ReleaseNotesView.qml" line="80"/>
-        <source>Read the %1 release notes</source>
-        <translation>Leggi le note di rilascio di %1</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="136"/>
-        <source>You already have the latest version of %1. Please visit &lt;a href=&quot;%2&quot;&gt;%3&lt;/a&gt; for news on what’s coming next.</source>
-        <translation>Hai già la versione più recente di %1. Visita &lt;a href=&quot;%2&quot;&gt;%3&lt;/a&gt; per le novità su ciò che arriverà.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="143"/>
-        <source>You’re up to date!</source>
-        <translation>Sei aggiornato!</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="175"/>
-        <source>Cannot connect to server</source>
-        <translation>Impossibile connettersi al server</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="176"/>
-        <source>Sorry - please try again later</source>
-        <translation>Spiacenti - per favore prova ancora più tardi</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="178"/>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="190"/>
-        <location filename="../../muse/framework/update/internal/updatecommandsregister.cpp" line="34"/>
-        <location filename="../../muse/framework/update/internal/updatecommandsregister.cpp" line="35"/>
-        <source>Check for update</source>
-        <translation>Controlla la disponibilità di aggiornamenti</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="188"/>
-        <source>Not enough disk space</source>
-        <translation>Spazio su disco insufficiente</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="265"/>
-        <source>%1 has downloaded an update and is ready to install it. %1 will restart to complete the installation. If you have any unsaved changes, you will be prompted to save them first.</source>
-        <translation>%1 ha scaricato un aggiornamento ed è pronto a installarlo. %1 verrà riavviato per completare l&apos;installazione. Se hai modifiche non salvate, ti verrà chiesto prima di salvarle.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="272"/>
-        <source>Restart</source>
-        <translation>Riavvia</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="302"/>
-        <source>%1 needs to close to complete the installation. If you have any unsaved changes, you will be prompted to save them before %1 closes.</source>
-        <translation>%1 deve chiudersi per completare l&apos;installazione. Se hai modifiche non salvate, ti verrà chiesto di salvarle prima che %1 si chiuda.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdatescenario.cpp" line="308"/>
-        <source>Close</source>
-        <translation>Chiudi</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/appupdatemodel.cpp" line="33"/>
-        <source>Updating %1</source>
-        <translation>Aggiornamento di %1</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/appupdatemodel.cpp" line="63"/>
-        <source>Downloading %1 %2</source>
-        <extracomment>Means that the download is currently in progress. %1 will be replaced by the app name, %2 by the version number of the version that is being downloaded.</extracomment>
-        <translation>Scaricamento di %1 %2</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/UpdateCompletedContent.qml" line="65"/>
-        <source>Updated successfully</source>
-        <translation>Aggiornamento completato</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/UpdateReadyContent.qml" line="53"/>
-        <source>Update available</source>
-        <translation>Aggiornamento disponibile</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/UpdateReadyContent.qml" line="87"/>
-        <source>See details</source>
-        <translation>Vedi dettagli</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/qml/Muse/Update/internal/UpdateReadyContent.qml" line="97"/>
-        <source>Update</source>
-        <translation>Aggiorna</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdateservice.cpp" line="375"/>
-        <source>Free up at least %1 MB of disk space and try again.</source>
-        <translation>Libera almeno %1 MB di spazio su disco e riprova.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdateservice.cpp" line="546"/>
-        <source>Installing %1</source>
-        <translation>Installazione di %1</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/update/internal/appupdateservice.cpp" line="547"/>
-        <source>Installing %1 %2</source>
-        <translation>Installazione di %1 %2</translation>
     </message>
 </context>
 <context>

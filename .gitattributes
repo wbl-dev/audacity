@@ -12,3 +12,5 @@
 *.ttl text=auto
 *.aps text=auto
 *.trig text=auto
+# Preserve the vendored Muse source's existing whitespace without flagging it as new.
+muse/** -whitespace

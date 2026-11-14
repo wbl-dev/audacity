@@ -27,7 +27,6 @@ using namespace au::effects;
 
 static const ActionCode REPEAT_LAST_EFFECT_CODE("repeat-last-effect");
 static const ActionCode PLUGIN_MANAGER_CODE("plugin-manager");
-static const ActionCode GET_EFFECTS_CODE("get-effects");
 static const ActionQuery EFFECT_OPEN_QUERY("action://effects/open");
 static const ActionQuery EFFECT_APPLY_QUERY("action://effects/apply");
 static const ActionQuery TOGGLE_VENDOR_UI_QUERY("action://effects/toggle_vendor_ui");
@@ -162,7 +161,6 @@ void EffectsActionsController::registerActions()
         { EFFECT_OPEN_QUERY.toString(), Command(), effectOpenConv },
         { REPEAT_LAST_EFFECT_CODE, EFFECTS_REPEAT_LAST_EFFECT_COMMAND, {} },
         { PLUGIN_MANAGER_CODE, EFFECTS_PLUGIN_MANAGER_COMMAND, {} },
-        { GET_EFFECTS_CODE, EFFECTS_GET_EFFECTS_COMMAND, {} },
         { EFFECT_APPLY_QUERY.toString(), Command(), applyConv },
         { TOGGLE_VENDOR_UI_QUERY.toString(), EFFECTS_TOGGLE_VENDOR_UI_COMMAND, queryParamsConv },
         { PRESET_APPLY_QUERY.toString(), EFFECTS_PRESET_APPLY_COMMAND, queryParamsConv },
@@ -172,10 +170,6 @@ void EffectsActionsController::registerActions()
         { PRESET_IMPORT_QUERY.toString(), EFFECTS_PRESET_IMPORT_COMMAND, queryParamsConv },
         { PRESET_EXPORT_QUERY.toString(), EFFECTS_PRESET_EXPORT_COMMAND, queryParamsConv },
     };
-    std::erase_if(actionToCommand, [](const ActionToCommand& mapping) {
-        return !isEffectsActionAllowed(mapping.actionCode)
-               || (mapping.command.isValid() && !isEffectsCommandAllowed(mapping.command));
-    });
     registerActionToCommand(this, actionToCommand, commandDispatcher(), dispatcher());
 
     m_uiActions->reload();

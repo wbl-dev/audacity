@@ -703,7 +703,5 @@ struct PREFERENCES_API PreferenceInitializer {
 };
 
 // Special extra-sticky settings
-extern PREFERENCES_API StickySetting<BoolSetting> DefaultUpdatesCheckingFlag;
-extern PREFERENCES_API StickySetting<BoolSetting> SendAnonymousUsageInfo;
 extern PREFERENCES_API StickySetting<StringSetting> InstanceId;
 #endif

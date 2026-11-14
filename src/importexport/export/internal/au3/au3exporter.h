@@ -5,7 +5,6 @@
 
 #include "modularity/ioc.h"
 #include "context/iglobalcontext.h"
-#include "au3cloud/iau3cloudconfiguration.h"
 
 #include "au3-import-export/Export.h"
 #include "au3-mixer/MixerOptions.h"
@@ -22,7 +21,6 @@ using OptionsEditorUPtr = std::unique_ptr<ExportOptionsEditor>;
 class Au3Exporter : public IExporter, public muse::Contextable
 {
     muse::GlobalInject<au::importexport::ExportConfiguration> exportConfiguration;
-    muse::GlobalInject<au::au3cloud::IAu3CloudConfiguration> cloudConfiguration;
 
     muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
     muse::ContextInject<au::trackedit::ISelectionController> selectionController{ this };
@@ -43,8 +41,6 @@ public:
     std::vector<std::string> formatsList() const override;
     int formatIndex(const std::string& format) const override;
     std::vector<std::string> formatExtensions(const std::string& format) const override;
-    std::vector<std::string> cloudPreferredAudioFormats(bool preferLossless) const override;
-    ExportParameters cloudExportParameters(const std::string& format) const override;
     bool isCustomFFmpegExportFormat() const override;
     bool hasMetadata() const override;
 

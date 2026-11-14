@@ -5,7 +5,6 @@
 
 #include "uicomponents/qml/Muse/UiComponents/toolbaritem.h"
 
-#include "effects/effects_base/effectscommands.h"
 #include "project/projectcommands.h"
 #include "projectscene/projectscenecommands.h"
 
@@ -24,15 +23,6 @@ void ProjectToolBarModel::load()
     std::vector<Command> commands = {
         PROJECTSCENE_AUDIO_SETUP_COMMAND,
     };
-
-    if (au3CloudService()->enabled()) {
-        commands.push_back(project::PROJECT_SHARE_AUDIO_COMMAND);
-    }
-
-    const bool canGetEffects = commandsRegister()->commandInfo(effects::EFFECTS_GET_EFFECTS_COMMAND).isValid();
-    if (canGetEffects) {
-        commands.push_back(effects::EFFECTS_GET_EFFECTS_COMMAND);
-    }
 
     ToolBarItemList items;
     for (const Command& command : commands) {

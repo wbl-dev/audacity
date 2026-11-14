@@ -32,11 +32,9 @@ PRIVATE
    au3-basic-ui
    au3-files
    au3-math
-   au3-network-manager
    au3-project
    au3-project-history
    au3-realtime-effects
-   au3-sentry-reporting
    au3-sqlite-helpers
    au3-stretching-sequence
    au3-string-utils

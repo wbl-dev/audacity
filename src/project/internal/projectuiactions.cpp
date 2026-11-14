@@ -13,20 +13,7 @@ using namespace muse;
 using namespace muse::ui;
 using namespace au::project;
 
-namespace {
-const muse::actions::ActionCode UPDATE_AUDIO_PREVIEW_ACTION_CODE("action://cloud/update-audio-preview");
-const muse::actions::ActionCode UPDATE_AUDIO_PREVIEW_FOR_PROJECT_ACTION_CODE("action://cloud/update-audio-preview-for-project");
-
-UiActionList filterProjectActions(UiActionList actions)
-{
-    std::erase_if(actions, [](const UiAction& action) {
-        return !isProjectActionAllowed(action.code);
-    });
-    return actions;
-}
-}
-
-const UiActionList ProjectUiActions::m_actions = filterProjectActions({
+const UiActionList ProjectUiActions::m_actions = {
     //! TODO AU4
     //! Here are all of app menu UiActions - not all of them belong here,
     //! it's temporary state.
@@ -73,22 +60,6 @@ const UiActionList ProjectUiActions::m_actions = filterProjectActions({
              TranslatableString("action", "Open recent"),
              //: Action description: shown as a tooltip; can be a full sentence
              TranslatableString("action_description", "Open recent project")
-             ),
-    UiAction("action://cloud/open-audio-file",
-             au::context::UiCtxAny,
-             au::context::CTX_ANY,
-             //: Action title: shown as a menu item or a button label; keep it short
-             TranslatableString("action", "Open"),
-             //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Open")
-             ),
-    UiAction("cloud-file-open",
-             au::context::UiCtxAny,
-             au::context::CTX_ANY,
-             //: Action title: shown as a menu item or a button label; keep it short
-             TranslatableString("action", "Open"),
-             //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Open")
              ),
     UiAction("clear-recent",
              au::context::UiCtxAny,
@@ -736,49 +707,6 @@ const UiActionList ProjectUiActions::m_actions = filterProjectActions({
              //: Action description: shown as a tooltip; can be a full sentence
              TranslatableString("action_description", "Frame statistics")
              ),
-    UiAction("link-account",
-             au::context::UiCtxUnknown,
-             au::context::CTX_ANY,
-             //: Action title: shown as a menu item or a button label; keep it short
-             TranslatableString("action", "Link account"),
-             //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Link account")
-             ),
-    UiAction("file-save-to-cloud",
-             au::context::UiCtxAny,
-             au::context::CTX_ANY,
-             //: Action title: shown as a menu item or a button label; keep it short
-             TranslatableString("action", "Save to clo&ud…"),
-             //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Save to cloud…"),
-             IconCode::Code::CLOUD_FILE
-             ),
-    UiAction("file-share-audio",
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_FOCUSED,
-             //: Action title: shown as a menu item or a button label; keep it short
-             TranslatableString("action", "Share audio"),
-             //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Share audio"),
-             IconCode::Code::SHARE_AUDIO
-             ),
-    UiAction(UPDATE_AUDIO_PREVIEW_ACTION_CODE,
-             au::context::UiCtxAny,
-             au::context::CTX_ANY,
-             //: Action title: shown as a menu item or a button label; keep it short
-             TranslatableString("action", "Update cloud audio preview"),
-             //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Update cloud audio preview")
-             ),
-    UiAction(UPDATE_AUDIO_PREVIEW_FOR_PROJECT_ACTION_CODE,
-             au::context::UiCtxAny,
-             au::context::CTX_ANY,
-             //: Action title: shown as a menu item or a button label; keep it short
-             TranslatableString("action", "Update audio preview"),
-             //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Update audio preview")
-             ),
-
     UiAction("project-properties",
              au::context::UiCtxAny,
              au::context::CTX_DISABLED,
@@ -787,7 +715,7 @@ const UiActionList ProjectUiActions::m_actions = filterProjectActions({
              //: Action description: shown as a tooltip; can be a full sentence
              TranslatableString("action_description", "Project properties…")
              )
-});
+};
 
 ProjectUiActions::ProjectUiActions(const std::shared_ptr<ProjectActionsController>& controller)
     : muse::Contextable(controller->iocContext()), m_controller(controller)

@@ -39,7 +39,6 @@ private:
         DeleteButtonID,
         ImportButtonID,
         ExportButtonID,
-        LibraryButtonID,
         DefaultsButtonID
     };
 
@@ -61,7 +60,6 @@ private:
     void OnDelete(wxCommandEvent& event);
     void OnImport(wxCommandEvent& event);
     void OnExport(wxCommandEvent& event);
-    void OnLibrary(wxCommandEvent& event);
     void OnDefaults(wxCommandEvent& event);
     void OnOK(wxCommandEvent& event);
 

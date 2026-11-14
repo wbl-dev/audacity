@@ -15,7 +15,6 @@
 
 #include "../internal/applicationactioncontroller.h"
 #include "../appshellcommands.h"
-#include "shared/productprofile.h"
 
 using ::testing::_;
 using ::testing::Return;
@@ -196,18 +195,7 @@ TEST_F(FactoryResetActionTests, CancelWarningDialog_DoesNothing)
     cancelWarningDialog();
 }
 
-TEST_F(FactoryResetActionTests, OnlineHelpRegistrationMatchesProductProfile)
-{
-    const bool shouldRegister = !shared::isWorkbenchProfile();
 
-    EXPECT_EQ(m_registeredCommands.contains(APP_ONLINE_HANDBOOK_COMMAND), shouldRegister);
-    EXPECT_EQ(m_registeredCommands.contains(APP_ASK_HELP_COMMAND), shouldRegister);
-    EXPECT_EQ(m_registeredActions.contains("online-handbook"), shouldRegister);
-    EXPECT_EQ(m_registeredActions.contains("ask-help"), shouldRegister);
-
-    triggerRevertToFactory();
-    cancelWarningDialog();
-}
 
 /**
  * @brief Confirm the warning — settings are reset immediately.

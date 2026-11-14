@@ -22,25 +22,17 @@
 
 #include "startupscenario.h"
 
-#include <QDate>
-
 #include "framework/global/log.h"
-#include "framework/global/settings.h"
 #include "framework/global/types/uri.h"
 
 #include "appshell/appshelltypes.h"
-#include "au3cloud/cloudcommands.h"
 #include "project/projectcommands.h"
 
 using namespace au::appshell;
 using namespace muse;
 using namespace au::project;
 
-static const muse::Settings::Key LAST_UPDATE_CHECK_DAY_KEY("appshell", "application/lastUpdateCheckRequestDay");
-
 static const muse::UriQuery FIRST_LAUNCH_SETUP_URI("audacity://firstLaunchSetup?floating=true");
-static const muse::Uri ALPHA_WELCOME_POPUP("audacity://alphaWelcomePopup");
-static const muse::UriQuery WELCOME_DIALOG_URI("audacity://welcomedialog");
 static const muse::Uri HOME_URI("audacity://home");
 static const muse::Uri PROJECT_URI("audacity://project");
 
@@ -113,27 +105,9 @@ void StartupScenario::setRemoveMediaFilesAfterImport(bool remove)
     m_removeMediaFilesAfterImport = remove;
 }
 
-void StartupScenario::setStartupUrl(const QString& url)
-{
-    if (!startupPolicy().dispatchCloudUrls) {
-        return;
-    }
-
-    if (m_startupCompleted && !url.isEmpty()) {
-        commandDispatcher()->dispatch(au3cloud::CLOUD_OPEN_URL_COMMAND, { { au3cloud::CLOUD_OPEN_URL_URL_PARAM, Val(url) } });
-        return;
-    }
-    m_startupUrl = url;
-}
-
 muse::async::Promise<muse::Ret> StartupScenario::runOnSplashScreen()
 {
     return muse::async::make_promise<muse::Ret>([this](auto resolve, auto) {
-        if (startupPolicy().checkForUpdates && multiwindowsProvider()->isFirstWindow()) {
-            tryCheckForUpdate();
-            startUpdateCheckTimer();
-        }
-
         const muse::Ret ret = muse::make_ret(muse::Ret::Code::Ok);
         return resolve(ret);
     });
@@ -180,7 +154,7 @@ bool StartupScenario::allowsStartupModeOverride() const
 
 bool StartupScenario::hasExplicitStartupTarget() const
 {
-    return m_startupProjectFile.isValid() || !m_startupMediaFiles.empty() || !m_startupUrl.isEmpty();
+    return m_startupProjectFile.isValid() || !m_startupMediaFiles.empty();
 }
 
 StartupModeType StartupScenario::resolveStartupModeType() const
@@ -219,11 +193,6 @@ void StartupScenario::onStartupPageOpened(StartupModeType modeType)
         return;
     }
 
-    if (!m_startupUrl.isEmpty()) {
-        commandDispatcher()->dispatch(au3cloud::CLOUD_OPEN_URL_COMMAND, { { au3cloud::CLOUD_OPEN_URL_URL_PARAM, Val(m_startupUrl) } });
-        return;
-    }
-
     switch (modeType) {
     case StartupModeType::StartEmpty:
     case StartupModeType::ContinueLastSession:
@@ -248,42 +217,11 @@ void StartupScenario::onStartupPageOpened(StartupModeType modeType)
 
 void StartupScenario::showStartupDialogsIfNeed(StartupModeType)
 {
-    if (!multiwindowsProvider()->isFirstWindow()) {
-        return;
+    if (multiwindowsProvider()->isFirstWindow()
+        && startupPolicy().showFirstLaunchSetup
+        && !configuration()->hasCompletedFirstLaunchSetup()) {
+        interactive()->open(FIRST_LAUNCH_SETUP_URI);
     }
-
-    const auto showWelcomeDialogIfNeed = [this]() {
-        const auto showWelcomePage = [this]() {
-            const std::string welcomeDialogLastShownVersion(configuration()->welcomeDialogLastShownVersion());
-            const std::string currentAudacityVersion(configuration()->audacityVersion());
-
-            if (welcomeDialogLastShownVersion < currentAudacityVersion) {
-                configuration()->setWelcomeDialogShowOnStartup(true); // override user preference
-                configuration()->setWelcomeDialogLastShownIndex(-1); // reset
-            }
-
-            if (!configuration()->welcomeDialogShowOnStartup()) {
-                return;
-            }
-
-            muse::UriQuery query(WELCOME_DIALOG_URI);
-            query.set("modal", false);
-            query.set("floating", true);
-            interactive()->open(query);
-
-            configuration()->setWelcomeDialogLastShownVersion(configuration()->audacityVersion());
-        };
-
-        if (startupPolicy().showFirstLaunchSetup && !configuration()->hasCompletedFirstLaunchSetup()) {
-            interactive()->open(FIRST_LAUNCH_SETUP_URI).then(this, [](const muse::Val&, auto resolve) {
-                return resolve();
-            });
-        } else if (startupPolicy().showWelcomeDialog) {
-            showWelcomePage();
-        }
-    };
-
-    showWelcomeDialogIfNeed();
 }
 
 muse::Uri StartupScenario::startupPageUri(StartupModeType modeType) const
@@ -325,52 +263,4 @@ void StartupScenario::restoreLastSession()
             sessionsManager()->reset();
         }
     });
-}
-
-void StartupScenario::tryCheckForUpdate()
-{
-    if (!appUpdateScenario() || !appUpdateScenario()->needCheckForUpdate()) {
-        return;
-    }
-
-    if (alreadyCheckedForUpdateToday()) {
-        return;
-    }
-
-    if (isAudioActive()) {
-        return;
-    }
-
-    muse::settings()->setSharedValue(LAST_UPDATE_CHECK_DAY_KEY, muse::Val(QDate::currentDate().toString(Qt::ISODate).toStdString()));
-
-    appUpdateScenario()->checkForUpdate(/*manual*/ false);
-}
-
-void StartupScenario::startUpdateCheckTimer()
-{
-    static constexpr int CHECK_INTERVAL_MS = 12 * 60 * 60 * 1000; // 12 hours
-    m_updateCheckTimer.setInterval(CHECK_INTERVAL_MS);
-    QObject::connect(&m_updateCheckTimer, &QTimer::timeout, [this]() {
-        tryCheckForUpdate();
-    });
-    m_updateCheckTimer.start();
-}
-
-bool StartupScenario::isAudioActive() const
-{
-    if (recordController() && recordController()->isRecording()) {
-        return true;
-    }
-
-    if (playbackController() && playbackController()->isPlaying()) {
-        return true;
-    }
-
-    return false;
-}
-
-bool StartupScenario::alreadyCheckedForUpdateToday() const
-{
-    const std::string lastCheckDay = muse::settings()->value(LAST_UPDATE_CHECK_DAY_KEY).toString();
-    return lastCheckDay == QDate::currentDate().toString(Qt::ISODate).toStdString();
 }

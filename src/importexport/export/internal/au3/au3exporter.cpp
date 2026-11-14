@@ -741,64 +741,6 @@ std::vector<std::string> Au3Exporter::formatExtensions(const std::string& format
     return {};
 }
 
-std::vector<std::string> Au3Exporter::cloudPreferredAudioFormats(bool preferLossless) const
-{
-    const auto& registry = ExportPluginRegistry::Get();
-
-    std::vector<std::string> result;
-    for (const auto& mimeType : cloudConfiguration()->preferredAudioFormats(preferLossless)) {
-        for (auto [plugin, formatIndex] : registry) {
-            for (const auto& mime : plugin->GetMimeTypes(formatIndex)) {
-                if (mime == mimeType) {
-                    result.push_back(plugin->GetFormatInfo(formatIndex).description.msgid().toStdString());
-                    break;
-                }
-            }
-        }
-    }
-
-    if (result.empty()) {
-        // Fallback to all formats if no preferred formats are found
-        for (auto [plugin, formatIndex] : registry) {
-            result.push_back(plugin->GetFormatInfo(formatIndex).description.msgid().toStdString());
-        }
-    }
-
-    return result;
-}
-
-ExportParameters Au3Exporter::cloudExportParameters(const std::string& format) const
-{
-    const ExportPlugin* plugin = nullptr;
-    int fmt = -1;
-
-    for (auto [p, formatIndex] : ExportPluginRegistry::Get()) {
-        if (p->GetFormatInfo(formatIndex).description.msgid().toStdString() == format) {
-            plugin = p;
-            fmt = formatIndex;
-            break;
-        }
-    }
-
-    if (!plugin) {
-        return {};
-    }
-
-    for (const auto& mimeType : plugin->GetMimeTypes(fmt)) {
-        auto config = cloudConfiguration()->exportConfig(mimeType);
-        ExportProcessor::Parameters au3Params;
-        if (plugin->ParseConfig(fmt, config, au3Params)) {
-            ExportParameters result;
-            for (const auto& [id, val] : au3Params) {
-                result.emplace_back(id, std::visit([](auto v) -> OptionValue { return v; }, val));
-            }
-            return result;
-        }
-    }
-
-    return {};
-}
-
 bool Au3Exporter::isCustomFFmpegExportFormat() const
 {
     OptionsEditorUPtr editor = optionsEditor();

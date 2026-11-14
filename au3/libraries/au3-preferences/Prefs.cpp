@@ -59,10 +59,7 @@
 #include "au3-utility/IteratorX.h"
 #include "au3-utility/Observer.h"
 
-StickySetting<BoolSetting> DefaultUpdatesCheckingFlag{
-    L"/Update/DefaultUpdatesChecking", true };
 
-StickySetting<BoolSetting> SendAnonymousUsageInfo{ L"SendAnonymousUsageInfo", false };
 
 StickySetting<StringSetting> InstanceId{ L"InstanceId" };
 

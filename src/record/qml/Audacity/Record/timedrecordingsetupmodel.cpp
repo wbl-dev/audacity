@@ -84,7 +84,7 @@ void TimedRecordingSetupModel::init()
     m_quitAudacityEnabled = options.quitAudacity;
 
     const project::IAudacityProjectPtr project = globalContext()->currentProject();
-    if (project && !project->isNewlyCreated() && !project->isCloudProject()) {
+    if (project && !project->isNewlyCreated()) {
         m_saveProjectPath = project->path().toQString();
     }
 

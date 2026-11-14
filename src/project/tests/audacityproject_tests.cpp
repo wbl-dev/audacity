@@ -32,7 +32,6 @@
 
 #include "project/tests/mocks/trackeditprojectcreatormock.h"
 #include "project/tests/mocks/projectviewstatecreatormock.h"
-#include "project/tests/mocks/cloudprojectsprovidermock.h"
 #include "trackedit/tests/mocks/clipboardmock.h"
 #include "trackedit/tests/mocks/projecthistorymock.h"
 #include "trackedit/tests/mocks/trackeditprojectmock.h"
@@ -104,7 +103,6 @@ protected:
     std::shared_ptr<au::project::TrackeditProjectCreatorMock> m_trackeditProjectCreator;
     std::shared_ptr<au::projectscene::ProjectViewStateCreatorMock> m_projectViewStateCreator;
     std::shared_ptr<au::trackedit::ClipboardMock> m_clipboard;
-    std::shared_ptr<au::au3cloud::CloudProjectsProviderMock> m_cloudProjectsProvider;
 
     void resetCurrentProject()
     {
@@ -112,7 +110,6 @@ protected:
         m_currentProject->trackeditProjectCreator.set(m_trackeditProjectCreator);
         m_currentProject->viewStateCreator.set(m_projectViewStateCreator);
         m_currentProject->clipboard.set(m_clipboard);
-        m_currentProject->cloudProjectsProvider.set(m_cloudProjectsProvider);
     }
 
     muse::Ret saveCurrentProjectWithoutThumbnail(const muse::io::path_t& path)
@@ -126,7 +123,6 @@ protected:
 
         m_clipboard = std::make_shared<::testing::NiceMock<au::trackedit::ClipboardMock> >();
 
-        m_cloudProjectsProvider = std::make_shared<::testing::NiceMock<au::au3cloud::CloudProjectsProviderMock> >();
 
         resetCurrentProject();
     }
@@ -195,39 +191,21 @@ TEST_F(Project_Audacity4ProjectTests, Load_ValidFile_ReturnsSuccess)
     m_currentProject->close();
 }
 
-#ifdef AU4_WORKBENCH_PROFILE
-TEST_F(Project_Audacity4ProjectTests, Load_LocalFileWithExternalCloudRecord_ReturnsSuccessWithoutCloudOperation)
+TEST_F(Project_Audacity4ProjectTests, LocalFile_SaveAndReloadSucceeds)
 {
     const std::string srcPath = (muse::String::fromUtf8(au_project_tests_DATA_ROOT) + "/data/empty.aup4").toStdString();
-    const std::string dstPath = (muse::String::fromUtf8(au_project_tests_DATA_ROOT) + "/data/empty_cloud_metadata_copy.aup4").toStdString();
+    const std::string dstPath = (muse::String::fromUtf8(au_project_tests_DATA_ROOT) + "/data/local_copy.aup4").toStdString();
     const ScopedTestFile tempFile { srcPath, dstPath, AccessMode::Full };
     const muse::io::path_t testPath(tempFile.getPath());
-    const CloudProjectRecord record {
-        .projectId = "historical-project-id",
-        .snapshotId = "historical-snapshot-id",
-        .localPath = testPath,
-    };
 
-    EXPECT_CALL(*m_cloudProjectsProvider, projectRecordForPath(testPath))
-        .WillRepeatedly(::testing::Return(record));
-    EXPECT_CALL(*m_cloudProjectsProvider, projectRecordForId(::testing::_)).Times(0);
-    EXPECT_CALL(*m_cloudProjectsProvider, makeSafeFilePath(::testing::_, ::testing::_, ::testing::_)).Times(0);
-
-    const muse::Ret ret = m_currentProject->load(testPath, false, "");
-
-    EXPECT_TRUE(ret.success());
-    EXPECT_FALSE(m_currentProject->isCloudProject());
-    ASSERT_TRUE(m_currentProject->cloudRecord().has_value());
-    EXPECT_EQ(m_currentProject->cloudRecord()->projectId, record.projectId);
-    EXPECT_TRUE(saveCurrentProjectWithoutThumbnail(testPath).success());
+    ASSERT_TRUE(m_currentProject->load(testPath, false, "").success());
+    ASSERT_TRUE(saveCurrentProjectWithoutThumbnail(testPath).success());
     m_currentProject->close();
 
     resetCurrentProject();
     EXPECT_TRUE(m_currentProject->load(testPath, false, "").success());
-    EXPECT_FALSE(m_currentProject->isCloudProject());
     m_currentProject->close();
 }
-#endif
 
 TEST_F(Project_Audacity4ProjectTests, Load_LegacySchema_UpgradesInPlace)
 {

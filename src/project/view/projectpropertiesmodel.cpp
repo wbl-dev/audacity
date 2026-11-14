@@ -81,7 +81,6 @@ void ProjectPropertiesModel::load()
         //! TODO AU4: add properties according to
         //! /au4/src/project/types/projectmeta.h
         // { WORK_TITLE_TAG, muse::qtrc("project", "Title"), m_projectMetaInfo.title, true },
-        // { AUDIO_COM_URL_TAG, muse::qtrc("project", "Audio.com URL"), m_projectMetaInfo.audioComUrl, true }
     };
 
     for (const QString& propertyName : additionalProperties.keys()) {

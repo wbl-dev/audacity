@@ -25,9 +25,6 @@ public:
     virtual muse::async::Channel<muse::io::path_t> userProjectsPathChanged() const = 0;
     virtual muse::io::path_t defaultUserProjectsPath() const = 0;
 
-    virtual muse::io::path_t cloudProjectsPath() const = 0;
-    virtual void setCloudProjectsPath(const muse::io::path_t& path) = 0;
-
     virtual muse::io::path_t lastOpenedProjectsPath() const = 0;
     virtual void setLastOpenedProjectsPath(const muse::io::path_t& path) = 0;
 
@@ -36,12 +33,6 @@ public:
 
     virtual muse::io::path_t defaultSavingFilePath(IAudacityProjectPtr project, const std::string& filenameAddition = "",
                                                    const std::string& suffix = "") const = 0;
-
-    virtual SaveLocationType lastUsedSaveLocationType() const = 0;
-    virtual void setLastUsedSaveLocationType(SaveLocationType type) = 0;
-
-    virtual bool shouldAskSaveLocationType() const = 0;
-    virtual void setShouldAskSaveLocationType(bool shouldAsk) = 0;
 
     virtual muse::io::path_t temporaryDir() const = 0;
     virtual void setTemporaryDir(const muse::io::path_t& path) = 0;

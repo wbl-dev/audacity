@@ -50,7 +50,7 @@ muse::Ret make_ret(Err err, const muse::io::path_t& filePath)
     case Err::ProjectFileNotFound:
         title = muse::mtrc("project", "Cannot read file %1").arg(muse::io::toNativeSeparators(filePath).toString());
         body = muse::mtrc("project",
-                          "The file:\n“%1”\nCannot be found or accessed at this location. If it’s stored on an external or cloud drive, please verify that the drive is connected and syncing properly.")
+                          "The file:\n“%1”\nCannot be found or accessed at this location. If it’s stored on an external drive, please verify that the drive is connected.")
                .arg(muse::io::toNativeSeparators(filePath).toString());
         break;
     case Err::ProjectFileIsReadProtected:

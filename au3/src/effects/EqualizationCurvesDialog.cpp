@@ -26,7 +26,6 @@ EVT_BUTTON(RenameButtonID, EqualizationCurvesDialog::OnRename)
 EVT_BUTTON(DeleteButtonID, EqualizationCurvesDialog::OnDelete)
 EVT_BUTTON(ImportButtonID, EqualizationCurvesDialog::OnImport)
 EVT_BUTTON(ExportButtonID, EqualizationCurvesDialog::OnExport)
-EVT_BUTTON(LibraryButtonID, EqualizationCurvesDialog::OnLibrary)
 EVT_BUTTON(DefaultsButtonID, EqualizationCurvesDialog::OnDefaults)
 EVT_BUTTON(wxID_OK, EqualizationCurvesDialog::OnOK)
 EVT_LIST_ITEM_SELECTED(CurvesListID,
@@ -91,7 +90,6 @@ void EqualizationCurvesDialog::PopulateOrExchange(ShuttleGui& S)
             S.Id(DeleteButtonID).AddButton(XXO("D&elete..."), wxALIGN_LEFT);
             S.Id(ImportButtonID).AddButton(XXO("I&mport..."), wxALIGN_LEFT);
             S.Id(ExportButtonID).AddButton(XXO("E&xport..."), wxALIGN_LEFT);
-            S.Id(LibraryButtonID).AddButton(XXO("&Get More..."), wxALIGN_LEFT);
             S.Id(DefaultsButtonID).AddButton(XXO("De&faults"), wxALIGN_LEFT);
         }
         S.EndVerticalLay();
@@ -471,12 +469,6 @@ void EqualizationCurvesDialog::OnExport(wxCommandEvent& WXUNUSED(event))
                               XO("No curves exported"),
                               XO("No curves exported"));
     }
-}
-
-void EqualizationCurvesDialog::OnLibrary(wxCommandEvent& WXUNUSED(event))
-{
-    // full path to wiki.
-    wxLaunchDefaultBrowser(wxT("https://wiki.audacityteam.org/wiki/EQCurvesDownload"));
 }
 
 void EqualizationCurvesDialog::OnDefaults(wxCommandEvent& WXUNUSED(event))

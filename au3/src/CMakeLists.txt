@@ -230,8 +230,6 @@ set( SOURCES
       WaveTrackLocation.h
 
       $<$<BOOL:${_OPT}has_whats_new>:
-         WhatsNewDialog.cpp
-         WhatsNewDialog.h
       >
 
       # Commands
@@ -875,25 +873,6 @@ set( SOURCES
       widgets/valnum.cpp
       widgets/valnum.h
 
-      # Update version
-      $<$<BOOL:${${_OPT}has_updates_check}>:
-          update/VersionId.h
-          update/VersionId.cpp
-          update/VersionPatch.h
-          update/UpdateDataParser.h
-          update/UpdateDataParser.cpp
-          update/UpdateManager.h
-          update/UpdateManager.cpp
-          update/UpdateNoticeDialog.h
-          update/UpdateNoticeDialog.cpp
-          update/UpdatePopupDialog.h
-          update/UpdatePopupDialog.cpp
-          prefs/ApplicationPrefs.h
-          prefs/ApplicationPrefs.cpp
-          update/NoUpdatesAvailableDialog.h
-          update/NoUpdatesAvailableDialog.cpp
-      >
-
       Experimental.cmake
 )
 
@@ -945,9 +924,6 @@ set( DEFINES
          _CRT_SECURE_NO_WARNINGS
          __STDC_CONSTANT_MACROS
          STRICT
-      >
-      $<$<BOOL:${${_OPT}has_updates_check}>:
-          HAVE_UPDATES_CHECK
       >
 )
 
@@ -1319,11 +1295,7 @@ if( ${_OPT}has_url_schemes_support )
    )
 endif()
 
-if( ${_OPT}has_audiocom_upload )
-   list( APPEND AUDACITY_LIBRARIES
-      lib-cloud-audiocom-interface
-   )
-endif()
+
 
 if( ${_OPT}has_crashreports )
    if( ${_OPT}crashreport_backend STREQUAL "crashpad" )

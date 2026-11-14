@@ -167,10 +167,6 @@ void RecentFilesController::loadRecentFilesList()
             continue;
         }
 
-        //! NOTE Cloud info is not persisted in the recent-files JSON: the cloud projects DB
-        //! is the source of truth (the sync engine keeps it up to date), so derive it by path
-        file.cloudRecord = cloudProjectsProvider()->projectRecordForPath(file.path);
-
         newList.emplace_back(std::move(file));
     }
 }

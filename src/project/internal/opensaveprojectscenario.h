@@ -30,22 +30,14 @@
 #include "framework/interactive/iinteractive.h"
 #include "framework/multiwindows/imultiwindowsprovider.h"
 
-#include "framework/cloud/musescorecom/imusescorecomservice.h"
-#include "framework/cloud/audiocom/iaudiocomservice.h"
-#include "framework/cloud/qml/Muse/Cloud/enums.h"
-
 #include "project/iprojectconfiguration.h"
 #include "project/iprojectfilescontroller.h"
-#include "au3cloud/iau3cloudconfiguration.h"
 
 namespace au::project {
 class OpenSaveProjectScenario : public IOpenSaveProjectScenario, public muse::Contextable
 {
     muse::GlobalInject<IProjectConfiguration> configuration;
     muse::GlobalInject<muse::io::IFileSystem> fileSystem;
-    muse::GlobalInject<muse::cloud::IMuseScoreComService> museScoreComService;
-    muse::GlobalInject<muse::cloud::IAudioComService> audioComService;
-    muse::GlobalInject<au::au3cloud::IAu3CloudConfiguration> cloudConfiguration;
     muse::GlobalInject<muse::mi::IMultiWindowsProvider> multiwindowsProvider;
 
     muse::ContextInject<IProjectFilesController> projectFilesController { this };
@@ -55,48 +47,8 @@ public:
     OpenSaveProjectScenario(const muse::modularity::ContextPtr& ctx)
         : muse::Contextable(ctx) {}
 
-    muse::RetVal<SaveLocation> askSaveLocation(IAudacityProjectPtr project, SaveMode mode,
-                                               SaveLocationType preselectedType = SaveLocationType::Undefined) const override;
-
     muse::RetVal<muse::io::path_t> askLocalPath(IAudacityProjectPtr project, SaveMode mode) const override;
-    muse::RetVal<CloudProjectInfo> askCloudLocation(IAudacityProjectPtr project, SaveMode mode) const override;
-    muse::RetVal<CloudProjectInfo> askPublishLocation(IAudacityProjectPtr project) const override;
-
     muse::RetVal<muse::io::path_t> resolveLegacyProjectFormat(const muse::io::path_t& path) const override;
-
-    bool warnBeforeSavingToExistingPubliclyVisibleCloudProject() const override;
-
-    muse::Ret showCloudOpenError(const muse::Ret& ret, const muse::io::path_t& localPath) const override;
-    muse::Ret showCloudSaveError(const muse::Ret& ret) const override;
-    muse::Ret showCloudAudioOpenError(const muse::Ret& ret) const override;
-    muse::Ret showAudioCloudShareError(const muse::Ret& ret) const override;
-
-private:
-    muse::RetVal<SaveLocationType> saveLocationType() const;
-    muse::RetVal<SaveLocationType> askSaveLocationType() const;
-
-    /// \param isPublishShare:
-    ///     false -> this is part of a "Save to cloud" action
-    ///     true -> this is part of a "Publish" action
-    muse::RetVal<CloudProjectInfo> doAskCloudLocation(IAudacityProjectPtr project, SaveMode mode, bool isPublishShare) const;
-
-    bool warnBeforePublishing(bool isPublishShare, muse::cloud::Visibility visibility) const;
-
-    muse::Ret warnCloudNotAvailableForUploading(bool isPublishShare) const;
-    muse::Ret warnCloudNotAvailableForSharingAudio() const;
-};
-
-class QMLSaveLocationType
-{
-    Q_GADGET
-
-public:
-    enum SaveLocationType {
-        Undefined = int(project::SaveLocationType::Undefined),
-        Local = int(project::SaveLocationType::Local),
-        Cloud = int(project::SaveLocationType::Cloud)
-    };
-    Q_ENUM(SaveLocationType);
 };
 }
 

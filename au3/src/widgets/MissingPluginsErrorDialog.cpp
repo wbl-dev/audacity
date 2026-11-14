@@ -9,7 +9,6 @@
 #include <wx/artprov.h>
 #include <wx/statbmp.h>
 
-#include "AccessibleLinksFormatter.h"
 #include "MissingPluginsErrorDialog.h"
 #include "ShuttleGui.h"
 #include "Theme.h"
@@ -46,17 +45,7 @@ MissingPluginsErrorDialog::MissingPluginsErrorDialog(wxWindow* parent)
                     XO("This project contains some realtime effect plugins that cannot be found on this system."),
                     false, 500);
 
-                AccessibleLinksFormatter pluginsMessage(
-                    /* i18n-hint: %s will be replaced with "Learn more" */
-                    XO("The project may sound different than intended. %s"));
-
-                pluginsMessage.FormatLink(
-                    /* i18n-hint: Title of hyperlink to audacityteam.org/errors. */
-                    wxT("%s"),
-                    XO("Learn more"),
-                    "https://audacityteam.org/errors#missing-plugins");
-
-                pluginsMessage.Populate(S);
+                S.AddFixedText(XO("The project may sound different than intended."), false, 500);
             }
             S.EndVerticalLay();
 

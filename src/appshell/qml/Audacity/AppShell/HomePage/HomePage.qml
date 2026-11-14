@@ -26,7 +26,6 @@ import Muse.UiComponents
 import Muse.Dock 1.0
 
 import Audacity.Project 1.0
-import Muse.Learn
 
 import "."
 
@@ -70,12 +69,6 @@ DockPage {
         case "projects":
             root.central = projetsComp
             break
-        case "learn":
-            root.central = learnComp
-            break
-        case "account":
-            root.central = accountComp
-            break
         }
     }
 
@@ -100,7 +93,6 @@ DockPage {
             HomeMenu {
                 currentPageName: root.section
                 iconsOnly: menuPanel.iconsOnly
-                cloudEnabled: projectsPageHelper.cloudEnabled
 
                 onSelected: function (name) {
                     root.setCurrentCentral(name)
@@ -112,23 +104,9 @@ DockPage {
     central: projetsComp
 
     Component {
-        id: accountComp
-        Loader {
-            source: "AccountPage.qml"
-        }
-    }
-
-    Component {
         id: projetsComp
 
         ProjectsPage {}
     }
 
-    Component {
-        id: learnComp
-
-        LearnPage {
-            section: root.subSection
-        }
-    }
 }

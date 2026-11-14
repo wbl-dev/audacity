@@ -61,10 +61,6 @@ protected:
     static const QString TIME_SINCE_MODIFIED_KEY;
     static const QString IS_CREATE_NEW_KEY;
     static const QString IS_NO_RESULTS_FOUND_KEY;
-    static const QString IS_CLOUD_KEY;
-    static const QString CLOUD_ITEM_ID_KEY;
-    static const QString CLOUD_VISIBILITY_KEY;
-    static const QString CLOUD_VIEW_COUNT_KEY;
     static const QString CONTEXT_MENU_MODEL_KEY;
     static const QString SHOW_INDICATOR_KEY;
 

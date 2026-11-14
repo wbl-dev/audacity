@@ -20,8 +20,6 @@ public:
     MOCK_METHOD(muse::async::Channel<muse::io::path_t>, userProjectsPathChanged, (), (const, override));
     MOCK_METHOD(muse::io::path_t, defaultUserProjectsPath, (), (const, override));
 
-    MOCK_METHOD(muse::io::path_t, cloudProjectsPath, (), (const, override));
-    MOCK_METHOD(void, setCloudProjectsPath, (const muse::io::path_t& path), (override));
 
     MOCK_METHOD(muse::io::path_t, lastOpenedProjectsPath, (), (const, override));
     MOCK_METHOD(void, setLastOpenedProjectsPath, (const muse::io::path_t& path), (override));
@@ -31,11 +29,7 @@ public:
 
     MOCK_METHOD(muse::io::path_t, defaultSavingFilePath, (IAudacityProjectPtr project, const std::string& filenameAddition,
                                                           const std::string& suffix), (const, override));
-    MOCK_METHOD(SaveLocationType, lastUsedSaveLocationType, (), (const, override));
-    MOCK_METHOD(void, setLastUsedSaveLocationType, (SaveLocationType type), (override));
 
-    MOCK_METHOD(bool, shouldAskSaveLocationType, (), (const, override));
-    MOCK_METHOD(void, setShouldAskSaveLocationType, (bool shouldAsk), (override));
 
     MOCK_METHOD(muse::io::path_t, temporaryDir, (), (const, override));
     MOCK_METHOD(void, setTemporaryDir, (const muse::io::path_t& path), (override));

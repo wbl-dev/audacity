@@ -75,13 +75,12 @@ void ExportUtils::RegisterExportHook(ExportHook hook, Priority priority)
 }
 
 void ExportUtils::PerformInteractiveExport(
-    AudacityProject& project, const FileExtension& format, AudiocomTrace trace,
-    bool selectedOnly)
+    AudacityProject& project, const FileExtension& format, bool selectedOnly)
 {
     auto& hooks = ExportHooks();
     for (auto& hook : hooks) {
         if (
-            hook.hook(project, format, trace, selectedOnly)
+            hook.hook(project, format, selectedOnly)
             != ExportHookResult::Continue) {
             return;
         }

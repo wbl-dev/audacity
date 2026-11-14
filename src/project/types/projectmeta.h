@@ -105,14 +105,6 @@ static std::map<std::string, std::string> LABEL_MAP {
     { COMMENTS_TAG,     muse::trc("metadata", "Comments") },
 };
 
-// Cloud-related tags
-// TODO: don't use the score's meta tags to use this information
-// https://github.com/musescore/MuseScore/issues/17560
-// https://github.com/musescore/MuseScore/issues/17561
-// inline const QString SOURCE_TAG("source");
-// inline const QString SOURCE_REVISION_ID_TAG("sourceRevisionId");
-// inline const QString AUDIO_COM_URL_TAG("audioComUrl");
-
 inline bool isStandardTag(const QString& tag)
 {
     return standardTags.contains(tag);

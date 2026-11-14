@@ -219,13 +219,6 @@ void PreferencesModel::load(const QString& currentPageId)
         makeItem("label-parsers", QT_TRANSLATE_NOOP("preferences", "Label parsers"), IconCode::Code::OPEN_FILE,
                  "Preferences/LabelParsersPreferencesPage.qml"),
 
-#ifdef AU_BUILD_CLOUD_AUDIOCOM
-        makeItem("export", QT_TRANSLATE_NOOP("preferences", "Export"), IconCode::Code::SHARE_FILE,
-                 "Preferences/ExportPreferencesPage.qml"),
-#endif
-
-        // makeItem("cloud", QT_TRANSLATE_NOOP("preferences", "Cloud"), IconCode::Code::CLOUD, ""),
-
         makeItem("shortcuts", QT_TRANSLATE_NOOP("preferences", "Shortcuts"), IconCode::Code::SHORTCUTS,
                  "Preferences/ShortcutsPreferencesPage.qml"),
 

@@ -110,17 +110,6 @@ if (AU_MODULE_EFFECTS_NYQUIST)
    list( APPEND LIBRARIES au3-nyquist-effects )
 endif()
 
-# au3-network-manager is a general networking library used by au3-musehub
-# and other modules, so it must be built unconditionally.
-list( APPEND LIBRARIES au3-network-manager)
-
-if (AU_BUILD_CLOUD_AUDIOCOM)
-   list( APPEND LIBRARIES au3-url-schemes au3-cloud-audiocom)
-endif()
-
-if (AU_BUILD_MUSEHUB_MODULE)
-   list( APPEND LIBRARIES au3-musehub)
-endif()
 
 if( DEFINED ${_OPT}has_crashreports AND ${_OPT}has_crashreports )
    if( ${_OPT}crashreport_backend STREQUAL "breakpad" )
@@ -133,11 +122,6 @@ endif()
 if ( DEFINED ${_OPT}use_ladspa AND ${_OPT}use_ladspa )
    list( APPEND LIBRARIES au3-ladspa )
 endif()
-
-# This library depends on au3-network-manager
-# If Sentry reporting is disabled, an INTERFACE library
-# will be defined
-list( APPEND LIBRARIES au3-sentry-reporting)
 
 # Set a CACHE variable with all AU3 library names so that au3defs.cmake can use it
 # to generate API macros for all libraries

@@ -98,9 +98,6 @@ void GuiApp::doStartupScenario(const muse::modularity::ContextPtr& ctxId)
 
     startupScenario->setStartupMediaFiles(options->startup.mediaFiles);
     startupScenario->setRemoveMediaFilesAfterImport(options->startup.removeMediaFilesAfterImport);
-    if (options->startup.startupUrl.has_value()) {
-        startupScenario->setStartupUrl(options->startup.startupUrl.value());
-    }
 
     startupScenario->runOnSplashScreen();
 
@@ -179,10 +176,6 @@ void GuiApp::onSecondInstanceArgs(const QStringList& args)
         return;
     }
 
-    if (parsed->startup.startupUrl.has_value()) {
-        dispatcher->dispatch("open-url",
-                             muse::actions::ActionData::make_arg1<QString>(parsed->startup.startupUrl.value()));
-    }
 
     if (parsed->startup.projectUrl.has_value()) {
         dispatcher->dispatch("file-open",

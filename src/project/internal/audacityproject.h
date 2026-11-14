@@ -13,7 +13,6 @@
 #include "trackedit/itrackeditclipboard.h"
 #include "trackedit/itrackeditproject.h"
 #include "importexport/import/iimporter.h"
-#include "au3cloud/icloudprojectsprovider.h"
 
 namespace au::au3 {
 class Au3ProjectAccessor;
@@ -49,7 +48,6 @@ class Audacity4Project : public IAudacityProject, public muse::async::Asyncable,
     muse::GlobalInject<au3::IAu3ProjectCreator> au3ProjectCreator;
     muse::GlobalInject<trackedit::ITrackeditProjectCreator> trackeditProjectCreator;
     muse::GlobalInject<projectscene::IProjectViewStateCreator> viewStateCreator;
-    muse::GlobalInject<au3cloud::ICloudProjectsProvider> cloudProjectsProvider;
 
     muse::ContextInject<context::IGlobalContext> globalContext { this };
     muse::ContextInject<au::trackedit::IProjectHistory> projectHistory { this };
@@ -83,10 +81,6 @@ public:
 
     bool isNewlyCreated() const override;
     bool isImported() const override;
-    bool isCloudProject() const override;
-    muse::async::Notification isCloudProjectChanged() const override;
-    const std::optional<CloudProjectRecord> cloudRecord() const override;
-
     muse::String title() const override;
 
     muse::ValNt<bool> needSave() const override;
@@ -127,13 +121,11 @@ private:
 
     muse::io::path_t m_path;
     muse::async::Notification m_pathChanged;
-    muse::async::Notification m_isCloudProjectChanged;
     muse::async::Notification m_displayNameChanged;
     muse::async::Notification m_needSaveNotification;
 
     bool m_isNewlyCreated = false; /// true if the file has never been saved yet
     bool m_isImported = false;
-    bool m_isCloudProject = false;
     bool m_needAutoSave = false;
 
     std::shared_ptr<au::au3::IAu3Project> m_au3Project;

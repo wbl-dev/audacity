@@ -115,17 +115,8 @@ It handles initialization and termination by subclassing wxApp.
 #include "wxWidgetsWindowPlacement.h"
 #include "effects/RegisterBuiltinEffects.h"
 
-#if defined(HAVE_UPDATES_CHECK)
-#  include "update/UpdateManager.h"
-#endif
 
-#ifdef HAS_WHATS_NEW
-#  include "WhatsNewDialog.h"
-#endif
 
-#ifdef HAS_NETWORKING
-#include "NetworkManager.h"
-#endif
 
 //temporarily commented out till it is added to all projects
 //#include "Profiler.h"
@@ -441,8 +432,6 @@ void InitCrashreports()
     databasePath.Mkdir(wxS_DIR_DEFAULT, wxPATH_MKDIR_FULL);
 
     if (databasePath.DirExists()) {
-        const auto sentryRelease = wxString::Format(
-            "audacity@%d.%d.%d", AUDACITY_VERSION, AUDACITY_RELEASE, AUDACITY_REVISION);
 #if defined(USE_BREAKPAD)
         BreakpadConfigurer configurer;
         configurer.SetDatabasePathUTF8(databasePath.GetPath().ToUTF8().data())
@@ -451,8 +440,7 @@ void InitCrashreports()
         .SetReportURL(CRASH_REPORT_URL)
     #endif
         .SetParameters({
-                { "version", wxString(AUDACITY_VERSION_STRING).ToUTF8().data() },
-                { "sentry[release]",  sentryRelease.ToUTF8().data() }
+                { "version", wxString(AUDACITY_VERSION_STRING).ToUTF8().data() }
             })
         .Start();
 #elif defined(USE_CRASHPAD)
@@ -469,9 +457,8 @@ void InitCrashreports()
                     "--crashreporter-argument=-u=%s",
                     CRASH_REPORT_URL).ToUTF8().data(),
                 wxString::Format(
-                    "--crashreporter-argument=-a=version=\"%s\",sentry[release]=\"%s\"",
-                    AUDACITY_VERSION_STRING,
-                    sentryRelease).ToUTF8().data()
+                    "--crashreporter-argument=-a=version=\"%s\"",
+                    AUDACITY_VERSION_STRING).ToUTF8().data()
 #endif
             };
             CrashpadConfigurer configurer;
@@ -1647,23 +1634,9 @@ bool AudacityApp::InitPart2()
         project = ProjectManager::New();
     }
 
-    if (!playingJournal && ProjectSettings::Get(*project).GetShowSplashScreen()) {
-        // This may do a check-for-updates at every start up.
-        // Mainly this is to tell users of ALPHAS who don't know that they have an ALPHA.
-        // Disabled for now, after discussion.
-        // project->MayCheckForUpdates();
-#ifdef HAS_WHATS_NEW
-        WhatsNewDialog::Show(*project);
-#endif
-    }
-
-    // Update Manager may spawn a modal dialog, we need to hide the splash screen before that
     bool splashFadeOut = !playingJournal;
     HideSplashScreen(splashFadeOut);
 
-#if defined(HAVE_UPDATES_CHECK)
-    UpdateManager::Start(playingJournal);
-#endif
 
     Importer::Get().Initialize();
     ExportPluginRegistry::Get().Initialize();
@@ -2456,9 +2429,6 @@ int AudacityApp::OnExit()
 
     DeinitFFT();
 
-#ifdef HAS_NETWORKING
-    audacity::network_manager::NetworkManager::GetInstance().Terminate();
-#endif
 
     AudioIO::Deinit();
 

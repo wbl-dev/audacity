@@ -35,11 +35,6 @@ ProjectsPageModel::ProjectsPageModel(QObject* parent)
 {
 }
 
-bool ProjectsPageModel::cloudEnabled() const
-{
-    return au3CloudService()->enabled();
-}
-
 void ProjectsPageModel::createNewProject()
 {
     commandDispatcher()->dispatch(PROJECT_NEW_COMMAND);
@@ -56,29 +51,6 @@ void ProjectsPageModel::openProject(const QString& scorePath, const QString& dis
         { PROJECT_URL_PARAM, Val(QUrl::fromLocalFile(scorePath).toString()) },
         { PROJECT_DISPLAY_NAME_PARAM, Val(displayNameOverride) },
     });
-}
-
-void ProjectsPageModel::openCloudProject(const QString& cloudProjectId)
-{
-    if (cloudProjectId.isEmpty()) {
-        return;
-    }
-
-    commandDispatcher()->dispatch(PROJECT_OPEN_CLOUD_COMMAND, { { PROJECT_ID_PARAM, Val(cloudProjectId) } });
-}
-
-void ProjectsPageModel::openCloudAudioFile(const QString& cloudItemId)
-{
-    if (cloudItemId.isEmpty()) {
-        return;
-    }
-
-    commandDispatcher()->dispatch(PROJECT_OPEN_CLOUD_AUDIO_FILE_COMMAND, { { PROJECT_AUDIO_ID_PARAM, Val(cloudItemId.toStdString()) } });
-}
-
-void ProjectsPageModel::openProjectManager()
-{
-    platformInteractive()->openUrl(audioComService()->projectManagerUrl());
 }
 
 int ProjectsPageModel::tabIndex() const

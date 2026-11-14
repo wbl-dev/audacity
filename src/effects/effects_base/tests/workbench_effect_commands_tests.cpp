@@ -5,26 +5,18 @@
 #include <gtest/gtest.h>
 
 #include "effectscommands.h"
-#include "shared/productprofile.h"
 
 namespace au::effects {
 namespace {
 
-TEST(workbench_effect_commands, excludes_marketplace_and_keeps_local_effect_workflow)
+TEST(workbench_effect_commands, keeps_local_effect_commands)
 {
-    ASSERT_TRUE(shared::isWorkbenchProfile());
-
-    EXPECT_FALSE(isEffectsCommandAllowed(EFFECTS_GET_EFFECTS_COMMAND));
-    EXPECT_FALSE(isEffectsActionAllowed("get-effects"));
-
-    EXPECT_TRUE(isEffectsCommandAllowed(EFFECTS_PLUGIN_MANAGER_COMMAND));
-    EXPECT_TRUE(isEffectsCommandAllowed(EFFECTS_TOGGLE_VENDOR_UI_COMMAND));
-    EXPECT_TRUE(isEffectsCommandAllowed(EFFECTS_PRESET_APPLY_COMMAND));
-    EXPECT_TRUE(isEffectsCommandAllowed(EFFECTS_PRESET_SAVE_COMMAND));
-    EXPECT_TRUE(isEffectsCommandAllowed(makeEffectOpenCommand(u"test.effect")));
-    EXPECT_TRUE(isEffectsCommandAllowed(makeEffectApplyCommand(u"test.effect")));
-    EXPECT_TRUE(isEffectsActionAllowed("plugin-manager"));
-    EXPECT_TRUE(isEffectsActionAllowed("action://effects/presets/apply"));
+    EXPECT_TRUE(EFFECTS_PLUGIN_MANAGER_COMMAND.isValid());
+    EXPECT_TRUE(EFFECTS_TOGGLE_VENDOR_UI_COMMAND.isValid());
+    EXPECT_TRUE(EFFECTS_PRESET_APPLY_COMMAND.isValid());
+    EXPECT_TRUE(EFFECTS_PRESET_SAVE_COMMAND.isValid());
+    EXPECT_TRUE(makeEffectOpenCommand(u"test.effect").isValid());
+    EXPECT_TRUE(makeEffectApplyCommand(u"test.effect").isValid());
 }
 
 } // namespace

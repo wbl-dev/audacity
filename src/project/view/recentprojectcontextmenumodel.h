@@ -15,16 +15,13 @@ class RecentProjectContextMenuModel : public muse::uicomponents::AbstractMenuMod
     muse::GlobalInject<muse::IPlatformInteractive> platformInteractive;
 
 public:
-    RecentProjectContextMenuModel(bool isCloudProject, QString path, QString displayNameOverride, QString cloudProjectId,
-                                  QObject* parent = nullptr);
+    RecentProjectContextMenuModel(QString path, QString displayNameOverride, QObject* parent = nullptr);
 
     Q_INVOKABLE void load() override;
     void handleMenuItem(const QString& itemId) override;
 
 private:
-    bool isCloudProject;
     QString m_path;
     QString m_displayNameOverride;
-    QString m_cloudProjectId;
 };
 }

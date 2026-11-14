@@ -9,14 +9,12 @@
 #include "framework/actions/actiontypes.h"
 #include "framework/global/stringutils.h"
 #include "framework/rcommand/commandtypes.h"
-#include "shared/productprofile.h"
 
 #include "effectstypes.h"
 
 namespace au::effects {
 inline static const muse::rcommand::Command EFFECTS_REPEAT_LAST_EFFECT_COMMAND("command://effects/repeat-last-effect");
 inline static const muse::rcommand::Command EFFECTS_PLUGIN_MANAGER_COMMAND("command://effects/plugin-manager");
-inline static const muse::rcommand::Command EFFECTS_GET_EFFECTS_COMMAND("command://effects/get-effects");
 inline static const muse::rcommand::Command EFFECTS_TOGGLE_VENDOR_UI_COMMAND("command://effects/toggle-vendor-ui");
 
 inline static const muse::rcommand::Command EFFECTS_PRESET_APPLY_COMMAND("command://effects/presets/apply");
@@ -29,16 +27,6 @@ inline static const muse::rcommand::Command EFFECTS_PRESET_EXPORT_COMMAND("comma
 inline static const std::string EFFECTS_EFFECT_ID_PARAM("effectId");
 inline static const std::string EFFECTS_INSTANCE_ID_PARAM("instanceId");
 inline static const std::string EFFECTS_PRESET_ID_PARAM("presetId");
-
-inline bool isEffectsCommandAllowed(const muse::rcommand::Command& command)
-{
-    return !shared::isWorkbenchProfile() || command != EFFECTS_GET_EFFECTS_COMMAND;
-}
-
-inline bool isEffectsActionAllowed(const muse::actions::ActionCode& actionCode)
-{
-    return !shared::isWorkbenchProfile() || actionCode != "get-effects";
-}
 
 constexpr std::string_view EFFECTS_SCHEME = "effects";
 constexpr std::string_view EFFECT_OPEN_COMMAND = "open";

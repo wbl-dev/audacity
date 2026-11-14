@@ -2,7 +2,6 @@
 #define AU_PROJECT_IAUDACITYPROJECT_H
 
 #include <memory>
-#include <optional>
 
 #include "global/types/string.h"
 #include "global/io/path.h"
@@ -35,10 +34,6 @@ public:
 
     virtual bool isNewlyCreated() const = 0;
     virtual bool isImported() const = 0;
-    virtual bool isCloudProject() const = 0;
-    virtual muse::async::Notification isCloudProjectChanged() const = 0;
-    virtual const std::optional<CloudProjectRecord> cloudRecord() const = 0;
-
     virtual muse::String title() const { return muse::String(); }
 
     virtual QString displayName() const = 0;

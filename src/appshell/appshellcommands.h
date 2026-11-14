@@ -9,14 +9,11 @@
 #include "framework/rcommand/commandtypes.h"
 
 #include "appshelltypes.h"
-#include "shared/productprofile.h"
 
 namespace au::appshell {
 inline static const muse::rcommand::Command APP_TOGGLE_FULLSCREEN_COMMAND("command://app/toggle-fullscreen");
 inline static const muse::rcommand::Command APP_ABOUT_COMMAND("command://app/about");
 inline static const muse::rcommand::Command APP_ABOUT_QT_COMMAND("command://app/about-qt");
-inline static const muse::rcommand::Command APP_ONLINE_HANDBOOK_COMMAND("command://app/online-handbook");
-inline static const muse::rcommand::Command APP_ASK_HELP_COMMAND("command://app/ask-help");
 inline static const muse::rcommand::Command APP_PREFERENCES_COMMAND("command://app/preferences");
 inline static const muse::rcommand::Command APP_REVERT_FACTORY_COMMAND("command://app/revert-factory");
 inline static const muse::rcommand::Command APP_AUDIO_SETTINGS_COMMAND("command://app/audio-settings");
@@ -25,10 +22,7 @@ inline static const muse::rcommand::Command APP_EDITING_PREFERENCES_COMMAND("com
 inline static const muse::rcommand::Command APP_SPECTROGRAM_PREFERENCES_COMMAND("command://app/spectrogram-preferences");
 
 //! TODO: The framework's all_instances semantics aren't implemented yet.
-//! SingleProcessProvider::quitForAll and AppUpdateScenario dispatch this command
-//! with all_instances=false, expecting only the current window to close.
 inline static const muse::rcommand::Command APP_QUIT_COMMAND("command://app/quit");
-inline static const std::string INSTALLER_PATH_PARAM("installer_path");
 
 inline static const muse::rcommand::Command APP_RESTART_COMMAND("command://app/restart");
 inline static const muse::rcommand::Command APP_COPY_COMMAND("command://app/copy");
@@ -48,26 +42,6 @@ inline static const muse::rcommand::Command APP_TOGGLE_TRACKS_PANEL_COMMAND("com
 inline static const muse::rcommand::Command APP_TOGGLE_HISTORY_PANEL_COMMAND("command://app/toggle-history-panel");
 inline static const muse::rcommand::Command APP_TOGGLE_MACRO_MANAGER_PANEL_COMMAND("command://app/toggle-macro-manager-panel");
 inline static const muse::rcommand::Command APP_TOGGLE_STATUSBAR_COMMAND("command://app/toggle-statusbar");
-
-inline bool isAppShellCommandAllowed(const muse::rcommand::Command& command)
-{
-    if (!shared::isWorkbenchProfile()) {
-        return true;
-    }
-
-    return command != APP_ONLINE_HANDBOOK_COMMAND
-           && command != APP_ASK_HELP_COMMAND;
-}
-
-inline bool isAppShellActionAllowed(const muse::actions::ActionCode& actionCode)
-{
-    if (!shared::isWorkbenchProfile()) {
-        return true;
-    }
-
-    return actionCode != "online-handbook"
-           && actionCode != "ask-help";
-}
 
 inline const std::map<muse::rcommand::Command, DockName>& toggleDockCommands()
 {

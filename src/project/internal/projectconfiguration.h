@@ -4,7 +4,6 @@
 #include "modularity/ioc.h"
 #include "global/iglobalconfiguration.h"
 #include "io/ifilesystem.h"
-#include "au3cloud/iau3cloudconfiguration.h"
 
 #include "../iprojectconfiguration.h"
 
@@ -13,7 +12,6 @@ class ProjectConfiguration final : public IProjectConfiguration
 {
     muse::GlobalInject<muse::IGlobalConfiguration> globalConfiguration;
     muse::GlobalInject<muse::io::IFileSystem> fileSystem;
-    muse::GlobalInject<au3cloud::IAu3CloudConfiguration> cloudConfiguration;
 
 public:
     ProjectConfiguration() = default;
@@ -28,9 +26,6 @@ public:
     muse::async::Channel<muse::io::path_t> userProjectsPathChanged() const override;
     muse::io::path_t defaultUserProjectsPath() const override;
 
-    muse::io::path_t cloudProjectsPath() const override;
-    void setCloudProjectsPath(const muse::io::path_t& path) override;
-
     muse::io::path_t lastOpenedProjectsPath() const override;
     void setLastOpenedProjectsPath(const muse::io::path_t& path) override;
 
@@ -39,12 +34,6 @@ public:
 
     muse::io::path_t defaultSavingFilePath(IAudacityProjectPtr project, const std::string& filenameAddition = "",
                                            const std::string& suffix = "") const override;
-
-    SaveLocationType lastUsedSaveLocationType() const override;
-    void setLastUsedSaveLocationType(SaveLocationType type) override;
-
-    bool shouldAskSaveLocationType() const override;
-    void setShouldAskSaveLocationType(bool shouldAsk) override;
 
     muse::io::path_t temporaryDir() const override;
     void setTemporaryDir(const muse::io::path_t& path) override;

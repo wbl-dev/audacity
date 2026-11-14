@@ -28,8 +28,6 @@ using namespace au::appshell;
 
 static const QString HOME_PAGE("audacity://home");
 static const QString PROJECT_PAGE("audacity://project");
-static const QString PUBLISH_PAGE("audacity://publish");
-static const QString DEVTOOLS_PAGE("audacity://devtools");
 
 static const QString TITLE_KEY("title");
 static const QString URI_KEY("uri");
@@ -93,11 +91,6 @@ void MainToolBarModel::load()
     m_items.clear();
     m_items << buildItem(muse::qtrc("appshell", "Home"), HOME_PAGE, true);
     m_items << buildItem(muse::qtrc("appshell", "Project"), PROJECT_PAGE, false);
-    // m_items << buildItem(muse::qtrc("appshell", "Publish"), PUBLISH_PAGE, false);
-
-    if (shouldShowDeveloperToolsInMainToolbar(globalConfiguration()->devModeEnabled())) {
-        m_items << buildItem(muse::qtrc("appshell", "DevTools"), DEVTOOLS_PAGE, true);
-    }
 
     endResetModel();
 

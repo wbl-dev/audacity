@@ -39,18 +39,6 @@ const std::vector<CommandInfo> allCommandInfos = {
         Decoration()
     },
     CommandInfo{
-        PROJECT_OPEN_CLOUD_COMMAND,
-        //: Command title: shown as a menu item or a button label; keep it short
-        TranslatableString("command", "Open"),
-        //: Command description: shown as a tooltip; can be a full sentence
-        TranslatableString("command_description", "Open cloud project"),
-        InputSchema({
-                { PROJECT_ID_PARAM, Arg(DataType::String, u"Cloud project id") },
-                { PROJECT_SNAPSHOT_ID_PARAM, Arg(DataType::String, u"Cloud project snapshot id") },
-            }),
-        Decoration()
-    },
-    CommandInfo{
         PROJECT_CLEAR_RECENT_COMMAND,
         //: Command title: shown as a menu item or a button label; keep it short
         TranslatableString("command", "&Clear recent files"),
@@ -101,61 +89,12 @@ const std::vector<CommandInfo> allCommandInfos = {
         Decoration()
     },
     CommandInfo{
-        PROJECT_SAVE_TO_CLOUD_COMMAND,
-        //: Command title: shown as a menu item or a button label; keep it short
-        TranslatableString("command", "Save to clo&ud…"),
-        //: Command description: shown as a tooltip; can be a full sentence
-        TranslatableString("command_description", "Save to cloud…"),
-        InputSchema(),
-        Decoration(IconCode::Code::CLOUD_FILE)
-    },
-    CommandInfo{
         PROJECT_CLOSE_COMMAND,
         //: Command title: shown as a menu item or a button label; keep it short
         TranslatableString("command", "&Close project"),
         //: Command description: shown as a tooltip; can be a full sentence
         TranslatableString("command_description", "Close project"),
         InputSchema(),
-        Decoration()
-    },
-    CommandInfo{
-        PROJECT_SHARE_AUDIO_COMMAND,
-        //: Command title: shown as a menu item or a button label; keep it short
-        TranslatableString("command", "Share audio"),
-        //: Command description: shown as a tooltip; can be a full sentence
-        TranslatableString("command_description", "Share audio"),
-        InputSchema(),
-        Decoration(IconCode::Code::SHARE_AUDIO)
-    },
-    CommandInfo{
-        PROJECT_OPEN_CLOUD_AUDIO_FILE_COMMAND,
-        //: Command title: shown as a menu item or a button label; keep it short
-        TranslatableString("command", "Open"),
-        //: Command description: shown as a tooltip; can be a full sentence
-        TranslatableString("command_description", "Open cloud audio file"),
-        InputSchema({
-                { PROJECT_AUDIO_ID_PARAM, Arg(DataType::String, u"Cloud audio file id") },
-            }),
-        Decoration()
-    },
-    CommandInfo{
-        PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_COMMAND,
-        //: Command title: shown as a menu item or a button label; keep it short
-        TranslatableString("command", "Update cloud audio preview"),
-        //: Command description: shown as a tooltip; can be a full sentence
-        TranslatableString("command_description", "Update cloud audio preview"),
-        InputSchema(),
-        Decoration()
-    },
-    CommandInfo{
-        PROJECT_UPDATE_CLOUD_AUDIO_PREVIEW_FOR_PROJECT_COMMAND,
-        //: Command title: shown as a menu item or a button label; keep it short
-        TranslatableString("command", "Update audio preview"),
-        //: Command description: shown as a tooltip; can be a full sentence
-        TranslatableString("command_description", "Update audio preview"),
-        InputSchema({
-                { PROJECT_ID_PARAM, Arg(DataType::String, u"Cloud project id") },
-            }),
         Decoration()
     },
     CommandInfo{
@@ -218,14 +157,7 @@ const std::vector<CommandInfo> allCommandInfos = {
 
 const std::vector<CommandInfo>& commandInfos()
 {
-    static const std::vector<CommandInfo> infos = [] {
-        std::vector<CommandInfo> result = allCommandInfos;
-        std::erase_if(result, [](const CommandInfo& info) {
-            return !isProjectCommandAllowed(info.command);
-        });
-        return result;
-    }();
-    return infos;
+    return allCommandInfos;
 }
 }
 
