@@ -38,7 +38,6 @@ static const DockName MACRO_MANAGER_PANEL_NAME("macroManagerPanel");
 static const DockName PROJECT_TOOLBAR_NAME("projectToolBar");
 static const DockName UNDO_REDO_TOOLBAR_NAME("undoRedoToolBar");
 static const DockName PLAYBACK_TOOLBAR_NAME("playbackToolBar");
-static const DockName WORKSPACES_TOOLBAR_NAME("workspacesToolBar");
 
 // Other:
 static const DockName PROJECT_STATUSBAR_NAME("projectStatusBar");

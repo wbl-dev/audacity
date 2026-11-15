@@ -20,7 +20,6 @@
 #include "au3-strings/wxArrayStringEx.h"
 #include "lib-ffmpeg-support/FFmpegFunctions.h"
 
-class FFmpegPresets;
 
 /// Identifiers for pre-set export types.
 enum FFmpegExposedFormat
@@ -132,7 +131,6 @@ private:
     wxArrayStringEx mCodecNames;
     wxArrayString mCodecLongNames;
 
-//     std::unique_ptr<FFmpegPresets> mPresets;
 
 //     wxArrayStringEx mPresetNames;
 

@@ -40,9 +40,18 @@ std::string PlatformCompatibility::GetResourcesDir()
     QDir dir(QCoreApplication::applicationDirPath());
     dir.cdUp(); // Go to Contents
     return dir.filePath("Resources").toStdString();
+#elif defined(Q_OS_WIN)
+    // The AU4 installer places resources next to the bin directory.
+    QDir dir(QCoreApplication::applicationDirPath());
+    dir.cdUp();
+    return dir.absolutePath().toStdString();
 #else
-    // On other platforms, use the data directory
-    return GetDataDir();
+    // Match the relocatable AU4 resource path used by the framework.
+    QDir relative(QCoreApplication::applicationDirPath() + "/../" AU4_RESOURCES_RELATIVE_PATH);
+    if (relative.exists()) {
+        return relative.absolutePath().toStdString();
+    }
+    return QDir(AU4_INSTALL_PREFIX_PATH "/" AU4_RESOURCES_RELATIVE_PATH).absolutePath().toStdString();
 #endif
 }
 

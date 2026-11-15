@@ -7,10 +7,7 @@ each format lives in its own au3-mod-* library. src/importexport calls the
 registration functions explicitly, which pulls in every format plugin
 through the ordinary static link.
 
-Some files in these directories are not compiled in AU4: Audacity 3 builds
-the formats as dynamically loaded modules, and mod-cl, mod-lof, mod-aup,
-the DEFINE_MODULE_ENTRIES module-entry stubs and the wx preference pages
-only make sense in that setup (or need the wx GUI application).
+The formats are linked as static libraries rather than loaded as AU3 modules.
 
 Each mod header declares only its plugin class; the codec libraries are
 PRIVATE implementation details of the mod that uses them.

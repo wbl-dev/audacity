@@ -28,7 +28,7 @@ PreferencesPage {
 
             title: qsTrc("preferences", "Music imports")
             navigation.direction: NavigationPanel.Both
-            navigationOrderEnd: workspaceSection.navigation.order
+            navigationOrderEnd: navigation.order
 
             navigation.section: root.navigationSection
             navigation.order: root.navigationOrderStart
@@ -47,7 +47,7 @@ PreferencesPage {
 
             RadioButtonGroup {
                 width: parent.width
-                height: workspaceSection.visible ? 80 + workspaceSection.height : 80
+                height: 80
 
                 spacing: musicImportsSection.rowSpacing
                 orientation: Qt.Vertical
@@ -70,40 +70,12 @@ PreferencesPage {
                     }
 
                     RoundedRadioButton {
-                        id: workspaceRadioBtn
-
-                        checked: musicPreferencesModel.tempoDetectionPref === TempoDetection.WORKSPACE_DEPENDENT
-                        text: qsTrc("preferences", "Depending on workspace")
-
-                        navigation.name: "TempoDetectionWorkspaceDependentRadioBtn"
-                        navigation.panel: musicImportsSection.navigation
-                        navigation.row: 1
-
-                        onToggled: {
-                            musicPreferencesModel.setTempoDetectionPref(TempoDetection.WORKSPACE_DEPENDENT)
-                        }
-                    }
-
-                    WorkspacesTempoDetectionSection {
-                        id: workspaceSection
-
-                        x: 30
-
-                        visible: workspaceRadioBtn.checked
-
-                        musicPreferencesModel: musicPreferencesModel
-
-                        navigation.section: musicImportsSection.navigation.section
-                        navigation.order: musicImportsSection.navigation.order + 1
-                    }
-
-                    RoundedRadioButton {
                         checked: musicPreferencesModel.tempoDetectionPref === TempoDetection.NEVER
                         text: qsTrc("preferences", "Never")
 
                         navigation.name: "TempoDetectionNeverRadioBtn"
                         navigation.panel: musicImportsSection.navigation
-                        navigation.row: 3
+                        navigation.row: 1
 
                         onToggled: {
                             musicPreferencesModel.setTempoDetectionPref(TempoDetection.NEVER)

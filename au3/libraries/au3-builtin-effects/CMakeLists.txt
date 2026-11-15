@@ -73,8 +73,6 @@ set( SOURCES
    SilenceBase.h
    SoundTouchBase.cpp
    SoundTouchBase.h
-#   StereoToMono.cpp # need some cleanups, commenting for now
-#   StereoToMono.h # need some cleanups, commenting for now
    ToneGenBase.cpp
    ToneGenBase.h
    TruncSilenceBase.cpp

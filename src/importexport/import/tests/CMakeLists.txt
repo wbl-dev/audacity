@@ -5,6 +5,7 @@
 set(MODULE_TEST importer_tests)
 
 set(MODULE_TEST_SRC
+    ${CMAKE_CURRENT_LIST_DIR}/importerconfiguration_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/legacyaupimporter_tests.cpp
     )
 

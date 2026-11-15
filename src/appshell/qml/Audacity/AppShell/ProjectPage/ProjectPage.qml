@@ -189,29 +189,6 @@ DockPage {
             }
         },
         DockToolBar {
-            id: workspacesToolBar
-
-            objectName: pageModel.workspacesToolBarName()
-            title: qsTrc("appshell", "Workspaces toolbar")
-
-            floatable: false
-            closable: false
-            resizable: false
-            separatorsVisible: false
-
-            alignment: DockToolBarAlignment.Right
-            contentBottomPadding: 2
-
-            compactPriorityOrder: 1
-
-            WorkspacesToolBar {
-                isCompactMode: workspacesToolBar.isCompact
-
-                navigationPanel.section: root.topToolKeyNavSec
-                navigationPanel.order: 3
-            }
-        },
-        DockToolBar {
             id: undoRedoToolBar
 
             objectName: pageModel.undoRedoToolBarName()

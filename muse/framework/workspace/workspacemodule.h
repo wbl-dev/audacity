@@ -29,7 +29,6 @@
 namespace muse::workspace {
 class WorkspaceManager;
 class WorkspaceConfiguration;
-class WorkspaceActionController;
 class WorkspacesDataProvider;
 class WorkspaceModule : public modularity::IModuleSetup
 {
@@ -37,7 +36,6 @@ public:
     std::string moduleName() const override;
 
     void registerExports() override;
-    void resolveImports() override;
 
     void onInit(const IApplication::RunMode& mode) override;
     void onDeinit() override;
@@ -47,7 +45,6 @@ public:
 private:
 
     std::shared_ptr<WorkspaceConfiguration> m_configuration;
-    std::shared_ptr<WorkspaceActionController> m_actionController;
     std::shared_ptr<WorkspaceManager> m_manager;
     std::shared_ptr<WorkspacesDataProvider> m_provider;
 };
@@ -60,11 +57,9 @@ public:
 
     void registerExports() override;
     void onInit(const IApplication::RunMode& mode) override;
-    void resolveImports() override;
     void onDeinit() override;
 
 private:
-    std::shared_ptr<WorkspaceActionController> m_actionController;
     std::shared_ptr<WorkspaceManager> m_manager;
     std::shared_ptr<WorkspacesDataProvider> m_provider;
 };

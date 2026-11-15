@@ -48,18 +48,6 @@ void TempoDetection::onFilesImported(
         return;
     }
 
-    if (pref == TempoDetectionPref::TempoDetection::WORKSPACE_DEPENDENT) {
-        auto currentWorkspace = workspacesManager()->currentWorkspace();
-        if (!currentWorkspace) {
-            return;
-        }
-        const std::string wsName = currentWorkspace->name();
-        const auto enabledWorkspaces = configuration()->tempoDetectionWorkspaces();
-        if (std::find(enabledWorkspaces.begin(), enabledWorkspaces.end(), wsName) == enabledWorkspaces.end()) {
-            return;
-        }
-    }
-
     std::optional<TempoDetectionResult> bestResult;
     for (size_t i = 0; i < filePaths.size() && i < waveTracks.size(); ++i) {
         auto result = detectTempo(filePaths[i], *waveTracks[i], acidTags);

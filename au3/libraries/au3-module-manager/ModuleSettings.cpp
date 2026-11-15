@@ -81,11 +81,7 @@ static const std::unordered_set<wxString>& autoEnabledModules()
         "mod-mpg123",
         "mod-pcm",
         "mod-ffmpeg",
-        "mod-cl",
-        "mod-lof",
-        "mod-aup",
         "mod-opus",
-        "mod-midi-import-export"
     };
     return modules;
 }

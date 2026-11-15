@@ -9,7 +9,6 @@
 #include "async/asyncable.h"
 
 #include "modularity/ioc.h"
-#include "workspace/iworkspacemanager.h"
 #include "effects/effects_base/ieffectsconfiguration.h"
 #include "projectscene/iprojectsceneconfiguration.h"
 #include "trackedit/itrackeditconfiguration.h"
@@ -24,8 +23,6 @@ class EditPreferencesModel : public QObject, public muse::async::Asyncable, publ
     muse::GlobalInject<au::projectscene::IProjectSceneConfiguration> projectsceneConfiguration;
     muse::GlobalInject<au::effects::IEffectsConfiguration> effectsConfiguration;
 
-    muse::ContextInject<muse::workspace::IWorkspaceManager> workspacesManager { this };
-
     Q_PROPERTY(bool applyEffectToAllAudio READ applyEffectToAllAudio NOTIFY applyEffectToAllAudioChanged)
     Q_PROPERTY(
         projectscene::StereoHeightsPref::AsymmetricStereoHeights stereoHeightsPref READ stereoHeightsPref NOTIFY stereoHeightsPrefChanged)
@@ -33,7 +30,6 @@ class EditPreferencesModel : public QObject, public muse::async::Asyncable, publ
     Q_PROPERTY(int closeGapBehavior READ closeGapBehavior NOTIFY closeGapBehaviorChanged)
     Q_PROPERTY(int pasteBehavior READ pasteBehavior NOTIFY pasteBehaviorPrefChanged)
     Q_PROPERTY(int pasteInsertBehavior READ pasteInsertBehavior NOTIFY pasteInsertBehaviorPrefChanged)
-    Q_PROPERTY(QVariantList asymmetricWorkspaces READ asymmetricWorkspaces NOTIFY asymmetricWorkspacesChanged);
     Q_PROPERTY(bool pasteAsNewClip READ pasteAsNewClip NOTIFY pasteAsNewClipChanged)
     Q_PROPERTY(
         bool askBeforeConvertingToMonoOrStereo READ askBeforeConvertingToMonoOrStereo WRITE setAskBeforeConvertingToMonoOrStereo NOTIFY askBeforeConvertingToMonoOrStereoChanged)
@@ -64,10 +60,6 @@ public:
     int pasteInsertBehavior() const;
     Q_INVOKABLE void setPasteInsertBehavior(int);
 
-    QVariantList asymmetricWorkspaces() const;
-    Q_INVOKABLE void appendToAsymmetricWorkspaces(const QString& newWorkspaceName);
-    Q_INVOKABLE void removeFromAsymmetricWorkspaces(const QString& newWorkspaceName);
-
     bool pasteAsNewClip() const;
     Q_INVOKABLE void setPasteAsNewClip(bool value);
 
@@ -80,7 +72,6 @@ public:
     Q_INVOKABLE void setZoomPreset2(int preset);
     QVariantList zoomPresetList() const;
 
-    void asymmetricStereoHeightWorkspacesCleanUp();
 
 signals:
     void applyEffectToAllAudioChanged();
@@ -89,7 +80,6 @@ signals:
     void closeGapBehaviorChanged();
     void pasteBehaviorPrefChanged();
     void pasteInsertBehaviorPrefChanged();
-    void asymmetricWorkspacesChanged();
     void pasteAsNewClipChanged();
     void askBeforeConvertingToMonoOrStereoChanged();
     void zoomPreset1Changed();

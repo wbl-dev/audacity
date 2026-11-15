@@ -2080,26 +2080,6 @@
         <source>Use new view</source>
         <translation>Bruk nye visning</translation>
     </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspaceuiactions.cpp" line="37"/>
-        <source>Select workspace</source>
-        <translation>Velg arbeidsområde</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspaceuiactions.cpp" line="42"/>
-        <source>Edit workspaces…</source>
-        <translation>Rediger arbeidsområder …</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspaceuiactions.cpp" line="43"/>
-        <source>Edit workspaces</source>
-        <translation>Rediger arbeidsområder</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspaceuiactions.cpp" line="49"/>
-        <source>Create new workspace</source>
-        <translation>Opprett nytt arbeidsområde</translation>
-    </message>
 </context>
 <context>
     <name>action_description</name>
@@ -3708,11 +3688,6 @@
         <translation>Prosjektverktøylinje</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/ProjectPage/ProjectPage.qml" line="193"/>
-        <source>Workspaces toolbar</source>
-        <translation>Verktøylinje for arbeidsområder</translation>
-    </message>
-    <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/ProjectPage/ProjectPage.qml" line="216"/>
         <source>Undo/redo toolbar</source>
         <translation>Verktøylinje for angring og om-angring</translation>
@@ -3746,15 +3721,6 @@
         <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="447"/>
         <source>Are you sure you want to revert to factory settings?</source>
         <translation>Vil du virkelig tilbakestille til fabrikkinnstillinger?</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="448"/>
-        <source>This action will reset all your app preferences and custom UI configurations. It also deletes your custom workspaces and shortcuts. You will also need to scan all third party plugins again.
-
-This action will not delete any of your projects.</source>
-        <translation>Denne handlingen vil tilbakestille alle valgene dine og grensesnittilpassinger. Det vil også slette arbeidsområder og snarveier. Du må også skanne tredjepartstilvalg på nytt.
-
-Denne handlingen vil ikke slette noen av prosjektene dine.</translation>
     </message>
     <message>
         <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="460"/>
@@ -4401,8 +4367,6 @@ Denne handlingen vil ikke slette noen av prosjektene dine.</translation>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/Page.qml" line="71"/>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/clipvisualizationpagemodel.cpp" line="132"/>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/clipvisualizationpagemodel.cpp" line="139"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="176"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="183"/>
         <source>%1. %2</source>
         <extracomment>%1 is the page title, %2 is the active button title (e.g. &quot;Next&quot; or &quot;Done&quot;)
 ----------
@@ -4449,7 +4413,6 @@ Denne handlingen vil ikke slette noen av prosjektene dine.</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/clipvisualizationpagemodel.cpp" line="34"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="45"/>
         <source>Classic</source>
         <translation>Klassisk</translation>
     </message>
@@ -4490,7 +4453,6 @@ Denne handlingen vil ikke slette noen av prosjektene dine.</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/clipvisualizationpagemodel.cpp" line="115"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="139"/>
         <source>Currently selected</source>
         <translation>Nåværende valg</translation>
     </message>
@@ -4624,71 +4586,6 @@ Denne handlingen vil ikke slette noen av prosjektene dine.</translation>
         <source>%1. Accent color selected</source>
         <extracomment>%1 is the base description with current theme and system theme status</extracomment>
         <translation>%1. Aksentfarge er valgt</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="34"/>
-        <source>Modern</source>
-        <translation>Moderne</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="35"/>
-        <source>A clearer interface. Ideal for new users</source>
-        <translation>Et renere grensesnitt. Bra for nye brukere</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="46"/>
-        <source>Closely matches the layout of Audacity 3</source>
-        <translation>Veldig likt utseendet på Audacity 3</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="99"/>
-        <source>What UI layout (workspace) do you want?</source>
-        <translation>Hva slags grensesnittlayout (arbeidsområde) vil du ha?</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="124"/>
-        <source>Workspace layout options</source>
-        <translation>Valg for arbeidsområdeutforming</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="129"/>
-        <source>Choose your preferred workspace layout for the Audacity interface</source>
-        <translation>Velg din foretrukne arbeidsområdeutforming for Audacitys grensesnitt</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="134"/>
-        <source>Select a workspace layout that suits your workflow. You can change this later.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="144"/>
-        <source>Click to select this workspace</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="149"/>
-        <source>Available workspace</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="154"/>
-        <source>You can change between these layouts at any time using our new ‘workspaces’ feature.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="159"/>
-        <source>Additional information</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="164"/>
-        <source>Workspace layout preview</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="169"/>
-        <source>Preview of the selected workspace layout showing the arrangement of interface elements</source>
-        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -12265,16 +12162,6 @@ Trykk Hjelp-knappen for tips om egnede disker.</translation>
         <translation>Fold ut</translation>
     </message>
     <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/NewWorkspaceDialog.qml" line="118"/>
-        <source>Create</source>
-        <translation>Opprett</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/WorkspacesDialog.qml" line="115"/>
-        <source>Select</source>
-        <translation>Velg</translation>
-    </message>
-    <message>
         <location filename="../../muse/framework/global/dataformatter.cpp" line="45"/>
         <source>Today</source>
         <translation>I dag</translation>
@@ -16641,12 +16528,6 @@ It will not be loaded.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/AsymmetricStereoHeightsSection.qml" line="88"/>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/MusicPreferencesPage.qml" line="76"/>
-        <source>Depending on workspace</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <location filename="../../src/preferences/qml/Audacity/Preferences/internal/AsymmetricStereoHeightsSection.qml" line="114"/>
         <location filename="../../src/preferences/qml/Audacity/Preferences/MusicPreferencesPage.qml" line="102"/>
         <source>Never</source>
@@ -18609,16 +18490,6 @@ Du må bruke den versjonen av Audacity for å gjenopprette prosjektet.</translat
     <message>
         <location filename="../../src/projectscene/qml/Audacity/ProjectScene/toolbars/PlaybackToolBar.qml" line="351"/>
         <source>Show/hide toolbar buttons</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../../src/projectscene/qml/Audacity/ProjectScene/toolbars/WorkspacesToolBar.qml" line="21"/>
-        <source>Workspace selection</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../../src/projectscene/qml/Audacity/ProjectScene/toolbars/WorkspacesToolBar.qml" line="60"/>
-        <source>Workspace</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -21831,125 +21702,12 @@ Template for clip name generation on inserting new empty clip</extracomment>
     <name>workspace</name>
     <message>
         <location filename="../../muse/framework/extensions/qml/Muse/Extensions/internal/EnablePanel.qml" line="79"/>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/internal/WorkspacesTopPanel.qml" line="103"/>
         <source>Remove</source>
         <translation>Fjern</translation>
     </message>
     <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/internal/WorkspacesTopPanel.qml" line="69"/>
-        <source>Workspaces</source>
-        <translation>Arbeidsområder</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/internal/WorkspacesTopPanel.qml" line="80"/>
-        <source>Save layout as new workspace</source>
-        <translation>Lagre oppsett som nytt arbeidsområde</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/internal/WorkspacesTopPanel.qml" line="117"/>
-        <source>Workspaces allow you to choose different configurations of the %1 interface. You can also save your own unique configurations as new workspaces.</source>
-        <translation>Arbeidsområder lar deg velge ulike oppsett av brukergrensesnittet til %1. Du kan lagre dine egne unike oppsett som nye arbeidsområder.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/internal/WorkspacesView.qml" line="170"/>
-        <source>Reset</source>
-        <translation>Tilbakestill</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/NewWorkspaceDialog.qml" line="34"/>
-        <source>New workspace</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/NewWorkspaceDialog.qml" line="70"/>
-        <source>Workspace name:</source>
-        <translation>Arbeidsområdenavn:</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/WorkspacesDialog.qml" line="34"/>
-        <location filename="../../muse/framework/workspace/internal/workspacecommandsregister.cpp" line="44"/>
-        <source>Edit workspaces</source>
-        <translation>Rediger arbeidsområder</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/newworkspacemodel.cpp" line="41"/>
-        <source>New</source>
-        <translation>Ny</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/newworkspacemodel.cpp" line="75"/>
-        <source>A workspace with the name “%1” already exists. Please choose a different name.</source>
-        <translation>Et arbeidsområde med navnet «%1» finnes allerede. Velg et annet navn.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/newworkspacemodel.cpp" line="82"/>
-        <source>“%1” cannot be used as a workspace name. Please choose a different name.</source>
-        <translation>«%1» kan ikke brukes som navnet på et arbeidsområde. Velg et annet navn.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.cpp" line="225"/>
-        <source>This action will reset your workspace to its factory default layout and cannot be undone. Do you want to continue?</source>
-        <translation>Dette vil tilbakestille arbeidsområdet til standard oppsett og kan ikke angres. Bekreft for å fortsette.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.cpp" line="228"/>
-        <source>Resetting workspaces</source>
-        <translation>Tilbakestill arbeidsområder</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.cpp" line="229"/>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.cpp" line="232"/>
-        <source>Reset workspace</source>
-        <translation>Tilbakestill arbeidsområde</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.cpp" line="263"/>
-        <source>Name cannot be empty</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.cpp" line="274"/>
-        <source>Name already exists</source>
-        <translation>Navnet finnes fra før</translation>
-    </message>
-    <message>
-        <location filename="../../src/shared/types/workspacetitles.h" line="20"/>
-        <source>Classic</source>
-        <extracomment>The name of a built-in workspace (an interface layout); an adjective in languages where that applies</extracomment>
-        <translation>Klassisk</translation>
-    </message>
-    <message>
-        <location filename="../../src/shared/types/workspacetitles.h" line="24"/>
-        <source>Modern</source>
-        <extracomment>The name of a built-in workspace (an interface layout); an adjective in languages where that applies</extracomment>
-        <translation>Moderne</translation>
-    </message>
-    <message>
-        <location filename="../../src/shared/types/workspacetitles.h" line="28"/>
-        <source>Music</source>
-        <extracomment>The name of a built-in workspace (an interface layout); an adjective in languages where that applies</extracomment>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspacecommandsregister.cpp" line="34"/>
-        <location filename="../../muse/framework/workspace/internal/workspacecommandsregister.cpp" line="35"/>
-        <source>Select workspace</source>
-        <translation>Velg arbeidsområde</translation>
-    </message>
-    <message>
         <source>Edit workspaces…</source>
         <translation type="vanished">Rediger arbeidsområder …</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspacecommandsregister.cpp" line="43"/>
-        <source>Edit workspaces...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspacecommandsregister.cpp" line="50"/>
-        <location filename="../../muse/framework/workspace/internal/workspacecommandsregister.cpp" line="51"/>
-        <source>Create new workspace</source>
-        <translation>Opprett nytt arbeidsområde</translation>
     </message>
 </context>
 <context>

@@ -18,7 +18,7 @@ BaseSection {
     navigation.direction: NavigationPanel.Both
 
     property var editPreferencesModel: null
-    navigationOrderEnd: workspaceSection.navigation.order
+    navigationOrderEnd: navigation.order
 
     rowSpacing: 16
 
@@ -58,7 +58,7 @@ BaseSection {
     RadioButtonGroup {
 
         width: parent.width
-        height: workspaceSection.visible ? 80 + workspaceSection.height : 80
+        height: 80
 
         spacing: root.rowSpacing
         orientation: Qt.Vertical
@@ -82,40 +82,12 @@ BaseSection {
             }
 
             RoundedRadioButton {
-                id: workspaceRadioBtn
-
-                checked: editPreferencesModel.stereoHeightsPref === AsymmetricStereoHeights.WORKSPACE_DEPENDENT
-                text: qsTrc("preferences", "Depending on workspace")
-
-                navigation.name: "WorkspaceDependentRadioBtn"
-                navigation.panel: root.navigation
-                navigation.row: 1
-
-                onToggled: {
-                    editPreferencesModel.setStereoHeightsPref(AsymmetricStereoHeights.WORKSPACE_DEPENDENT)
-                }
-            }
-
-            WorkspacesAsymmetricChannelsSection {
-                id: workspaceSection
-
-                x: 30
-
-                visible: workspaceRadioBtn.checked
-
-                editPreferencesModel: root.editPreferencesModel
-
-                navigation.section: root.navigation.section
-                navigation.order: root.navigation.order + 1
-            }
-
-            RoundedRadioButton {
                 checked: editPreferencesModel.stereoHeightsPref === AsymmetricStereoHeights.NEVER
                 text: qsTrc("preferences", "Never")
 
                 navigation.name: "NeverRadioBtn"
                 navigation.panel: root.navigation
-                navigation.row: 3
+                navigation.row: 1
 
                 onToggled: {
                     editPreferencesModel.setStereoHeightsPref(AsymmetricStereoHeights.NEVER)

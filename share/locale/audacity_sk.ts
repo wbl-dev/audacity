@@ -2080,26 +2080,6 @@
         <source>Use new view</source>
         <translation>Použiť nové zobrazenie</translation>
     </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspaceuiactions.cpp" line="37"/>
-        <source>Select workspace</source>
-        <translation>Vybrať pracovnú plochu</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspaceuiactions.cpp" line="42"/>
-        <source>Edit workspaces…</source>
-        <translation>Upraviť pracovné priestory…</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspaceuiactions.cpp" line="43"/>
-        <source>Edit workspaces</source>
-        <translation>Upraviť pracovné priestory</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspaceuiactions.cpp" line="49"/>
-        <source>Create new workspace</source>
-        <translation>Vytvoriť nový pracovný priestor</translation>
-    </message>
 </context>
 <context>
     <name>action_description</name>
@@ -3708,11 +3688,6 @@
         <translation>Panel nástrojov projektu</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/ProjectPage/ProjectPage.qml" line="193"/>
-        <source>Workspaces toolbar</source>
-        <translation>Panel nástrojov pracovných priestorov</translation>
-    </message>
-    <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/ProjectPage/ProjectPage.qml" line="216"/>
         <source>Undo/redo toolbar</source>
         <translation>Panel nástrojov späť/znovu</translation>
@@ -3746,14 +3721,6 @@
         <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="447"/>
         <source>Are you sure you want to revert to factory settings?</source>
         <translation>Naozaj chcete obnoviť predvolené nastavenia?</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="448"/>
-        <source>This action will reset all your app preferences and custom UI configurations. It also deletes your custom workspaces and shortcuts. You will also need to scan all third party plugins again.
-
-This action will not delete any of your projects.</source>
-        <translation>Táto akcia obnoví všetky nastavenia aplikácie a vlastné konfigurácie rozhrania. Taktiež odstráni vaše vlastné pracovné priestory a klávesové skratky. Budete tiež musieť znova preskenovať všetky zásuvné moduly tretích strán.
-Táto akcia neodstráni žiadne vaše projekty.</translation>
     </message>
     <message>
         <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="460"/>
@@ -4400,8 +4367,6 @@ Táto akcia neodstráni žiadne vaše projekty.</translation>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/Page.qml" line="71"/>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/clipvisualizationpagemodel.cpp" line="132"/>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/clipvisualizationpagemodel.cpp" line="139"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="176"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="183"/>
         <source>%1. %2</source>
         <extracomment>%1 is the page title, %2 is the active button title (e.g. &quot;Next&quot; or &quot;Done&quot;)
 ----------
@@ -4448,7 +4413,6 @@ Táto akcia neodstráni žiadne vaše projekty.</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/clipvisualizationpagemodel.cpp" line="34"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="45"/>
         <source>Classic</source>
         <translation>Klasická</translation>
     </message>
@@ -4489,7 +4453,6 @@ Táto akcia neodstráni žiadne vaše projekty.</translation>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/clipvisualizationpagemodel.cpp" line="115"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="139"/>
         <source>Currently selected</source>
         <translation>Práve vybratá</translation>
     </message>
@@ -4623,71 +4586,6 @@ Táto akcia neodstráni žiadne vaše projekty.</translation>
         <source>%1. Accent color selected</source>
         <extracomment>%1 is the base description with current theme and system theme status</extracomment>
         <translation>%1. Farba zvýraznenia vybraná</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="34"/>
-        <source>Modern</source>
-        <translation>Moderný</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="35"/>
-        <source>A clearer interface. Ideal for new users</source>
-        <translation>Prehľadnejšie rozhranie. Ideálne pre nových používateľov</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="46"/>
-        <source>Closely matches the layout of Audacity 3</source>
-        <translation>Úzko sa zhoduje s rozložením Audacity 3</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="99"/>
-        <source>What UI layout (workspace) do you want?</source>
-        <translation>Aké rozloženie používateľského rozhrania (pracovný priestor) chcete?</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="124"/>
-        <source>Workspace layout options</source>
-        <translation>Možnosti rozloženia pracovného priestoru</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="129"/>
-        <source>Choose your preferred workspace layout for the Audacity interface</source>
-        <translation>Vyberte si preferované rozloženie pracovného priestoru pre rozhranie Audacity</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="134"/>
-        <source>Select a workspace layout that suits your workflow. You can change this later.</source>
-        <translation>Vyberte si rozloženie pracovného priestoru, ktoré vyhovuje vášmu pracovnému postupu. Neskôr to môžete zmeniť.</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="144"/>
-        <source>Click to select this workspace</source>
-        <translation>Kliknite na výber tohto pracovného priestoru</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="149"/>
-        <source>Available workspace</source>
-        <translation>Dostupný pracovný priestor</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="154"/>
-        <source>You can change between these layouts at any time using our new ‘workspaces’ feature.</source>
-        <translation>Medzi týmito rozloženiami môžete kedykoľvek prepínať pomocou našej novej funkcie „pracovných priestorov“.</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="159"/>
-        <source>Additional information</source>
-        <translation>Ďalšie informácie</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="164"/>
-        <source>Workspace layout preview</source>
-        <translation>Náhľad rozloženia pracovného priestoru</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="169"/>
-        <source>Preview of the selected workspace layout showing the arrangement of interface elements</source>
-        <translation>Náhľad zvoleného rozloženia pracovného priestoru zobrazujúci usporiadanie prvkov rozhrania</translation>
     </message>
 </context>
 <context>
@@ -12320,16 +12218,6 @@ Pre návrhy pre vhodné ovládače, kliknite na tlačidlo pomoc.</translation>
         <translation>Rozšíriť</translation>
     </message>
     <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/NewWorkspaceDialog.qml" line="118"/>
-        <source>Create</source>
-        <translation>Vytvoriť</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/WorkspacesDialog.qml" line="115"/>
-        <source>Select</source>
-        <translation>Vybrať</translation>
-    </message>
-    <message>
         <location filename="../../muse/framework/global/dataformatter.cpp" line="45"/>
         <source>Today</source>
         <translation>Dnes</translation>
@@ -16749,12 +16637,6 @@ Nenačíta sa.</translation>
         <translation>Vždy</translation>
     </message>
     <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/AsymmetricStereoHeightsSection.qml" line="88"/>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/MusicPreferencesPage.qml" line="76"/>
-        <source>Depending on workspace</source>
-        <translation>V závislosti na pracovnom priestore</translation>
-    </message>
-    <message>
         <location filename="../../src/preferences/qml/Audacity/Preferences/internal/AsymmetricStereoHeightsSection.qml" line="114"/>
         <location filename="../../src/preferences/qml/Audacity/Preferences/MusicPreferencesPage.qml" line="102"/>
         <source>Never</source>
@@ -18726,16 +18608,6 @@ pohyblivej čiarke</translation>
         <location filename="../../src/projectscene/qml/Audacity/ProjectScene/toolbars/PlaybackToolBar.qml" line="351"/>
         <source>Show/hide toolbar buttons</source>
         <translation>Zobraziť/skryť tlačidlá panelov s nástrojmi</translation>
-    </message>
-    <message>
-        <location filename="../../src/projectscene/qml/Audacity/ProjectScene/toolbars/WorkspacesToolBar.qml" line="21"/>
-        <source>Workspace selection</source>
-        <translation>Výber pracovného priestoru</translation>
-    </message>
-    <message>
-        <location filename="../../src/projectscene/qml/Audacity/ProjectScene/toolbars/WorkspacesToolBar.qml" line="60"/>
-        <source>Workspace</source>
-        <translation>Pracovný priestor</translation>
     </message>
     <message>
         <location filename="../../src/projectscene/qml/Audacity/ProjectScene/tracksitemsview/labeleditor/AddNewLabelTrackDialog.qml" line="15"/>
@@ -21953,125 +21825,12 @@ Template for clip name generation on inserting new empty clip</extracomment>
     <name>workspace</name>
     <message>
         <location filename="../../muse/framework/extensions/qml/Muse/Extensions/internal/EnablePanel.qml" line="79"/>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/internal/WorkspacesTopPanel.qml" line="103"/>
         <source>Remove</source>
         <translation>Odstrániť</translation>
     </message>
     <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/internal/WorkspacesTopPanel.qml" line="69"/>
-        <source>Workspaces</source>
-        <translation>Pracovné priestory</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/internal/WorkspacesTopPanel.qml" line="80"/>
-        <source>Save layout as new workspace</source>
-        <translation>Uložiť rozloženie ako nový pracovný priestor</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/internal/WorkspacesTopPanel.qml" line="117"/>
-        <source>Workspaces allow you to choose different configurations of the %1 interface. You can also save your own unique configurations as new workspaces.</source>
-        <translation>Pracovné priestory vám umožňujú vybrať si rôzne konfigurácie rozhrania %1. Môžete tiež uložiť svoje vlastné jedinečné konfigurácie ako nové pracovné priestory.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/internal/WorkspacesView.qml" line="170"/>
-        <source>Reset</source>
-        <translation>Vynulovať</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/NewWorkspaceDialog.qml" line="34"/>
-        <source>New workspace</source>
-        <translation>Nový pracovný priestor</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/NewWorkspaceDialog.qml" line="70"/>
-        <source>Workspace name:</source>
-        <translation>Názov pracovného priestoru:</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/WorkspacesDialog.qml" line="34"/>
-        <location filename="../../muse/framework/workspace/internal/workspacecommandsregister.cpp" line="44"/>
-        <source>Edit workspaces</source>
-        <translation>Upraviť pracovné priestory</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/newworkspacemodel.cpp" line="41"/>
-        <source>New</source>
-        <translation>Nový</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/newworkspacemodel.cpp" line="75"/>
-        <source>A workspace with the name “%1” already exists. Please choose a different name.</source>
-        <translation>Pracovný priestor s názvom “%1” už existuje. Prosím, vyberte iný názov.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/newworkspacemodel.cpp" line="82"/>
-        <source>“%1” cannot be used as a workspace name. Please choose a different name.</source>
-        <translation>“%1” nemôže byť použitý ako názov pre pracovný priestor. Prosím, vyberte iný názov.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.cpp" line="225"/>
-        <source>This action will reset your workspace to its factory default layout and cannot be undone. Do you want to continue?</source>
-        <translation>Táto akcia obnoví váš pracovný priestor na predvolené výrobné rozloženie a nedá sa vrátiť späť. Chcete pokračovať?</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.cpp" line="228"/>
-        <source>Resetting workspaces</source>
-        <translation>Resetovanie pracovných priestorov</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.cpp" line="229"/>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.cpp" line="232"/>
-        <source>Reset workspace</source>
-        <translation>Obnoviť pracovný priestor</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.cpp" line="263"/>
-        <source>Name cannot be empty</source>
-        <translation>Meno nemôže byť prázdne</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.cpp" line="274"/>
-        <source>Name already exists</source>
-        <translation>Názov už existuje</translation>
-    </message>
-    <message>
-        <location filename="../../src/shared/types/workspacetitles.h" line="20"/>
-        <source>Classic</source>
-        <extracomment>The name of a built-in workspace (an interface layout); an adjective in languages where that applies</extracomment>
-        <translation>Klasická</translation>
-    </message>
-    <message>
-        <location filename="../../src/shared/types/workspacetitles.h" line="24"/>
-        <source>Modern</source>
-        <extracomment>The name of a built-in workspace (an interface layout); an adjective in languages where that applies</extracomment>
-        <translation>Moderný</translation>
-    </message>
-    <message>
-        <location filename="../../src/shared/types/workspacetitles.h" line="28"/>
-        <source>Music</source>
-        <extracomment>The name of a built-in workspace (an interface layout); an adjective in languages where that applies</extracomment>
-        <translation>Hudba</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspacecommandsregister.cpp" line="34"/>
-        <location filename="../../muse/framework/workspace/internal/workspacecommandsregister.cpp" line="35"/>
-        <source>Select workspace</source>
-        <translation>Vybrať pracovnú plochu</translation>
-    </message>
-    <message>
         <source>Edit workspaces…</source>
         <translation type="vanished">Upraviť pracovné priestory…</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspacecommandsregister.cpp" line="43"/>
-        <source>Edit workspaces...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspacecommandsregister.cpp" line="50"/>
-        <location filename="../../muse/framework/workspace/internal/workspacecommandsregister.cpp" line="51"/>
-        <source>Create new workspace</source>
-        <translation>Vytvoriť nový pracovný priestor</translation>
     </message>
 </context>
 <context>

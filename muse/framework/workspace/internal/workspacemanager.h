@@ -26,7 +26,6 @@
 
 #include "modularity/ioc.h"
 #include "io/ifilesystem.h"
-#include "interactive/iinteractive.h"
 #include "../iworkspaceconfiguration.h"
 
 #include "workspace.h"
@@ -38,7 +37,6 @@ class WorkspaceManager : public IWorkspaceManager, public Contextable, public as
 {
     GlobalInject<io::IFileSystem> fileSystem;
     GlobalInject<IWorkspaceConfiguration> configuration;
-    ContextInject<IInteractive> interactive = { this };
 
 public:
 
@@ -56,14 +54,6 @@ public:
     async::Notification currentWorkspaceChanged() const override;
 
     IWorkspacePtrList workspaces() const override;
-    Ret setWorkspaces(const IWorkspacePtrList& workspaces) override;
-    async::Notification workspacesListChanged() const override;
-
-    IWorkspacePtr cloneWorkspace(const IWorkspacePtr& workspace, const std::string& newWorkspaceName) const override;
-
-    void changeCurrentWorkspace(const std::string& newWorkspaceName) override;
-    void createAndAppendNewWorkspace() override;
-    void openConfigureWorkspacesDialog() override;
 
 private:
     void load();
@@ -74,22 +64,12 @@ private:
     WorkspacePtr doNewWorkspace(const std::string& workspaceName) const;
     io::path_t makeNewWorkspacePath(const std::string& workspaceName) const;
 
-    void doChangeCurrentWorkspace(const std::string& newWorkspaceName);
-
     void appendNewWorkspace(WorkspacePtr workspace);
     void setupConnectionsToNewWorkspace(const IWorkspacePtr workspace);
 
     void setupDefaultWorkspace();
     void setupCurrentWorkspace();
     void saveCurrentWorkspace();
-    void prepareCurrentWorkspaceForChange();
-
-    Ret removeMissingWorkspaces(const IWorkspacePtrList& newWorkspaceList);
-    Ret removeWorkspace(const IWorkspacePtr& workspace);
-    bool canRemoveWorkspace(const IWorkspacePtr& workspace) const;
-
-    Ret addNonExistentWorkspaces(const IWorkspacePtrList& newWorkspaceList);
-    Ret addWorkspace(IWorkspacePtr workspace);
 
     WorkspacePtr findByName(const std::string& name) const;
     WorkspacePtr findAndInit(const std::string& name) const;
@@ -100,7 +80,6 @@ private:
     async::Notification m_currentWorkspaceChanged;
 
     std::vector<WorkspacePtr> m_workspaces;
-    async::Notification m_workspacesListChanged;
 };
 }
 

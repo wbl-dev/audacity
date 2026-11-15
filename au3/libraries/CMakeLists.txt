@@ -1,7 +1,7 @@
 #[[
 A directory containing library targets
 
-This is the master CMakeLists.txt for all AU3 libraries.
+This lists the retained AU3 engine libraries used by Audacity 4.
 It sets up the AU3_ALL_LIBRARIES cache variable and includes au3defs.cmake
 before processing individual library subdirectories.
 ]]
@@ -27,11 +27,9 @@ set( LIBRARIES
    au3-string-utils
    au3-strings
    au3-utility
-#   au3-uuid # not yet used in AU4
    au3-components
    au3-basic-ui
    au3-exceptions
-#   au3-export-ui # not yet used in AU4
    au3-preferences
    au3-math
    au3-files
@@ -44,8 +42,6 @@ set( LIBRARIES
    au3-screen-geometry
    au3-project-rate
    au3-file-formats
-#   au3-theme # not yet used in AU4
-#   au3-theme-resources # not yet used in AU4
    au3-track
    au3-transactions
    au3-sample-track
@@ -65,27 +61,19 @@ set( LIBRARIES
    au3-numeric-formats
    au3-effects
    au3-time-frequency-selection
-#   au3-wx-wrappers # not yet used in AU4
-#   au3-shuttlegui # not yet used in AU4
-#   au3-wx-init # not yet used in AU4
    au3-time-track
    au3-snapping
-#   au3-vst # not yet used in AU4
    au3-playable-track
    au3-time-and-pitch
    au3-mixer
    au3-channel
    au3-stretching-sequence
-#   au3-menus
-#   au3-note-track # not yet used in AU4
    au3-viewport
    au3-crypto
    au3-fft
    au3-concurrency
    au3-sqlite-helpers
-#   au3-preference-pages # not yet used in AU4
    au3-dynamic-range-processor
-#   au3-audacity-application-logic # not yet used in AU4
    au3-builtin-effects
    au3-label-track
    au3-wave-track-fft

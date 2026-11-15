@@ -9,7 +9,6 @@
 #include "types/importtypes.h"
 
 #include <string>
-#include <vector>
 
 namespace au::importexport {
 class IImporterConfiguration : MODULE_GLOBAL_INTERFACE
@@ -19,15 +18,10 @@ class IImporterConfiguration : MODULE_GLOBAL_INTERFACE
 public:
     virtual ~IImporterConfiguration() = default;
 
-    /// Tri-state preference: Always / Workspace-dependent / Never.
+    /// Always / Never; the persisted workspace-dependent value is migrated.
     virtual TempoDetectionPref::TempoDetection tempoDetectionPref() const = 0;
     virtual void setTempoDetectionPref(TempoDetectionPref::TempoDetection pref) = 0;
     virtual muse::async::Notification tempoDetectionPrefChanged() const = 0;
-
-    /// Workspaces in which tempo detection is enabled (used when pref == WORKSPACE_DEPENDENT).
-    virtual std::vector<std::string> tempoDetectionWorkspaces() const = 0;
-    virtual void setTempoDetectionWorkspaces(const std::vector<std::string>& workspaces) = 0;
-    virtual muse::async::Notification tempoDetectionWorkspacesChanged() const = 0;
 
     /// "Remember my choice" for the subsequent-import tempo detection dialog.
     virtual LoopAction subsequentImportLoopAction() const = 0;

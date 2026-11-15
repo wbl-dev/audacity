@@ -33,6 +33,3 @@ target_sources(muse_workspace PRIVATE
     workspacesdataproviderstub.h
 )
 
-if (MUSE_MODULE_WORKSPACE_QML)
-    add_subdirectory(qml/Muse/Workspace)
-endif()

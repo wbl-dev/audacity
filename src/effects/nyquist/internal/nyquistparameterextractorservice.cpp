@@ -77,7 +77,7 @@ ParameterType convertControlType(int nyqType)
     case NYQ_CTRL_INT_TEXT:
     case NYQ_CTRL_FLOAT_TEXT:
         // `int-text` and `float-text` render as a plain numeric input (no slider)
-        // to match legacy AU3 semantics (au3/src/effects/nyquist/Nyquist.cpp:487-522):
+        // to match legacy AU3 Nyquist effect semantics:
         // authors pick the `-text` variants when a slider is unwanted (e.g.
         // open-ended ranges, where a `nil` bound is parsed as +/-FLT_MAX in
         // NyquistBase.cpp).

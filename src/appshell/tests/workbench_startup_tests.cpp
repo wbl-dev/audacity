@@ -59,12 +59,11 @@ TEST(workbench_startup, first_launch_setup_contains_only_local_configuration_pag
 {
 
     FirstLaunchSetupModel model;
-    ASSERT_EQ(model.numberOfPages(), 3);
+    ASSERT_EQ(model.numberOfPages(), 2);
 
     const QString expectedPages[] {
         "ThemesPage.qml",
         "ClipVisualizationPage.qml",
-        "WorkspaceLayoutPage.qml",
     };
 
     for (int index = 0; index < model.numberOfPages(); ++index) {

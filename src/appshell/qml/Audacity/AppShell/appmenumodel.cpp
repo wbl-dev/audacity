@@ -27,7 +27,6 @@
 #include "framework/dockwindow/dockcommands.h"
 #include "framework/extensions/extensionscommands.h"
 
-#include "shared/types/workspacetitles.h"
 #include "appshell/appshellcommands.h"
 #include "effects/effects_base/effectscommands.h"
 #include "playback/playbackcommands.h"
@@ -37,11 +36,6 @@
 #include "importexport/labels/labelscommands.h"
 #include "trackedit/trackeditcommands.h"
 
-#include "muse_framework_config.h"
-
-#ifdef MUSE_MODULE_WORKSPACE
-#include "workspace/qml/Muse/Workspace/workspacesmenumodel.h"
-#endif
 
 #include "log.h"
 
@@ -52,8 +46,6 @@ using namespace muse::uicomponents;
 using namespace muse::rcommand;
 
 using namespace au::project;
-//! TODO AU4
-// using namespace muse::workspace;
 using namespace muse::extensions;
 
 static QString makeId(const Command& command, int itemIndex)
@@ -67,9 +59,6 @@ static const QString RENAME_LABEL_ITEM_ID("rename-label-item");
 AppMenuModel::AppMenuModel(QObject* parent)
     : AbstractMenuModel(parent)
 {
-#ifdef MUSE_MODULE_WORKSPACE
-    m_workspacesMenuModel = std::make_shared<workspace::WorkspacesMenuModel>(this);
-#endif
 }
 
 void AppMenuModel::load()
@@ -78,9 +67,6 @@ void AppMenuModel::load()
 
     AbstractMenuModel::load();
 
-#ifdef MUSE_MODULE_WORKSPACE
-    m_workspacesMenuModel->load();
-#endif
 
     MenuItemList items {
         makeFileMenu(),
@@ -128,13 +114,6 @@ void AppMenuModel::setupConnections()
         recentScoreListItem.setSubitems(recentScoresList);
     });
 
-#ifdef MUSE_MODULE_WORKSPACE
-    connect(m_workspacesMenuModel.get(), &workspace::WorkspacesMenuModel::itemsChanged, this, [this](){
-        MenuItem& workspacesItem = findMenu("menu-workspaces");
-        au::shared::translateWorkspaceTitles(m_workspacesMenuModel->items());
-        workspacesItem.setSubitems(m_workspacesMenuModel->items());
-    });
-#endif
 
     effectsProvider()->effectMetaListChanged().onNotify(this, [this]() {
         onEffectsChanged();
@@ -328,11 +307,6 @@ MenuItem* AppMenuModel::makeViewMenu()
               << makeMenuItem(PROJECT_OPEN_METADATA_DIALOG_COMMAND)
               << makeMenuItem(APP_TOGGLE_HISTORY_PANEL_COMMAND)
               << makeSeparator()
-#ifdef MUSE_MODULE_WORKSPACE
-        << makeMenu(TranslatableString("appshell-menu-view", "W&orkspaces"),
-                    au::shared::translateWorkspaceTitles(m_workspacesMenuModel->items()), "menu-workspaces")
-        << makeSeparator()
-#endif
 #ifndef Q_OS_MAC
         << makeMenuItem(APP_TOGGLE_FULLSCREEN_COMMAND)
         << makeSeparator()

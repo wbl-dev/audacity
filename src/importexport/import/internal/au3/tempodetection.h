@@ -8,7 +8,6 @@
 
 #include "modularity/ioc.h"
 #include "interactive/iinteractive.h"
-#include "workspace/iworkspacemanager.h"
 #include "context/iglobalcontext.h"
 #include "trackedit/itrackeditinteraction.h"
 
@@ -42,7 +41,6 @@ class TempoDetection : public muse::Contextable
     muse::GlobalInject<IImporterConfiguration> configuration;
 
     muse::ContextInject<muse::IInteractive> interactive{ this };
-    muse::ContextInject<muse::workspace::IWorkspaceManager> workspacesManager{ this };
     muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
     muse::ContextInject<trackedit::ITrackeditInteraction> trackeditInteraction{ this };
 

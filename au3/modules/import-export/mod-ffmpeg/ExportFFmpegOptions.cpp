@@ -15,9 +15,9 @@
 
 #include "ExportFFmpegOptions.h"
 
-#include "FFmpegPresets.h"
 #include "FFmpegDefines.h"
 #include "au3-preferences/Prefs.h"
+#include "au3-utility/IteratorX.h"
 
 /// Format-codec compatibility list
 /// Must end with NULL entry
@@ -484,7 +484,6 @@ ExportFFmpegOptions::ExportFFmpegOptions()
     mFFmpeg = FFmpegFunctions::Load();
 //    //FFmpegLibsInst()->LoadLibs(NULL,true); //Loaded at startup or from Prefs now
 
-//     mPresets = std::make_unique<FFmpegPresets>();
 //     mPresets->GetPresetList(mPresetNames);
     if (mFFmpeg) {
         FetchFormatList();

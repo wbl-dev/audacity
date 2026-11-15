@@ -49,10 +49,6 @@ public:
     void setStereoHeightsPref(StereoHeightsPref::AsymmetricStereoHeights pref) override;
     muse::async::Notification stereoHeightsPrefChanged() const override;
 
-    std::vector<std::string> asymmetricStereoHeightsWorkspaces() const override;
-    void setAsymmetricStereoHeightsWorkspaces(std::vector<std::string>& workspaces) override;
-    muse::async::Notification asymmetricStereoHeightsWorkspacesChanged() const override;
-
     int selectionTimecodeFormat() const override;
     void setSelectionTimecodeFormat(int format) override;
     muse::async::Notification selectionTimecodeFormatChanged() const override;
@@ -90,7 +86,6 @@ private:
     muse::async::Notification m_effectsPanelVisible;
     muse::async::Channel<ClipStyles::Style> m_clipStyleChanged;
     muse::async::Notification m_asymmetricStereoHeightsChanged;
-    muse::async::Notification m_asymmetricStereoHeightsWorkspacesChanged;
     muse::async::Notification m_selectionTimecodeFormatChanged;
     muse::async::Notification m_durationTimecodeFormatChanged;
     muse::async::Notification m_playbackOnRulerClickEnabledChanged;

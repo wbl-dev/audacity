@@ -2080,26 +2080,6 @@
         <source>Use new view</source>
         <translation>Использовать новы вид</translation>
     </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspaceuiactions.cpp" line="37"/>
-        <source>Select workspace</source>
-        <translation>Выбрать рабочее пространство</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspaceuiactions.cpp" line="42"/>
-        <source>Edit workspaces…</source>
-        <translation>Редактировать рабочие пространства...</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspaceuiactions.cpp" line="43"/>
-        <source>Edit workspaces</source>
-        <translation>Редактировать рабочие пространства</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspaceuiactions.cpp" line="49"/>
-        <source>Create new workspace</source>
-        <translation>Создать новое рабочее пространство</translation>
-    </message>
 </context>
 <context>
     <name>action_description</name>
@@ -3708,11 +3688,6 @@
         <translation>Панель инструментов проекта</translation>
     </message>
     <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/ProjectPage/ProjectPage.qml" line="193"/>
-        <source>Workspaces toolbar</source>
-        <translation>Панель инструментов рабочих областей</translation>
-    </message>
-    <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/ProjectPage/ProjectPage.qml" line="216"/>
         <source>Undo/redo toolbar</source>
         <translation>Панель инструментов отмены/возврата</translation>
@@ -3746,15 +3721,6 @@
         <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="447"/>
         <source>Are you sure you want to revert to factory settings?</source>
         <translation>Уверены, что хотите сбросить настройки до заводских?</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="448"/>
-        <source>This action will reset all your app preferences and custom UI configurations. It also deletes your custom workspaces and shortcuts. You will also need to scan all third party plugins again.
-
-This action will not delete any of your projects.</source>
-        <translation>Это действие сбросит все настройки приложения и пользовательские конфигурации интерфейса. Оно также удалит ваши пользовательские рабочие области и сочетания клавиш. Вам также потребуется повторно просканировать все сторонние плагины.
-
-Это действие не удалит ни один из ваших проектов.</translation>
     </message>
     <message>
         <location filename="../../src/appshell/internal/applicationactioncontroller.cpp" line="460"/>
@@ -4401,8 +4367,6 @@ This action will not delete any of your projects.</source>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/Page.qml" line="71"/>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/clipvisualizationpagemodel.cpp" line="132"/>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/clipvisualizationpagemodel.cpp" line="139"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="176"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="183"/>
         <source>%1. %2</source>
         <extracomment>%1 is the page title, %2 is the active button title (e.g. &quot;Next&quot; or &quot;Done&quot;)
 ----------
@@ -4449,7 +4413,6 @@ This action will not delete any of your projects.</source>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/clipvisualizationpagemodel.cpp" line="34"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="45"/>
         <source>Classic</source>
         <translation>Классическая</translation>
     </message>
@@ -4490,7 +4453,6 @@ This action will not delete any of your projects.</source>
     </message>
     <message>
         <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/clipvisualizationpagemodel.cpp" line="115"/>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="139"/>
         <source>Currently selected</source>
         <translation>Выбрано сейчас</translation>
     </message>
@@ -4624,71 +4586,6 @@ This action will not delete any of your projects.</source>
         <source>%1. Accent color selected</source>
         <extracomment>%1 is the base description with current theme and system theme status</extracomment>
         <translation>%1. Акцентный цвет выбран</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="34"/>
-        <source>Modern</source>
-        <translation>Современный</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="35"/>
-        <source>A clearer interface. Ideal for new users</source>
-        <translation>Более понятный интерфейс. Идеально для новых пользователей</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="46"/>
-        <source>Closely matches the layout of Audacity 3</source>
-        <translation>Точно соответствует макету Audacity 3</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="99"/>
-        <source>What UI layout (workspace) do you want?</source>
-        <translation>Какой макет интерфейса (рабочую область) вы хотите?</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="124"/>
-        <source>Workspace layout options</source>
-        <translation>Параметры макета рабочей области</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="129"/>
-        <source>Choose your preferred workspace layout for the Audacity interface</source>
-        <translation>Выберите предпочтительный макет рабочей области для интерфейса Audacity</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="134"/>
-        <source>Select a workspace layout that suits your workflow. You can change this later.</source>
-        <translation>Выберите макет рабочей области, подходящий для вашего рабочего процесса. Вы можете изменить это позже.</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="144"/>
-        <source>Click to select this workspace</source>
-        <translation>Нажмите, чтобы выбрать эту рабочую область</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="149"/>
-        <source>Available workspace</source>
-        <translation>Доступная рабочая область</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="154"/>
-        <source>You can change between these layouts at any time using our new ‘workspaces’ feature.</source>
-        <translation>Вы можете переключаться между этими макетами в любое время, используя нашу новую функцию «рабочие области».</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="159"/>
-        <source>Additional information</source>
-        <translation>Дополнительная информация</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="164"/>
-        <source>Workspace layout preview</source>
-        <translation>Предпросмотр макета рабочей области</translation>
-    </message>
-    <message>
-        <location filename="../../src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/workspacelayoutpagemodel.cpp" line="169"/>
-        <source>Preview of the selected workspace layout showing the arrangement of interface elements</source>
-        <translation>Предварительный просмотр выбранного макета рабочей области, показывающий расположение элементов интерфейса</translation>
     </message>
 </context>
 <context>
@@ -12321,16 +12218,6 @@ For tips on suitable drives, click the help button.</source>
         <translation>Развернуть</translation>
     </message>
     <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/NewWorkspaceDialog.qml" line="118"/>
-        <source>Create</source>
-        <translation>Создать</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/WorkspacesDialog.qml" line="115"/>
-        <source>Select</source>
-        <translation>Выбрать</translation>
-    </message>
-    <message>
         <location filename="../../muse/framework/global/dataformatter.cpp" line="45"/>
         <source>Today</source>
         <translation>Сегодня</translation>
@@ -16749,12 +16636,6 @@ It will not be loaded.</source>
         <translation>Всегда</translation>
     </message>
     <message>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/internal/AsymmetricStereoHeightsSection.qml" line="88"/>
-        <location filename="../../src/preferences/qml/Audacity/Preferences/MusicPreferencesPage.qml" line="76"/>
-        <source>Depending on workspace</source>
-        <translation>В зависимости от рабочей области</translation>
-    </message>
-    <message>
         <location filename="../../src/preferences/qml/Audacity/Preferences/internal/AsymmetricStereoHeightsSection.qml" line="114"/>
         <location filename="../../src/preferences/qml/Audacity/Preferences/MusicPreferencesPage.qml" line="102"/>
         <source>Never</source>
@@ -18729,16 +18610,6 @@ You need to run that version of Audacity to recover the project.</source>
         <location filename="../../src/projectscene/qml/Audacity/ProjectScene/toolbars/PlaybackToolBar.qml" line="351"/>
         <source>Show/hide toolbar buttons</source>
         <translation>Показать/скрыть кнопки панели инструментов</translation>
-    </message>
-    <message>
-        <location filename="../../src/projectscene/qml/Audacity/ProjectScene/toolbars/WorkspacesToolBar.qml" line="21"/>
-        <source>Workspace selection</source>
-        <translation>Выбор рабочей области</translation>
-    </message>
-    <message>
-        <location filename="../../src/projectscene/qml/Audacity/ProjectScene/toolbars/WorkspacesToolBar.qml" line="60"/>
-        <source>Workspace</source>
-        <translation>Рабочая область</translation>
     </message>
     <message>
         <location filename="../../src/projectscene/qml/Audacity/ProjectScene/tracksitemsview/labeleditor/AddNewLabelTrackDialog.qml" line="15"/>
@@ -21956,125 +21827,12 @@ Template for clip name generation on inserting new empty clip</extracomment>
     <name>workspace</name>
     <message>
         <location filename="../../muse/framework/extensions/qml/Muse/Extensions/internal/EnablePanel.qml" line="79"/>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/internal/WorkspacesTopPanel.qml" line="103"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/internal/WorkspacesTopPanel.qml" line="69"/>
-        <source>Workspaces</source>
-        <translation>Рабочие пространства</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/internal/WorkspacesTopPanel.qml" line="80"/>
-        <source>Save layout as new workspace</source>
-        <translation>Сохранить макет как новую рабочую область</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/internal/WorkspacesTopPanel.qml" line="117"/>
-        <source>Workspaces allow you to choose different configurations of the %1 interface. You can also save your own unique configurations as new workspaces.</source>
-        <translation>Рабочие пространства позволяют выбирать различные конфигурации интерфейса %1. Вы также можете сохранять свои уникальные конфигурации как новые пространства.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/internal/WorkspacesView.qml" line="170"/>
-        <source>Reset</source>
-        <translation>Сбросить</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/NewWorkspaceDialog.qml" line="34"/>
-        <source>New workspace</source>
-        <translation>Новое рабочее пространство</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/NewWorkspaceDialog.qml" line="70"/>
-        <source>Workspace name:</source>
-        <translation>Название рабочего пространства:</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/WorkspacesDialog.qml" line="34"/>
-        <location filename="../../muse/framework/workspace/internal/workspacecommandsregister.cpp" line="44"/>
-        <source>Edit workspaces</source>
-        <translation>Редактировать рабочие пространства</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/newworkspacemodel.cpp" line="41"/>
-        <source>New</source>
-        <translation>Создать</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/newworkspacemodel.cpp" line="75"/>
-        <source>A workspace with the name “%1” already exists. Please choose a different name.</source>
-        <translation>Рабочее пространство с именем «%1» уже существует. Пожалуйста, выберите другое имя.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/newworkspacemodel.cpp" line="82"/>
-        <source>“%1” cannot be used as a workspace name. Please choose a different name.</source>
-        <translation>«%1» не может быть использовано как имя рабочего пространства. Пожалуйста, выберите другое имя.</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.cpp" line="225"/>
-        <source>This action will reset your workspace to its factory default layout and cannot be undone. Do you want to continue?</source>
-        <translation>Это действие сбросит ваше рабочее пространство к заводским настройкам, и его нельзя отменить. Вы точно хотите продолжить?</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.cpp" line="228"/>
-        <source>Resetting workspaces</source>
-        <translation>Сброс рабочих пространств</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.cpp" line="229"/>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.cpp" line="232"/>
-        <source>Reset workspace</source>
-        <translation>Сбросить рабочее пространство</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.cpp" line="263"/>
-        <source>Name cannot be empty</source>
-        <translation>Имя не может быть пустым</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.cpp" line="274"/>
-        <source>Name already exists</source>
-        <translation>Имя уже существует</translation>
-    </message>
-    <message>
-        <location filename="../../src/shared/types/workspacetitles.h" line="20"/>
-        <source>Classic</source>
-        <extracomment>The name of a built-in workspace (an interface layout); an adjective in languages where that applies</extracomment>
-        <translation>Классическая</translation>
-    </message>
-    <message>
-        <location filename="../../src/shared/types/workspacetitles.h" line="24"/>
-        <source>Modern</source>
-        <extracomment>The name of a built-in workspace (an interface layout); an adjective in languages where that applies</extracomment>
-        <translation>Современная</translation>
-    </message>
-    <message>
-        <location filename="../../src/shared/types/workspacetitles.h" line="28"/>
-        <source>Music</source>
-        <extracomment>The name of a built-in workspace (an interface layout); an adjective in languages where that applies</extracomment>
-        <translation>Музыка</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspacecommandsregister.cpp" line="34"/>
-        <location filename="../../muse/framework/workspace/internal/workspacecommandsregister.cpp" line="35"/>
-        <source>Select workspace</source>
-        <translation>Выбрать рабочее пространство</translation>
-    </message>
-    <message>
         <source>Edit workspaces…</source>
         <translation type="vanished">Редактировать рабочие пространства...</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspacecommandsregister.cpp" line="43"/>
-        <source>Edit workspaces...</source>
-        <translation>Редактировать рабочие пространства...</translation>
-    </message>
-    <message>
-        <location filename="../../muse/framework/workspace/internal/workspacecommandsregister.cpp" line="50"/>
-        <location filename="../../muse/framework/workspace/internal/workspacecommandsregister.cpp" line="51"/>
-        <source>Create new workspace</source>
-        <translation>Создать новое рабочее пространство</translation>
     </message>
 </context>
 <context>

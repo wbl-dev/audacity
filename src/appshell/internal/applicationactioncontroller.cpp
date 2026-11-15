@@ -467,7 +467,7 @@ muse::Ret ApplicationActionController::revertToFactorySettings()
     std::string title = muse::trc("appshell", "Are you sure you want to revert to factory settings?");
     std::string question = muse::trc("appshell",
                                      "This action will reset all your app preferences and custom UI configurations. "
-                                     "It also deletes your custom workspaces and shortcuts. "
+                                     "It also deletes your custom shortcuts. "
                                      "You will also need to scan all third party plugins again.\n\n"
                                      "This action will not delete any of your projects.");
 

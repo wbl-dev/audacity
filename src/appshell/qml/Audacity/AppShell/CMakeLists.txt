@@ -14,8 +14,6 @@ qt_add_qml_module(appshell_qml
         FirstLaunchSetup/firstlaunchsetupmodel.h
         FirstLaunchSetup/themespagemodel.cpp
         FirstLaunchSetup/themespagemodel.h
-        FirstLaunchSetup/workspacelayoutpagemodel.cpp
-        FirstLaunchSetup/workspacelayoutpagemodel.h
         framelesswindowmodel.cpp
         framelesswindowmodel.h
         maintoolbarmodel.cpp
@@ -36,7 +34,6 @@ qt_add_qml_module(appshell_qml
         FirstLaunchSetup/FirstLaunchSetupDialog.qml
         FirstLaunchSetup/Page.qml
         FirstLaunchSetup/ThemesPage.qml
-        FirstLaunchSetup/WorkspaceLayoutPage.qml
         HomePage/HomeMenu.qml
         HomePage/HomePage.qml
         Main.qml

@@ -91,8 +91,6 @@ qt_add_qml_module(preferences_qml
         internal/ThemesSection.qml
         internal/UiColorsSection.qml
         internal/UiFontSection.qml
-        internal/WorkspacesAsymmetricChannelsSection.qml
-        internal/WorkspacesTempoDetectionSection.qml
         internal/ZoomSection.qml
         internal/ZoomToggleSection.qml
         PlaybackPreferencesPage.qml

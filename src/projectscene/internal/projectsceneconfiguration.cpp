@@ -14,6 +14,8 @@
 
 #include "projectsceneconfiguration.h"
 
+#include <algorithm>
+
 using namespace au::projectscene;
 
 static const std::string moduleName("projectscene");
@@ -76,12 +78,6 @@ void ProjectSceneConfiguration::init()
                                       muse::Val(StereoHeightsPref::AsymmetricStereoHeights::NEVER));
     muse::settings()->valueChanged(STEREO_HEIGHTS_PREF).onReceive(nullptr, [this](const muse::Val&) {
         m_asymmetricStereoHeightsChanged.notify();
-    });
-
-    muse::settings()->setDefaultValue(ASYMMETRIC_STEREO_HEIGHTS_WORKSPACES,
-                                      muse::Val("Modern"));
-    muse::settings()->valueChanged(ASYMMETRIC_STEREO_HEIGHTS_WORKSPACES).onReceive(nullptr, [this](const muse::Val&) {
-        m_asymmetricStereoHeightsWorkspacesChanged.notify();
     });
 
     muse::settings()->setDefaultValue(SELECTION_TIMECODE_FORMAT, muse::Val(au::uicomponents::TimecodeFormatType::HHMMSSHundredths));
@@ -246,7 +242,17 @@ muse::async::Channel<ClipStyles::Style> ProjectSceneConfiguration::clipStyleChan
 StereoHeightsPref::AsymmetricStereoHeights
 ProjectSceneConfiguration::stereoHeightsPref() const
 {
-    return muse::settings()->value(STEREO_HEIGHTS_PREF).toEnum<StereoHeightsPref::AsymmetricStereoHeights>();
+    auto pref = muse::settings()->value(STEREO_HEIGHTS_PREF).toEnum<StereoHeightsPref::AsymmetricStereoHeights>();
+    if (pref != StereoHeightsPref::AsymmetricStereoHeights::WORKSPACE_DEPENDENT) {
+        return pref;
+    }
+
+    std::vector<std::string> workspaces;
+    muse::strings::split(muse::settings()->value(ASYMMETRIC_STEREO_HEIGHTS_WORKSPACES).toString(), workspaces, "|");
+    pref = std::find(workspaces.begin(), workspaces.end(), "Modern") != workspaces.end()
+           ? StereoHeightsPref::AsymmetricStereoHeights::ALWAYS : StereoHeightsPref::AsymmetricStereoHeights::NEVER;
+    muse::settings()->setSharedValue(STEREO_HEIGHTS_PREF, muse::Val(pref));
+    return pref;
 }
 
 void ProjectSceneConfiguration::setStereoHeightsPref(
@@ -261,35 +267,6 @@ void ProjectSceneConfiguration::setStereoHeightsPref(
 muse::async::Notification ProjectSceneConfiguration::stereoHeightsPrefChanged() const
 {
     return m_asymmetricStereoHeightsChanged;
-}
-
-std::vector<std::string> ProjectSceneConfiguration::asymmetricStereoHeightsWorkspaces() const
-{
-    // workspaces that have asymmetricStereoHeights enabled are stored as a string in muse::settings
-    // "Classic|Music|Modern"
-    std::vector<std::string> result;
-    std::string combinedString = muse::settings()->value(ASYMMETRIC_STEREO_HEIGHTS_WORKSPACES).toString();
-
-    muse::strings::split(combinedString, result, "|");
-
-    return result;
-}
-
-void ProjectSceneConfiguration::setAsymmetricStereoHeightsWorkspaces(std::vector<std::string>& asymmetricWorkspaces)
-{
-    if (asymmetricStereoHeightsWorkspaces() == asymmetricWorkspaces) {
-        return;
-    }
-
-    // convert vector to single string saveable in muse::settings
-    std::string result = muse::strings::join(asymmetricWorkspaces, "|");
-
-    muse::settings()->setSharedValue(ASYMMETRIC_STEREO_HEIGHTS_WORKSPACES, muse::Val(result));
-}
-
-muse::async::Notification ProjectSceneConfiguration::asymmetricStereoHeightsWorkspacesChanged() const
-{
-    return m_asymmetricStereoHeightsWorkspacesChanged;
 }
 
 int ProjectSceneConfiguration::selectionTimecodeFormat() const

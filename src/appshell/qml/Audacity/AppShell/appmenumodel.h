@@ -47,8 +47,6 @@ Q_MOC_INCLUDE(< QWindow >)
 #include "trackedit/iprojecthistory.h"
 #include "trackedit/iselectioncontroller.h"
 
-//! TODO AU4
-// #include "workspace/iworkspacemanager.h"
 #include "project/irecentfilescontroller.h"
 #include "extensions/iextensionsprovider.h"
 
@@ -71,8 +69,6 @@ public:
     muse::ContextInject<trackedit::IProjectHistory> projectHistory = { this };
     muse::ContextInject<trackedit::ISelectionController> selectionController = { this };
 
-    //! TODO AU4
-    // muse::ContextInject<workspace::IWorkspaceManager> workspacesManager = { this };
     muse::ContextInject<muse::extensions::IExtensionsProvider> extensionsProvider = { this };
 
 public:
@@ -127,7 +123,6 @@ private:
     void updateRenameItemsState();
     void updateRepeatLastEffectItem();
 
-    std::shared_ptr<muse::uicomponents::AbstractMenuModel> m_workspacesMenuModel;
     std::optional<effects::EffectId> m_lastProcessorId;
 
 // Moved to the bottom of the class definition because of the code formatter bug

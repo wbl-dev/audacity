@@ -337,11 +337,7 @@ FilePath FileNames::StateDir() { return GetUserTargetDir(DirTarget::State, false
 
 FilePath FileNames::ResourcesDir()
 {
-#if __WXMSW__
-    static auto resourcesDir = wxFileName(PlatformCompatibility::GetExecutablePath()).GetPath();
-#else
     static auto resourcesDir = LowerCaseAppNameInPath(PlatformCompatibility::GetResourcesDir());
-#endif
     return resourcesDir;
 }
 

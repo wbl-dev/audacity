@@ -256,8 +256,11 @@ if (OS_IS_MAC)
         endif()
     endforeach()
 
-    include(${PROJECT_SOURCE_DIR}/share/icons/SetupIconComposerIcon.cmake)
-    target_setup_iconcomposer_icon(audacity "${PROJECT_SOURCE_DIR}/share/icons/AppIcon/AppIcon.icon")
+    # Preserve the approved artwork without adding Icon Composer materials.
+    set(AU4_APP_ICON "${PROJECT_SOURCE_DIR}/share/icons/AppIcon/AU4_AppIcon.icns")
+    target_sources(audacity PRIVATE "${AU4_APP_ICON}")
+    set_source_files_properties("${AU4_APP_ICON}" PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+    set_target_properties(audacity PROPERTIES MACOSX_BUNDLE_ICON_FILE AU4_AppIcon.icns)
 
     set_target_properties(audacity
         PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/buildscripts/packaging/MacOS/MacOSXBundleInfo.plist.in
@@ -317,7 +320,7 @@ if (AU_MODULE_EFFECTS_NYQUIST)
     add_dependencies(audacity nyquist-runtime nyquist-plug-ins)
 endif()
 
-add_dependencies(audacity builtin-workspaces)
+add_dependencies(audacity builtin-workspaces eq-default-curves)
 
 ###########################################
 # INSTALL

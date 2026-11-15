@@ -15,10 +15,6 @@ void MusicPreferencesModel::init()
         emit tempoDetectionPrefChanged();
     });
 
-    importerConfiguration()->tempoDetectionWorkspacesChanged().onNotify(this, [this] {
-        emit tempoDetectionWorkspacesChanged();
-    });
-
     importerConfiguration()->subsequentImportLoopActionChanged().onNotify(this, [this] {
         emit askBeforeSubsequentImportChanged();
     });
@@ -32,35 +28,6 @@ importexport::TempoDetectionPref::TempoDetection MusicPreferencesModel::tempoDet
 void MusicPreferencesModel::setTempoDetectionPref(importexport::TempoDetectionPref::TempoDetection pref)
 {
     importerConfiguration()->setTempoDetectionPref(pref);
-}
-
-QVariantList MusicPreferencesModel::tempoDetectionWorkspaces() const
-{
-    QVariantList result;
-    for (const auto& workspaceName : importerConfiguration()->tempoDetectionWorkspaces()) {
-        result << QString::fromStdString(workspaceName);
-    }
-    return result;
-}
-
-void MusicPreferencesModel::appendToTempoDetectionWorkspaces(const QString& workspaceName)
-{
-    auto workspaces = importerConfiguration()->tempoDetectionWorkspaces();
-    for (const auto& ws : workspaces) {
-        if (ws == workspaceName.toStdString()) {
-            return;
-        }
-    }
-
-    workspaces.push_back(workspaceName.toStdString());
-    importerConfiguration()->setTempoDetectionWorkspaces(workspaces);
-}
-
-void MusicPreferencesModel::removeFromTempoDetectionWorkspaces(const QString& workspaceName)
-{
-    auto workspaces = importerConfiguration()->tempoDetectionWorkspaces();
-    workspaces.erase(std::remove(workspaces.begin(), workspaces.end(), workspaceName.toStdString()), workspaces.end());
-    importerConfiguration()->setTempoDetectionWorkspaces(workspaces);
 }
 
 bool MusicPreferencesModel::askBeforeSubsequentImport() const

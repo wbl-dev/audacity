@@ -45,10 +45,6 @@ public:
     MOCK_METHOD(void, setStereoHeightsPref, (StereoHeightsPref::AsymmetricStereoHeights pref), (override));
     MOCK_METHOD(muse::async::Notification, stereoHeightsPrefChanged, (), (const, override));
 
-    MOCK_METHOD(std::vector<std::string>, asymmetricStereoHeightsWorkspaces, (), (const, override));
-    MOCK_METHOD(void, setAsymmetricStereoHeightsWorkspaces, (std::vector<std::string>& workspaces), (override));
-    MOCK_METHOD(muse::async::Notification, asymmetricStereoHeightsWorkspacesChanged, (), (const, override));
-
     MOCK_METHOD(int, selectionTimecodeFormat, (), (const, override));
     MOCK_METHOD(void, setSelectionTimecodeFormat, (int precision), (override));
     MOCK_METHOD(muse::async::Notification, selectionTimecodeFormatChanged, (), (const, override));

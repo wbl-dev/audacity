@@ -77,11 +77,6 @@ QString ProjectPageModel::undoRedoToolBarName() const
     return UNDO_REDO_TOOLBAR_NAME;
 }
 
-QString ProjectPageModel::workspacesToolBarName() const
-{
-    return WORKSPACES_TOOLBAR_NAME;
-}
-
 QString ProjectPageModel::tracksPanelName() const
 {
     return TRACKS_PANEL_NAME;

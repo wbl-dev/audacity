@@ -21,19 +21,12 @@
  */
 #include "workspacemanager.h"
 
-#include "types/uri.h"
-
 #include "log.h"
 
 using namespace muse;
 using namespace muse::workspace;
 
 static const std::string WORKSPACE_EXT(".mws");
-
-static bool containsWorkspace(const IWorkspacePtrList& list, const IWorkspacePtr& workspace)
-{
-    return std::find(list.cbegin(), list.cend(), workspace) != list.cend();
-}
 
 void WorkspaceManager::init()
 {
@@ -88,96 +81,6 @@ IWorkspacePtrList WorkspaceManager::workspaces() const
     return iworkspaces;
 }
 
-Ret WorkspaceManager::setWorkspaces(const IWorkspacePtrList& workspaces)
-{
-    Ret ret = removeMissingWorkspaces(workspaces);
-
-    if (ret) {
-        ret = addNonExistentWorkspaces(workspaces);
-    }
-
-    m_workspacesListChanged.notify();
-
-    return ret;
-}
-
-async::Notification WorkspaceManager::workspacesListChanged() const
-{
-    return m_workspacesListChanged;
-}
-
-IWorkspacePtr WorkspaceManager:: cloneWorkspace(const IWorkspacePtr& workspace, const std::string& newWorkspaceName) const
-{
-    return std::make_shared<Workspace>(makeNewWorkspacePath(newWorkspaceName), dynamic_cast<Workspace*>(workspace.get()), iocContext());
-}
-
-void WorkspaceManager::changeCurrentWorkspace(const std::string& newWorkspaceName)
-{
-    prepareCurrentWorkspaceForChange();
-    doChangeCurrentWorkspace(newWorkspaceName);
-}
-
-void WorkspaceManager::doChangeCurrentWorkspace(const std::string& newWorkspaceName)
-{
-    if (configuration()->currentWorkspaceName() == newWorkspaceName || newWorkspaceName.empty()) {
-        return;
-    }
-
-    configuration()->setCurrentWorkspaceName(newWorkspaceName);
-}
-
-void WorkspaceManager::createAndAppendNewWorkspace()
-{
-    prepareCurrentWorkspaceForChange();
-
-    IWorkspacePtrList workspaces = this->workspaces();
-
-    QStringList workspaceNames;
-    for (const IWorkspacePtr& workspace: workspaces) {
-        workspaceNames << QString::fromStdString(workspace->name());
-    }
-
-    UriQuery uri("muse://workspace/create");
-    uri.addParam("sync", Val(true));
-    uri.addParam("workspaceNames", Val(workspaceNames.join(',')));
-
-    auto i = modularity::ioc(iocContext())->resolve<IInteractive>("workspace");
-    RetVal<Val> obj = i->openSync(uri);
-    if (!obj.ret) {
-        return;
-    }
-
-    QVariantMap meta = obj.val.toQVariant().toMap();
-    QString name = meta.value("name").toString();
-    IF_ASSERT_FAILED(!name.isEmpty()) {
-        return;
-    }
-
-    IWorkspacePtr newWorkspace = cloneWorkspace(currentWorkspace(), name.toStdString());
-    if (!newWorkspace) {
-        return;
-    }
-
-    workspaces.emplace_back(newWorkspace);
-
-    setWorkspaces(workspaces);
-
-    configuration()->setCurrentWorkspaceName(name.toStdString());
-}
-
-void WorkspaceManager::openConfigureWorkspacesDialog()
-{
-    prepareCurrentWorkspaceForChange();
-
-    RetVal<Val> result = interactive()->openSync("muse://workspace/select");
-    if (!result.ret) {
-        return;
-    }
-
-    std::string selectedWorkspace = result.val.toString();
-    doChangeCurrentWorkspace(selectedWorkspace);
-}
-
 WorkspacePtr WorkspaceManager::doNewWorkspace(const std::string& workspaceName) const
 {
     return std::make_shared<Workspace>(makeNewWorkspacePath(workspaceName), iocContext());
@@ -204,86 +107,6 @@ void WorkspaceManager::setupConnectionsToNewWorkspace(const IWorkspacePtr worksp
     });
 }
 
-Ret WorkspaceManager::removeMissingWorkspaces(const IWorkspacePtrList& newWorkspaceList)
-{
-    IWorkspacePtrList oldWorkspaceList = workspaces();
-    for (const IWorkspacePtr& oldWorkspace : oldWorkspaceList) {
-        if (containsWorkspace(newWorkspaceList, oldWorkspace)) {
-            continue;
-        }
-
-        Ret ret = removeWorkspace(oldWorkspace);
-        if (!ret) {
-            return ret;
-        }
-    }
-
-    if (!containsWorkspace(newWorkspaceList, m_currentWorkspace)) {
-        m_currentWorkspace = nullptr;
-    }
-
-    return make_ret(Ret::Code::Ok);
-}
-
-Ret WorkspaceManager::removeWorkspace(const IWorkspacePtr& workspace)
-{
-    if (!canRemoveWorkspace(workspace)) {
-        return make_ret(Ret::Code::Ok);
-    }
-
-    std::string workspaceName = workspace->name();
-    for (auto it = m_workspaces.begin(); it != m_workspaces.end(); ++it) {
-        if (it->get()->name() == workspaceName) {
-            Ret ret = fileSystem()->remove(it->get()->filePath());
-            if (ret) {
-                m_workspaces.erase(it);
-            }
-
-            return ret;
-        }
-    }
-
-    return make_ret(Ret::Code::Ok);
-}
-
-bool WorkspaceManager::canRemoveWorkspace(const IWorkspacePtr& workspace) const
-{
-    return !workspace->isBuiltin();
-}
-
-Ret WorkspaceManager::addNonExistentWorkspaces(const IWorkspacePtrList& newWorkspaceList)
-{
-    IWorkspacePtrList existentWorkspaces = workspaces();
-    for (const IWorkspacePtr& workspace : newWorkspaceList) {
-        if (containsWorkspace(existentWorkspaces, workspace)) {
-            continue;
-        }
-
-        Ret ret = addWorkspace(workspace);
-        if (!ret) {
-            return ret;
-        }
-    }
-
-    return make_ret(Ret::Code::Ok);
-}
-
-Ret WorkspaceManager::addWorkspace(IWorkspacePtr workspace)
-{
-    auto writable = std::dynamic_pointer_cast<Workspace>(workspace);
-    if (!writable) {
-        return make_ret(Ret::Code::Ok);
-    }
-
-    Ret ret = writable->save();
-
-    if (ret) {
-        appendNewWorkspace(writable);
-    }
-
-    return ret;
-}
-
 void WorkspaceManager::load()
 {
     reloadWorkspaceFiles();
@@ -302,11 +125,15 @@ void WorkspaceManager::reloadWorkspaceFiles()
         appendNewWorkspace(workspace);
     }
 
-    m_workspacesListChanged.notify();
 }
 
 io::paths_t WorkspaceManager::findWorkspaceFiles() const
 {
+    const std::string defaultWorkspaceName = configuration()->defaultWorkspaceName();
+    const auto isNotDefaultWorkspace = [&defaultWorkspaceName](const io::path_t& path) {
+        return io::completeBasename(path).toStdString() != defaultWorkspaceName;
+    };
+
     auto findFiles = [this](const io::path_t& dirPath) {
         std::string filter = "*" + WORKSPACE_EXT;
         RetVal<io::paths_t> files = fileSystem()->scanFiles(dirPath, { filter });
@@ -318,8 +145,10 @@ io::paths_t WorkspaceManager::findWorkspaceFiles() const
     };
 
     io::paths_t builtinWorkspacesPaths = configuration()->builtinWorkspacesFilePaths();
+    muse::remove_if(builtinWorkspacesPaths, isNotDefaultWorkspace);
 
     io::paths_t userWorkspacesPaths = findFiles(configuration()->userWorkspacesPath());
+    muse::remove_if(userWorkspacesPaths, isNotDefaultWorkspace);
     std::set<io::path_t> userWorkspacesFileNames;
     for (const io::path_t& dirPath : userWorkspacesPaths) {
         userWorkspacesFileNames.insert(io::filename(dirPath));
@@ -443,7 +272,3 @@ void WorkspaceManager::saveCurrentWorkspace()
     }
 }
 
-void WorkspaceManager::prepareCurrentWorkspaceForChange()
-{
-    m_currentWorkspaceAboutToBeChanged.notify();
-}

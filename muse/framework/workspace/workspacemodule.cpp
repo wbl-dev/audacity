@@ -23,23 +23,11 @@
 
 #include "modularity/ioc.h"
 
-#include "interactive/iinteractiveuriregister.h"
-#include "rcommand/icommandsregister.h"
-#include "rcommand/icommandsstate.h"
-
 #include "internal/workspaceconfiguration.h"
 #include "internal/workspacemanager.h"
-#include "internal/workspaceactioncontroller.h"
-#include "internal/workspacecommandsregister.h"
-#include "internal/workspacecommandsstate.h"
 #include "internal/workspacesdataprovider.h"
 
 #include "muse_framework_config.h"
-
-#ifdef MUSE_MODULE_ACTIONS_SUPPORT
-#include "ui/iuiactionsregister.h"
-#include "internal/workspaceuiactions.h"
-#endif
 
 #ifdef MUSE_MODULE_DIAGNOSTICS
 #include "diagnostics/idiagnosticspathsregister.h"
@@ -59,20 +47,6 @@ void WorkspaceModule::registerExports()
 {
     m_configuration = std::make_shared<WorkspaceConfiguration>(globalCtx());
     globalIoc()->registerExport<IWorkspaceConfiguration>(mname, m_configuration);
-}
-
-void WorkspaceModule::resolveImports()
-{
-    auto ir = globalIoc()->resolve<muse::interactive::IInteractiveUriRegister>(mname);
-    if (ir) {
-        ir->registerQmlUri(Uri("muse://workspace/select"), "Muse.Workspace", "WorkspacesDialog");
-        ir->registerQmlUri(Uri("muse://workspace/create"), "Muse.Workspace", "NewWorkspaceDialog");
-    }
-
-    auto cr = globalIoc()->resolve<muse::rcommand::ICommandsRegister>(mname);
-    if (cr) {
-        cr->reg(std::make_shared<WorkspaceCommandsRegister>());
-    }
 }
 
 void WorkspaceModule::onInit(const IApplication::RunMode&)
@@ -101,7 +75,6 @@ IContextSetup* WorkspaceModule::newContext(const kors::modularity::ContextPtr& c
 
 void WorkspaceContext::registerExports()
 {
-    m_actionController = std::make_shared<WorkspaceActionController>(iocContext());
     m_manager = std::make_shared<WorkspaceManager>(iocContext());
     m_provider = std::make_shared<WorkspacesDataProvider>(iocContext());
     ioc()->registerExport<IWorkspaceManager>(mname, m_manager);
@@ -112,22 +85,6 @@ void WorkspaceContext::onInit(const IApplication::RunMode&)
 {
     m_manager->init();
     m_provider->init();
-    m_actionController->init();
-}
-
-void WorkspaceContext::resolveImports()
-{
-#ifdef MUSE_MODULE_ACTIONS_SUPPORT
-    auto ar = ioc()->resolve<ui::IUiActionsRegister>(mname);
-    if (ar) {
-        ar->reg(std::make_shared<WorkspaceUiActions>(m_actionController, iocContext()));
-    }
-#endif
-
-    auto cs = ioc()->resolve<muse::rcommand::ICommandsState>(mname);
-    if (cs) {
-        cs->reg(std::make_shared<WorkspaceCommandsState>(iocContext()));
-    }
 }
 
 void WorkspaceContext::onDeinit()

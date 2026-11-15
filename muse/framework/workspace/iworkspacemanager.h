@@ -25,7 +25,6 @@
 #include "modularity/imoduleinterface.h"
 
 #include "iworkspace.h"
-#include "types/retval.h"
 #include "async/notification.h"
 
 namespace muse::workspace {
@@ -45,14 +44,6 @@ public:
     virtual async::Notification currentWorkspaceChanged() const = 0;
 
     virtual IWorkspacePtrList workspaces() const = 0;
-    virtual Ret setWorkspaces(const IWorkspacePtrList& workspaces) = 0;
-    virtual async::Notification workspacesListChanged() const = 0;
-
-    virtual IWorkspacePtr cloneWorkspace(const IWorkspacePtr& workspace, const std::string& newWorkspaceName) const = 0;
-
-    virtual void changeCurrentWorkspace(const std::string& newWorkspaceName) = 0;
-    virtual void createAndAppendNewWorkspace() = 0;
-    virtual void openConfigureWorkspacesDialog() = 0;
 };
 }
 

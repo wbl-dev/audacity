@@ -27,7 +27,6 @@
 namespace {
 const char* THEMES_PAGE = "ThemesPage.qml";
 const char* CLIP_VISUALIZATION_PAGE = "ClipVisualizationPage.qml";
-const char* WORKSPACE_LAYOUT_PAGE = "WorkspaceLayoutPage.qml";
 }
 
 using namespace muse;
@@ -39,7 +38,6 @@ FirstLaunchSetupModel::FirstLaunchSetupModel(QObject* parent)
     m_pages = {
         Page { THEMES_PAGE, "audacity://project" },
         Page { CLIP_VISUALIZATION_PAGE, "audacity://project" },
-        Page { WORKSPACE_LAYOUT_PAGE, "audacity://project" },
     };
 }
 

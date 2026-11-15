@@ -52,14 +52,6 @@ void TrackClipsListModel::onInit()
         emit asymmetricStereoHeightsPossibleChanged();
     });
 
-    projectSceneConfiguration()->asymmetricStereoHeightsWorkspacesChanged().onNotify(this, [this] {
-        emit asymmetricStereoHeightsPossibleChanged();
-    });
-
-    workspacesManager()->currentWorkspaceChanged().onNotify(this, [this]() {
-        emit asymmetricStereoHeightsPossibleChanged();
-    });
-
     tracksViewRequestsService()->clipTitleEditRequested().onReceive(this, [this](const trackedit::ClipKey&) {
         updatePendingTitleEdit();
     });
@@ -393,17 +385,7 @@ void TrackClipsListModel::resetClipSpeed(const ClipKey& key)
 
 bool TrackClipsListModel::asymmetricStereoHeightsPossible() const
 {
-    auto pref = projectSceneConfiguration()->stereoHeightsPref();
-    if (pref == projectscene::StereoHeightsPref::AsymmetricStereoHeights::ALWAYS) {
-        return true;
-    } else if (pref == projectscene::StereoHeightsPref::AsymmetricStereoHeights::WORKSPACE_DEPENDENT) {
-        std::string currentWorkspace = workspacesManager()->currentWorkspace()->name();
-        if (muse::contains(projectSceneConfiguration()->asymmetricStereoHeightsWorkspaces(), currentWorkspace)) {
-            return true;
-        }
-    }
-
-    return false;
+    return projectSceneConfiguration()->stereoHeightsPref() == projectscene::StereoHeightsPref::AsymmetricStereoHeights::ALWAYS;
 }
 
 bool TrackClipsListModel::isContrastFocusBorderEnabled() const

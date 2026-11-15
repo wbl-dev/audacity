@@ -23,6 +23,7 @@
 #include <gmock/gmock.h>
 
 #include <QTemporaryDir>
+#include <QFile>
 
 #include "modularity/ioc.h"
 #include "workspace/internal/workspacemanager.h"
@@ -172,5 +173,41 @@ TEST_F(Workspace_WorkspaceManagerTests, EmptyUserDirUsesBuiltinWorkspaces)
     //! [THEN] Reading workspace data does not crash
     auto data = current->rawData("ui_settings");
     EXPECT_TRUE(data.ret);
+}
+
+TEST_F(Workspace_WorkspaceManagerTests, LegacyUserWorkspaceIsIgnoredAndSelectionFallsBack)
+{
+    setupBuiltinPaths(m_builtinFiles);
+    const QString legacyPath = QString::fromStdString(m_userWorkspacesPath + "/Classic.mws");
+    ASSERT_TRUE(QFile::copy(QString::fromStdString(m_builtinWorkspacesDir + "/" + m_builtinFiles.front()), legacyPath));
+
+    ON_CALL(*m_workspaceConfig, currentWorkspaceName())
+    .WillByDefault(Return("Classic"));
+    EXPECT_CALL(*m_workspaceConfig, setCurrentWorkspaceName(m_defaultWorkspaceName)).Times(1);
+
+    initManager();
+
+    ASSERT_NE(m_manager->currentWorkspace(), nullptr);
+    EXPECT_EQ(m_manager->currentWorkspace()->name(), m_defaultWorkspaceName);
+    EXPECT_EQ(m_manager->workspaces().size(), 1);
+    EXPECT_TRUE(QFile::exists(legacyPath));
+}
+
+TEST_F(Workspace_WorkspaceManagerTests, UserEditedDefaultOverridesBuiltin)
+{
+    setupBuiltinPaths(m_builtinFiles);
+    const std::string userDefaultPath = m_userWorkspacesPath + "/" + m_builtinFiles.front();
+    ASSERT_TRUE(QFile::copy(QString::fromStdString(m_builtinWorkspacesDir + "/" + m_builtinFiles.front()),
+                            QString::fromStdString(userDefaultPath)));
+
+    ON_CALL(*m_workspaceConfig, currentWorkspaceName())
+    .WillByDefault(Return(m_defaultWorkspaceName));
+
+    initManager();
+
+    auto current = std::dynamic_pointer_cast<Workspace>(m_manager->currentWorkspace());
+    ASSERT_NE(current, nullptr);
+    EXPECT_EQ(current->filePath().toStdString(), userDefaultPath);
+    EXPECT_EQ(m_manager->workspaces().size(), 1);
 }
 }

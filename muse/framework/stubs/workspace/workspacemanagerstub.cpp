@@ -52,29 +52,3 @@ IWorkspacePtrList WorkspaceManagerStub::workspaces() const
     return { defaultWorkspace() };
 }
 
-Ret WorkspaceManagerStub::setWorkspaces(const IWorkspacePtrList&)
-{
-    return make_ret(Ret::Code::NotImplemented);
-}
-
-async::Notification WorkspaceManagerStub::workspacesListChanged() const
-{
-    return async::Notification();
-}
-
-IWorkspacePtr WorkspaceManagerStub::cloneWorkspace(const IWorkspacePtr&, const std::string&)const
-{
-    return std::make_shared<WorkspaceStub>();
-}
-
-void muse::workspace::WorkspaceManagerStub::changeCurrentWorkspace(const std::string&)
-{
-}
-
-void muse::workspace::WorkspaceManagerStub::createAndAppendNewWorkspace()
-{
-}
-
-void muse::workspace::WorkspaceManagerStub::openConfigureWorkspacesDialog()
-{
-}

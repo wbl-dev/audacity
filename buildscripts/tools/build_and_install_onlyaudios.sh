@@ -10,14 +10,14 @@ fi
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 repo_root="$(cd "${script_dir}/../.." && pwd)"
-build_dir="${ONLYAUDIOS_BUILD_DIR:-${repo_root}/build/audacity-debug}"
+build_dir="${ONLYAUDIOS_BUILD_DIR:-${repo_root}/build/workbench-debug}"
 install_dir="${ONLYAUDIOS_INSTALL_DIR:-/Applications}"
 source_app="${build_dir}/src/app/OnlyAudios.app"
 destination="${install_dir}/OnlyAudios.app"
 
 if [[ ! -f "${build_dir}/CMakeCache.txt" ]]; then
     echo "Build directory is not configured: ${build_dir}" >&2
-    echo "Run: cmake --preset audacity-debug" >&2
+    echo "Run: cmake --preset workbench-debug" >&2
     exit 1
 fi
 
@@ -77,15 +77,21 @@ if [[ -e "${destination}" ]]; then
     mv "${destination}" "${backup_app}"
 fi
 mv "${staged_app}" "${destination}"
+touch "${destination}"
 
 # Register the new bundle with macOS, then ask Spotlight to index it.
 lsregister=/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister
 if [[ -x "${lsregister}" ]]; then
+    # Spotlight can still find the build bundle after it is unregistered,
+    # leaving that result without an icon. Register both, with the installed
+    # copy last so it remains the preferred application for this bundle ID.
+    if ! "${lsregister}" -f "${source_app}"; then
+        echo "Warning: macOS did not register the build bundle automatically." >&2
+    fi
     if ! "${lsregister}" -f "${destination}"; then
         echo "Warning: macOS did not register the app automatically." >&2
     fi
-    # Keep the installed copy as the only registered OnlyAudios bundle.
-    "${lsregister}" -u "${source_app}" >/dev/null 2>&1 || true
 fi
+mdimport "${source_app}" >/dev/null 2>&1 || true
 mdimport "${destination}" >/dev/null 2>&1 || true
 echo "Installed ${destination}"

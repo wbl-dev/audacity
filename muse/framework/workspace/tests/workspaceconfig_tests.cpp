@@ -83,6 +83,21 @@ TEST_P(Workspace_ConfigTests, ConfigIsValid)
         << "default workspace \"" << cfg.defaultWorkspaceName() << "\" not found in builtin files";
 }
 
+TEST_P(Workspace_ConfigTests, AppShipsOnlyModern)
+{
+#if defined(APP_WORKSPACE_CONFIG_FILE)
+    const auto& param = GetParam();
+    if (param.configFile != APP_WORKSPACE_CONFIG_FILE) {
+        return;
+    }
+
+    WorkspaceTestConfig cfg;
+    ASSERT_TRUE(cfg.load(io::path_t(param.configFile), param.workspacesDir));
+    EXPECT_EQ(cfg.defaultWorkspaceName(), "Modern");
+    EXPECT_EQ(cfg.builtinFiles(), std::vector<std::string>{ "Modern.mws" });
+#endif
+}
+
 //! If this test fails, a new field was added to the config.
 //! Please add validation for it in ConfigIsValid above, then update EXPECTED_KEYS.
 TEST_P(Workspace_ConfigTests, NoUntestedConfigKeys)
