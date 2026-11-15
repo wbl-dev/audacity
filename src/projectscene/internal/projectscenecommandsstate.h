@@ -14,7 +14,7 @@
 #include "../iprojectsceneconfiguration.h"
 #include "../iprojectsceneuistate.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class ProjectSceneCommandsState : public muse::rcommand::IModuleCommandsState, public muse::Contextable, public muse::async::Asyncable
 {
     muse::GlobalInject<muse::rcommand::ICommandsRegister> commandsRegister;

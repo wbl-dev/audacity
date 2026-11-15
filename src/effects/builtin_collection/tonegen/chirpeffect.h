@@ -7,7 +7,7 @@
 #include "../common/generatoreffect.h"
 #include "toneeffect.h"
 
-namespace au::effects {
+namespace agu::effects {
 class ChirpEffect : public ToneEffect
 {
 public:

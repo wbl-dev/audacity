@@ -22,7 +22,7 @@ class QItemSelectionModel;
 #pragma warning(disable: 4505)
 #endif
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class PlaybackToolBarCustomiseItem;
 class PlaybackToolBarCustomiseModel : public muse::uicomponents::SelectableItemListModel, public muse::Contextable,
     public muse::async::Asyncable
@@ -30,8 +30,8 @@ class PlaybackToolBarCustomiseModel : public muse::uicomponents::SelectableItemL
     Q_OBJECT
 
     muse::GlobalInject<muse::ui::IUiConfiguration> uiConfiguration;
-    muse::GlobalInject<au::playback::IPlaybackConfiguration> configuration;
-    muse::GlobalInject<au::record::IRecordConfiguration> recordConfiguration;
+    muse::GlobalInject<agu::playback::IPlaybackConfiguration> configuration;
+    muse::GlobalInject<agu::record::IRecordConfiguration> recordConfiguration;
     muse::GlobalInject<muse::rcommand::ICommandsRegister> commandsRegister;
 
     muse::ContextInject<muse::ui::IUiState> uiState { this };

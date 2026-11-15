@@ -22,7 +22,7 @@
 #include "itrackeditinteraction.h"
 #include "iundomanager.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class TrackeditOperationController : public ITrackeditInteraction, public muse::Contextable, public muse::async::Asyncable
 {
     muse::ContextInject<ITracksInteraction> tracksInteraction { this };
@@ -30,9 +30,9 @@ class TrackeditOperationController : public ITrackeditInteraction, public muse::
     muse::ContextInject<ILabelsInteraction> labelsInteraction { this };
     muse::ContextInject<ITrackeditClipboard> clipboard { this };
     muse::ContextInject<IProjectHistory> projectHistory { this };
-    muse::ContextInject<au::context::IGlobalContext> globalContext { this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext { this };
     muse::ContextInject<importexport::IImporter> importer { this };
-    muse::ContextInject<au::trackedit::ISelectionController> selectionController{ this };
+    muse::ContextInject<agu::trackedit::ISelectionController> selectionController{ this };
     muse::ContextInject<muse::rcommand::ICommandDispatcher> commandDispatcher{ this };
 
 public:

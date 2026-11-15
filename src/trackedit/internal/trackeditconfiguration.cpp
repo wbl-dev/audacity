@@ -5,7 +5,7 @@
 
 #include "settings.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 static const std::string moduleName("trackedit");
 
 static const muse::Settings::Key ASK_BEFORE_CONVERTING_TO_MONO_OR_STEREO(moduleName, "trackedit/askBeforeConvertingToMonoOrStereo");

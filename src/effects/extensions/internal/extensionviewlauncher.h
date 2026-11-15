@@ -5,7 +5,7 @@
 
 #include "effects/effects_base/internal/abstractviewlauncher.h"
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 class ExtensionViewLauncher final : public AbstractViewLauncher
 {
 public:
@@ -17,4 +17,4 @@ public:
     muse::Ret showEffect(const EffectInstanceId& instanceId) const override;
     void showRealtimeEffect(const RealtimeEffectStatePtr& state) const override;
 };
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

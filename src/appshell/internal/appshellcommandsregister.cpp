@@ -10,7 +10,7 @@
 
 #include "../appshellcommands.h"
 
-using namespace au::appshell;
+using namespace agu::appshell;
 using namespace muse;
 using namespace muse::rcommand;
 using namespace muse::ui;
@@ -47,9 +47,9 @@ const std::vector<CommandInfo> s_allCommandInfos = {
     CommandInfo{
         APP_ABOUT_COMMAND,
         //: Command title: shown as a menu item or a button label; keep it short
-        TranslatableString("command", "&About Audacity…"),
+        TranslatableString("command", "&About AGu…"),
         //: Command description: shown as a tooltip; can be a full sentence
-        TranslatableString("command_description", "About Audacity"),
+        TranslatableString("command_description", "About AGu"),
         InputSchema(),
         Decoration(),
         Availability::Dispatch | Availability::Shortcut

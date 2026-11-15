@@ -9,7 +9,7 @@
 #include "global/types/number.h"
 #include "global/log.h"
 
-namespace au::effects {
+namespace agu::effects {
 namespace {
 class PassthroughTransformer : public IValueTransformer
 {

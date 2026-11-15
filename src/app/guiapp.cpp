@@ -25,11 +25,11 @@
 #include "log.h"
 
 using namespace muse;
-using namespace au::app;
-using namespace au::appshell;
-namespace project = au::project;
+using namespace agu::app;
+using namespace agu::appshell;
+namespace project = agu::project;
 
-GuiApp::GuiApp(const std::shared_ptr<AudacityCmdOptions>& options)
+GuiApp::GuiApp(const std::shared_ptr<AGuCmdOptions>& options)
     : muse::ui::GuiApplication(options)
 {
 }
@@ -56,7 +56,7 @@ std::shared_ptr<muse::CmdOptions> GuiApp::makeContextOptions(const muse::StringL
 
 QString GuiApp::mainWindowQmlPath(const QString& platform) const
 {
-    return QString(":/qt/qml/Audacity/AppShell/platform/%1/Main.qml").arg(platform);
+    return QString(":/qt/qml/AGu/AppShell/platform/%1/Main.qml").arg(platform);
 }
 
 void GuiApp::showContextSplash(const muse::modularity::ContextPtr& ctxId)
@@ -71,8 +71,8 @@ void GuiApp::showContextSplash(const muse::modularity::ContextPtr& ctxId)
 
 void GuiApp::doStartupScenario(const muse::modularity::ContextPtr& ctxId)
 {
-    const std::shared_ptr<AudacityCmdOptions> options
-        = std::dynamic_pointer_cast<AudacityCmdOptions>(contextData(ctxId).options);
+    const std::shared_ptr<AGuCmdOptions> options
+        = std::dynamic_pointer_cast<AGuCmdOptions>(contextData(ctxId).options);
     IF_ASSERT_FAILED(options) {
         return;
     }
@@ -119,7 +119,7 @@ void GuiApp::applyCommandLineOptions(const std::shared_ptr<muse::CmdOptions>& op
 {
     BaseApplication::applyCommandLineOptions(opt);
 
-    std::shared_ptr<AudacityCmdOptions> options = std::dynamic_pointer_cast<AudacityCmdOptions>(opt);
+    std::shared_ptr<AGuCmdOptions> options = std::dynamic_pointer_cast<AGuCmdOptions>(opt);
     IF_ASSERT_FAILED(options) {
         return;
     }
@@ -166,7 +166,7 @@ void GuiApp::onSecondInstanceArgs(const QStringList& args)
         window->requestShowOnFront();
     }
 
-    auto parsed = std::dynamic_pointer_cast<AudacityCmdOptions>(makeContextOptions(muse::StringList(args)));
+    auto parsed = std::dynamic_pointer_cast<AGuCmdOptions>(makeContextOptions(muse::StringList(args)));
     if (!parsed) {
         return;
     }

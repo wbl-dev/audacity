@@ -12,12 +12,12 @@
 #include "../recordcommands.h"
 #include "timedrecordingformatter.h"
 
-using namespace au::record;
+using namespace agu::record;
 using namespace muse;
 
 namespace {
-const UriQuery SETUP_DIALOG_URI("audacity://record/timedrecording");
-const UriQuery PROGRESS_DIALOG_URI("audacity://record/timedrecording/progress");
+const UriQuery SETUP_DIALOG_URI("agu://record/timedrecording");
+const UriQuery PROGRESS_DIALOG_URI("agu://record/timedrecording/progress");
 
 constexpr int TICK_INTERVAL_MS = 100;
 constexpr std::chrono::seconds QUIT_COUNTDOWN(60);
@@ -135,13 +135,13 @@ void TimedRecordingScenario::onSetupAccepted(const QVariantMap& data)
     m_completionActions.saveProjectPath = data.value("saveProjectPath").toString();
     m_completionActions.exportAudioPath = data.value("exportAudioPath").toString();
     m_completionActions.exportFormat = data.value("exportFormat").toString().toStdString();
-    m_completionActions.quitAudacity = data.value("quitAudacity").toBool();
+    m_completionActions.quitAGu = data.value("quitAGu").toBool();
 
     TimedRecordingOptions options;
     options.durationSeconds = data.value("durationSeconds").toLongLong();
     options.saveProject = !m_completionActions.saveProjectPath.empty();
     options.exportAudio = !m_completionActions.exportAudioPath.empty();
-    options.quitAudacity = m_completionActions.quitAudacity;
+    options.quitAGu = m_completionActions.quitAGu;
     recordConfiguration()->setTimedRecordingOptions(options);
 
     if (!m_completionActions.exportAudioPath.empty()) {
@@ -188,14 +188,14 @@ void TimedRecordingScenario::onTick()
     } else if (m_state == State::Recording && tickedAt >= m_endTime) {
         stopRecording(Outcome::Completed);
     } else if (m_state == State::Quitting && tickedAt >= m_quitTime) {
-        quitAudacity();
+        quitAGu();
     }
 }
 
 void TimedRecordingScenario::startRecording()
 {
     if (recordController()->isRecording()) {
-        failToStart(muse::trc("record", "Audacity was already recording."));
+        failToStart(muse::trc("record", "AGu was already recording."));
         return;
     }
 
@@ -315,7 +315,7 @@ void TimedRecordingScenario::scheduleCompletionActions()
     });
 }
 
-void TimedRecordingScenario::runCompletionActions(const project::IAudacityProjectPtr& project, const CompletionActions& actions)
+void TimedRecordingScenario::runCompletionActions(const project::IAGuProjectPtr& project, const CompletionActions& actions)
 {
     if (!project || project != globalContext()->currentProject()) {
         return;
@@ -336,12 +336,12 @@ void TimedRecordingScenario::runCompletionActions(const project::IAudacityProjec
         succeeded = false;
     }
 
-    if (actions.quitAudacity && succeeded) {
+    if (actions.quitAGu && succeeded) {
         beginQuitCountdown();
     }
 }
 
-bool TimedRecordingScenario::exportAudio(const project::IAudacityProjectPtr& project, const muse::io::path_t& path,
+bool TimedRecordingScenario::exportAudio(const project::IAGuProjectPtr& project, const muse::io::path_t& path,
                                          const std::string& format)
 {
     importexport::IExporter::Options options;
@@ -371,7 +371,7 @@ void TimedRecordingScenario::beginQuitCountdown()
     m_ticker.start();
 }
 
-void TimedRecordingScenario::quitAudacity()
+void TimedRecordingScenario::quitAGu()
 {
     m_ticker.stop();
     setState(State::Idle);

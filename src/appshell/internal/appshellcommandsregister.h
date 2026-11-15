@@ -5,7 +5,7 @@
 
 #include "framework/rcommand/imodulecommandsregister.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 class AppShellCommandsRegister : public muse::rcommand::IModuleCommandsRegister
 {
 public:

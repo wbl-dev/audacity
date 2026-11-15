@@ -6,7 +6,7 @@
 
 #include "modularity/imodulesetup.h"
 
-namespace au::effects {
+namespace agu::effects {
 class BuiltinEffectsLoader;
 class BuiltinEffectsScanner;
 class BuiltinEffectsMetaReader;

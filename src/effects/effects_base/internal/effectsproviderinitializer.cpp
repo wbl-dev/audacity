@@ -3,7 +3,7 @@
  */
 #include "effectsproviderinitializer.h"
 
-namespace au::effects {
+namespace agu::effects {
 void EffectsProviderInitializer::setStartupPluginValidationPolicy(StartupPluginValidationPolicy policy)
 {
     m_validationPolicy = policy;
@@ -18,4 +18,4 @@ void EffectsProviderInitializer::callAfterSplashScreen()
     effectsProvider()->initOnce(iocContext(), *interactive(), *registerAudioPluginsScenario(), m_validationPolicy);
     effectsProviderInitialized = true;
 }
-} // namespace au::effects
+} // namespace agu::effects

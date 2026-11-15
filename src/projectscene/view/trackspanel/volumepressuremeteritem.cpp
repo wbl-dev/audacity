@@ -9,9 +9,9 @@
 
 #include "playback/playbacktypes.h"
 
-using au::playback::PlaybackMeterStyle;
+using agu::playback::PlaybackMeterStyle;
 
-namespace au::projectscene {
+namespace agu::projectscene {
 namespace {
 void buildRoundedRectPath(QPainterPath& path, qreal x, qreal y, qreal w, qreal h, qreal radius, bool roundTop, bool roundBottom)
 {

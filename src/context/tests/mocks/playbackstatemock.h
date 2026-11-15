@@ -7,7 +7,7 @@
 
 #include "context/iplaybackstate.h"
 
-namespace au::context {
+namespace agu::context {
 class PlaybackStateMock : public IPlaybackState
 {
 public:

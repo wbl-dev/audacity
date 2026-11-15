@@ -10,7 +10,7 @@
 
 #include "au3-vst3/VST3EffectsModule.h"
 
-namespace au::effects {
+namespace agu::effects {
 class Vst3PluginsScanner : public Au3AudioPluginScanner
 {
     muse::GlobalInject<effects::IEffectsConfiguration> effectsConfiguration;

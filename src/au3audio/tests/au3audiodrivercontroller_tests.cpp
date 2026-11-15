@@ -8,7 +8,7 @@
 
 #include "context/tests/mocks/globalcontextmock.h"
 #include "global/tests/mocks/applicationmock.h"
-#include "project/tests/mocks/audacityprojectmock.h"
+#include "project/tests/mocks/aguprojectmock.h"
 
 #include "audio/iaudiostreamsuspender.h"
 #include "mocks/audioenginemock.h"
@@ -18,7 +18,7 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-namespace au::au3audio {
+namespace agu::au3audio {
 namespace {
 struct SuspensionState {
     int suspendCalls = 0;
@@ -63,8 +63,8 @@ public:
 
         m_ownerGlobalContext = std::make_shared<NiceMock<context::GlobalContextMock> >();
         m_requesterGlobalContext = std::make_shared<NiceMock<context::GlobalContextMock> >();
-        m_ownerProject = std::make_shared<NiceMock<project::AudacityProjectMock> >();
-        m_requesterProject = std::make_shared<NiceMock<project::AudacityProjectMock> >();
+        m_ownerProject = std::make_shared<NiceMock<project::AGuProjectMock> >();
+        m_requesterProject = std::make_shared<NiceMock<project::AGuProjectMock> >();
 
         ON_CALL(*m_ownerProject, au3ProjectPtr())
         .WillByDefault(Return(reinterpret_cast<uintptr_t>(&m_ownerProjectStorage)));
@@ -117,8 +117,8 @@ public:
     muse::modularity::ContextPtr m_requesterContext;
     std::shared_ptr<NiceMock<context::GlobalContextMock> > m_ownerGlobalContext;
     std::shared_ptr<NiceMock<context::GlobalContextMock> > m_requesterGlobalContext;
-    std::shared_ptr<NiceMock<project::AudacityProjectMock> > m_ownerProject;
-    std::shared_ptr<NiceMock<project::AudacityProjectMock> > m_requesterProject;
+    std::shared_ptr<NiceMock<project::AGuProjectMock> > m_ownerProject;
+    std::shared_ptr<NiceMock<project::AGuProjectMock> > m_requesterProject;
     std::shared_ptr<TestSuspender> m_ownerSuspender;
     std::shared_ptr<TestSuspender> m_requesterSuspender;
     SuspensionState m_ownerSuspension;

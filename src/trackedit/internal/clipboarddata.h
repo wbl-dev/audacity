@@ -5,7 +5,7 @@
 
 #include "trackedit/iclipboarddata.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class ClipboardData : public IClipboardData
 {
 public:

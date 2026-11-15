@@ -20,15 +20,15 @@
 #include "trackedit/iselectioncontroller.h"
 #include "trackedit/internal/itracknavigationcontroller.h"
 
-namespace au::record {
+namespace agu::record {
 class Au3AudioInput : public IAudioInput, public muse::async::Asyncable, public muse::Contextable
 {
     muse::GlobalInject<record::IRecordConfiguration> configuration;
-    muse::GlobalInject<au::audio::IAudioEngine> audioEngine;
+    muse::GlobalInject<agu::audio::IAudioEngine> audioEngine;
     muse::GlobalInject<record::IRecordMeterController> meterController;
     muse::GlobalInject<audio::IAudioDriverController> audioDriverController;
 
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
     muse::ContextInject<playback::IPlaybackController> playbackController{ this };
     muse::ContextInject<record::IRecordController> controller{ this };
     muse::ContextInject<trackedit::ISelectionController> selectionController{ this };
@@ -42,7 +42,7 @@ public:
     muse::async::Channel<float> recordVolumeChanged() const override;
 
     muse::async::Channel<audio::audioch_t, audio::MeterSignal> recordSignalChanges() const override;
-    muse::async::Channel<audio::audioch_t, au::audio::MeterSignal> recordTrackSignalChanges(int64_t key) const override;
+    muse::async::Channel<audio::audioch_t, agu::audio::MeterSignal> recordTrackSignalChanges(int64_t key) const override;
 
 private:
     au3::Au3Project* projectRef() const;
@@ -58,7 +58,7 @@ private:
     bool audioEngineShouldBeMonitoring() const;
 
     mutable muse::async::Channel<float> m_recordVolumeChanged;
-    const std::shared_ptr<au::au3::Au3AudioMeter> m_inputMeter;
+    const std::shared_ptr<agu::au3::Au3AudioMeter> m_inputMeter;
     int m_inputChannelsCount{};
     int m_focusedTrackChannels{};
 };

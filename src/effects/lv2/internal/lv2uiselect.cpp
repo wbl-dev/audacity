@@ -9,7 +9,7 @@
 
 #include "lv2/ui/ui.h"
 
-namespace au::effects {
+namespace agu::effects {
 namespace {
 unsigned uiIsSupported(const char* hostTypeUri, const char* uiTypeUri)
 {

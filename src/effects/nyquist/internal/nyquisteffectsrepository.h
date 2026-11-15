@@ -12,7 +12,7 @@
 
 #include "au3-nyquist-effects/LoadNyquist.h"
 
-namespace au::effects {
+namespace agu::effects {
 class NyquistEffectsRepository : public muse::async::Asyncable
 {
     muse::GlobalInject<muse::audioplugins::IKnownAudioPluginsRegister> knownPlugins;

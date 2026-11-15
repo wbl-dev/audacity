@@ -10,4 +10,4 @@
 //! implementation needed by Au3ProjectAccessor.
 static muse::testing::SuiteEnvironment au3audio_se
     = muse::testing::SuiteEnvironment()
-      .setDependencyModules({ new au::au3::Au3WrapModule(), });
+      .setDependencyModules({ new agu::au3::Au3WrapModule(), });

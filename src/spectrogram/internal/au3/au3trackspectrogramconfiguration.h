@@ -10,11 +10,11 @@
 class AudacityProject;
 class WaveTrack;
 
-namespace au::context {
+namespace agu::context {
 class IGlobalContext;
 }
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class Au3SpectrogramSettings;
 
 class Au3TrackSpectrogramConfiguration final : public ITrackSpectrogramConfiguration

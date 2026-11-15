@@ -17,7 +17,7 @@
 class TrackList;
 using TrackHolders = std::vector<std::shared_ptr<Track> >;
 
-namespace au::au3 {
+namespace agu::au3 {
 struct Au3ProjectData;
 class Au3ProjectAccessor : public IAu3Project
 {

@@ -11,11 +11,11 @@
 
 #include "automation/iclipgaininteraction.h"
 
-namespace au::automation {
+namespace agu::automation {
 class Au3ClipGainInteraction : public IClipGainInteraction, public muse::Contextable
 {
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
-    muse::ContextInject<au::trackedit::IProjectHistory> projectHistory{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::trackedit::IProjectHistory> projectHistory{ this };
 
 public:
     Au3ClipGainInteraction(const muse::modularity::ContextPtr& ctx);
@@ -33,7 +33,7 @@ public:
 private:
     au3::Au3Project& projectRef() const;
 
-    muse::async::Channel<au::trackedit::ClipKey, bool> m_clipEnvelopeChanged;
+    muse::async::Channel<agu::trackedit::ClipKey, bool> m_clipEnvelopeChanged;
     std::optional<AutomationDragSession> m_envDrag;
 };
 }

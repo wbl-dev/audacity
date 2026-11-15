@@ -11,7 +11,7 @@
 #include "macromanager/imacrorunner.h"
 #include "macromanager/irunonfilesrequests.h"
 
-namespace au::macromanager {
+namespace agu::macromanager {
 class RunOnFilesStarter : public muse::Contextable, public muse::async::Asyncable
 {
     muse::GlobalInject<IRunOnFilesRequests> requests;

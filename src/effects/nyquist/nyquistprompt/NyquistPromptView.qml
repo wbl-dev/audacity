@@ -7,9 +7,9 @@ import QtQuick.Layouts
 import Muse.Ui
 import Muse.UiComponents
 
-import Audacity.Effects
-import Audacity.BuiltinEffects
-import Audacity.Nyquist
+import AGu.Effects
+import AGu.BuiltinEffects
+import AGu.Nyquist
 
 BuiltinEffectBase {
     id: root

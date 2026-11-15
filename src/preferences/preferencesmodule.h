@@ -2,7 +2,7 @@
 
 #include "modularity/imodulesetup.h"
 
-namespace au::preferences {
+namespace agu::preferences {
 class PreferencesModule : public muse::modularity::IModuleSetup
 {
 public:

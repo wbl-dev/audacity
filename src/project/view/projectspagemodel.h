@@ -32,7 +32,7 @@
 
 class QString;
 
-namespace au::project {
+namespace agu::project {
 class ProjectsPageModel : public QObject, public muse::Contextable
 {
     Q_OBJECT

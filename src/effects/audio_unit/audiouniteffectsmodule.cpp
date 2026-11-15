@@ -16,22 +16,22 @@
 
 static const std::string mname("effects_audiounit");
 
-au::effects::AudioUnitEffectsModule::AudioUnitEffectsModule()
+agu::effects::AudioUnitEffectsModule::AudioUnitEffectsModule()
     : m_metaReader(std::make_shared<AudioUnitPluginsMetaReader>()), m_effectLoader(std::make_shared<AudioUnitEffectLoader>()),
     m_pluginsScanner(std::make_shared<AudioUnitPluginsScanner>())
 {
 }
 
-std::string au::effects::AudioUnitEffectsModule::moduleName() const
+std::string agu::effects::AudioUnitEffectsModule::moduleName() const
 {
     return mname;
 }
 
-void au::effects::AudioUnitEffectsModule::registerExports()
+void agu::effects::AudioUnitEffectsModule::registerExports()
 {
 }
 
-void au::effects::AudioUnitEffectsModule::resolveImports()
+void agu::effects::AudioUnitEffectsModule::resolveImports()
 {
     auto scannerRegister = globalIoc()->resolve<muse::audioplugins::IAudioPluginsScannerRegister>(mname);
     if (scannerRegister) {
@@ -49,21 +49,21 @@ void au::effects::AudioUnitEffectsModule::resolveImports()
     }
 }
 
-void au::effects::AudioUnitEffectsModule::onInit(const muse::IApplication::RunMode& mode)
+void agu::effects::AudioUnitEffectsModule::onInit(const muse::IApplication::RunMode& mode)
 {
     m_metaReader->init();
     m_effectLoader->init();
     m_pluginsScanner->init(mode);
 }
 
-void au::effects::AudioUnitEffectsModule::onDeinit()
+void agu::effects::AudioUnitEffectsModule::onDeinit()
 {
     m_effectLoader->deinit();
     m_pluginsScanner->deinit();
     m_metaReader->deinit();
 }
 
-muse::modularity::IContextSetup* au::effects::AudioUnitEffectsModule::newContext(const muse::modularity::ContextPtr& ctx) const
+muse::modularity::IContextSetup* agu::effects::AudioUnitEffectsModule::newContext(const muse::modularity::ContextPtr& ctx) const
 {
     return new AudioUnitEffectsContext(ctx);
 }
@@ -72,11 +72,11 @@ muse::modularity::IContextSetup* au::effects::AudioUnitEffectsModule::newContext
 // AudioUnitEffectsContext
 // =====================================================
 
-void au::effects::AudioUnitEffectsContext::registerExports()
+void agu::effects::AudioUnitEffectsContext::registerExports()
 {
 }
 
-void au::effects::AudioUnitEffectsContext::resolveImports()
+void agu::effects::AudioUnitEffectsContext::resolveImports()
 {
     auto launchRegister = ioc()->resolve<IEffectViewLaunchRegister>(mname);
     if (launchRegister) {
@@ -84,6 +84,6 @@ void au::effects::AudioUnitEffectsContext::resolveImports()
     }
 }
 
-void au::effects::AudioUnitEffectsContext::onDeinit()
+void agu::effects::AudioUnitEffectsContext::onDeinit()
 {
 }

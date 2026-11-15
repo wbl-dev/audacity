@@ -7,7 +7,7 @@
 #include <lv2/ui/ui.h>
 #include <suil/suil.h>
 
-namespace au::effects {
+namespace agu::effects {
 class X11IdleUi : public ILv2IdleUi
 {
 public:

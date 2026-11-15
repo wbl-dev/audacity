@@ -5,4 +5,4 @@ target_sources(effects_audio_unit PRIVATE
     audiouniteffectsstubmodule.h
 )
 
-add_subdirectory(qml/Audacity/AudioUnit)
+add_subdirectory(qml/AGu/AudioUnit)

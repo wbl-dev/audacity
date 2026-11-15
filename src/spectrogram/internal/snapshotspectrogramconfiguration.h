@@ -7,7 +7,7 @@
 
 #include <cassert>
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class SnapshotSpectrogramConfiguration final : public ITrackSpectrogramConfiguration
 {
 public:

@@ -9,7 +9,7 @@
 
 #include <algorithm>
 
-using namespace au::effects;
+using namespace agu::effects;
 
 namespace {
 // The parameter itself has no upper bound, but a knob needs one.

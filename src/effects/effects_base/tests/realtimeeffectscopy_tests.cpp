@@ -11,7 +11,7 @@
 #include "au3-realtime-effects/RealtimeEffectList.h"
 #include "au3-realtime-effects/RealtimeEffectState.h"
 
-namespace au::effects {
+namespace agu::effects {
 TEST(Effects_RealtimeEffectsCopyTests, EmptyCopyRefSharesStatesAndDeepCopiesThem)
 {
     RealtimeEffectState::EffectFactory::Scope factoryScope {

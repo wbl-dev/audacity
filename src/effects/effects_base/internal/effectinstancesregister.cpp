@@ -7,7 +7,7 @@
 #include "au3-components/EffectInterface.h"
 #include "au3-effects/EffectPlugin.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 EffectInstanceId EffectInstancesRegister::regInstance(const EffectId& effectId, const std::shared_ptr<EffectInstance>& i,
                                                       EffectSettingsAccessPtr s)
@@ -59,7 +59,7 @@ EffectInstanceId EffectInstancesRegister::instanceIdOf(const std::shared_ptr<Eff
     return EffectInstanceId();
 }
 
-std::shared_ptr<au::effects::EffectInstance> EffectInstancesRegister::instanceById(const EffectInstanceId& instanceId) const
+std::shared_ptr<agu::effects::EffectInstance> EffectInstancesRegister::instanceById(const EffectInstanceId& instanceId) const
 {
     auto it = m_data.find(instanceId);
     if (it != m_data.end()) {

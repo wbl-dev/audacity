@@ -12,12 +12,12 @@
 #include "framework/global/progress.h"
 #include "framework/global/types/val.h"
 
-#include "project/iaudacityproject.h"
+#include "project/iaguproject.h"
 
 #include "types/exporttypes.h"
 #include "types/ret.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 using ExportParameters = std::vector<std::tuple<int, OptionValue> >;
 
 class IExporter : MODULE_EXPORT_INTERFACE
@@ -44,7 +44,7 @@ public:
 
     virtual void init() = 0;
     virtual muse::Ret exportData(const muse::io::path_t& path, const Options& options = {}, muse::ProgressPtr progress = nullptr,
-                                 au::project::IAudacityProjectPtr project = nullptr) = 0;
+                                 agu::project::IAGuProjectPtr project = nullptr) = 0;
 
     virtual muse::Ret prepareSeparateFiles(const Options& options = {}) = 0;
     virtual std::vector<std::string> separateFileNames() const = 0;

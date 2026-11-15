@@ -1,6 +1,6 @@
-# OnlyAudios
+# AGu
 
-OnlyAudios is a local Audacity 4 based audio editor. The application and its
+AGu is a local Audacity 4 based audio editor. The application and its
 feature modules are in `src/`. The retained engine code in `au3/libraries/` and
 `au3/modules/import-export/` supports recording, editing, effects, and local
 project and media import/export. The Audacity 3 application source is not part

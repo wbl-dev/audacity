@@ -10,7 +10,7 @@
 
 #include "framework/global/modularity/ioc.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class SpectrogramService final : public ISpectrogramService, public muse::Contextable
 {
     muse::GlobalInject<IGlobalSpectrogramConfiguration> globalSpectrogramConfiguration;

@@ -3,7 +3,7 @@
 */
 #include "playbacktoolbarbpmitem.h"
 
-using namespace au::playback;
+using namespace agu::playback;
 
 PlaybackToolBarBPMItem::PlaybackToolBarBPMItem(const muse::rcommand::CommandInfo& info,
                                                muse::uicomponents::ToolBarItemType::Type type,
@@ -69,7 +69,7 @@ void PlaybackToolBarBPMItem::updateValues()
     emit currentValueChanged();
 }
 
-au::context::IPlaybackStatePtr PlaybackToolBarBPMItem::playbackState() const
+agu::context::IPlaybackStatePtr PlaybackToolBarBPMItem::playbackState() const
 {
     return globalContext()->playbackState();
 }

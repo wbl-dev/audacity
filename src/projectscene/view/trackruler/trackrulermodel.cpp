@@ -13,7 +13,7 @@
 
 #include "trackrulermodel.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 TrackRulerModel::TrackRulerModel(QObject* parent)
     : QObject(parent), muse::Contextable(muse::iocCtxForQmlObject(this))
@@ -22,7 +22,7 @@ TrackRulerModel::TrackRulerModel(QObject* parent)
 
 IProjectViewStatePtr TrackRulerModel::viewState() const
 {
-    au::project::IAudacityProjectPtr prj = globalContext()->currentProject();
+    agu::project::IAGuProjectPtr prj = globalContext()->currentProject();
     return prj ? prj->viewState() : nullptr;
 }
 
@@ -32,9 +32,9 @@ void TrackRulerModel::init()
         m_model = buildRulerModel();
     }
 
-    m_model->setDbRange(au::playback::PlaybackMeterDbRange::toDouble(configuration()->playbackMeterDbRange()));
+    m_model->setDbRange(agu::playback::PlaybackMeterDbRange::toDouble(configuration()->playbackMeterDbRange()));
     configuration()->playbackMeterDbRangeChanged().onNotify(this, [this]() {
-        m_model->setDbRange(au::playback::PlaybackMeterDbRange::toDouble(configuration()->playbackMeterDbRange()));
+        m_model->setDbRange(agu::playback::PlaybackMeterDbRange::toDouble(configuration()->playbackMeterDbRange()));
         emit fullStepsChanged();
         emit smallStepsChanged();
     });
@@ -210,7 +210,7 @@ int TrackRulerModel::rulerType() const
 {
     const auto prjViewState = viewState();
     if (prjViewState == nullptr) {
-        return static_cast<int>(au::trackedit::TrackRulerType::Linear);
+        return static_cast<int>(agu::trackedit::TrackRulerType::Linear);
     }
 
     return prjViewState->trackRulerType(m_trackId).val;
@@ -238,15 +238,15 @@ void TrackRulerModel::setRulerType(int rulerType)
 QVariant TrackRulerModel::availableRulerTypes() const
 {
     return QVariant::fromValue(QList<QMap<QString, QVariant> > {
-        { { "label", "Logarithmic (dB)" }, { "value", static_cast<int>(au::trackedit::TrackRulerType::DbLog) } },
-        { { "label", "Linear (dB)" }, { "value", static_cast<int>(au::trackedit::TrackRulerType::DbLinear) } },
-        { { "label", "Linear (amp)" }, { "value", static_cast<int>(au::trackedit::TrackRulerType::Linear) } },
+        { { "label", "Logarithmic (dB)" }, { "value", static_cast<int>(agu::trackedit::TrackRulerType::DbLog) } },
+        { { "label", "Linear (dB)" }, { "value", static_cast<int>(agu::trackedit::TrackRulerType::DbLinear) } },
+        { { "label", "Linear (amp)" }, { "value", static_cast<int>(agu::trackedit::TrackRulerType::Linear) } },
     });
 }
 
 bool TrackRulerModel::isRulerTypeLinear() const
 {
-    return rulerType() != static_cast<int>(au::trackedit::TrackRulerType::DbLog);
+    return rulerType() != static_cast<int>(agu::trackedit::TrackRulerType::DbLog);
 }
 
 QVariant TrackRulerModel::displayBounds() const
@@ -298,7 +298,7 @@ std::shared_ptr<ITrackRuler> TrackRulerModel::buildRulerModel()
     model->setHeight(m_height);
     model->setChannelHeightRatio(m_channelHeightRatio);
     model->setCollapsed(m_isCollapsed);
-    model->setDbRange(au::playback::PlaybackMeterDbRange::toDouble(configuration()->playbackMeterDbRange()));
+    model->setDbRange(agu::playback::PlaybackMeterDbRange::toDouble(configuration()->playbackMeterDbRange()));
 
     const auto prjViewState = viewState();
     if (prjViewState != nullptr) {
@@ -412,7 +412,7 @@ void TrackRulerModel::setTrackId(const trackedit::TrackId& newTrackId)
     }
 }
 
-au::trackedit::TrackId TrackRulerModel::trackId() const
+agu::trackedit::TrackId TrackRulerModel::trackId() const
 {
     return m_trackId;
 }

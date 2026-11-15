@@ -3,8 +3,8 @@
 */
 #include "trackviewstatemodel.h"
 
-using namespace au::projectscene;
-using namespace au::project;
+using namespace agu::projectscene;
+using namespace agu::project;
 
 TrackViewStateModel::TrackViewStateModel(QObject* parent)
     : QObject(parent), muse::Contextable(muse::iocCtxForQmlObject(this))
@@ -13,7 +13,7 @@ TrackViewStateModel::TrackViewStateModel(QObject* parent)
 
 IProjectViewStatePtr TrackViewStateModel::viewState() const
 {
-    IAudacityProjectPtr prj = globalContext()->currentProject();
+    IAGuProjectPtr prj = globalContext()->currentProject();
     return prj ? prj->viewState() : nullptr;
 }
 
@@ -164,7 +164,7 @@ bool TrackViewStateModel::isLinear() const
     }
 
     const auto rulerType = prjViewState->trackRulerType(m_trackId).val;
-    return rulerType != static_cast<int>(au::trackedit::TrackRulerType::DbLog);
+    return rulerType != static_cast<int>(agu::trackedit::TrackRulerType::DbLog);
 }
 
 bool TrackViewStateModel::isPlaying() const
@@ -177,7 +177,7 @@ bool TrackViewStateModel::isRecording() const
     return recordController()->isRecording();
 }
 
-au::playback::PlaybackMeterModel* TrackViewStateModel::meterModel() const
+agu::playback::PlaybackMeterModel* TrackViewStateModel::meterModel() const
 {
     return m_meterModel;
 }

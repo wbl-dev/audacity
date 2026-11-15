@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.agu.app</id>
+  <launchable type="desktop-id">org.agu.app@MUSE_APP_INSTALL_SUFFIX@.desktop</launchable>
+  <project_license>GPL-3.0-only</project_license>
+  <metadata_license>CC0-1.0</metadata_license>
+  <name>AGu</name>
+  <summary>Record and edit audio</summary>
+  <description>
+    <p>AGu is a desktop audio editor for recording, editing, mixing, and exporting audio.</p>
+  </description>
+  <categories>
+    <category>AudioVideo</category>
+    <category>Audio</category>
+  </categories>
+  <content_rating type="oars-1.1" />
+</component>

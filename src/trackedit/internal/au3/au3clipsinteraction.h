@@ -20,17 +20,17 @@
 
 #include "trackedit/iclipsinteraction.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class Au3TrackData;
 using Au3TrackDataPtr = std::shared_ptr<Au3TrackData>;
 
 class Au3ClipsInteraction : public IClipsInteraction, public muse::Contextable
 {
-    muse::GlobalInject<au::trackedit::ITrackeditConfiguration> configuration;
+    muse::GlobalInject<agu::trackedit::ITrackeditConfiguration> configuration;
 
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
-    muse::ContextInject<au::trackedit::ISelectionController> selectionController{ this };
-    muse::ContextInject<au::trackedit::IProjectHistory> projectHistory{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::trackedit::ISelectionController> selectionController{ this };
+    muse::ContextInject<agu::trackedit::IProjectHistory> projectHistory{ this };
     muse::ContextInject<muse::IInteractive> interactive{ this };
     muse::ContextInject<automation::IClipGainInteraction> clipGainInteraction{ this };
 

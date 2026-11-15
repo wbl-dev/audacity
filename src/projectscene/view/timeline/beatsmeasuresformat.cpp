@@ -6,7 +6,7 @@
 
 #include "beatsmeasuresformat.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 IntervalInfo BeatsMeasuresFormat::intervalInfo(TimelineContext* context)
 {

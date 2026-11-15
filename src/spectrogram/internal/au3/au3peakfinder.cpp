@@ -8,7 +8,7 @@
 
 #include "au3-math/SampleCount.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 Au3PeakFinder::Au3PeakFinder(const ::WaveTrack& track, int channel, double startTime, double endTime)
 {
     const auto& settings = Au3SpectrogramSettings::Get(track);

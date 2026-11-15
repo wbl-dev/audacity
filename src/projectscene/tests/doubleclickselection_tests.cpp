@@ -12,7 +12,7 @@
 #include "global/tests/mocks/applicationmock.h"
 #include "context/tests/mocks/globalcontextmock.h"
 #include "context/tests/mocks/playbackstatemock.h"
-#include "project/tests/mocks/audacityprojectmock.h"
+#include "project/tests/mocks/aguprojectmock.h"
 #include "playback/tests/mocks/playbackmock.h"
 #include "spectrogram/tests/mocks/globalspectrogramconfigurationmock.h"
 #include "spectrogram/tests/mocks/frequencyselectioncontrollermock.h"
@@ -24,7 +24,7 @@
 
 using namespace ::testing;
 
-namespace au::projectscene {
+namespace agu::projectscene {
 //! Two 50px high tracks sit at the top of the view: label track 1 spans 0..50px, audio track 2 spans 50..100px
 class DoubleClickSelectionTests : public ::testing::Test
 {
@@ -32,7 +32,7 @@ protected:
     void SetUp() override
     {
         m_globalContext = std::make_shared<NiceMock<context::GlobalContextMock> >();
-        m_project = std::make_shared<NiceMock<project::AudacityProjectMock> >();
+        m_project = std::make_shared<NiceMock<project::AGuProjectMock> >();
         m_trackeditProject = std::make_shared<NiceMock<trackedit::TrackeditProjectMock> >();
         m_selectionController = std::make_shared<NiceMock<trackedit::SelectionControllerMock> >();
         m_trackNavigationController = std::make_shared<NiceMock<trackedit::TrackNavigationControllerMock> >();
@@ -100,7 +100,7 @@ protected:
     static constexpr double AUDIO_TRACK_Y = 70.0;
 
     std::shared_ptr<NiceMock<context::GlobalContextMock> > m_globalContext;
-    std::shared_ptr<NiceMock<project::AudacityProjectMock> > m_project;
+    std::shared_ptr<NiceMock<project::AGuProjectMock> > m_project;
     std::shared_ptr<NiceMock<trackedit::TrackeditProjectMock> > m_trackeditProject;
     std::shared_ptr<NiceMock<trackedit::SelectionControllerMock> > m_selectionController;
     std::shared_ptr<NiceMock<trackedit::TrackNavigationControllerMock> > m_trackNavigationController;

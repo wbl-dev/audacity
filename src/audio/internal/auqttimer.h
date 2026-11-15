@@ -6,7 +6,7 @@
 #include "itimer.h"
 #include <QTimer>
 
-namespace au {
+namespace agu {
 class AuQtTimer : public ITimer
 {
 public:

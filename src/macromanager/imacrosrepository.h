@@ -15,7 +15,7 @@
 
 #include "macromanagertypes.h"
 
-namespace au::macromanager {
+namespace agu::macromanager {
 class IMacrosRepository : MODULE_GLOBAL_INTERFACE
 {
     INTERFACE_ID(IMacrosRepository)

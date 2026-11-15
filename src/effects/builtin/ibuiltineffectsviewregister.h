@@ -7,7 +7,7 @@
 
 #include "modularity/imoduleinterface.h"
 
-namespace au::effects {
+namespace agu::effects {
 class IBuiltinEffectsViewRegister : MODULE_GLOBAL_INTERFACE
 {
     INTERFACE_ID(IBuiltinEffectsViewRegister)

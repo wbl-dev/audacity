@@ -8,7 +8,7 @@
 
 #include "../iexportconfiguration.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class ExportConfiguration : public IExportConfiguration
 {
     muse::GlobalInject<muse::IGlobalConfiguration> globalConfiguration;

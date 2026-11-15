@@ -8,10 +8,10 @@
 #include "au3wrap/au3types.h"
 #include "WaveMetrics.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class SamplesPainter : public ISamplesPainter, public muse::Contextable
 {
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
 
 public:
     SamplesPainter(const muse::modularity::ContextPtr& ctx)

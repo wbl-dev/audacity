@@ -13,7 +13,7 @@
 
 #include "effectstypes.h"
 
-namespace au::effects {
+namespace agu::effects {
 class IEffectExecutionScenario : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IEffectExecutionScenario)

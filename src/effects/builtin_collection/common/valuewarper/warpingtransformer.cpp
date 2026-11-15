@@ -8,7 +8,7 @@
 
 #include <cmath>
 
-namespace au::effects {
+namespace agu::effects {
 namespace {
 struct Normalized {
     Normalized(double v, double min, double max)

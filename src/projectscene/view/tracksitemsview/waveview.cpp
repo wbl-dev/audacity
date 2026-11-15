@@ -16,7 +16,7 @@
 #include "view/timeline/timelinecontext.h"
 #include "view/common/selectioncolor.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 static const QColor BACKGROUND_COLOR = QColor(255, 255, 255);
 static const QColor SAMPLES_BASE_COLOR = QColor(0, 0, 0);
@@ -641,7 +641,7 @@ void WaveView::pushProjectHistorySampleEdit()
                                        trackedit::UndoPushType::CONSOLIDATE);
 }
 
-au::context::IPlaybackStatePtr WaveView::playbackState() const
+agu::context::IPlaybackStatePtr WaveView::playbackState() const
 {
     return globalContext()->playbackState();
 }

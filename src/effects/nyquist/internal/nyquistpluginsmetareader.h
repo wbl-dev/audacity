@@ -7,7 +7,7 @@
 
 #include "au3-nyquist-effects/LoadNyquist.h"
 
-namespace au::effects {
+namespace agu::effects {
 class NyquistPluginsMetaReader : public Au3AudioPluginMetaReader
 {
 public:

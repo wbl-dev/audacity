@@ -56,7 +56,7 @@ target_link_libraries(record PRIVATE
         au3-wave-track
 )
 
-add_subdirectory(qml/Audacity/Record)
+add_subdirectory(qml/AGu/Record)
 
 if (AU_BUILD_RECORD_TESTS)
     add_subdirectory(tests)

@@ -5,7 +5,7 @@
 
 #include "framework/rcommand/imodulecommandsregister.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class ProjectSceneCommandsRegister : public muse::rcommand::IModuleCommandsRegister
 {
 public:

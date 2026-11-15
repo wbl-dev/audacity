@@ -2,7 +2,7 @@
 
 #include "framework/global/types/number.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 std::shared_ptr<::EffectInstance> BassTrebleEffect::MakeInstance() const
 {

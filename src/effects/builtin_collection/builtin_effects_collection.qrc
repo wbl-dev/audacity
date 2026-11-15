@@ -1,11 +1,11 @@
 <RCC>
     <qresource prefix="/">
-        <file>qml/Audacity/BuiltinEffectsCollection/qmldir</file>
-        <file>qml/Audacity/BuiltinEffectsCollection/DynamicsEffectBase.qml</file>
-        <file>qml/Audacity/BuiltinEffectsCollection/SliderWithTextInput.qml</file>
-        <file>qml/Audacity/BuiltinEffectsCollection/ParameterKnob.qml</file>
-        <file>qml/Audacity/BuiltinEffectsCollection/BigParameterKnob.qml</file>
-        <file>qml/Audacity/BuiltinEffectsCollection/SettingKnob.qml</file>
+        <file>qml/AGu/BuiltinEffectsCollection/qmldir</file>
+        <file>qml/AGu/BuiltinEffectsCollection/DynamicsEffectBase.qml</file>
+        <file>qml/AGu/BuiltinEffectsCollection/SliderWithTextInput.qml</file>
+        <file>qml/AGu/BuiltinEffectsCollection/ParameterKnob.qml</file>
+        <file>qml/AGu/BuiltinEffectsCollection/BigParameterKnob.qml</file>
+        <file>qml/AGu/BuiltinEffectsCollection/SettingKnob.qml</file>
 
         <file>amplify/AmplifyView.qml</file>
         <file>autoduck/AutoDuckView.qml</file>

@@ -8,7 +8,7 @@
 #include "framework/global/modularity/ioc.h"
 #include "framework/global/async/channel.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 /**
  * @brief Models Audacity's frequency selection.
  *

@@ -8,12 +8,12 @@
 #include <optional>
 #include <variant>
 
-namespace au::record {
+namespace agu::record {
 struct TimedRecordingOptions {
     int64_t durationSeconds = 60 * 60;
     bool saveProject = false;
     bool exportAudio = false;
-    bool quitAudacity = false;
+    bool quitAGu = false;
 };
 
 struct TimedRecordingSchedule {

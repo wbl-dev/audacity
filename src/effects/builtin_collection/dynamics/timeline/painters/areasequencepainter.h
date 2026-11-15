@@ -5,7 +5,7 @@
 
 #include <vector>
 
-namespace au::effects {
+namespace agu::effects {
 class AreaSequencePainter : public AbstractSequencePainter
 {
 public:
@@ -19,4 +19,4 @@ private:
     const double m_viewportHeight;
     std::vector<QSGGeometry::Point2D> m_buffer;
 };
-} // namespace au::effects
+} // namespace agu::effects

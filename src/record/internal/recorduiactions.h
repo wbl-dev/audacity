@@ -12,7 +12,7 @@
 
 #include "recordcontroller.h"
 
-namespace au::record {
+namespace agu::record {
 class RecordUiActions : public muse::ui::IUiActionsModule, public muse::async::Asyncable, public muse::Contextable
 {
     muse::ContextInject<context::IUiContextResolver> uicontextResolver{ this };

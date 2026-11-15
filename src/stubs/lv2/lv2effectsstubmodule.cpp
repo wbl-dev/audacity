@@ -8,7 +8,7 @@ static void lv2_init_qrc()
     Q_INIT_RESOURCE(lv2);
 }
 
-namespace au::effects {
+namespace agu::effects {
 std::string Lv2EffectsModule::moduleName() const
 {
     return "effects_lv2_stub";

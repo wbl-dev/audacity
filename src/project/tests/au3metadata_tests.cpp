@@ -6,7 +6,7 @@
 #include <gmock/gmock.h>
 
 #include "context/tests/mocks/globalcontextmock.h"
-#include "project/tests/mocks/audacityprojectmock.h"
+#include "project/tests/mocks/aguprojectmock.h"
 
 #include "project/internal/au3/au3metadata.h"
 
@@ -16,7 +16,7 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-namespace au::project {
+namespace agu::project {
 class Au3MetadataTests : public ::testing::Test
 {
 public:
@@ -45,8 +45,8 @@ protected:
     muse::modularity::ContextPtr m_ctx;
     const std::shared_ptr<NiceMock<context::GlobalContextMock> > m_globalContext
         = std::make_shared<NiceMock<context::GlobalContextMock> >();
-    const std::shared_ptr<NiceMock<AudacityProjectMock> > m_currentProject
-        = std::make_shared<NiceMock<AudacityProjectMock> >();
+    const std::shared_ptr<NiceMock<AGuProjectMock> > m_currentProject
+        = std::make_shared<NiceMock<AGuProjectMock> >();
     const std::shared_ptr<AudacityProject> m_au3Project = AudacityProject::Create();
     std::unique_ptr<Au3Metadata> m_metadata;
 };

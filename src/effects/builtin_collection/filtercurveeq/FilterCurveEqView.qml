@@ -2,10 +2,10 @@ import QtQuick
 import QtQuick.Controls
 import Muse.Ui
 import Muse.UiComponents
-import Audacity.Effects
-import Audacity.BuiltinEffects
-import Audacity.BuiltinEffectsCollection
-import Audacity.UiComponents
+import AGu.Effects
+import AGu.BuiltinEffects
+import AGu.BuiltinEffectsCollection
+import AGu.UiComponents
 
 BuiltinEffectBase {
     id: root

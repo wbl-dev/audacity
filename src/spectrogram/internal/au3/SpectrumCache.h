@@ -16,7 +16,7 @@ class sampleCount;
 class WaveClipChannel;
 using WaveChannelInterval = WaveClipChannel;
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class IClipChannelReader;
 
 using Floats = ArrayOf<float>;

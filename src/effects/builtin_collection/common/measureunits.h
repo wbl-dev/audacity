@@ -8,7 +8,7 @@
 
 #include "framework/global/translation.h"
 
-namespace au::effects {
+namespace agu::effects {
 /**
  * @brief Represents a measurement unit with symbol and full name
  */

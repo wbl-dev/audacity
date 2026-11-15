@@ -3,9 +3,9 @@
 #include "au3player.h"
 #include "au3audiooutput.h"
 
-using namespace au::playback;
+using namespace agu::playback;
 
-au::playback::IPlayerPtr Au3Playback::player(TrackSequenceId) const
+agu::playback::IPlayerPtr Au3Playback::player(TrackSequenceId) const
 {
     if (!m_player) {
         m_player = std::make_shared<Au3Player>(iocContext());
@@ -13,7 +13,7 @@ au::playback::IPlayerPtr Au3Playback::player(TrackSequenceId) const
     return m_player;
 }
 
-std::shared_ptr<au::playback::IAudioOutput> Au3Playback::audioOutput() const
+std::shared_ptr<agu::playback::IAudioOutput> Au3Playback::audioOutput() const
 {
     if (!m_audioOutput) {
         m_audioOutput = std::make_shared<Au3AudioOutput>(iocContext());

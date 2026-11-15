@@ -11,7 +11,7 @@
 #include "labelparserprofile.h"
 #include "types/ret.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class ILabelsConfiguration : MODULE_GLOBAL_INTERFACE
 {
     INTERFACE_ID(ILabelsConfiguration)

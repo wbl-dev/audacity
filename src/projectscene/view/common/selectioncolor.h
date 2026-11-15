@@ -5,6 +5,6 @@
 
 #include <QColor>
 
-namespace au::projectscene {
+namespace agu::projectscene {
 QColor timeSelectionColor(const QColor& originalColor);
 }

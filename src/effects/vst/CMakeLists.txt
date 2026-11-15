@@ -35,4 +35,4 @@ if (MUSE_MODULE_VST_QML)
     target_link_libraries(effects_vst PRIVATE muse::vst_qml)
 endif()
 
-add_subdirectory(qml/Audacity/Vst)
+add_subdirectory(qml/AGu/Vst)

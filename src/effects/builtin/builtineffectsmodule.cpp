@@ -14,7 +14,7 @@
 #include "framework/audioplugins/iaudiopluginsscannerregister.h"
 #include "framework/audioplugins/iaudiopluginmetareaderregister.h"
 
-namespace au::effects {
+namespace agu::effects {
 std::string BuiltinEffectsModule::moduleName() const
 {
     return "effects_builtin";

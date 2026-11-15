@@ -6,7 +6,7 @@
 
 #include "log.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 NoiseReductionViewModel::NoiseReductionViewModel(QObject* parent, int instanceId)
     : BuiltinEffectModel{parent, instanceId}

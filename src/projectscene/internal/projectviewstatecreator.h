@@ -5,10 +5,10 @@
 
 #include "../iprojectviewstatecreator.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class ProjectViewStateCreator : public IProjectViewStateCreator
 {
 public:
-    std::shared_ptr<IProjectViewState> createViewState(std::shared_ptr<au::au3::IAu3Project> project) const override;
+    std::shared_ptr<IProjectViewState> createViewState(std::shared_ptr<agu::au3::IAu3Project> project) const override;
 };
 }

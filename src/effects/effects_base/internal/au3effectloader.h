@@ -13,7 +13,7 @@
 
 class PluginProvider;
 
-namespace au::effects {
+namespace agu::effects {
 class Au3EffectLoader : public IEffectLoader
 {
 public:
@@ -37,4 +37,4 @@ private:
     const EffectFamily m_family;
     std::map<EffectId, std::unique_ptr<::ComponentInterface> > m_loadedInterfaces;
 };
-} // namespace au::effects
+} // namespace agu::effects

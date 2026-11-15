@@ -6,7 +6,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-namespace au::effects {
+namespace agu::effects {
 namespace {
 constexpr auto sampleRate = 42.0;
 }

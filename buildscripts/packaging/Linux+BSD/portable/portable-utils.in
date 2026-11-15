@@ -11,14 +11,11 @@ function main() {
     install )
       installResources "$2" "$3" || errorMsg "Unable to install to '${prefix}'"
       ;;
-    update|upgrade )
-      update "$2" "$3"
-      ;;
     uninstall|remove )
       removeResources "$2" "$3" || errorMsg "Unable to remove from '${prefix}'"
       ;;
     man|manual|manpage )
-      man "${APPDIR}/share/man/man1/audacity@MUSE_APP_INSTALL_SUFFIX@.1.gz"
+      man "${APPDIR}/share/man/man1/agu@MUSE_APP_INSTALL_SUFFIX@.1.gz"
       ;;
     check-depends|check-dependencies )
       checkDependencies "$2"
@@ -33,28 +30,27 @@ function showHelp() {
 cat <<EOF
 $(printVersion centered)
 
- This portable version of Audacity has all of Audacity's normal features, but
+ This portable version of AGu has all of AGu's normal features, but
 it does not need to be installed. There is an option to install it if you would
 like full integration with other applications and the desktop environment.
 
 Usage: $(basename "${APPIMAGE}") [options] [scorefile]
 
-Special options for Audacity Portable AppImage:
+Special options for AGu Portable AppImage:
   -h, --help                    Displays this help and the normal help (below).
-  man, manual, manpage          Displays Audacity's man page.
+  man, manual, manpage          Displays AGu's man page.
   install [-i] [PREFIX]         Installs resources for desktop integration.
-  update, upgrade [-i] [PREFIX] Update Audacity to the latest version.
   remove, uninstall [PREFIX]    Removes resources from desktop environment.
   check-depends [exes-only]     Displays system information for developers.
 
-Ordinary Audacity options:
-$("${APPDIR}/bin/audacity@MUSE_APP_INSTALL_SUFFIX@" --help | tail -n +5)
+Ordinary AGu options:
+$("${APPDIR}/bin/agu@MUSE_APP_INSTALL_SUFFIX@" --help | tail -n +5)
 EOF
 }
 
 function printVersion() {
-  local pretty=$(sed -rn "s|^Name=([^#]*)|\1|p" "${APPDIR}/org.audacityteam.Audacity@MUSE_APP_INSTALL_SUFFIX@.desktop")
-  local long=$("${APPDIR}/bin/audacity@MUSE_APP_INSTALL_SUFFIX@" --long-version 2>&1 | tail -n 1)
+  local pretty=$(sed -rn "s|^Name=([^#]*)|\1|p" "${APPDIR}/org.agu.app@MUSE_APP_INSTALL_SUFFIX@.desktop")
+  local long=$("${APPDIR}/bin/agu@MUSE_APP_INSTALL_SUFFIX@" --long-version 2>&1 | tail -n 1)
   if [ "$1" == "centered" ]; then
     printf "%*s\n" "$(((${#pretty}+80)/2))" "$pretty"
     printf "%*s\n" "$(((${#long}+80)/2))" "$long"
@@ -125,7 +121,7 @@ EOF
   echo "Resources installed to '$PWD'."
 cat <<EOF
 Step 2 of 3.
-Audacity is at: ${APPIMAGE}
+AGu is at: ${APPIMAGE}
 EOF
   name="$(basename "${APPIMAGE}")"
   dest="${bin}/${name}"
@@ -136,7 +132,7 @@ EOF
   elif [ ! "${APPIMAGE}" -ef "${dest}" ]; then
 cat <<EOF
 You can leave it there, but it is recommended that you move it to 'PREFIX/bin'.
-Options: move (m) or copy (c) Audacity, do nothing (n), or show help (h)?
+Options: move (m) or copy (c) AGu, do nothing (n), or show help (h)?
 EOF
     local answer
     while [ true ]; do
@@ -159,19 +155,19 @@ EOF
           ;;
         H|h )
 less <<EOF
-Moving or copying Audacity to 'PREFIX/bin' has these benefits:
+Moving or copying AGu to 'PREFIX/bin' has these benefits:
 
  1) It will have the same permissions as the resources. (I.e. it will be
     available to the same user(s) as the resources were installed for.)
 
  2) If 'PREFIX/bin' is in your PATH environment variable then you can launch
-    Audacity by typing '${name}' instead of the full path.
+    AGu by typing '${name}' instead of the full path.
     The default locations for PREFIX are in PATH on most systems.
 
 You should move rather than copy unless you want to keep another copy at the
-current location. (E.g if you're installing Audacity from a USB stick.)
+current location. (E.g if you're installing AGu from a USB stick.)
 
-If you choose not to move or copy Audacity then you will still be able to
+If you choose not to move or copy AGu then you will still be able to
 launch it by clicking on its icon or by typing the full path
 
   '${APPIMAGE}'
@@ -183,84 +179,28 @@ EOF
       echo "Please enter 'm', 'c', 'n', or 'h'. ('h' shows help)"
     done
   fi
-  sed -ri "s|^Exec=[^#%]*(.*)\$|Exec=${APPIMAGE} \1|" "share/applications/org.audacityteam.Audacity@MUSE_APP_INSTALL_SUFFIX@.desktop"
-  echo "Finished installing Audacity to $prefix"
+  sed -ri "s|^Exec=[^#%]*(.*)\$|Exec=${APPIMAGE} \1|" "share/applications/org.agu.app@MUSE_APP_INSTALL_SUFFIX@.desktop"
+  echo "Finished installing AGu to $prefix"
 cat <<EOF
 Step 3 of 3.
-Symlinks can be created to make it easier to launch Audacity from
+Symlinks can be created to make it easier to launch AGu from
 the command line. (Symlinks are like shortcuts or aliases.)
 EOF
-  [ "$interactive" ] && printf "Create symlinks 'audacity@MUSE_APP_INSTALL_SUFFIX@' [Y/n]?"
+  [ "$interactive" ] && printf "Create symlinks 'agu@MUSE_APP_INSTALL_SUFFIX@' [Y/n]?"
   if [ ! "$interactive" ] || readYes ; then
     cd bin
-    ln -sf "${name}" "audacity@MUSE_APP_INSTALL_SUFFIX@"
+    ln -sf "${name}" "agu@MUSE_APP_INSTALL_SUFFIX@"
   fi
   if ! which "${name}" >/dev/null; then
 cat <<EOF
-INFORMATION: Audacity is not in PATH. If you want to run Audacity from
+INFORMATION: AGu is not in PATH. If you want to run AGu from
 the command line you will have to type the full file path, like this:
 
   ${APPIMAGE}
 
-This does not affect you if you launch Audacity by clicking on the icon.
+This does not affect you if you launch AGu by clicking on the icon.
 EOF
   fi
-}
-
-function update() {
-  local interactive="" install=true
-  if [ "$1" == "-i" ]; then
-    interactive="$1"
-    prefix="$2"
-  elif [ "$2" == "-i" ]; then
-    interactive="$2"
-    prefix="$1"
-  fi
-  checkUpdate
-  if [ "${interactive}" ]; then
-    echo -n "Apply the update [Y/n]?"
-    readYes || exit 0
-  fi
-  doUpdate
-  if "${NEW_APPIMAGE}" --version; then
-    echo "New version appears to work properly."
-  else
-    echo "Error: Could not run new version"
-    exit 1
-  fi
-  echo "Removing old version..." # always interactive
-  removeResources "${prefix}"
-  if [ "${interactive}" ]; then
-    echo -n "Install the new version [Y/n]?"
-    readYes || install=""
-  fi
-  if [ "${install}" ]; then
-    "${NEW_APPIMAGE}" install "${interactive}" "${prefix}"
-  fi
-}
-
-function checkUpdate() {
-  echo "Checking for updates..."
-  "${APPDIR}/bin/appimageupdatetool" --check-for-update -- "${APPIMAGE}"
-  local -r result=$?
-  case ${result} in
-    0) echo "No update is available.";;
-    1) echo "An update is available."; return 0;; # don't exit
-    *) echo "Error: Unable to check for updates (status: ${result}).";;
-  esac
-  exit ${result} # don't return
-}
-
-function doUpdate() {
-  echo "Updating to the latest version..."
-  local -r output="$(stdouterr "${APPDIR}/bin/appimageupdatetool" -- "${APPIMAGE}")"
-  local -r result=$?
-  NEW_APPIMAGE="$(sed -n "s|^Update successful. New file created: ||p" <<<"${output}")"
-  case ${result} in
-    0) return 0;; # don't exit
-    *) echo "Error: Unable to apply update (status: ${result}).";;
-  esac
-  exit ${result} # don't return
 }
 
 function removeResources() {
@@ -268,23 +208,23 @@ function removeResources() {
   if [ "$1" != "" ]; then
     # User specified a directory
     prefix="$1"
-    echo -n "Remove Audacity resources from ${prefix} [Y/n]?"
+    echo -n "Remove AGu resources from ${prefix} [Y/n]?"
   elif [ "${EUID}" == "0" ]; then
     prefix=/usr/local
-    echo -n "Running as root. Remove Audacity resources from '$prefix' for all users [Y/n]?"
+    echo -n "Running as root. Remove AGu resources from '$prefix' for all users [Y/n]?"
   else
     prefix=~/.local
-    echo -n "Not running as root. Remove Audacity resources from '$prefix' for current user only [Y/n]?"
+    echo -n "Not running as root. Remove AGu resources from '$prefix' for current user only [Y/n]?"
   fi
   readYes || return 0
   cd "$prefix" && <"${APPDIR}/install_manifest.txt" xargs rm || return 1
   actual_location="$(readlink -f "${APPIMAGE}")" # get before deleting symlinks
-  rm "bin/audacity@MUSE_APP_INSTALL_SUFFIX@"
+  rm "bin/agu@MUSE_APP_INSTALL_SUFFIX@"
   <"${APPDIR}/install_manifest.txt" xargs "${APPDIR}/bin/rm-empty-dirs"
   updateCache "${prefix}"
-  echo -ne "Resources removed from ${PWD}.\nRemove Audacity itself (delete ${actual_location}) [Y/n]?"
-  readYes || { echo -e "Audacity remains at ${actual_location}.\nYou may delete it yourself or install again at any time." && return 0 ; }
-  rm "${actual_location}" && echo "Successfully removed Audacity from $prefix"
+  echo -ne "Resources removed from ${PWD}.\nRemove AGu itself (delete ${actual_location}) [Y/n]?"
+  readYes || { echo -e "AGu remains at ${actual_location}.\nYou may delete it yourself or install again at any time." && return 0 ; }
+  rm "${actual_location}" && echo "Successfully removed AGu from $prefix"
   "${APPDIR}/bin/rm-empty-dirs" bin "${APPIMAGE}" "${actual_location}"
   return 0
 }
@@ -328,8 +268,8 @@ function checkDependencies() {
   # Remaining dependencies must be system:
   sed -ri 's/^(.*[^(not found|package|both)])$/\1 => system/' "${tmp}/deps.txt"
 
-  # TODO: Might want to ignore some indirect dependencies. E.g. Audacity depends on libX.so,
-  # and libX.so depends on libY.so, but Audacity doesn't need any features from libY.so.
+  # TODO: Might want to ignore some indirect dependencies. E.g. AGu depends on libX.so,
+  # and libX.so depends on libY.so, but AGu doesn't need any features from libY.so.
 
   num_package=$(prepResult "${tmp}/deps.txt" ' => package$'   "${tmp}/package.txt")
   num_system=$(prepResult  "${tmp}/deps.txt" ' => system$'    "${tmp}/system.txt")

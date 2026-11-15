@@ -3,6 +3,6 @@
  */
 #include "backgroundprocess.h"
 
-namespace au::app {
+namespace agu::app {
 void makeProcessBackground() {}
 }

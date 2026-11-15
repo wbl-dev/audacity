@@ -24,7 +24,7 @@
 #include "au3-lv2/LoadLV2.h"
 
 using namespace muse;
-using namespace au::effects;
+using namespace agu::effects;
 
 static const std::string mname("effects_lv2");
 
@@ -72,7 +72,7 @@ void Lv2EffectsModule::resolveImports()
 
     // auto ir = ioc()->resolve<IInteractiveUriRegister>(mname);
     // if (ir) {
-    //     ir->registerQmlUri(Uri("audacity://effects/lv2_viewer"), "Audacity/Lv2/Lv2ViewerDialog.qml");
+    //     ir->registerQmlUri(Uri("agu://effects/lv2_viewer"), "AGu/Lv2/Lv2ViewerDialog.qml");
     // }
 }
 

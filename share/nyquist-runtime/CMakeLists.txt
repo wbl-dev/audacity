@@ -63,9 +63,9 @@ if(OS_IS_MAC)
    set(NYQUIST_INSTALL_DEST "${AU4_SHARE_NAME}${AU4_INSTALL_NAME}")
    set(NYQUIST_BUILD_DEST "${CMAKE_BINARY_DIR}/src/app/${AU4_SHARE_NAME}${AU4_INSTALL_NAME}")
 elseif(OS_IS_LIN)
-   # On Linux, files go in share/audacity/ which PathList.cpp expects
-   set(NYQUIST_INSTALL_DEST "${CMAKE_INSTALL_PREFIX}/share/audacity/")
-   set(NYQUIST_BUILD_DEST "${CMAKE_BINARY_DIR}/share/audacity/")
+   # On Linux, files go in share/agu/ which PathList.cpp expects
+   set(NYQUIST_INSTALL_DEST "${CMAKE_INSTALL_PREFIX}/share/agu/")
+   set(NYQUIST_BUILD_DEST "${CMAKE_BINARY_DIR}/share/agu/")
 else()
    set(NYQUIST_INSTALL_DEST "${AU4_SHARE_NAME}${AU4_INSTALL_NAME}bin")
    set(NYQUIST_BUILD_DEST "${CMAKE_BINARY_DIR}/${AU4_SHARE_NAME}${AU4_INSTALL_NAME}/")

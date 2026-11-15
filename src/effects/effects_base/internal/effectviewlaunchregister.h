@@ -7,7 +7,7 @@
 
 #include "../ieffectviewlaunchregister.h"
 
-namespace au::effects {
+namespace agu::effects {
 class EffectViewLaunchRegister : public IEffectViewLaunchRegister
 {
 public:

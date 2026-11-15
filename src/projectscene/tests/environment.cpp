@@ -9,11 +9,11 @@
 #include "mocks/projectsceneconfigurationmock.h"
 
 using namespace ::testing;
-using namespace au::project;
-using namespace au::projectscene;
+using namespace agu::project;
+using namespace agu::projectscene;
 
 static muse::testing::SuiteEnvironment projectscene_se = muse::testing::SuiteEnvironment()
-                                                         .setDependencyModules({ new au::au3::Au3WrapModule(), }).setPreInit([](){
+                                                         .setDependencyModules({ new agu::au3::Au3WrapModule(), }).setPreInit([](){
     std::shared_ptr<NiceMock<ProjectSceneConfigurationMock> > projectSceneConfigurator(new NiceMock<ProjectSceneConfigurationMock>(),
                                                                                        [](ProjectSceneConfigurationMock*) {}); // no delete
     static std::vector<ClipColorInfo> colorInfos = {

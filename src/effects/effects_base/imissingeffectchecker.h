@@ -5,7 +5,7 @@
 
 #include "framework/global/modularity/imoduleinterface.h"
 
-namespace au::effects {
+namespace agu::effects {
 class IMissingEffectChecker : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IMissingEffectChecker)

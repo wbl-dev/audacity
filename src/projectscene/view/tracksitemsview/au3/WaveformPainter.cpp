@@ -3,7 +3,7 @@
 #include "WaveformPainter.h"
 #include "au3-screen-geometry/ZoomInfo.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 struct WaveBitmapCacheElementQt final : public WaveBitmapCacheElement
 {
     uint8_t* Allocate(size_t width, size_t height) override
@@ -36,17 +36,17 @@ private:
     std::vector<uint8_t> mBytes;
 };
 
-static au::au3::Au3WaveClip::Attachments::RegisteredFactory sKeyW{ [](au::au3::Au3WaveClip&) {
+static agu::au3::Au3WaveClip::Attachments::RegisteredFactory sKeyW{ [](agu::au3::Au3WaveClip&) {
         return std::make_unique<WaveformPainter>();
     } };
 
-WaveformPainter& WaveformPainter::Get(const au::au3::Au3WaveClip& clip)
+WaveformPainter& WaveformPainter::Get(const agu::au3::Au3WaveClip& clip)
 {
-    return const_cast< au::au3::Au3WaveClip& >(clip)   // Consider it mutable data
+    return const_cast< agu::au3::Au3WaveClip& >(clip)   // Consider it mutable data
            .Attachments::Get<WaveformPainter>(sKeyW).EnsureClip(clip);
 }
 
-WaveformPainter& WaveformPainter::EnsureClip(const au::au3::Au3WaveClip& clip)
+WaveformPainter& WaveformPainter::EnsureClip(const agu::au3::Au3WaveClip& clip)
 {
     const auto changed = mChanged.exchange(false);
     if (&clip != mWaveClip || changed) {
@@ -79,7 +79,7 @@ WaveformPainter& WaveformPainter::EnsureClip(const au::au3::Au3WaveClip& clip)
 void WaveformPainter::Draw(size_t channelIndex,
                            QPainter& painter,
                            const WavePaintParameters& params,
-                           const au::projectscene::WaveMetrics& metrics)
+                           const agu::projectscene::WaveMetrics& metrics)
 {
     assert(channelIndex < mChannelCaches.size());
     if (channelIndex >= mChannelCaches.size()) {

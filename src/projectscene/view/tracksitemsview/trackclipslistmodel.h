@@ -14,7 +14,7 @@
 #include "trackitemslistmodel.h"
 #include "trackclipitem.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class TrackClipsListModel : public TrackItemsListModel
 {
     Q_OBJECT
@@ -29,7 +29,7 @@ class TrackClipsListModel : public TrackItemsListModel
     muse::GlobalInject<muse::ui::IUiConfiguration> uiConfiguration;
 
     muse::ContextInject<context::IGlobalContext> globalContext { this };
-    muse::ContextInject<au::record::IRecordController> recordController { this };
+    muse::ContextInject<agu::record::IRecordController> recordController { this };
     muse::ContextInject<trackedit::ITracksViewRequestsService> tracksViewRequestsService { this };
 
 public:
@@ -85,7 +85,7 @@ private:
 
     bool isKeyboardTriggered() const;
 
-    muse::async::NotifyList<au::trackedit::Clip> m_allClipList;
+    muse::async::NotifyList<agu::trackedit::Clip> m_allClipList;
     ClipStyles::Style m_clipStyle = ClipStyles::Style::COLORFUL;
     bool m_isStereo = false;
 };

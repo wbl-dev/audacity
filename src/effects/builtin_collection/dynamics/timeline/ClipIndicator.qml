@@ -4,7 +4,7 @@
 import QtQuick 2.15
 import QtQuick.Shapes 1.15
 import Muse.Ui
-import Audacity.BuiltinEffectsCollection
+import AGu.BuiltinEffectsCollection
 
 /*
  * A rectangle with upper rounded corners

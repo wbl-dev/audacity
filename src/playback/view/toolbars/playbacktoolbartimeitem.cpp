@@ -10,7 +10,7 @@
 
 static const int INVALID_FORMAT = -1;
 
-using namespace au::playback;
+using namespace agu::playback;
 
 PlaybackToolBarTimeItem::PlaybackToolBarTimeItem(const muse::rcommand::CommandInfo& info, muse::uicomponents::ToolBarItemType::Type type,
                                                  QObject* parent)
@@ -62,7 +62,7 @@ void PlaybackToolBarTimeItem::setCurrentFormat(int format)
         return;
     }
 
-    configuration()->setPlaybackTimeItemFormat(static_cast<au::uicomponents::TimecodeFormatType>(format));
+    configuration()->setPlaybackTimeItemFormat(static_cast<agu::uicomponents::TimecodeFormatType>(format));
 }
 
 double PlaybackToolBarTimeItem::currentValue() const
@@ -81,7 +81,7 @@ void PlaybackToolBarTimeItem::setCurrentValue(double value)
     });
 }
 
-au::context::IPlaybackStatePtr PlaybackToolBarTimeItem::playbackState() const
+agu::context::IPlaybackStatePtr PlaybackToolBarTimeItem::playbackState() const
 {
     return globalContext()->playbackState();
 }

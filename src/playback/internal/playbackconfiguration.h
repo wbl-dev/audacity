@@ -5,14 +5,14 @@
 
 #include "../iplaybackconfiguration.h"
 
-namespace au::playback {
+namespace agu::playback {
 class PlaybackConfiguration : public IPlaybackConfiguration
 {
 public:
     void init();
 
-    au::uicomponents::TimecodeFormatType playbackTimeItemFormat() const override;
-    void setPlaybackTimeItemFormat(au::uicomponents::TimecodeFormatType format) override;
+    agu::uicomponents::TimecodeFormatType playbackTimeItemFormat() const override;
+    void setPlaybackTimeItemFormat(agu::uicomponents::TimecodeFormatType format) override;
     muse::async::Notification playbackTimeItemFormatChanged() const override;
 
     PlaybackMeterStyle::MeterStyle playbackMeterStyle() const override;

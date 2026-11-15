@@ -25,15 +25,15 @@
 
 #include "modularity/imoduleinterface.h"
 #include "global/types/retval.h"
-#include "project/iaudacityproject.h"
+#include "project/iaguproject.h"
 
-namespace au::project {
+namespace agu::project {
 class IOpenSaveProjectScenario : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IOpenSaveProjectScenario)
 
 public:
-    virtual muse::RetVal<muse::io::path_t> askLocalPath(IAudacityProjectPtr project, SaveMode mode) const = 0;
+    virtual muse::RetVal<muse::io::path_t> askLocalPath(IAGuProjectPtr project, SaveMode mode) const = 0;
     virtual muse::RetVal<muse::io::path_t> resolveLegacyProjectFormat(const muse::io::path_t& path) const = 0;
 };
 }

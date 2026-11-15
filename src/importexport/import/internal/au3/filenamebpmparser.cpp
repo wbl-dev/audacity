@@ -8,7 +8,7 @@
 
 #include "log.h"
 
-std::optional<double> au::importexport::getBpmFromFilename(const std::string& filename)
+std::optional<double> agu::importexport::getBpmFromFilename(const std::string& filename)
 {
     // Ported from au3/libraries/au3-music-information-retrieval/MusicInformationRetrieval.cpp
     static const std::regex bpmRegex {

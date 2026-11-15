@@ -7,7 +7,7 @@
 
 #include "record/irecordconfiguration.h"
 
-namespace au::record {
+namespace agu::record {
 class RecordConfigurationMock : public IRecordConfiguration
 {
 public:

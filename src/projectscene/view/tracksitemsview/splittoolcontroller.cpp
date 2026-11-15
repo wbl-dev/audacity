@@ -14,7 +14,7 @@
 #include "trackedit/trackeditcommands.h"
 #include "log.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 SplitToolController::SplitToolController(QObject* parent)
     : QObject(parent), muse::Contextable(muse::iocCtxForQmlObject(this))
 {
@@ -68,7 +68,7 @@ void SplitToolController::init(QObject* root)
 
 SplitToolController::~SplitToolController() = default;
 
-void au::projectscene::SplitToolController::doSplit()
+void agu::projectscene::SplitToolController::doSplit()
 {
     if (!m_clipHovered || !hoveredTrackSplittable()) {
         return;

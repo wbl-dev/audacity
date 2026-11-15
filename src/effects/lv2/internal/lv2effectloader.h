@@ -7,7 +7,7 @@
 #include "au3-lv2/LoadLV2.h"
 #include "au3-module-manager/PluginManager.h"
 
-namespace au::effects {
+namespace agu::effects {
 class Lv2EffectLoader final : public Au3EffectLoader
 {
 public:
@@ -24,4 +24,4 @@ private:
 
     LV2EffectsModule m_module;
 };
-} // namespace au::effects
+} // namespace agu::effects

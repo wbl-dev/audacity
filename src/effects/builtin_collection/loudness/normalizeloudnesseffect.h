@@ -19,7 +19,7 @@
 class WaveChannel;
 class EBUR128;
 
-namespace au::effects {
+namespace agu::effects {
 using Floats = ArrayOf<float>;
 
 class NormalizeLoudnessEffect : public StatefulEffect

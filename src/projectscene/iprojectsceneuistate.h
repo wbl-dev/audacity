@@ -8,7 +8,7 @@
 
 #include "types/projectscenetypes.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class IProjectSceneUiState : MODULE_CONTEXT_INTERFACE
 {
     INTERFACE_ID(IProjectSceneUiState)

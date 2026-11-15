@@ -6,7 +6,7 @@
 
 #include "framework/global/log.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 void TrackSpectrogramSettingsUpdater::init()
 {
     globalSpectrogramConfiguration()->someSettingChanged().onNotify(this, [this]{

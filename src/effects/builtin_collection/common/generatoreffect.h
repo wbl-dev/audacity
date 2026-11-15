@@ -7,7 +7,7 @@
 
 struct EffectSettings;
 
-namespace au::effects {
+namespace agu::effects {
 class GeneratorEffect
 {
 public:

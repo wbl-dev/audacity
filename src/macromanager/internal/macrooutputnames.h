@@ -8,6 +8,6 @@
 
 #include "framework/global/io/path.h"
 
-namespace au::macromanager {
+namespace agu::macromanager {
 std::vector<std::string> uniqueOutputNames(const muse::io::paths_t& files);
 }

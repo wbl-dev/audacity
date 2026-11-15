@@ -5,6 +5,7 @@
 *.gif -text
 *.jpg -text
 *.icns -text
+*.tiff -text
 *.wav -text
 *.au -text
 *.ico -text
@@ -14,3 +15,5 @@
 *.trig text=auto
 # Preserve the vendored Muse source's existing whitespace without flagging it as new.
 muse/** -whitespace
+# Translation source strings can contain meaningful trailing spaces before line breaks.
+share/locale/*.ts whitespace=-blank-at-eol

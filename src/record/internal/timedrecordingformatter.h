@@ -7,7 +7,7 @@
 
 #include "framework/global/types/string.h"
 
-namespace au::record {
+namespace agu::record {
 class TimedRecordingFormatter
 {
 public:

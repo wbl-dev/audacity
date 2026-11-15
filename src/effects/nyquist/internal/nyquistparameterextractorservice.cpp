@@ -13,7 +13,7 @@
 #include "au3-nyquist-effects/NyquistBase.h"
 #include "au3-effects/StatefulEffectBase.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 using namespace muse;
 
 namespace {
@@ -106,7 +106,7 @@ ParameterInfo convertControl(const NyqControl& ctrl)
     ParameterInfo info;
 
     // Use variable name as ID
-    info.id = String::fromStdString(au::au3::wxToStdString(ctrl.var));
+    info.id = String::fromStdString(agu::au3::wxToStdString(ctrl.var));
 
     // ctrl.name / ctrl.label hold the SOURCE strings as parsed from the .ny
     // script (UnQuoteMsgid in NyquistBase.cpp returns untranslatable so that
@@ -201,7 +201,7 @@ ParameterInfo convertControl(const NyqControl& ctrl)
                 filterStr += wxT(" (") + extList + wxT(")");
             }
 
-            info.fileFilters.push_back(String::fromStdString(au::au3::wxToStdString(filterStr)));
+            info.fileFilters.push_back(String::fromStdString(agu::au3::wxToStdString(filterStr)));
         }
 
         // Parse file control flags from highStr (e.g., "open,exists,multiple" or "save,overwrite")
@@ -210,12 +210,12 @@ ParameterInfo convertControl(const NyqControl& ctrl)
         info.isFileMultiple = flags.Contains(wxT("multiple"));
 
         // Set currentValueString from valStr for file controls
-        info.currentValueString = String::fromStdString(au::au3::wxToStdString(ctrl.valStr));
+        info.currentValueString = String::fromStdString(agu::au3::wxToStdString(ctrl.valStr));
     }
 
     // For string controls, set currentValueString from valStr
     if (ctrl.type == NYQ_CTRL_STRING) {
-        info.currentValueString = String::fromStdString(au::au3::wxToStdString(ctrl.valStr));
+        info.currentValueString = String::fromStdString(agu::au3::wxToStdString(ctrl.valStr));
     }
 
     // For float/slider controls, format the current value as string
@@ -251,7 +251,7 @@ const NyqControl* findControl(const std::vector<NyqControl>& controls, const Str
 {
     const std::string varNameStd = varName.toStdString();
     for (const auto& ctrl : controls) {
-        if (au::au3::wxToStdString(ctrl.var) == varNameStd) {
+        if (agu::au3::wxToStdString(ctrl.var) == varNameStd) {
             return &ctrl;
         }
     }

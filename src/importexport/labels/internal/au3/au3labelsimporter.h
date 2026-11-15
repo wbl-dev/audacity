@@ -10,7 +10,7 @@
 #include "../labelscriptengine.h"
 #include "../labelparserregistry.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class Au3LabelsImporter : public ILabelsImporter, public muse::Contextable
 {
     muse::ContextInject<context::IGlobalContext> globalContext = { this };

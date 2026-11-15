@@ -6,7 +6,7 @@
 #include <chrono>
 #include <functional>
 
-namespace au {
+namespace agu {
 class ITimer
 {
 public:

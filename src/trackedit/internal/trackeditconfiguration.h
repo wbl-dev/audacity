@@ -5,7 +5,7 @@
 
 #include "../itrackeditconfiguration.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class TrackeditConfiguration : public ITrackeditConfiguration
 {
 public:

@@ -8,7 +8,7 @@
 
 class AudacityProject;
 
-namespace au::au3 {
+namespace agu::au3 {
 class ProjectSnap : public ClientData::Base
 {
 public:

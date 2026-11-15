@@ -3,12 +3,12 @@
 */
 #include "audiounitviewlauncher.h"
 
-muse::Ret au::effects::AudioUnitViewLauncher::showEffect(const EffectInstanceId& instanceId) const
+muse::Ret agu::effects::AudioUnitViewLauncher::showEffect(const EffectInstanceId& instanceId) const
 {
     return doShowEffect(instanceId, EffectFamily::AudioUnit);
 }
 
-void au::effects::AudioUnitViewLauncher::showRealtimeEffect(const RealtimeEffectStatePtr& state) const
+void agu::effects::AudioUnitViewLauncher::showRealtimeEffect(const RealtimeEffectStatePtr& state) const
 {
     doShowRealtimeEffect(state);
 }

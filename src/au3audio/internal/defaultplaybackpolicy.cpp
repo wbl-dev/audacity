@@ -9,7 +9,7 @@
 #include "au3-math/SampleCount.h"
 #include "au3-time-frequency-selection/ViewInfo.h"
 
-namespace au::au3audio {
+namespace agu::au3audio {
 DefaultPlaybackPolicy::DefaultPlaybackPolicy(AudacityProject& project,
                                              double trackEndTime, double loopEndTime, std::optional<double> pStartTime,
                                              bool loopEnabled, bool variableSpeed)

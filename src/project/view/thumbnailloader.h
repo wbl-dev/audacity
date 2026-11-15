@@ -18,13 +18,13 @@
 
 class QPainter;
 
-namespace au::project {
+namespace agu::project {
 class ThumbnailLoader : public QObject, public muse::Contextable
 {
     Q_OBJECT
 
     muse::GlobalInject<muse::io::IFileSystem> filesystem;
-    muse::GlobalInject<au::au3::IAu3ProjectReader> au3ProjectReader;
+    muse::GlobalInject<agu::au3::IAu3ProjectReader> au3ProjectReader;
 
     Q_PROPERTY(QString path READ path WRITE setPath NOTIFY pathChanged)
     Q_PROPERTY(QString placeholder READ placeholder WRITE setPlaceholder)

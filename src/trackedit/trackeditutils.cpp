@@ -5,7 +5,7 @@
 
 #include <algorithm>
 
-std::vector<const au::trackedit::Clip*> au::trackedit::utils::clipSetDifference(const Clips& set1, const Clips& set2)
+std::vector<const agu::trackedit::Clip*> agu::trackedit::utils::clipSetDifference(const Clips& set1, const Clips& set2)
 {
     std::vector<const Clip*> result;
     for (const auto& clip : set1) {
@@ -16,14 +16,14 @@ std::vector<const au::trackedit::Clip*> au::trackedit::utils::clipSetDifference(
     return result;
 }
 
-bool au::trackedit::utils::hasStereoTrack(const au::trackedit::TrackList& tracks)
+bool agu::trackedit::utils::hasStereoTrack(const agu::trackedit::TrackList& tracks)
 {
-    return std::any_of(tracks.begin(), tracks.end(), [](const au::trackedit::Track& track) {
-        return track.type == au::trackedit::TrackType::Stereo;
+    return std::any_of(tracks.begin(), tracks.end(), [](const agu::trackedit::Track& track) {
+        return track.type == agu::trackedit::TrackType::Stereo;
     });
 }
 
-au::trackedit::TrackIdList au::trackedit::utils::itemTrackIds(const ItemKeys& items)
+agu::trackedit::TrackIdList agu::trackedit::utils::itemTrackIds(const ItemKeys& items)
 {
     TrackIdList result;
     for (const TrackItemKeyList* keys : { &items.clips, &items.labels }) {
@@ -36,7 +36,7 @@ au::trackedit::TrackIdList au::trackedit::utils::itemTrackIds(const ItemKeys& it
     return result;
 }
 
-std::optional<au::trackedit::TrackItemKey> au::trackedit::utils::firstItemOnTrack(const ItemKeys& timeSortedItems, const TrackId& trackId)
+std::optional<agu::trackedit::TrackItemKey> agu::trackedit::utils::firstItemOnTrack(const ItemKeys& timeSortedItems, const TrackId& trackId)
 {
     const auto onTrack = [&trackId](const TrackItemKey& key) { return key.trackId == trackId; };
 
@@ -53,7 +53,7 @@ std::optional<au::trackedit::TrackItemKey> au::trackedit::utils::firstItemOnTrac
     return std::nullopt;
 }
 
-au::trackedit::TrackIdList au::trackedit::utils::audibleAudioTracks(const ITrackeditProject& project, const TrackIdList& trackIds)
+agu::trackedit::TrackIdList agu::trackedit::utils::audibleAudioTracks(const ITrackeditProject& project, const TrackIdList& trackIds)
 {
     const auto isAudio = [](const Track& track) {
         return track.type == TrackType::Mono || track.type == TrackType::Stereo;

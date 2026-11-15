@@ -22,12 +22,12 @@
 #include <QSet>
 #include <QStringDecoder>
 
-using namespace au::importexport;
+using namespace agu::importexport;
 
 static const std::string module_name("iex_labels");
 
 static const muse::Settings::Key LABELS_DIRECTORY_PATH(module_name, "importexport/labelsDirectoryPath");
-static constexpr auto metadataPrefix = "// @onlyaudios-label-parser ";
+static constexpr auto metadataPrefix = "// @agu-label-parser ";
 static constexpr qint64 maxScriptBytes = 1024 * 1024;
 
 static bool validSuffix(const QString& suffix)

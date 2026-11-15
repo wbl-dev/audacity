@@ -6,7 +6,7 @@
 
 #include "internal/vsttypes.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 Vst3PluginsMetaReader::Vst3PluginsMetaReader()
     : Au3AudioPluginMetaReader{m_module}

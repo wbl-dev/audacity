@@ -18,7 +18,7 @@ if (NOT BUILD_MODE)
     message(FATAL_ERROR "not set BUILD_MODE")
 endif()
 
-include(${CMAKE_CURRENT_LIST_DIR}/../common/audacity_package_name.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/../common/agu_package_name.cmake)
 
 file (STRINGS "${BUILD_DIR}/PREFIX.txt" INSTALL_DIR)
 
@@ -36,14 +36,12 @@ set(PACKTYPE "appimage")
 # echo "PACKARCH: $PACKARCH"
 # echo "INSTALL_DIR: $INSTALL_DIR"
 
-audacity_package_name(ARTIFACT_NAME linux ${PACKARCH} AppImage)
+agu_package_name(ARTIFACT_NAME linux ${PACKARCH} AppImage)
 
 if(PACKTYPE STREQUAL "appimage")
     # To enable automatic updates for AppImages, set UPDATE_INFORMATION according to
     # https://github.com/AppImage/AppImageSpec/blob/master/draft.md#update-information
     # case "${BUILD_MODE}" in
-    # "stable")  export UPDATE_INFORMATION="gh-releases-zsync|audacity|Audacity|latest|Audacity-*${PACKARCH}.AppImage.zsync";;
-    # "nightly") export UPDATE_INFORMATION="zsync|https://ftp.osuosl.org/pub/audacity-nightlies/linux/${MAJOR_VERSION}x/nightly/AudacityNightly-latest-${BUILD_BRANCH}-${PACKARCH}.AppImage.zsync";;
     # *) unset UPDATE_INFORMATION;; # disable updates for other build modes
     # esac
 

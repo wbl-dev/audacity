@@ -1,6 +1,6 @@
 #pragma once
 
-namespace au::projectscene {
+namespace agu::projectscene {
 struct SampleData {
     std::vector<double> y {};
     std::vector<double> x {};

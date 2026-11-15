@@ -6,7 +6,7 @@
 
 #include <QtQml/qqml.h>
 
-using namespace au::automation;
+using namespace agu::automation;
 
 static const std::string mname("automation");
 
@@ -20,7 +20,7 @@ std::string AutomationModule::moduleName() const
 
 void AutomationModule::registerUiTypes()
 {
-    qmlRegisterType<ClipGainModel>("Audacity.Automation", 1, 0, "ClipGainModel");
+    qmlRegisterType<ClipGainModel>("AGu.Automation", 1, 0, "ClipGainModel");
 }
 
 muse::modularity::IContextSetup* AutomationModule::newContext(

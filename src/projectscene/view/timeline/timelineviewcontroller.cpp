@@ -5,7 +5,7 @@
 
 #include "timelinecontext.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 TimelineViewController::TimelineViewController(TimelineContext* context, const muse::modularity::ContextPtr& ctx)
     : muse::Contextable(ctx), m_context(context)

@@ -12,12 +12,12 @@
 #include "trackedit/itrackeditinteraction.h"
 #include "trackedit/iselectioncontroller.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class PitchAndSpeedChangeModel : public QObject, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT
 
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
     muse::ContextInject<trackedit::ITrackeditInteraction> trackeditInteraction{ this };
     muse::ContextInject<trackedit::ISelectionController> selectionController{ this };
 

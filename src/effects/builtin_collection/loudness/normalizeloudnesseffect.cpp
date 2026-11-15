@@ -26,7 +26,7 @@
 #include "au3-wave-track/WaveChannelUtilities.h"
 #include "au3-wave-track/WaveTrack.h"
 
-namespace au::effects {
+namespace agu::effects {
 const ComponentInterfaceSymbol NormalizeLoudnessEffect::Symbol { TranslatableString("effects-loudness", "Loudness Normalization") };
 
 const EffectParameterMethods& NormalizeLoudnessEffect::Parameters() const

@@ -26,7 +26,7 @@
 
 #include "extensioneffect.h"
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 ExtensionEffectTask::ExtensionEffectTask(std::function<bool(double, std::string)> progress)
     : m_progress(std::move(progress))
 {
@@ -181,7 +181,7 @@ void ExtensionEffectRun::start()
     workspace.selectionStart = selectionStart;
     workspace.selectionEnd = selectionEnd;
     const auto projectContext = au3::projectIocContext(*project);
-    const auto appContext = projectContext ? muse::modularity::ioc(projectContext)->resolve<au::context::IGlobalContext>(
+    const auto appContext = projectContext ? muse::modularity::ioc(projectContext)->resolve<agu::context::IGlobalContext>(
         "effects_extensions") : nullptr;
     if (appContext) {
         workspace.projectAvailable = [appContext, project] {
@@ -275,4 +275,4 @@ void ExtensionEffectRun::abort(std::string error)
 {
     fail(std::move(error));
 }
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

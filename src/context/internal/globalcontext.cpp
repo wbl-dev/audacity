@@ -21,10 +21,10 @@
  */
 #include "globalcontext.h"
 
-using namespace au::context;
-using namespace au::project;
+using namespace agu::context;
+using namespace agu::project;
 
-void GlobalContext::setCurrentProject(const IAudacityProjectPtr& project)
+void GlobalContext::setCurrentProject(const IAGuProjectPtr& project)
 {
     if (m_currentProject == project) {
         return;
@@ -34,7 +34,7 @@ void GlobalContext::setCurrentProject(const IAudacityProjectPtr& project)
     m_currentProjectChanged.notify();
 }
 
-IAudacityProjectPtr GlobalContext::currentProject() const
+IAGuProjectPtr GlobalContext::currentProject() const
 {
     return m_currentProject;
 }
@@ -44,7 +44,7 @@ muse::async::Notification GlobalContext::currentProjectChanged() const
     return m_currentProjectChanged;
 }
 
-au::trackedit::ITrackeditProjectPtr GlobalContext::currentTrackeditProject() const
+agu::trackedit::ITrackeditProjectPtr GlobalContext::currentTrackeditProject() const
 {
     return m_currentProject ? m_currentProject->trackeditProject() : nullptr;
 }
@@ -55,7 +55,7 @@ muse::async::Notification GlobalContext::currentTrackeditProjectChanged() const
     return m_currentProjectChanged;
 }
 
-void GlobalContext::setPlayer(const au::playback::IPlayerPtr& player)
+void GlobalContext::setPlayer(const agu::playback::IPlayerPtr& player)
 {
     m_playbackState->setPlayer(player);
 }

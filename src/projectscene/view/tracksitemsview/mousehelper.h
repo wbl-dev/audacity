@@ -5,7 +5,7 @@
 
 #include <QQuickItem>
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class MouseHelper : public QObject
 {
     Q_OBJECT

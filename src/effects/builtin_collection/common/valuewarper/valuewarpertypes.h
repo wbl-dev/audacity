@@ -5,7 +5,7 @@
 
 #include <QObject>
 
-namespace au::effects {
+namespace agu::effects {
 class IValueTransformer
 {
 public:
@@ -14,4 +14,4 @@ public:
     virtual double forward(double x) const = 0;
     virtual double inverse(double y) const = 0;
 };
-} // namespace au::effects
+} // namespace agu::effects

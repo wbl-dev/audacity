@@ -13,7 +13,7 @@
 
 #include <exception>
 
-namespace au::effects {
+namespace agu::effects {
 Au3AudioPluginMetaReader::Au3AudioPluginMetaReader(PluginProvider& provider)
     : m_pluginProvider{provider}
 {
@@ -74,7 +74,7 @@ muse::RetVal<muse::audioplugins::PluginMetaList> Au3AudioPluginMetaReader::readM
             desc.SetVersion(ident->GetVersion());
             desc.SetEffectFamily(provider->GetOptionalFamilySymbol().Internal());
 
-            desc.SetID(au::au3::wxFromString(utils::effectId(effect)));
+            desc.SetID(agu::au3::wxFromString(utils::effectId(effect)));
             desc.SetDescription(::au3::qtToWx(effect->GetDescription().translated()));
             desc.SetEffectType(effect->GetClassification());
             desc.SetEffectFamily(effect->GetFamily().Internal());
@@ -103,7 +103,7 @@ muse::RetVal<muse::audioplugins::PluginMetaList> Au3AudioPluginMetaReader::readM
             desc.SetValid(!failed);
 
             if (failed) {
-                LOGW() << "Plugin failed validation: " << au::au3::wxToStdString(ident->GetPath())
+                LOGW() << "Plugin failed validation: " << agu::au3::wxToStdString(ident->GetPath())
                        << " reason: " << reason;
             }
 

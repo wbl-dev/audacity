@@ -4,13 +4,13 @@
 #include "au3wrap/internal/domaccessor.h"
 #include "framework/global/log.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 Au3PeakFinderFactory::Au3PeakFinderFactory(const muse::modularity::ContextPtr& ctx)
     : muse::Contextable(ctx)
 {
 }
 
-std::unique_ptr<au::spectrogram::IPeakFinder> Au3PeakFinderFactory::newInstance(int trackId, int channel, double startTime,
+std::unique_ptr<agu::spectrogram::IPeakFinder> Au3PeakFinderFactory::newInstance(int trackId, int channel, double startTime,
                                                                                 double endTime) const
 {
     const auto prj = globalContext()->currentProject();

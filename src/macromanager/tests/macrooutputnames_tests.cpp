@@ -7,7 +7,7 @@
 #include "macromanager/internal/macrooutputnames.h"
 
 using namespace muse;
-using namespace au::macromanager;
+using namespace agu::macromanager;
 
 using ::testing::ElementsAre;
 

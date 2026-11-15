@@ -7,7 +7,7 @@
 
 #include "spectrogram/ifrequencyselectioncontroller.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class FrequencySelectionControllerMock : public IFrequencySelectionController
 {
 public:

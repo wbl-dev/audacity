@@ -31,12 +31,12 @@
 #include "context/iglobalcontext.h"
 #include "types/projecttypes.h"
 
-namespace au::project {
+namespace agu::project {
 class NewProjectModel : public QObject
 {
     Q_OBJECT
 
-    muse::GlobalInject<au::project::IProjectConfiguration> configuration;
+    muse::GlobalInject<agu::project::IProjectConfiguration> configuration;
 
 public:
     explicit NewProjectModel(QObject* parent = nullptr);

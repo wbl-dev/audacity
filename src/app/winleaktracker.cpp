@@ -217,7 +217,7 @@ void dumpReport(const char* path)
         totalBytes += v.totalBytes;
     }
 
-    std::fprintf(f, "Audacity CRT leak report (aggregated by top %d call-stack frames)\n", kGroupDepth);
+    std::fprintf(f, "AGu CRT leak report (aggregated by top %d call-stack frames)\n", kGroupDepth);
     std::fprintf(f, "Total leaked blocks: %zu\n", totalCount);
     std::fprintf(f, "Total leaked bytes:  %zu\n", totalBytes);
     std::fprintf(f, "Unique call sites:   %zu\n\n", groups.size());
@@ -245,7 +245,7 @@ void dumpReport(const char* path)
 }
 } // namespace
 
-namespace au::app::winleaktracker {
+namespace agu::app::winleaktracker {
 void install()
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -265,6 +265,6 @@ void install()
     _CrtSetAllocHook(allocHook);
     std::atexit([] { dumpReport("audacity_leak_stacks.log"); });
 }
-} // namespace au::app::winleaktracker
+} // namespace agu::app::winleaktracker
 
 #endif

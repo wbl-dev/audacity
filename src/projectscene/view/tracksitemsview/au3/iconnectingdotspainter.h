@@ -5,7 +5,7 @@
 
 #include "iau3wavepainter.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class IConnectingDotsPainter : public IAu3WavePainter, MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IConnectingDotsPainter)

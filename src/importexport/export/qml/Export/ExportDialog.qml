@@ -8,8 +8,8 @@ import QtQuick.Layouts
 import Muse.Ui
 import Muse.UiComponents
 
-import Audacity.UiComponents 1.0
-import Audacity.Export 1.0
+import AGu.UiComponents 1.0
+import AGu.Export 1.0
 
 import "internal"
 

@@ -26,7 +26,7 @@
 #include "record/irecordcontroller.h"
 #include "record/itimedrecordingscenario.h"
 
-namespace au::record {
+namespace agu::record {
 class RecordController : public IRecordController, public muse::actions::Actionable, public muse::rcommand::Commandable,
     public muse::async::Asyncable, public muse::Contextable
 {
@@ -35,7 +35,7 @@ class RecordController : public IRecordController, public muse::actions::Actiona
 
     muse::ContextInject<muse::actions::IActionsDispatcher> dispatcher{ this };
     muse::ContextInject<muse::rcommand::ICommandDispatcher> commandDispatcher{ this };
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
     muse::ContextInject<muse::IInteractive> interactive{ this };
     muse::ContextInject<IRecord> record{ this };
     muse::ContextInject<playback::IPlaybackController> playbackController{ this };

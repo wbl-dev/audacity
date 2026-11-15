@@ -10,7 +10,7 @@
 #include "ieffectviewlauncher.h"
 #include "effectstypes.h"
 
-namespace au::effects {
+namespace agu::effects {
 class IEffectViewLaunchRegister : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IEffectViewLaunchRegister)

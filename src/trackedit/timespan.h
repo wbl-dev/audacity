@@ -5,7 +5,7 @@
 
 #include "framework/global/types/secs.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 using secs_t = muse::secs_t;
 
 class TimeSpan

@@ -10,7 +10,7 @@
 #include "effectstypes.h"
 
 struct EffectSettings;
-namespace au::effects {
+namespace agu::effects {
 class IEffectViewController : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IEffectViewController)

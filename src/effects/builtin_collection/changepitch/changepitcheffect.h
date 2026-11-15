@@ -5,7 +5,7 @@
 
 #include "au3-builtin-effects/ChangePitchBase.h"
 
-namespace au::effects {
+namespace agu::effects {
 class ChangePitchEffect final : public ChangePitchBase
 {
 public:

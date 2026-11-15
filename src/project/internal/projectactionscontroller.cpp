@@ -19,24 +19,24 @@
 
 #include "appshell/appshellcommands.h"
 
-#include "audacityproject.h"
+#include "aguproject.h"
 #include "projecterrors.h"
 #include "project/projectcommands.h"
 #include "project/types/projecttypes.h"
 
 using namespace muse;
 using namespace muse::rcommand;
-using namespace au::project;
+using namespace agu::project;
 
-static const muse::Uri PROJECT_PAGE_URI("audacity://project");
-static const muse::Uri HOME_PAGE_URI("audacity://home");
-static const muse::Uri NEW_PROJECT_URI("audacity://project/new");
+static const muse::Uri PROJECT_PAGE_URI("agu://project");
+static const muse::Uri HOME_PAGE_URI("agu://home");
+static const muse::Uri NEW_PROJECT_URI("agu://project/new");
 
-static const muse::Uri EXPORT_URI("audacity://project/export");
-static const muse::Uri CUSTOM_FFMPEG_OPTIONS("audacity://project/export/ffmpeg");
-static const muse::Uri METADATA_DIALOG_URI("audacity://project/export/metadata");
-static const muse::Uri EXPORT_LABELS_URI("audacity://project/export/labels");
-static const muse::Uri CUSTOM_MAPPING("audacity://project/export/mapping");
+static const muse::Uri EXPORT_URI("agu://project/export");
+static const muse::Uri CUSTOM_FFMPEG_OPTIONS("agu://project/export/ffmpeg");
+static const muse::Uri METADATA_DIALOG_URI("agu://project/export/metadata");
+static const muse::Uri EXPORT_LABELS_URI("agu://project/export/labels");
+static const muse::Uri CUSTOM_MAPPING("agu://project/export/mapping");
 
 static const muse::actions::ActionCode OPEN_CUSTOM_FFMPEG_OPTIONS("open-custom-ffmpeg-options");
 static const muse::actions::ActionCode OPEN_METADATA_DIALOG("open-metadata-dialog");
@@ -74,7 +74,7 @@ CommandQuery trackIdConv(const Command& command, const muse::actions::ActionData
 {
     CommandQuery query(command);
     if (args.count() > 0) {
-        query.addParam(PROJECT_TRACK_ID_PARAM, Val(args.arg<au::trackedit::TrackId>(0)));
+        query.addParam(PROJECT_TRACK_ID_PARAM, Val(args.arg<agu::trackedit::TrackId>(0)));
     }
     return query;
 }
@@ -217,7 +217,7 @@ muse::async::Channel<muse::actions::ActionCodeList> ProjectActionsController::ac
 
 bool ProjectActionsController::canReceiveAction(const muse::actions::ActionCode& code) const
 {
-    const IAudacityProjectPtr project = currentProject();
+    const IAGuProjectPtr project = currentProject();
     if (!project) {
         return muse::contains(dontRequireOpenProject(), code);
     }
@@ -238,7 +238,7 @@ bool ProjectActionsController::canReceiveAction(const muse::actions::ActionCode&
     return true;
 }
 
-IAudacityProjectPtr ProjectActionsController::currentProject() const
+IAGuProjectPtr ProjectActionsController::currentProject() const
 {
     return globalContext()->currentProject();
 }
@@ -255,7 +255,7 @@ Ret ProjectActionsController::openProject(const ProjectFile& file)
             return make_ret(Ret::Code::Cancel);
         }
 
-        if (au::project::isAudacity3File(filename)) {
+        if (agu::project::isAudacity3File(filename)) {
             auto resolved = openSaveProjectScenario()->resolveLegacyProjectFormat(filename);
             if (!resolved.ret) {
                 return resolved.ret;
@@ -338,7 +338,7 @@ muse::Ret ProjectActionsController::open(const Params& params)
         ret = make_ret(Ret::Code::Cancel);
     } else if (filePaths.size() > 1) {
         auto projectIt = std::find_if(filePaths.cbegin(), filePaths.cend(), [](const auto& filePath) {
-            return au::project::isAudacityFile(filePath);
+            return agu::project::isAudacityFile(filePath);
         });
 
         if (projectIt != filePaths.cend()) {
@@ -362,7 +362,7 @@ muse::Ret ProjectActionsController::open(const Params& params)
         interactive()->error(muse::trc("project", "Error opening file"),
                              muse::mtrc("project", "Could not open file: %1").arg(filePaths.front().toString()).toStdString());
         ret = make_ret(Err::UnsupportedUrl);
-    } else if (au::project::isAudacityFile(filePaths.front())) {
+    } else if (agu::project::isAudacityFile(filePaths.front())) {
         ret = openProject(ProjectFile(QUrl::fromLocalFile(filePaths.front().toQString()), displayNameOverride));
     } else {
         ret = processMediaFiles({ filePaths.front() });
@@ -377,7 +377,7 @@ muse::Ret ProjectActionsController::open(const Params& params)
 
 muse::Ret ProjectActionsController::importFiles(const Params& params)
 {
-    const IAudacityProjectPtr project = globalContext()->currentProject();
+    const IAGuProjectPtr project = globalContext()->currentProject();
     if (!project) {
         return make_ret(Ret::Code::NotSupported);
     }
@@ -469,7 +469,7 @@ muse::Ret ProjectActionsController::processMediaFiles(const muse::io::paths_t& p
         return make_ret(Ret::Code::Ok);
     }
 
-    IAudacityProjectPtr project = createProjectInCurrentWindow();
+    IAGuProjectPtr project = createProjectInCurrentWindow();
     if (!project) {
         return make_ret(Ret::Code::InternalError);
     }
@@ -493,7 +493,7 @@ bool ProjectActionsController::isUrlSupported(const QUrl& url) const
 
 bool ProjectActionsController::isFileSupported(const muse::io::path_t& path) const
 {
-    if (au::project::isAudacityFile(path)) {
+    if (agu::project::isAudacityFile(path)) {
         return true;
     }
 
@@ -545,7 +545,7 @@ bool ProjectActionsController::doCloseOpenedProject(const bool quitApp, const bo
         m_isProjectClosing = false;
     };
 
-    const IAudacityProjectPtr project = globalContext()->currentProject();
+    const IAGuProjectPtr project = globalContext()->currentProject();
     if (!project) {
         return true;
     }
@@ -597,7 +597,7 @@ bool ProjectActionsController::saveProject(const muse::io::path_t& path)
 
 bool ProjectActionsController::saveProjectLocally(const muse::io::path_t& filePath, SaveMode saveMode)
 {
-    IAudacityProjectPtr project = currentProject();
+    IAGuProjectPtr project = currentProject();
     if (!project) {
         return false;
     }
@@ -634,9 +634,9 @@ muse::io::paths_t ProjectActionsController::selectOpeningFiles()
 
     std::vector<std::string> filter {
         trc("project", "All supported files") + " (*.aup4,*.mp3, ...) (" + allExt + ")",
-        trc("project", "Audacity project files") + " (*.aup3,*.aup4, ...) (" + projectExt + ")",
+        trc("project", "AGu project files") + " (*.aup3,*.aup4, ...) (" + projectExt + ")",
         trc("project", "Audacity 3 files") + " (*.aup3, ...) (*.aup3)",
-        trc("project", "Audacity 4 files") + " (*.aup4, ...) (*.aup4)",
+        trc("project", "AGu projects") + " (*.aup4, ...) (*.aup4)",
         trc("project", "Importable audio and media files") + " (*.mp3,*.aac, ...) (" + mediaExt + ")",
     };
 
@@ -713,7 +713,7 @@ muse::io::paths_t ProjectActionsController::selectImportFiles()
     return filePaths;
 }
 
-IInteractive::Button ProjectActionsController::askAboutSavingProject(IAudacityProjectPtr project)
+IInteractive::Button ProjectActionsController::askAboutSavingProject(IAGuProjectPtr project)
 {
     std::string title;
 
@@ -758,7 +758,7 @@ bool ProjectActionsController::saveProject(SaveMode saveMode)
         m_isProjectSaving = false;
     };
 
-    IAudacityProjectPtr project = currentProject();
+    IAGuProjectPtr project = currentProject();
 
     if (saveMode == SaveMode::Save && !project->isNewlyCreated()) {
         return saveProjectLocally({}, saveMode);
@@ -825,9 +825,9 @@ muse::Ret ProjectActionsController::openProject(const muse::io::path_t& path, co
     return doOpenProject(actualPath);
 }
 
-IAudacityProjectPtr ProjectActionsController::createProjectInCurrentWindow()
+IAGuProjectPtr ProjectActionsController::createProjectInCurrentWindow()
 {
-    IAudacityProjectPtr project = std::make_shared<Audacity4Project>(iocContext());
+    IAGuProjectPtr project = std::make_shared<AGuProject>(iocContext());
     Ret ret = project->createNew();
     if (!ret) {
         LOGE() << ret.toString();
@@ -844,15 +844,15 @@ Ret ProjectActionsController::doOpenProject(const io::path_t& filePath)
 {
     TRACEFUNC;
 
-    RetVal<IAudacityProjectPtr> rv = loadProject(filePath);
+    RetVal<IAGuProjectPtr> rv = loadProject(filePath);
     if (!rv.ret) {
         return rv.ret;
     }
 
-    IAudacityProjectPtr project = rv.val;
+    IAGuProjectPtr project = rv.val;
 
     // Check if this is an autosave of a newly created project
-    if (!project->isNewlyCreated() && !au::project::isAudacityUnsavedFile(project->path())) {
+    if (!project->isNewlyCreated() && !agu::project::isAudacityUnsavedFile(project->path())) {
         recentFilesController()->prependRecentFile(makeRecentFile(project));
     }
 
@@ -863,7 +863,7 @@ Ret ProjectActionsController::doOpenProject(const io::path_t& filePath)
     if (trackeditProject && trackeditProject->timeTrackFound()) {
         interactive()->infoSync(muse::trc("project/open", "Time Track not supported"),
                                 muse::trc("project/open",
-                                          "The project contains a time track, which is not yet supported in Audacity 4, and will need to be removed. This does not affect your original Audacity 3 project."),
+                                          "The project contains a time track, which is not yet supported in AGu, and will need to be removed. This does not affect your original Audacity 3 project."),
         {
             muse::IInteractive::ButtonData(
                 muse::IInteractive::Button::Ok, muse::trc("project/open", "OK"), false)
@@ -885,7 +885,7 @@ Ret ProjectActionsController::doOpenProject(const io::path_t& filePath)
     return ret;
 }
 
-RetVal<IAudacityProjectPtr> ProjectActionsController::loadProject(const io::path_t& filePath)
+RetVal<IAGuProjectPtr> ProjectActionsController::loadProject(const io::path_t& filePath)
 {
     TRACEFUNC;
 
@@ -894,7 +894,7 @@ RetVal<IAudacityProjectPtr> ProjectActionsController::loadProject(const io::path
     // IF_ASSERT_FAILED(project) {
     //     return make_ret(Ret::Code::InternalError);
     // }
-    IAudacityProjectPtr project = std::make_shared<Audacity4Project>(iocContext());
+    IAGuProjectPtr project = std::make_shared<AGuProject>(iocContext());
 
     //! TODO AU4
     // bool hasUnsavedChanges = project->hasUnsavedChanges();
@@ -921,10 +921,10 @@ RetVal<IAudacityProjectPtr> ProjectActionsController::loadProject(const io::path
         // project->markAsNewlyCreated();
     }
 
-    return RetVal<IAudacityProjectPtr>::make_ok(project);
+    return RetVal<IAGuProjectPtr>::make_ok(project);
 }
 
-Ret ProjectActionsController::loadWithFallback(const IAudacityProjectPtr& project,
+Ret ProjectActionsController::loadWithFallback(const IAGuProjectPtr& project,
                                                const muse::io::path_t& loadPath,
                                                const std::string& format)
 {
@@ -958,7 +958,7 @@ bool ProjectActionsController::isProjectOpened(const muse::io::path_t& projectPa
     return false;
 }
 
-RecentFile ProjectActionsController::makeRecentFile(IAudacityProjectPtr project)
+RecentFile ProjectActionsController::makeRecentFile(IAGuProjectPtr project)
 {
     RecentFile file;
     file.path = project->path();

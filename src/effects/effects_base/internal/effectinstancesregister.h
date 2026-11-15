@@ -11,7 +11,7 @@
 #include "../iparameterextractorregistry.h"
 #include "../ieffectsprovider.h"
 
-namespace au::effects {
+namespace agu::effects {
 class EffectInstancesRegister : public IEffectInstancesRegister
 {
     muse::GlobalInject<IParameterExtractorRegistry> parameterExtractorRegistry;

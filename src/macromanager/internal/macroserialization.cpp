@@ -5,7 +5,7 @@
 
 #include "framework/global/translation.h"
 
-using namespace au::macromanager;
+using namespace agu::macromanager;
 using namespace muse;
 using namespace muse::rcommand;
 
@@ -54,7 +54,7 @@ std::optional<MacroMetadata> metadataFromJson(const JsonObject& object)
 }
 }
 
-JsonObject au::macromanager::toJson(const Macro& macro)
+JsonObject agu::macromanager::toJson(const Macro& macro)
 {
     JsonArray steps;
     for (const MacroItem& item : macro.steps) {
@@ -78,7 +78,7 @@ JsonObject au::macromanager::toJson(const Macro& macro)
     return object;
 }
 
-RetVal<Macro> au::macromanager::macroFromJson(const JsonObject& object)
+RetVal<Macro> agu::macromanager::macroFromJson(const JsonObject& object)
 {
     const JsonValue name = object.value(NAME_KEY);
     if (!name.isString() || name.toStdString().empty()) {

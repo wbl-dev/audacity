@@ -20,8 +20,8 @@
 #include "defer.h"
 #include "log.h"
 
-using namespace au::trackedit;
-using namespace au::au3;
+using namespace agu::trackedit;
+using namespace agu::au3;
 
 Au3LabelsInteraction::Au3LabelsInteraction(const muse::modularity::ContextPtr& ctx)
     : muse::Contextable(ctx)
@@ -29,13 +29,13 @@ Au3LabelsInteraction::Au3LabelsInteraction(const muse::modularity::ContextPtr& c
     m_progress.setMaxNumIncrements(200);
 }
 
-au::au3::Au3Project& Au3LabelsInteraction::projectRef() const
+agu::au3::Au3Project& Au3LabelsInteraction::projectRef() const
 {
     Au3Project* project = reinterpret_cast<Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());
     return *project;
 }
 
-au::context::IPlaybackStatePtr Au3LabelsInteraction::playbackState() const
+agu::context::IPlaybackStatePtr Au3LabelsInteraction::playbackState() const
 {
     return globalContext()->playbackState();
 }

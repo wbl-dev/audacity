@@ -5,7 +5,7 @@
 
 #include "framework/rcommand/imodulecommandsregister.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class SpectrogramCommandsRegister : public muse::rcommand::IModuleCommandsRegister
 {
 public:

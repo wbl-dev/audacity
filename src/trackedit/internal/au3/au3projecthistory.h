@@ -11,7 +11,7 @@
 
 #include "au3wrap/au3types.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class Au3ProjectHistory : public IProjectHistory, public muse::Contextable
 {
     muse::ContextInject<context::IGlobalContext> globalContext { this };

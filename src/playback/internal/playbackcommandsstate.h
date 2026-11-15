@@ -16,7 +16,7 @@
 #include "record/irecordcontroller.h"
 #include "trackedit/iselectioncontroller.h"
 
-namespace au::playback {
+namespace agu::playback {
 class PlaybackCommandsState : public muse::rcommand::IModuleCommandsState, public muse::Contextable, public muse::async::Asyncable
 {
     muse::GlobalInject<muse::rcommand::ICommandsRegister> commandsRegister;

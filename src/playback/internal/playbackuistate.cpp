@@ -3,7 +3,7 @@
 */
 #include "playbackuistate.h"
 
-using namespace au::playback;
+using namespace agu::playback;
 
 static const QString PLAYBACK_METER_POSITION_KEY("playbackToolbar/playbackMeterPosition");
 

@@ -10,11 +10,11 @@
 
 static muse::testing::SuiteEnvironment effects_base_se
     = muse::testing::SuiteEnvironment()
-      .setDependencyModules({ new au::au3::Au3WrapModule() })
+      .setDependencyModules({ new agu::au3::Au3WrapModule() })
       .setPreInit([]() {
     // Au3WrapModule::onInit needs a project configuration (temporary dir).
-    std::shared_ptr<au::project::ProjectConfigurationMock> projectConfigurator(
-        new au::project::ProjectConfigurationMock(), [](au::project::ProjectConfigurationMock*) {});
+    std::shared_ptr<agu::project::ProjectConfigurationMock> projectConfigurator(
+        new agu::project::ProjectConfigurationMock(), [](agu::project::ProjectConfigurationMock*) {});
 
     ON_CALL(*projectConfigurator, temporaryDir())
     .WillByDefault(::testing::Return(""));
@@ -22,5 +22,5 @@ static muse::testing::SuiteEnvironment effects_base_se
     // Intentionally immortal (owned by the global IoC with a no-op deleter).
     ::testing::Mock::AllowLeak(projectConfigurator.get());
 
-    muse::modularity::globalIoc()->registerExport<au::project::IProjectConfiguration>("utests", projectConfigurator);
+    muse::modularity::globalIoc()->registerExport<agu::project::IProjectConfiguration>("utests", projectConfigurator);
 });

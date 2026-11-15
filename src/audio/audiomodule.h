@@ -7,7 +7,7 @@
 
 #include "modularity/imodulesetup.h"
 
-namespace au::audio {
+namespace agu::audio {
 class AudioThreadSecurer;
 class AudioModule : public muse::modularity::IModuleSetup
 {

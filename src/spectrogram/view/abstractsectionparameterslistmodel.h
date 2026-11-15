@@ -7,7 +7,7 @@
 
 #include <QAbstractListModel>
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class AbstractSectionParametersListModel : public QAbstractListModel
 {
     Q_OBJECT

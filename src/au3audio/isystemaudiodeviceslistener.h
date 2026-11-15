@@ -6,7 +6,7 @@
 #include "framework/global/async/notification.h"
 #include "framework/global/modularity/imoduleinterface.h"
 
-namespace au::au3audio {
+namespace agu::au3audio {
 class ISystemAudioDevicesListener : MODULE_GLOBAL_INTERFACE
 {
     INTERFACE_ID(ISystemAudioDevicesListener)

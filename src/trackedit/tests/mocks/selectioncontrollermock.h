@@ -7,7 +7,7 @@
 
 #include "trackedit/iselectioncontroller.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class SelectionControllerMock : public ISelectionController
 {
 public:

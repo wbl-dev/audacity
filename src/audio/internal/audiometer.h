@@ -19,7 +19,7 @@
 #include <unordered_map>
 #include <queue>
 
-namespace au::audio {
+namespace agu::audio {
 class AudioMeter : public IAudioMeter, public muse::async::Asyncable
 {
 public:

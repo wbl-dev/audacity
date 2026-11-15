@@ -3,7 +3,7 @@
  */
 #include "spectraleffectsregister.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 void SpectralEffectsRegister::registerSpectralEffect(const SpectralEffect& effect)
 {
     m_spectralEffects.push_back(effect);

@@ -9,7 +9,7 @@
 #include "framework/global/modularity/imoduleinterface.h"
 #include "framework/global/types/ret.h"
 
-namespace au::record {
+namespace agu::record {
 class ITimedRecordingScenario : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(ITimedRecordingScenario)

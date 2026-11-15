@@ -14,7 +14,7 @@
 #include "trackedit/tests/mocks/selectioncontrollermock.h"
 #include "trackedit/tests/mocks/projecthistorymock.h"
 #include "trackedit/tests/mocks/trackeditprojectmock.h"
-#include "project/tests/mocks/audacityprojectmock.h"
+#include "project/tests/mocks/aguprojectmock.h"
 #include "trackedit/trackedittypes.h"
 #include "trackedit/dom/clip.h"
 #include "trackedit/dom/label.h"
@@ -26,7 +26,7 @@
 using namespace ::testing;
 using ::testing::_;
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class ProjectViewStateTests : public ::testing::Test
 {
 public:
@@ -134,17 +134,17 @@ public:
 protected:
     std::shared_ptr<ProjectViewState> m_projectViewState = nullptr;
 
-    const std::shared_ptr<NiceMock<au::au3::Au3ProjectMock> > m_au3ProjectMock
-        = std::make_shared<NiceMock<au::au3::Au3ProjectMock> >();
+    const std::shared_ptr<NiceMock<agu::au3::Au3ProjectMock> > m_au3ProjectMock
+        = std::make_shared<NiceMock<agu::au3::Au3ProjectMock> >();
 
     const std::shared_ptr<NiceMock<ProjectSceneConfigurationMock> > m_configurationMock
         = std::make_shared<NiceMock<ProjectSceneConfigurationMock> >();
 
-    const std::shared_ptr<NiceMock<au::playback::PlaybackConfigurationMock> > m_playbackConfigurationMock
-        = std::make_shared<NiceMock<au::playback::PlaybackConfigurationMock> >();
+    const std::shared_ptr<NiceMock<agu::playback::PlaybackConfigurationMock> > m_playbackConfigurationMock
+        = std::make_shared<NiceMock<agu::playback::PlaybackConfigurationMock> >();
 
-    const std::shared_ptr<NiceMock<au::context::GlobalContextMock> > m_globalContextMock
-        = std::make_shared<NiceMock<au::context::GlobalContextMock> >();
+    const std::shared_ptr<NiceMock<agu::context::GlobalContextMock> > m_globalContextMock
+        = std::make_shared<NiceMock<agu::context::GlobalContextMock> >();
 
     const std::shared_ptr<NiceMock<trackedit::SelectionControllerMock> > m_selectionControllerMock
         = std::make_shared<NiceMock<trackedit::SelectionControllerMock> >();
@@ -152,8 +152,8 @@ protected:
     const std::shared_ptr<NiceMock<trackedit::ProjectHistoryMock> > m_projectHistoryMock
         = std::make_shared<NiceMock<trackedit::ProjectHistoryMock> >();
 
-    const std::shared_ptr<NiceMock<project::AudacityProjectMock> > m_currentProject
-        = std::make_shared<NiceMock<project::AudacityProjectMock> >();
+    const std::shared_ptr<NiceMock<project::AGuProjectMock> > m_currentProject
+        = std::make_shared<NiceMock<project::AGuProjectMock> >();
 
     const std::shared_ptr<NiceMock<trackedit::TrackeditProjectMock> > m_trackeditProjectMock
         = std::make_shared<NiceMock<trackedit::TrackeditProjectMock> >();
@@ -318,4 +318,4 @@ TEST_F(ProjectViewStateTests, UpdateItemsBoundaries_IncludesLabelBoundaries)
 
     EXPECT_EQ(m_projectViewState->itemsBoundaries(), (std::set<muse::secs_t> { 1.5, 3.5 }));
 }
-} // namespace au::projectscene
+} // namespace agu::projectscene

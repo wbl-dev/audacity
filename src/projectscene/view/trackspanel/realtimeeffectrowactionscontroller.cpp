@@ -4,7 +4,7 @@
 
 #include "realtimeeffectrowactionscontroller.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 RealtimeEffectRowActionsController::RealtimeEffectRowActionsController(QObject* parent)
     : QObject(parent), muse::Injectable(muse::iocCtxForQmlObject(this))

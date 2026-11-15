@@ -16,7 +16,7 @@
 #include <cassert>
 #include <cmath>
 
-namespace au::effects {
+namespace agu::effects {
 DynamicsTimeline::DynamicsTimeline(QQuickItem* parent)
     : QQuickItem{parent}
 {
@@ -308,4 +308,4 @@ void DynamicsTimeline::onNewSamples(const QVariantList& variants)
 
     update();
 }
-} // namespace au::effects
+} // namespace agu::effects

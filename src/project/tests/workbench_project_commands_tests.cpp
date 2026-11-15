@@ -10,7 +10,7 @@
 #include "projectcommands.h"
 #include "projectmodule.h"
 
-namespace au::project {
+namespace agu::project {
 namespace {
 
 bool contains(const std::vector<muse::rcommand::Command>& commands, const muse::rcommand::Command& command)
@@ -44,11 +44,11 @@ TEST(workbench_project_commands, registers_only_local_project_routes)
 {
 
     const ProjectPageManifest pages = projectPageManifest();
-    EXPECT_TRUE(contains(pages, "audacity://project/new"));
-    EXPECT_FALSE(contains(pages, "audacity://project/asklocationtype"));
-    EXPECT_FALSE(contains(pages, "audacity://project/savetocloud"));
-    EXPECT_FALSE(contains(pages, "audacity://project/cloudprojectsyncing"));
+    EXPECT_TRUE(contains(pages, "agu://project/new"));
+    EXPECT_FALSE(contains(pages, "agu://project/asklocationtype"));
+    EXPECT_FALSE(contains(pages, "agu://project/savetocloud"));
+    EXPECT_FALSE(contains(pages, "agu://project/cloudprojectsyncing"));
 }
 
 } // namespace
-} // namespace au::project
+} // namespace agu::project

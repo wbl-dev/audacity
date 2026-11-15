@@ -28,14 +28,14 @@ export PATH="${APPDIR}/wrappers:${PATH}"
 
 # Add fallback directories to LD_LIBRARY_PATH. Don't add the main lib
 # directory because linuxdeploy sets RUNPATH to point to it anyway.
-export LD_LIBRARY_PATH="${APPDIR}/lib:${APPDIR}/lib/audacity:${LD_LIBRARY_PATH}${fallback_libs}"
+export LD_LIBRARY_PATH="${APPDIR}/lib:${APPDIR}/lib/agu:${LD_LIBRARY_PATH}${fallback_libs}"
 
-# Launch Audacity or an accompanying script
+# Launch AGu or an accompanying script
 case "$1" in
   -h|--help|install|update|upgrade|uninstall|remove|man|manual|manpage|check-depends|check-dependencies )
     "${APPDIR}/bin/portable-utils" "$@"
     ;;
   * )
-    "${APPDIR}/bin/audacity@MUSE_APP_INSTALL_SUFFIX@" "$@"
+    "${APPDIR}/bin/agu@MUSE_APP_INSTALL_SUFFIX@" "$@"
     ;;
 esac

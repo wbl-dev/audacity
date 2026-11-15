@@ -13,10 +13,10 @@
 #include "framework/global/async/asyncable.h"
 #include "framework/interactive/iinteractive.h"
 
-namespace au::effects {
+namespace agu::effects {
 class MissingEffectChecker : public IMissingEffectChecker, public muse::Contextable, public muse::async::Asyncable
 {
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
     muse::GlobalInject<IEffectsProvider> effectsProvider;
     muse::ContextInject<IRealtimeEffectService> realtimeEffectService{ this };
     muse::ContextInject<muse::IInteractive> interactive{ this };

@@ -9,7 +9,7 @@
 
 #include "viewtrackitem.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class TrackLabelItem : public ViewTrackItem
 {
     Q_OBJECT

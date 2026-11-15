@@ -6,7 +6,7 @@
 
 #include "effectscommands.h"
 
-namespace au::effects {
+namespace agu::effects {
 namespace {
 
 TEST(workbench_effect_commands, keeps_local_effect_commands)
@@ -20,4 +20,4 @@ TEST(workbench_effect_commands, keeps_local_effect_commands)
 }
 
 } // namespace
-} // namespace au::effects
+} // namespace agu::effects

@@ -12,12 +12,12 @@
 #include "au3wrap/au3types.h"
 #include "au3wrap/internal/wxtypes_convert.h"
 
-using namespace au::project;
+using namespace agu::project;
 using namespace muse;
 using namespace muse::io;
 
-using au::au3::wxToStdString;
-using au::au3::wxFromStdString;
+using agu::au3::wxToStdString;
+using agu::au3::wxFromStdString;
 
 ProjectMeta Au3Metadata::tags() const
 {
@@ -119,7 +119,7 @@ ProjectMeta Au3Metadata::parseXml(const std::string& xml) const
     ByteArray data = ByteArray::fromQByteArray(QByteArray(xml));
     XmlStreamReader r(data);
 
-    au::project::ProjectMeta loaded = project::ProjectMeta();
+    agu::project::ProjectMeta loaded = project::ProjectMeta();
 
     for (size_t i = 0; i < kStdTags.size(); ++i) {
         loaded.*(project::kStdMembers[i]) = std::string();

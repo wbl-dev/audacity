@@ -4,7 +4,7 @@
 #include "au3-project-file-io/ProjectSerializer.h"
 #include "au3-project/Project.h"
 
-using namespace au::au3;
+using namespace agu::au3;
 
 static const AudacityProject::AttachedObjects::RegisteredFactory key {
     [](AudacityProject&) {

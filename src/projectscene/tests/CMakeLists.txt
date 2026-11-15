@@ -24,7 +24,7 @@ set(MODULE_TEST_SRC
 
     ${CMAKE_CURRENT_LIST_DIR}/snaptestaccess.h
     ${CMAKE_CURRENT_LIST_DIR}/mocks/globalcontextmock.h
-    ${CMAKE_CURRENT_LIST_DIR}/mocks/audacity4projectmock.h
+    ${CMAKE_CURRENT_LIST_DIR}/mocks/agu4projectmock.h
     ${CMAKE_CURRENT_LIST_DIR}/mocks/projectsceneconfigurationmock.h
     ${CMAKE_CURRENT_LIST_DIR}/mocks/audiooutputmock.h
     ${CMAKE_CURRENT_LIST_DIR}/mocks/projectviewstatemock.h

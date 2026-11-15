@@ -7,7 +7,7 @@
 
 #include "framework/global/modularity/imodulesetup.h"
 
-namespace au::macromanager {
+namespace agu::macromanager {
 class MacrosRepository;
 class RunOnFilesRequests;
 class MacroRunner;

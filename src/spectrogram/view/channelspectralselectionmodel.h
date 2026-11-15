@@ -17,7 +17,7 @@
 
 #include <utility>
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class ChannelSpectralSelectionModel : public QObject, public QQmlParserStatus, public muse::Contextable, public muse::async::Asyncable
 {
     Q_OBJECT

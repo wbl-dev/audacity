@@ -24,7 +24,7 @@
 #include <Windows.h>
 #include <shlobj.h>
 
-using namespace au::project;
+using namespace agu::project;
 
 void WindowsRecentFilesController::prependPlatformRecentFile(const muse::io::path_t& path)
 {

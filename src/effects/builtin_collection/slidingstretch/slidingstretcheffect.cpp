@@ -25,7 +25,7 @@
 #include "au3-strings/TranslatableString.h"
 #include "au3-utility/MemoryX.h"
 
-namespace au::effects {
+namespace agu::effects {
 const EffectParameterMethods& SlidingStretchEffect::Parameters() const
 {
     static CapturedParameters<

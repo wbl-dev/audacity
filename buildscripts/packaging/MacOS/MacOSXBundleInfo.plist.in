@@ -14,7 +14,7 @@
 			<key>UTTypeIdentifier</key>
 			<string>org.audacityteam.aup4</string>
 			<key>UTTypeDescription</key>
-			<string>Audacity File</string>
+            <string>AGu Project</string>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
@@ -37,7 +37,7 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeName</key>
-			<string>Audacity File</string>
+            <string>AGu Project</string>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>aup4</string>
@@ -215,7 +215,7 @@
 		<!-- Additional project files -->
 		<dict>
 			<key>CFBundleTypeName</key>
-			<string>Audacity Project</string>
+            <string>AGu Project</string>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>aup</string>
@@ -250,10 +250,10 @@
             <key>CFBundleTypeRole</key>
             <string>Editor</string>
             <key>CFBundleURLName</key>
-            <string>org.audacityteam.audacity.audacityurl</string>
+            <string>org.agu.app.url</string>
             <key>CFBundleURLSchemes</key>
             <array>
-                <string>audacity</string>
+                <string>agu</string>
             </array>
         </dict>
     </array>
@@ -292,15 +292,11 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>${MACOSX_BUNDLE_COPYRIGHT}</string>        
         <key>NSMicrophoneUsageDescription</key>
-        <string>Audacity requires access to the microphone only if you intend to record from it.</string>
+        <string>AGu requires microphone access to record audio.</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.music</string>
 	<key>ATSApplicationFontsPath</key>
 	<string>fonts/</string>
-	<key>SUFeedURL</key>
-	<string>${SPARKLE_APPCAST_URL}</string>
-	<key>SUAllowsAutomaticUpdates</key>
-	<false/>
 	<key>CFBundleLocalizations</key>
 	<array>
 ${AU4_BUNDLE_LOCALIZATIONS}	</array>

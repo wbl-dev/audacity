@@ -7,7 +7,7 @@
 
 #include "../ibuiltineffectsviewregister.h"
 
-namespace au::effects {
+namespace agu::effects {
 class BuiltinEffectsViewRegister : public IBuiltinEffectsViewRegister
 {
 public:

@@ -10,7 +10,7 @@
 #include <functional>
 #include <optional>
 
-namespace au::effects {
+namespace agu::effects {
 class Stopwatch : public QObject
 {
     Q_OBJECT
@@ -48,4 +48,4 @@ private:
     PlayState m_playState = Stopped;
     double m_elapsedTime = 0;
 };
-} // namespace au::effects
+} // namespace agu::effects

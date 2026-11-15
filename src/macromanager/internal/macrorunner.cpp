@@ -18,7 +18,7 @@
 
 #include "macrooutputnames.h"
 
-using namespace au::macromanager;
+using namespace agu::macromanager;
 using namespace muse;
 using namespace muse::rcommand;
 

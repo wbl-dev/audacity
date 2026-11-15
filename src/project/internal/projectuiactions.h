@@ -6,7 +6,7 @@
 #include "projectactionscontroller.h"
 #include "async/asyncable.h"
 
-namespace au::project {
+namespace agu::project {
 class ProjectUiActions final : public muse::ui::IUiActionsModule, public muse::async::Asyncable, public muse::Contextable
 {
     muse::ContextInject<context::IUiContextResolver> uicontextResolver { this };

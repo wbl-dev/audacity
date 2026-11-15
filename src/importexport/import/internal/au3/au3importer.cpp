@@ -30,11 +30,11 @@
 #include "trackedit/internal/au3/au3trackdata.h"
 
 #include "tempodetection.h"
-using au::trackedit::ITrackDataPtr;
-using au::trackedit::Au3TrackData;
+using agu::trackedit::ITrackDataPtr;
+using agu::trackedit::Au3TrackData;
 using Au3TrackDataPtr = std::shared_ptr<Au3TrackData>;
 
-using namespace au::au3;
+using namespace agu::au3;
 
 class ImportProgress final : public ImportProgressListener
 {
@@ -93,15 +93,15 @@ private:
     std::unique_ptr<BasicUI::ProgressDialog> mProgressDialog;
 };
 
-au::importexport::Au3Importer::Au3Importer(const muse::modularity::ContextPtr& ctx)
+agu::importexport::Au3Importer::Au3Importer(const muse::modularity::ContextPtr& ctx)
     : muse::Contextable(ctx)
     , m_tempoDetection(std::make_unique<TempoDetection>(ctx))
 {
 }
 
-au::importexport::Au3Importer::~Au3Importer() = default;
+agu::importexport::Au3Importer::~Au3Importer() = default;
 
-au::importexport::FileInfo au::importexport::Au3Importer::fileInfo(const muse::io::path_t& filePath)
+agu::importexport::FileInfo agu::importexport::Au3Importer::fileInfo(const muse::io::path_t& filePath)
 {
     if (LegacyAupImporter::isLegacyAupFile(filePath)) {
         FileInfo fileInfo;
@@ -134,7 +134,7 @@ au::importexport::FileInfo au::importexport::Au3Importer::fileInfo(const muse::i
     return FileInfo{};
 }
 
-bool au::importexport::Au3Importer::import(const muse::io::path_t& filePath)
+bool agu::importexport::Au3Importer::import(const muse::io::path_t& filePath)
 {
     m_lastError = muse::make_ok();
     std::string ext = suffix(filePath);
@@ -204,7 +204,7 @@ bool au::importexport::Au3Importer::import(const muse::io::path_t& filePath)
     return true;
 }
 
-bool au::importexport::Au3Importer::importLegacyAup(const muse::io::path_t& filePath)
+bool agu::importexport::Au3Importer::importLegacyAup(const muse::io::path_t& filePath)
 {
     LegacyAupImporter legacyImporter;
     LegacyAupImporter::Result legacyProject = legacyImporter.resolve(filePath);
@@ -262,14 +262,14 @@ bool au::importexport::Au3Importer::importLegacyAup(const muse::io::path_t& file
     return true;
 }
 
-bool au::importexport::Au3Importer::importIntoTrack(const muse::io::path_t& filePath,
+bool agu::importexport::Au3Importer::importIntoTrack(const muse::io::path_t& filePath,
                                                     trackedit::TrackId dstTrackId,
                                                     muse::secs_t startTime)
 {
     return importIntoTrackInternal(filePath, dstTrackId, startTime, true, true);
 }
 
-bool au::importexport::Au3Importer::importIntoTrackInternal(const muse::io::path_t& filePath,
+bool agu::importexport::Au3Importer::importIntoTrackInternal(const muse::io::path_t& filePath,
                                                             trackedit::TrackId dstTrackId,
                                                             muse::secs_t startTime,
                                                             bool applyProjectTitle,
@@ -349,7 +349,7 @@ bool au::importexport::Au3Importer::importIntoTrackInternal(const muse::io::path
     return true;
 }
 
-bool au::importexport::Au3Importer::importFromSystemClipboard(
+bool agu::importexport::Au3Importer::importFromSystemClipboard(
     const std::vector<muse::io::path_t>& filePaths, muse::secs_t startTime)
 {
     // this is basically the same as drag&drop import so utilizing DropController to do the job
@@ -383,7 +383,7 @@ bool au::importexport::Au3Importer::importFromSystemClipboard(
     return true;
 }
 
-std::vector<std::string> au::importexport::Au3Importer::supportedExtensions() const
+std::vector<std::string> agu::importexport::Au3Importer::supportedExtensions() const
 {
     static const std::vector<std::string> audioExtensions = [] {
         std::unordered_set<std::string> uniq;
@@ -426,7 +426,7 @@ std::vector<std::string> au::importexport::Au3Importer::supportedExtensions() co
     return out;
 }
 
-void au::importexport::Au3Importer::applyImportedProjectTitleIfNeeded(const muse::io::path_t& filePath)
+void agu::importexport::Au3Importer::applyImportedProjectTitleIfNeeded(const muse::io::path_t& filePath)
 {
     Au3Project* project = reinterpret_cast<Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());
     auto& projectFileIO = ProjectFileIO::Get(*project);
@@ -440,7 +440,7 @@ void au::importexport::Au3Importer::applyImportedProjectTitleIfNeeded(const muse
     projectFileIO.SetProjectTitle();
 }
 
-bool au::importexport::Au3Importer::isProjectEmpty() const
+bool agu::importexport::Au3Importer::isProjectEmpty() const
 {
     auto trackeditProject = globalContext()->currentTrackeditProject();
     if (!trackeditProject) {
@@ -450,7 +450,7 @@ bool au::importexport::Au3Importer::isProjectEmpty() const
     return !trackeditProject->hasAudioContent().val;
 }
 
-void au::importexport::Au3Importer::addImportedTracks(const muse::io::path_t& fileName, TrackHolders&& newTracks,
+void agu::importexport::Au3Importer::addImportedTracks(const muse::io::path_t& fileName, TrackHolders&& newTracks,
                                                       std::vector<WaveTrack*>* outWaveTracks)
 {
     Au3Project* project = reinterpret_cast<Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());

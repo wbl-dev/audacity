@@ -79,7 +79,7 @@ void FileNames::InitializePathList()
     std::string installPrefix;
     const std::string portablePrefix = PC::GetParentDir(binDir);
 
-    if (PC::DirectoryExists(portablePrefix + "/share/audacity")) {
+    if (PC::DirectoryExists(portablePrefix + "/share/agu")) {
         installPrefix = portablePrefix;
     } else {
 #ifdef INSTALL_PREFIX
@@ -116,7 +116,7 @@ void FileNames::InitializePathList()
     addUniquePath(searchPaths, userAppData);
     addUniquePath(searchPaths, home + "/.audacity-files");
     addUniquePath(searchPaths, FileNames::ModulesDir().ToStdString());
-    addUniquePath(searchPaths, installPrefix + "/share/audacity");
+    addUniquePath(searchPaths, installPrefix + "/share/agu");
     addUniquePath(searchPaths, installPrefix + "/share/doc/audacity");
     addUniquePath(searchPaths, installPrefix + "/share/locale");
     addUniquePath(searchPaths, "./locale");

@@ -19,7 +19,7 @@
 #include <cmath>
 #include <limits>
 
-using namespace au::importexport;
+using namespace agu::importexport;
 
 struct LegacyAupImporter::Block
 {
@@ -276,7 +276,7 @@ LegacyAupImporter::Result LegacyAupImporter::parse(const muse::io::path_t& fileP
             const QString parent = stack.empty() ? QString() : stack.back();
             const QXmlStreamAttributes attrs = reader.attributes();
 
-            if (name == "project" || name == "audacityproject") {
+            if (name == "project" || name == "aguproject") {
                 projectRate = rateAttr(attrs, "rate", projectRate);
                 const QString dataDir = findDataDir(filePath, attr(attrs, "projname"));
                 if (dataDir.isEmpty()) {

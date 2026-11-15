@@ -11,12 +11,12 @@
 
 #include <QObject>
 
-namespace au::effects {
+namespace agu::effects {
 class DynamicsPlayStateModel : public QObject, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT
 
-    Q_PROPERTY(au::effects::Stopwatch::PlayState playState READ playState NOTIFY playStateChanged)
+    Q_PROPERTY(agu::effects::Stopwatch::PlayState playState READ playState NOTIFY playStateChanged)
 
     muse::ContextInject<playback::IPlaybackController> playbackController { this };
 

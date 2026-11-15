@@ -15,7 +15,7 @@
 #include "context/iuicontextresolver.h"
 #include "record/irecordcontroller.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 class AppShellCommandsState : public muse::rcommand::IModuleCommandsState, public muse::Contextable, public muse::async::Asyncable
 {
     muse::GlobalInject<muse::rcommand::ICommandsRegister> commandsRegister;

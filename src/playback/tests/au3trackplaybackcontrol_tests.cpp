@@ -9,7 +9,7 @@
 #include "../internal/au3/au3trackplaybackcontrol.h"
 
 #include "context/tests/mocks/globalcontextmock.h"
-#include "project/tests/mocks/audacityprojectmock.h"
+#include "project/tests/mocks/aguprojectmock.h"
 #include "project/tests/testtools.h"
 #include "trackedit/tests/mocks/projecthistorymock.h"
 
@@ -24,9 +24,9 @@ using ::testing::An;
 using ::testing::NiceMock;
 using ::testing::Return;
 
-using namespace au::au3;
+using namespace agu::au3;
 
-namespace au::playback {
+namespace agu::playback {
 class Au3TrackPlaybackControlTests : public ::testing::Test, public muse::async::Asyncable
 {
 public:
@@ -40,7 +40,7 @@ public:
         m_projectHistory = std::make_shared<NiceMock<trackedit::ProjectHistoryMock> >();
         m_control->projectHistory.set(m_projectHistory);
 
-        m_currentProject = std::make_shared<NiceMock<project::AudacityProjectMock> >();
+        m_currentProject = std::make_shared<NiceMock<project::AGuProjectMock> >();
         ON_CALL(*m_globalContext, currentProject())
         .WillByDefault(Return(m_currentProject));
 
@@ -129,7 +129,7 @@ public:
 
     std::shared_ptr<context::GlobalContextMock> m_globalContext;
     std::shared_ptr<trackedit::ProjectHistoryMock> m_projectHistory;
-    std::shared_ptr<project::AudacityProjectMock> m_currentProject;
+    std::shared_ptr<project::AGuProjectMock> m_currentProject;
 
     std::shared_ptr<Au3ProjectAccessor> m_au3ProjectAccessor;
     std::string m_workingProjectPath;

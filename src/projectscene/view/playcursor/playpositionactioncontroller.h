@@ -30,7 +30,7 @@
 #include "projectscene/iprojectsceneactionscontroller.h"
 #include "../timeline/timelinecontext.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class PlayPositionActionController : public IPlayPositionViewController, public muse::async::Asyncable, public muse::Contextable
 {
     muse::ContextInject<context::IGlobalContext> globalContext{ this };

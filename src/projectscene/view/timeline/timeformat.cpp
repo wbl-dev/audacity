@@ -6,7 +6,7 @@
 
 #include "timeformat.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 const std::vector<std::pair<double, IntervalInfo> > zoomToIntervalInfo = {
     // { min pixel width per minorMinor tick, {major, minor, minorMinor, digits} }

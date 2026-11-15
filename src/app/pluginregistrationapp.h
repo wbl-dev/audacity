@@ -11,13 +11,13 @@
 
 #include "cmdoptions.h"
 
-namespace au::app {
+namespace agu::app {
 class PluginRegistrationApp : public muse::BaseApplication
 {
     muse::GlobalInject<muse::diagnostics::IDiagnosticsConfiguration> diagnosticsConfiguration;
 
 public:
-    PluginRegistrationApp(const std::shared_ptr<AudacityCmdOptions>& options);
+    PluginRegistrationApp(const std::shared_ptr<AGuCmdOptions>& options);
 
 protected:
     void applyCommandLineOptions(const std::shared_ptr<muse::CmdOptions>& options) override;

@@ -7,7 +7,7 @@
 
 #include "au3-builtin-effects/CompressorInstance.h"
 
-namespace au::effects {
+namespace agu::effects {
 CompressionDbMeterModel::CompressionDbMeterModel(QObject* parent)
     : AbstractDbMeterModel{MeterValueProvider::Direction::Downwards, parent}
 {
@@ -22,4 +22,4 @@ float CompressionDbMeterModel::latestValue()
     }
     return lowestCompressionGain;
 }
-} // namespace au::effects
+} // namespace agu::effects

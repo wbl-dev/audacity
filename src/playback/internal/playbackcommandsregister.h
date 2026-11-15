@@ -5,7 +5,7 @@
 
 #include "framework/rcommand/imodulecommandsregister.h"
 
-namespace au::playback {
+namespace agu::playback {
 class PlaybackCommandsRegister : public muse::rcommand::IModuleCommandsRegister
 {
 public:

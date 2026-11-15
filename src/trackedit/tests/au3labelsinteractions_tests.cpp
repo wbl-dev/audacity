@@ -20,7 +20,7 @@ using ::testing::Truly;
 using ::testing::_;
 using ::testing::AtLeast;
 
-namespace au::trackedit {
+namespace agu::trackedit {
 /*******************************************************************************
  * AU3 LABELS INTERACTION TESTS
  *
@@ -50,7 +50,7 @@ public:
         ON_CALL(*m_globalContext, currentTrackeditProject())
         .WillByDefault(Return(m_trackEditProject));
 
-        m_currentProject = std::make_shared<NiceMock<project::AudacityProjectMock> >();
+        m_currentProject = std::make_shared<NiceMock<project::AGuProjectMock> >();
         ON_CALL(*m_globalContext, currentProject())
         .WillByDefault(Return(m_currentProject));
         ON_CALL(*m_globalContext, playbackState())

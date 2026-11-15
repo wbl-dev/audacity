@@ -9,10 +9,10 @@
 #include "au3/iminmaxrmspainter.h"
 #include "au3/isamplespainter.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class WavePainterProxy : public IWavePainter, public muse::Contextable
 {
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
     muse::ContextInject<IConnectingDotsPainter> connectingDotsPainter{ this };
     muse::ContextInject<IMinMaxRMSPainter> minMaxRMSPainter{ this };
     muse::ContextInject<ISamplesPainter> samplesPainter{ this };

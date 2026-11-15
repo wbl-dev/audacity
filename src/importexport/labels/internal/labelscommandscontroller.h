@@ -6,7 +6,7 @@
 #include "framework/global/modularity/ioc.h"
 #include "../ilabelsconfiguration.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class LabelsCommandsController : public muse::rcommand::Commandable, public muse::Contextable
 {
     muse::ContextInject<muse::rcommand::ICommandDispatcher> commandDispatcher { this };

@@ -5,7 +5,7 @@
 
 #include "log.h"
 
-namespace au::effects {
+namespace agu::effects {
 LimiterViewModel::LimiterViewModel(QObject* parent, int instanceId)
     : BuiltinEffectModel{parent, instanceId}
 {

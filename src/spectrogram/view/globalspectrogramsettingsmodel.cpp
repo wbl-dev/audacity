@@ -3,7 +3,7 @@
  */
 #include "globalspectrogramsettingsmodel.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 GlobalSpectrogramSettingsModel::GlobalSpectrogramSettingsModel(QObject* parent)
     : spectrogram::AbstractSpectrogramSettingsModel(parent)
 {}
@@ -167,4 +167,4 @@ void GlobalSpectrogramSettingsModel::setZeroPaddingFactor(int value)
 {
     configuration()->setZeroPaddingFactor(value);
 }
-} // namespace au::spectrogram
+} // namespace agu::spectrogram

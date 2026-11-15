@@ -9,7 +9,7 @@
 
 #include "au3-preferences/BasicSettings.h"
 
-namespace au::au3 {
+namespace agu::au3 {
 class EffectConfigSettings final : public audacity::BasicSettings
 {
 public:
@@ -78,4 +78,4 @@ private:
     std::string m_currentGroup;
     std::map<std::string /* full key*/, Val> m_vals;
 };
-} // namespace au::au3
+} // namespace agu::au3

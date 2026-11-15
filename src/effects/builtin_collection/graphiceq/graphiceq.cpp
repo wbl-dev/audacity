@@ -5,7 +5,7 @@
 
 #include "au3-strings/TranslatableString.h"
 
-namespace au::effects {
+namespace agu::effects {
 const ComponentInterfaceSymbol GraphicEq::Symbol{ wxT("Graphic EQ"), TranslatableString("effects-graphiceq", "Graphic EQ") };
 
 GraphicEq::GraphicEq()

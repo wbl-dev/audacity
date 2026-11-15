@@ -22,8 +22,8 @@
 #include <algorithm>
 #include <cassert>
 
-using namespace au::playback;
-using namespace au::au3;
+using namespace agu::playback;
+using namespace agu::au3;
 
 Au3Player::Au3Player(const muse::modularity::ContextPtr& ctx)
     : muse::Contextable(ctx)
@@ -249,7 +249,7 @@ muse::Ret Au3Player::doPlayTracks(TrackList& trackList, double startTime, double
 
     AudacityProject& project = projectRef();
 
-    au::audio::IAudioEngine::StartTransportOptions engineOptions;
+    agu::audio::IAudioEngine::StartTransportOptions engineOptions;
     engineOptions.isDefaultPolicy = options.isDefaultPolicy;
     engineOptions.sampleRate = ProjectRate::Get(project).GetRate();
     engineOptions.streamStartTime = options.streamStartTime;
@@ -502,7 +502,7 @@ void Au3Player::setLoopRegionActive(const bool active)
             end = selectionController()->rightMostSelectedItemEndTime().value_or(0.0);
         } else {
             // Default length is 4 bars
-            au::trackedit::TimeSignature ts = globalContext()->currentTrackeditProject()->timeSignature();
+            agu::trackedit::TimeSignature ts = globalContext()->currentTrackeditProject()->timeSignature();
             end = 4 * ts.upper * (4.0 / ts.lower) * (60.0 / ts.tempo);
         }
 

@@ -8,10 +8,10 @@
 #include "au3-project-history/UndoManager.h"
 #include "au3-project/Project.h"
 
-using namespace au::trackedit;
-using namespace au::au3;
+using namespace agu::trackedit;
+using namespace agu::au3;
 
-void au::trackedit::Au3ProjectHistory::init()
+void agu::trackedit::Au3ProjectHistory::init()
 {
     auto& project = projectRef();
     ::ProjectHistory::Get(project).InitialState();
@@ -19,7 +19,7 @@ void au::trackedit::Au3ProjectHistory::init()
     m_historyChanged.send(HistoryEvent::RestoredState);
 }
 
-bool au::trackedit::Au3ProjectHistory::undoAvailable() const
+bool agu::trackedit::Au3ProjectHistory::undoAvailable() const
 {
     if (!globalContext()->currentProject()) {
         return false;
@@ -29,7 +29,7 @@ bool au::trackedit::Au3ProjectHistory::undoAvailable() const
     return ::ProjectHistory::Get(project).UndoAvailable();
 }
 
-void au::trackedit::Au3ProjectHistory::undo()
+void agu::trackedit::Au3ProjectHistory::undo()
 {
     doUndo();
 
@@ -37,7 +37,7 @@ void au::trackedit::Au3ProjectHistory::undo()
     m_historyChanged.send(HistoryEvent::RestoredState);
 }
 
-bool au::trackedit::Au3ProjectHistory::redoAvailable() const
+bool agu::trackedit::Au3ProjectHistory::redoAvailable() const
 {
     if (!globalContext()->currentProject()) {
         return false;
@@ -47,7 +47,7 @@ bool au::trackedit::Au3ProjectHistory::redoAvailable() const
     return ::ProjectHistory::Get(project).RedoAvailable();
 }
 
-void au::trackedit::Au3ProjectHistory::redo()
+void agu::trackedit::Au3ProjectHistory::redo()
 {
     doRedo();
 
@@ -55,7 +55,7 @@ void au::trackedit::Au3ProjectHistory::redo()
     m_historyChanged.send(HistoryEvent::RestoredState);
 }
 
-void au::trackedit::Au3ProjectHistory::pushHistoryState(const std::string& longDescription, const std::string& shortDescription)
+void agu::trackedit::Au3ProjectHistory::pushHistoryState(const std::string& longDescription, const std::string& shortDescription)
 {
     pushHistoryState(longDescription, shortDescription, UndoPushType::NONE);
 }
@@ -73,7 +73,7 @@ void Au3ProjectHistory::pushHistoryState(const std::string& longDescription, con
     m_historyChanged.send(HistoryEvent::NewState);
 }
 
-void au::trackedit::Au3ProjectHistory::rollbackState()
+void agu::trackedit::Au3ProjectHistory::rollbackState()
 {
     auto& project = projectRef();
     ::ProjectHistory::Get(project).RollbackState();
@@ -212,7 +212,7 @@ muse::async::Channel<HistoryEvent> Au3ProjectHistory::historyChanged() const
     return m_historyChanged;
 }
 
-Au3Project& au::trackedit::Au3ProjectHistory::projectRef() const
+Au3Project& agu::trackedit::Au3ProjectHistory::projectRef() const
 {
     return *reinterpret_cast<Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());
 }

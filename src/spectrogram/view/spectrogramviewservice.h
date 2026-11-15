@@ -9,7 +9,7 @@
 #include "framework/global/modularity/ioc.h"
 #include "framework/global/async/asyncable.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class SpectrogramViewService final : public ISpectrogramViewService, public muse::Injectable, public muse::async::Asyncable
 {
     muse::ContextInject<IFrequencySelectionController> frequencySelectionController { this };

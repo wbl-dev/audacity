@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Seed muse-framework strings in audacity_*.ts from MuseScore catalogues.
+"""Seed muse-framework strings in agu_*.ts from MuseScore catalogues.
 
 The muse framework sources scanned by run_lupdate.sh contribute entries to
-share/locale/audacity_en.ts whose <location> paths start with ../../muse/.
+share/locale/agu_en.ts whose <location> paths start with ../../muse/.
 MuseScore's Transifex catalogues (musescore_*.ts) already contain finished
 translations for these strings, keyed by the same context names and source
 texts. This script copies the en-catalogue muse entries into every
-audacity_<lang>.ts and fills their translations from musescore_<lang>.ts.
+agu_<lang>.ts and fills their translations from musescore_<lang>.ts.
 
 Matching is by (context, source, disambiguation comment); <location> metadata
 is ignored for matching. Idempotent: existing translations are never
@@ -176,14 +176,14 @@ def main() -> int:
                         help="restrict to these language codes (default: all)")
     args = parser.parse_args()
 
-    muse_entries = collect_muse_entries(TS_DIR / "audacity_en.ts")
-    print(f"muse-framework entries in audacity_en.ts: {len(muse_entries)}")
+    muse_entries = collect_muse_entries(TS_DIR / "agu_en.ts")
+    print(f"muse-framework entries in agu_en.ts: {len(muse_entries)}")
 
     total = {"filled": 0, "unfinished": 0}
     unmatched_languages = []
 
-    for ts_path in sorted(TS_DIR.glob("audacity_*.ts")):
-        code = ts_path.stem[len("audacity_"):]
+    for ts_path in sorted(TS_DIR.glob("agu_*.ts")):
+        code = ts_path.stem[len("agu_"):]
         if code == "en":
             continue
         if args.languages and code not in args.languages:

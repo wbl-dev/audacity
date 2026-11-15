@@ -4,7 +4,7 @@
 
 #include "framework/interactive/iinteractiveuriregister.h"
 
-using namespace au::preferences;
+using namespace agu::preferences;
 
 std::string PreferencesModule::moduleName() const
 {
@@ -15,6 +15,6 @@ void PreferencesModule::resolveImports()
 {
     auto ir = globalIoc()->resolve<muse::interactive::IInteractiveUriRegister>(moduleName());
     if (ir) {
-        ir->registerQmlUri(muse::Uri("audacity://preferences"), "Audacity.Preferences", "PreferencesDialog");
+        ir->registerQmlUri(muse::Uri("agu://preferences"), "AGu.Preferences", "PreferencesDialog");
     }
 }

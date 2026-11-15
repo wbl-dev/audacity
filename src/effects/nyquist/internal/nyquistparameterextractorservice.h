@@ -5,7 +5,7 @@
 
 #include "effects/effects_base/iparameterextractorservice.h"
 
-namespace au::effects {
+namespace agu::effects {
 //! Implementation of parameter extraction for Nyquist plugins.
 //! Registered with IParameterExtractorRegistry for EffectFamily::Nyquist.
 //! Extracts parameters from NyquistBase::mControls vector.

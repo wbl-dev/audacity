@@ -11,7 +11,7 @@
 #include "playback/view/toolbars/playbacktoolbartimeitem.h"
 #include "playback/view/toolbars/playbacktoolbarbpmitem.h"
 #include "playback/view/toolbars/playbacktoolbartimesignatureitem.h"
-#include "record/qml/Audacity/Record/playbacktoolbarrecordlevelitem.h"
+#include "record/qml/AGu/Record/playbacktoolbarrecordlevelitem.h"
 #include "projectscene/view/toolbars/snaptoolbaritem.h"
 
 #include "playbacktoolbarconfig.h"
@@ -19,8 +19,8 @@
 using namespace muse::uicomponents;
 using namespace muse::ui;
 using namespace muse::rcommand;
-using namespace au::projectscene;
-using namespace au::playback;
+using namespace agu::projectscene;
+using namespace agu::playback;
 
 static const QString TOOLBAR_NAME("playbackToolBar");
 
@@ -31,16 +31,16 @@ static PlaybackToolBarModel::ItemType itemType(const Command& command)
         { PLAYBACK_TIME_COMMAND, PlaybackToolBarModel::PLAYBACK_TIME },
         { PLAYBACK_BPM_COMMAND, PlaybackToolBarModel::PLAYBACK_BPM },
         { PLAYBACK_TIME_SIGNATURE_COMMAND, PlaybackToolBarModel::PLAYBACK_TIME_SIGNATURE },
-        { au::record::RECORD_LEVEL_COMMAND, PlaybackToolBarModel::RECORD_LEVEL },
+        { agu::record::RECORD_LEVEL_COMMAND, PlaybackToolBarModel::RECORD_LEVEL },
         { PLAYBACK_TOGGLE_PLAY_PAUSE_COMMAND, PlaybackToolBarModel::PLAYBACK_CONTROL },
         { PLAYBACK_STOP_COMMAND, PlaybackToolBarModel::PLAYBACK_CONTROL },
-        { au::record::RECORD_START_COMMAND, PlaybackToolBarModel::PLAYBACK_CONTROL },
+        { agu::record::RECORD_START_COMMAND, PlaybackToolBarModel::PLAYBACK_CONTROL },
         { PLAYBACK_REWIND_START_COMMAND, PlaybackToolBarModel::PLAYBACK_CONTROL },
         { PLAYBACK_REWIND_END_COMMAND, PlaybackToolBarModel::PLAYBACK_CONTROL },
         { PLAYBACK_TOGGLE_LOOP_REGION_COMMAND, PlaybackToolBarModel::PLAYBACK_CONTROL },
         { PROJECTSCENE_TOGGLE_CLIP_GAIN_AUTOMATION_COMMAND, PlaybackToolBarModel::PLAYBACK_CONTROL },
         { PROJECTSCENE_TOGGLE_SPLIT_TOOL_COMMAND, PlaybackToolBarModel::PLAYBACK_CONTROL },
-        { au::trackedit::TRACKEDIT_GLOBAL_VIEW_SPECTROGRAM_COMMAND, PlaybackToolBarModel::PLAYBACK_CONTROL },
+        { agu::trackedit::TRACKEDIT_GLOBAL_VIEW_SPECTROGRAM_COMMAND, PlaybackToolBarModel::PLAYBACK_CONTROL },
         { PROJECTSCENE_SNAP_COMMAND, PlaybackToolBarModel::SNAP }
     };
 
@@ -105,7 +105,7 @@ void PlaybackToolBarModel::reload()
     load();
 }
 
-void PlaybackToolBarModel::setupProjectConnections(project::IAudacityProject& project)
+void PlaybackToolBarModel::setupProjectConnections(project::IAGuProject& project)
 {
     const auto vs = project.viewState();
     vs->clipGainAutomationEnabled().ch.onReceive(this, [this](bool){ updateClipGainAutomationState(); });

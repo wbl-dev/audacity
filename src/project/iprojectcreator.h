@@ -3,12 +3,12 @@
 */
 
 #pragma once
-#include "iaudacityproject.h"
+#include "iaguproject.h"
 
 #include "modularity/imoduleinterface.h"
-#include "iaudacityproject.h"
+#include "iaguproject.h"
 
-namespace au::project {
+namespace agu::project {
 class IProjectCreator : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IProjectCreator)
@@ -16,7 +16,7 @@ class IProjectCreator : MODULE_EXPORT_INTERFACE
 public:
     virtual ~IProjectCreator() = default;
 
-    virtual IAudacityProjectPtr newProject() const = 0;
-    virtual muse::RetVal<IAudacityProjectPtr> loadProject(const muse::io::path_t& path) const = 0;
+    virtual IAGuProjectPtr newProject() const = 0;
+    virtual muse::RetVal<IAGuProjectPtr> loadProject(const muse::io::path_t& path) const = 0;
 };
 }

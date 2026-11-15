@@ -10,7 +10,7 @@
 
 #include "framework/global/api/apiobject.h"
 
-namespace au::extensions {
+namespace agu::extensions {
 class AudioTransformApi final : public muse::api::ApiObject
 {
     Q_OBJECT
@@ -20,4 +20,4 @@ public:
 
     Q_INVOKABLE QObject* create(QObject* library, const QString& operation, const QJSValue& contexts);
 };
-} // namespace au::extensions
+} // namespace agu::extensions

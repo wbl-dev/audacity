@@ -7,7 +7,7 @@
 
 #include "au3-effects/LoadEffects.h"
 
-namespace au::effects {
+namespace agu::effects {
 class BuiltinEffectsMetaReader : public Au3AudioPluginMetaReader
 {
 public:

@@ -10,7 +10,7 @@
 
 #include "framework/global/defer.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 TrackeditOperationController::TrackeditOperationController(const muse::modularity::ContextPtr& ctx,
                                                            std::unique_ptr<IUndoManager> undoManager)
     : muse::Contextable(ctx), m_undoManager{std::move(undoManager)} {}

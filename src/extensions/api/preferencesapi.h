@@ -9,7 +9,7 @@
 
 #include "framework/global/api/apiobject.h"
 
-namespace au::extensions {
+namespace agu::extensions {
 class PreferencesApi final : public muse::api::ApiObject
 {
     Q_OBJECT
@@ -19,4 +19,4 @@ public:
 
     Q_INVOKABLE QVariant value(const QString& name, const QVariant& defaultValue = {}) const;
 };
-} // namespace au::extensions
+} // namespace agu::extensions

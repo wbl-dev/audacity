@@ -28,10 +28,10 @@
 
 #include "project/iprojectconfiguration.h"
 #include "project/iprojectfilescontroller.h"
-#include "project/iaudacityproject.h"
+#include "project/iaguproject.h"
 #include "multiwindows/imultiwindowsprovider.h"
 
-namespace au::project {
+namespace agu::project {
 class ProjectActionsController : public IProjectFilesController, public muse::actions::Actionable, public muse::rcommand::Commandable,
     public muse::async::Asyncable, public muse::Contextable
 {
@@ -47,7 +47,7 @@ class ProjectActionsController : public IProjectFilesController, public muse::ac
     muse::ContextInject<muse::actions::IActionsDispatcher> dispatcher { this };
     muse::ContextInject<muse::rcommand::ICommandDispatcher> commandDispatcher { this };
     muse::ContextInject<muse::ui::IMainWindow> mainWindow { this };
-    muse::ContextInject<au::context::IGlobalContext> globalContext { this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext { this };
     muse::ContextInject<muse::IInteractive> interactive { this };
     muse::ContextInject<IOpenSaveProjectScenario> openSaveProjectScenario { this };
     muse::ContextInject<trackedit::IProjectHistory> projectHistory { this };
@@ -74,7 +74,7 @@ public:
 
 private:
     bool doCloseOpenedProject(bool quitApp, bool discardUnsavedChanges);
-    project::IAudacityProjectPtr currentProject() const;
+    project::IAGuProjectPtr currentProject() const;
 
     muse::Ret newProject();
     muse::Ret open(const muse::rcommand::Params& params);
@@ -86,24 +86,24 @@ private:
 
     muse::Ret openProject(const muse::io::path_t& path,
                           const muse::String& displayNameOverride = muse::String());
-    muse::Ret loadWithFallback(const IAudacityProjectPtr& project, const muse::io::path_t& loadPath, const std::string& format);
+    muse::Ret loadWithFallback(const IAGuProjectPtr& project, const muse::io::path_t& loadPath, const std::string& format);
     muse::Ret doOpenProject(const muse::io::path_t& filePath);
-    IAudacityProjectPtr createProjectInCurrentWindow();
+    IAGuProjectPtr createProjectInCurrentWindow();
     //! TODO AU4
     // muse::Ret openAudacityUrl(const QUrl& url);
-    muse::RetVal<IAudacityProjectPtr> loadProject(const muse::io::path_t& filePath);
+    muse::RetVal<IAGuProjectPtr> loadProject(const muse::io::path_t& filePath);
     muse::io::paths_t selectOpeningFiles();
     muse::io::paths_t selectImportFiles();
 
     bool shouldRetryLoadAfterError(const muse::Ret& ret, const muse::io::path_t& filepath);
     void warnProjectCannotBeOpened(const muse::Ret& ret, const muse::io::path_t& filepath) const;
 
-    muse::IInteractive::Button askAboutSavingProject(IAudacityProjectPtr project);
+    muse::IInteractive::Button askAboutSavingProject(IAGuProjectPtr project);
 
     muse::Ret canSaveProject() const;
     bool saveProject(SaveMode saveMode);
 
-    RecentFile makeRecentFile(IAudacityProjectPtr project);
+    RecentFile makeRecentFile(IAGuProjectPtr project);
     muse::Ret clearRecentProjects();
 
     muse::Ret exportAudio();

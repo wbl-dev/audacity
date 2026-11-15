@@ -5,7 +5,7 @@
 #include "au3spectrogramutils.h"
 #include "au3spectrogramsettings.h"
 
-#include "project/iaudacityproject.h"
+#include "project/iaguproject.h"
 #include "au3wrap/internal/domaccessor.h"
 #include "context/iglobalcontext.h"
 
@@ -13,11 +13,11 @@
 
 #include "au3-project/Project.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 std::shared_ptr<Au3TrackSpectrogramConfiguration> Au3TrackSpectrogramConfiguration::create(int trackId,
                                                                                            const context::IGlobalContext& context)
 {
-    const project::IAudacityProjectPtr project = context.currentProject();
+    const project::IAGuProjectPtr project = context.currentProject();
     if (!project) {
         return nullptr;
     }

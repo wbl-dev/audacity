@@ -18,9 +18,9 @@
 #include "trackedit/dom/track.h"
 #include "trackedit/trackedittypes.h"
 
-Q_DECLARE_METATYPE(au::trackedit::TrackType)
+Q_DECLARE_METATYPE(agu::trackedit::TrackType)
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class TrackItem : public QObject, public muse::Contextable, public muse::async::Asyncable
 {
     Q_OBJECT
@@ -28,7 +28,7 @@ class TrackItem : public QObject, public muse::Contextable, public muse::async::
     Q_PROPERTY(QVariant trackId READ trackId_property CONSTANT)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
     Q_PROPERTY(int icon READ icon NOTIFY iconChanged)
-    Q_PROPERTY(au::trackedit::TrackType trackType READ trackType NOTIFY trackTypeChanged)
+    Q_PROPERTY(agu::trackedit::TrackType trackType READ trackType NOTIFY trackTypeChanged)
 
     Q_PROPERTY(bool isSelected READ isSelected NOTIFY isSelectedChanged)
     Q_PROPERTY(bool isFocused READ isFocused NOTIFY isFocusedChanged)
@@ -48,7 +48,7 @@ public:
     QVariant trackId_property() const;
     QString title() const;
     int icon() const;
-    au::trackedit::TrackType trackType() const;
+    agu::trackedit::TrackType trackType() const;
 
     bool isSelected() const;
     void setIsSelected(bool selected);

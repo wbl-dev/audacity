@@ -13,7 +13,7 @@
 #include "context/iuicontextresolver.h"
 #include "../timeline/timelinecontext.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class TapHoldShortcut;
 
 class SplitToolController : public QObject, public muse::async::Asyncable, public muse::Contextable

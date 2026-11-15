@@ -9,7 +9,7 @@
 #include "trackedit/itracksviewrequestsservice.h"
 #include "rcommand/icommanddispatcher.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class TrackLabelsListModel : public TrackItemsListModel
 {
     Q_OBJECT
@@ -59,7 +59,7 @@ private:
 
     void resetSelectedTracksData();
 
-    muse::async::NotifyList<au::trackedit::Label> m_allLabelList;
+    muse::async::NotifyList<agu::trackedit::Label> m_allLabelList;
     bool m_needToSelectTracksData = false;
 
     double m_editedLabelStartTime = 0.0;

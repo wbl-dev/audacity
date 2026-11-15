@@ -15,7 +15,7 @@
 
 #include "macroserialization.h"
 
-using namespace au::macromanager;
+using namespace agu::macromanager;
 using namespace muse;
 
 namespace {

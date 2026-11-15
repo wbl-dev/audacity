@@ -10,13 +10,13 @@
 
 #include "au3-utility/Observer.h"
 
-namespace au::au3audio {
-class Au3AudioEngine final : public au::audio::IAudioEngine
+namespace agu::au3audio {
+class Au3AudioEngine final : public agu::audio::IAudioEngine
 {
 public:
     Au3AudioEngine() = default;
 
-    muse::GlobalInject<au::record::IRecordConfiguration> recordConfiguration;
+    muse::GlobalInject<agu::record::IRecordConfiguration> recordConfiguration;
 
     void init();
     void deinit();
@@ -56,7 +56,7 @@ public:
     muse::String lastErrorString() const override;
     double getPlaybackSampleRate() const override;
     void updateTimePosition(unsigned long newlyConsumedSamples) override;
-    std::optional<au::audio::AudioCallbackInfo> consumeNextCallbackInfo() override;
+    std::optional<agu::audio::AudioCallbackInfo> consumeNextCallbackInfo() override;
 
     muse::async::Notification recordingUpdateRequested() const override;
     muse::async::Notification recordingNewBlocks() const override;

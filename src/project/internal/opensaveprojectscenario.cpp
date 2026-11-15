@@ -26,9 +26,9 @@
 #include "translation.h"
 
 using namespace muse;
-using namespace au::project;
+using namespace agu::project;
 
-RetVal<muse::io::path_t> OpenSaveProjectScenario::askLocalPath(IAudacityProjectPtr project, SaveMode saveMode) const
+RetVal<muse::io::path_t> OpenSaveProjectScenario::askLocalPath(IAGuProjectPtr project, SaveMode saveMode) const
 {
     std::string dialogTitle = muse::trc("project/save", "Save project");
     std::string filenameAddition;
@@ -44,7 +44,7 @@ RetVal<muse::io::path_t> OpenSaveProjectScenario::askLocalPath(IAudacityProjectP
     muse::io::path_t defaultPath = configuration()->defaultSavingFilePath(project, filenameAddition);
 
     std::vector<std::string> filter {
-        muse::trc("project", "Audacity 4 files") + " (*.aup4)"
+        muse::trc("project", "AGu projects") + " (*.aup4)"
     };
 
     muse::io::path_t selectedPath = interactive()->selectSavingFileSync(dialogTitle, defaultPath, filter);
@@ -105,7 +105,7 @@ muse::RetVal<muse::io::path_t> OpenSaveProjectScenario::resolveLegacyProjectForm
     auto ret = interactive()->warningSync(muse::trc("project/open", "Audacity 3 project"),
                                           muse::trc(
                                               "project/open",
-                                              "You have opened an Audacity 3 project. It must be converted before you can use it in Audacity 4."),
+                                              "You have opened an Audacity 3 project. It must be converted before you can use it in AGu."),
     {
         muse::IInteractive::ButtonData(
             muse::IInteractive::Button::Cancel, muse::trc("project/open", "Cancel"),
@@ -121,9 +121,9 @@ muse::RetVal<muse::io::path_t> OpenSaveProjectScenario::resolveLegacyProjectForm
     }
 
     std::string s = path.toStdString();
-    auto pos = s.rfind(au::project::AUP3);
+    auto pos = s.rfind(agu::project::AUP3);
     if (pos != std::string::npos) {
-        s.replace(pos, 4, au::project::AUP4);
+        s.replace(pos, 4, agu::project::AUP4);
     }
 
     muse::io::path_t newFilename = s;
@@ -131,7 +131,7 @@ muse::RetVal<muse::io::path_t> OpenSaveProjectScenario::resolveLegacyProjectForm
     int counter = 1;
     while (fileSystem()->exists(newFilename)) {
         std::string base = s.substr(0, s.size() - 5);
-        std::string numbered = base + "-" + std::to_string(counter) + "." + au::project::AUP4;
+        std::string numbered = base + "-" + std::to_string(counter) + "." + agu::project::AUP4;
         newFilename = numbered;
         ++counter;
     }

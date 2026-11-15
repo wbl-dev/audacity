@@ -28,7 +28,7 @@
 
 #include "internal/projecteditstate.h"
 
-namespace au::trackedit::api::detail {
+namespace agu::trackedit::api::detail {
 namespace {
 std::set<AudacityProject*> activeEdits;
 }
@@ -438,9 +438,9 @@ std::shared_ptr<EditState> currentState(
     }
     return state;
 }
-} // namespace au::trackedit::api::detail
+} // namespace agu::trackedit::api::detail
 
-namespace au::trackedit::api {
+namespace agu::trackedit::api {
 thread_local bool apiScopeActive = false;
 thread_local ProjectEditSession* editSession = nullptr;
 
@@ -627,4 +627,4 @@ QObject* ProjectEditSession::beginEdit(QObject* parent)
     QJSEngine::setObjectOwnership(edit, QJSEngine::JavaScriptOwnership);
     return edit;
 }
-} // namespace au::trackedit::api
+} // namespace agu::trackedit::api

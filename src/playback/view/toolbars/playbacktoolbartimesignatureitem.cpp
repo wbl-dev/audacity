@@ -3,7 +3,7 @@
 */
 #include "playbacktoolbartimesignatureitem.h"
 
-using namespace au::playback;
+using namespace agu::playback;
 
 PlaybackToolBarTimeSignatureItem::PlaybackToolBarTimeSignatureItem(const muse::rcommand::CommandInfo& info,
                                                                    muse::uicomponents::ToolBarItemType::Type type,

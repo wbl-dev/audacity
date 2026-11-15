@@ -109,7 +109,7 @@ target_link_libraries(appshell PRIVATE
     Qt::Widgets
 )
 
-add_subdirectory(qml/Audacity/AppShell)
+add_subdirectory(qml/AGu/AppShell)
 
 if (AU_BUILD_APPSHELL_TESTS)
     add_subdirectory(tests)

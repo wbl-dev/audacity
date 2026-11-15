@@ -14,7 +14,7 @@
 #include "../ieffectpresetsprovider.h"
 #include "../ieffectinstancesregister.h"
 
-namespace au::effects {
+namespace agu::effects {
 class EffectPresetsScenario : public IEffectPresetsScenario, public muse::Contextable
 {
     muse::GlobalInject<muse::IGlobalConfiguration> globalConfiguration;

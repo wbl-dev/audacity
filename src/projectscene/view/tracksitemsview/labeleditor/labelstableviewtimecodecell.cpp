@@ -5,7 +5,7 @@
 
 #include "playback/iaudiooutput.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 LabelsTableViewTimecodeCell::LabelsTableViewTimecodeCell(QObject* parent)
     : muse::uicomponents::TableViewCell(parent), muse::Contextable(muse::iocCtxForQmlObject(this))

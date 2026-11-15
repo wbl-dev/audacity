@@ -25,8 +25,8 @@
 
 #include "iaudiooutput.h"
 
-using namespace au::playback;
-using namespace au::audio;
+using namespace agu::playback;
+using namespace agu::audio;
 
 PlaybackToolBarLevelItem::PlaybackToolBarLevelItem(const muse::rcommand::CommandInfo& info, muse::uicomponents::ToolBarItemType::Type type,
                                                    QObject* parent)

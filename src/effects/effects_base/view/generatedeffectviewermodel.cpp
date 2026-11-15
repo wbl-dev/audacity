@@ -13,7 +13,7 @@
 #include "framework/global/log.h"
 #include "framework/global/translation.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 using namespace muse;
 
 GeneratedEffectViewerModel::GeneratedEffectViewerModel(QObject* parent, EffectInstanceId instanceId)

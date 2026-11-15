@@ -16,7 +16,7 @@ constexpr double LABEL_ALPHA_MINOR = 0.75;
 constexpr int LABEL_OFFSET = 2;
 }
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 TimelineRuler::TimelineRuler(QQuickItem* parent)
     : QQuickPaintedItem(parent), muse::Contextable(muse::iocCtxForQmlObject(this))

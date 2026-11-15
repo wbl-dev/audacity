@@ -7,7 +7,7 @@
 #include "audio/iaudiometer.h"
 #include "au3-audio-devices/IMeterSender.h"
 
-namespace au::au3 {
+namespace agu::au3 {
 /**
  * @brief Adapter class to wrap an IAudioMeter as an IMeterSender
  */

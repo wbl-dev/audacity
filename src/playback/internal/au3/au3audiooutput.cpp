@@ -17,11 +17,11 @@
 
 using namespace muse;
 using namespace muse::async;
-using namespace au::playback;
-using namespace au::au3;
+using namespace agu::playback;
+using namespace agu::au3;
 
 Au3AudioOutput::Au3AudioOutput(const muse::modularity::ContextPtr& ctx)
-    : muse::Contextable(ctx), m_outputMeter{au::au3::createAudioMeter()}
+    : muse::Contextable(ctx), m_outputMeter{agu::au3::createAudioMeter()}
 {
     globalContext()->currentProjectChanged().onNotify(this, [this](){
         auto currentProject = globalContext()->currentProject();
@@ -68,7 +68,7 @@ muse::async::Channel<float> Au3AudioOutput::playbackVolumeChanged() const
     return m_playbackVolumeChanged;
 }
 
-au::audio::sample_rate_t Au3AudioOutput::sampleRate() const
+agu::audio::sample_rate_t Au3AudioOutput::sampleRate() const
 {
     Au3Project* project = projectRef();
     if (!project) {
@@ -78,17 +78,17 @@ au::audio::sample_rate_t Au3AudioOutput::sampleRate() const
     return ProjectRate::Get(*project).GetRate();
 }
 
-muse::async::Channel<au::audio::sample_rate_t> Au3AudioOutput::sampleRateChanged() const
+muse::async::Channel<agu::audio::sample_rate_t> Au3AudioOutput::sampleRateChanged() const
 {
     return m_sampleRateChanged;
 }
 
-muse::async::Channel<au::audio::audioch_t, au::audio::MeterSignal> Au3AudioOutput::playbackSignalChanges() const
+muse::async::Channel<agu::audio::audioch_t, agu::audio::MeterSignal> Au3AudioOutput::playbackSignalChanges() const
 {
     return m_outputMeter->dataChanged();
 }
 
-muse::async::Channel<au::audio::audioch_t, au::audio::MeterSignal> Au3AudioOutput::playbackTrackSignalChanges(
+muse::async::Channel<agu::audio::audioch_t, agu::audio::MeterSignal> Au3AudioOutput::playbackTrackSignalChanges(
     int64_t key) const
 {
     return m_outputMeter->dataChanged(audio::IAudioMeter::TrackId { key });

@@ -8,7 +8,7 @@
 
 #include "../irecordconfiguration.h"
 
-namespace au::record {
+namespace agu::record {
 class RecordConfiguration : public IRecordConfiguration
 {
     muse::GlobalInject<muse::ui::IUiConfiguration> uiConfiguration;

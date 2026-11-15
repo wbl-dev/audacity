@@ -7,7 +7,7 @@
 
 #include "framework/global/modularity/imoduleinterface.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class IPeakFinderFactory : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IPeakFinderFactory)

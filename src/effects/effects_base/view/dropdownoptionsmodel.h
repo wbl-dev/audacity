@@ -7,7 +7,7 @@
 
 #include <QObject>
 
-namespace au::effects {
+namespace agu::effects {
 class DropdownOptionsModel : public QObject
 {
     Q_OBJECT

@@ -10,12 +10,12 @@
 #include "project/tests/mocks/projectconfigurationmock.h"
 
 using namespace ::testing;
-using namespace au::projectscene;
-using namespace au::project;
+using namespace agu::projectscene;
+using namespace agu::project;
 
 static muse::testing::SuiteEnvironment trackedit_se
     = muse::testing::SuiteEnvironment()
-      .setDependencyModules({ new au::au3::Au3WrapModule(), })
+      .setDependencyModules({ new agu::au3::Au3WrapModule(), })
       .setPostInit([]() {
     std::shared_ptr<NiceMock<ProjectSceneConfigurationMock> > projectSceneConfigurator(new NiceMock<ProjectSceneConfigurationMock>(),
                                                                                        [](ProjectSceneConfigurationMock*) {}); // no delete

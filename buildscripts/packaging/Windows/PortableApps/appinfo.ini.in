@@ -1,14 +1,13 @@
 [Format]
 Type=PortableApps.comFormat
-Version=3.7 # Version of the PortableApps format, not of Audacity
+Version=3.7 # Version of the PortableApps format, not of AGu
 
 [Details]
-Name=Audacity Portable
-AppId=AudacityPortable
-Publisher=Audacity
-Homepage=PortableApps.com/AudacityPortable
+Name=AGu Portable
+AppId=AGuPortable
+Publisher=AGu
 Category=Music & Video
-Description=Audacity: A Digital Audio Editor packaged with a PortableApps.com Launcher as a portable app.
+Description=AGu: A Digital Audio Editor packaged with a PortableApps.com Launcher as a portable app.
 Language=Multilingual
 
 [License]
@@ -23,11 +22,11 @@ DisplayVersion=@MUSE_APP_VERSION@
 
 [Control]
 Icons=1
-Start=AudacityPortable.exe
+Start=AGuPortable.exe
 
 [Associations]
 FileTypes=aup4
-Protocols=audacity
+Protocols=agu
 
 [FileTypeIcons]
 aup4=custom

@@ -12,7 +12,7 @@
 
 #include "au3-wave-track/WaveClip.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 namespace {
 std::pair<sampleCount, sampleCount> GetSelectedSampleIndices(
     const SelectionInfo& selectionInfo, const WaveChannelInterval& clip,

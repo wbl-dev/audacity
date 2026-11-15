@@ -36,7 +36,7 @@
 
 #include "log.h"
 
-using namespace au::appshell;
+using namespace agu::appshell;
 
 void WinFramelessWindowController::updateWindowPosition()
 {

@@ -8,7 +8,7 @@
 
 #include "dblogbaseruler.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 DbLogBaseRuler::DbLogBaseRuler(DbLogRulerUiSettings settings)
     : m_ui_settings(std::move(settings))

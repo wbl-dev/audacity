@@ -5,8 +5,8 @@
 
 #include "log.h"
 
-using namespace au::automation;
-using namespace au::projectscene;
+using namespace agu::automation;
+using namespace agu::projectscene;
 
 ClipGainModel::ClipGainModel(QObject* parent)
     : QAbstractListModel(parent)
@@ -127,7 +127,7 @@ int ClipGainModel::rowCount(const QModelIndex& parent) const
     return parent.isValid() ? 0 : int(m_points.size());
 }
 
-au::projectscene::ClipKey ClipGainModel::clipKey() const
+agu::projectscene::ClipKey ClipGainModel::clipKey() const
 {
     return m_clipKey;
 }

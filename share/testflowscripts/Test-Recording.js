@@ -1,5 +1,5 @@
 var Home = require("steps/Home.js");
-var Project = require("Audacity.Project");
+var Project = require("AGu.Project");
 var u = require("steps/TestUtils.js");
 
 const RECORDING_DURATION_MS = 150;

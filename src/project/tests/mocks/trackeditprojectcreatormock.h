@@ -8,12 +8,12 @@
 
 #include "trackedit/itrackeditproject.h"
 
-namespace au::project {
+namespace agu::project {
 class TrackeditProjectCreatorMock final : public trackedit::ITrackeditProjectCreator
 {
 public:
     MOCK_METHOD(trackedit::ITrackeditProjectPtr, create,
-                (const std::shared_ptr<au::au3::IAu3Project>& au3project),
+                (const std::shared_ptr<agu::au3::IAu3Project>& au3project),
                 (const, override));
 };
-} // namespace au::project
+} // namespace agu::project

@@ -12,7 +12,7 @@
 #include "context/tests/mocks/globalcontextmock.h"
 #include "mocks/playbackmock.h"
 #include "mocks/playermock.h"
-#include "project/tests/mocks/audacityprojectmock.h"
+#include "project/tests/mocks/aguprojectmock.h"
 #include "record/recordcommands.h"
 #include "record/tests/mocks/recordcontrollermock.h"
 #include "record/tests/mocks/recordmock.h"
@@ -28,11 +28,11 @@ using ::testing::Return;
 using ::testing::ReturnRef;
 
 using namespace muse;
-using namespace au;
-using namespace au::playback;
-using namespace au::context;
+using namespace agu;
+using namespace agu::playback;
+using namespace agu::context;
 
-namespace au::playback {
+namespace agu::playback {
 class PlaybackControllerTests : public ::testing::Test
 {
 public:
@@ -75,7 +75,7 @@ public:
 
         m_trackeditProject = std::make_shared<trackedit::TrackeditProjectMock>();
 
-        m_currentProject = std::make_shared<project::AudacityProjectMock>();
+        m_currentProject = std::make_shared<project::AGuProjectMock>();
 
         m_playback = std::make_shared<PlaybackMock>();
         m_controller->playback.set(m_playback);
@@ -248,7 +248,7 @@ public:
     std::shared_ptr<audio::AudioEngineMock> m_audioEngine;
     std::shared_ptr<trackedit::SelectionControllerMock> m_selectionController;
     std::shared_ptr<trackedit::TrackeditProjectMock> m_trackeditProject;
-    std::shared_ptr<project::AudacityProjectMock> m_currentProject;
+    std::shared_ptr<project::AGuProjectMock> m_currentProject;
 
     std::shared_ptr<PlaybackMock> m_playback;
     std::shared_ptr<PlayerMock> m_player;

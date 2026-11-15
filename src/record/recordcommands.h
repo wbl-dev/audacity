@@ -5,7 +5,7 @@
 
 #include "framework/rcommand/commandtypes.h"
 
-namespace au::record {
+namespace agu::record {
 inline static const muse::rcommand::Command RECORD_START_COMMAND("command://record/start");
 inline static const muse::rcommand::Command RECORD_ON_CURRENT_TRACK_COMMAND("command://record/on-current-track");
 inline static const muse::rcommand::Command RECORD_ON_NEW_TRACK_COMMAND("command://record/on-new-track");

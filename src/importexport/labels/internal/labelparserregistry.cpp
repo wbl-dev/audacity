@@ -9,7 +9,7 @@ static void initializeLabelResources()
     Q_INIT_RESOURCE(labels);
 }
 
-namespace au::importexport {
+namespace agu::importexport {
 std::optional<LabelParserProfile> LabelParserRegistry::parserForSuffix(QString suffix) const
 {
     suffix = suffix.trimmed().toLower();
@@ -32,7 +32,7 @@ std::optional<LabelParserProfile> LabelParserRegistry::parserForSuffix(QString s
     if (!resource.open(QIODevice::ReadOnly)) {
         return std::nullopt;
     }
-    return LabelParserProfile { "builtin-txt", "Audacity TXT", { "txt" }, true, QString::fromUtf8(resource.readAll()) };
+    return LabelParserProfile { "builtin-txt", "AGu TXT", { "txt" }, true, QString::fromUtf8(resource.readAll()) };
 }
 
 std::vector<std::string> LabelParserRegistry::supportedExtensions() const

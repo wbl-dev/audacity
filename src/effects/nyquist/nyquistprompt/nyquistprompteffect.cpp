@@ -7,7 +7,7 @@
 
 #include "au3-effects/EffectBase.h" // NYQUIST_PROMPT_ID
 
-namespace au::effects {
+namespace agu::effects {
 const ComponentInterfaceSymbol NyquistPromptEffect::Symbol { NYQUIST_PROMPT_ID };
 
 NyquistPromptEffect::NyquistPromptEffect()

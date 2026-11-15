@@ -31,7 +31,7 @@
 #include "ithumbnailcreator.h"
 #include "context/iglobalcontext.h"
 
-namespace au::project {
+namespace agu::project {
 class ProjectPropertiesModel : public QAbstractListModel, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT
@@ -88,6 +88,6 @@ private:
 
     project::ProjectMeta m_projectMetaInfo;
     QList<Property> m_properties;
-    IAudacityProjectPtr m_project;
+    IAGuProjectPtr m_project;
 };
 }

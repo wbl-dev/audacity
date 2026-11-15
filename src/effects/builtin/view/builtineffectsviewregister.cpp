@@ -3,7 +3,7 @@
 */
 #include "builtineffectsviewregister.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 void BuiltinEffectsViewRegister::setDefaultUrl(const muse::String& viewUrl)
 {

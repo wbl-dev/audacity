@@ -6,7 +6,7 @@
 #include "global/settings.h"
 #include "importexport/import/internal/importerconfiguration.h"
 
-using namespace au::importexport;
+using namespace agu::importexport;
 
 namespace {
 const muse::Settings::Key PREF("importer", "importer/tempoDetectionPref");

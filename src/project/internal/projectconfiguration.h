@@ -7,7 +7,7 @@
 
 #include "../iprojectconfiguration.h"
 
-namespace au::project {
+namespace agu::project {
 class ProjectConfiguration final : public IProjectConfiguration
 {
     muse::GlobalInject<muse::IGlobalConfiguration> globalConfiguration;
@@ -32,7 +32,7 @@ public:
     muse::io::path_t lastSavedProjectsPath() const override;
     void setLastSavedProjectsPath(const muse::io::path_t& path) override;
 
-    muse::io::path_t defaultSavingFilePath(IAudacityProjectPtr project, const std::string& filenameAddition = "",
+    muse::io::path_t defaultSavingFilePath(IAGuProjectPtr project, const std::string& filenameAddition = "",
                                            const std::string& suffix = "") const override;
 
     muse::io::path_t temporaryDir() const override;

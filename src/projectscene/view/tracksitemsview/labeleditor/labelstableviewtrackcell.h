@@ -12,7 +12,7 @@
 
 #include "trackedit/trackedittypes.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class LabelsTableViewTrackCell : public muse::uicomponents::TableViewCell
 {
     Q_OBJECT
@@ -20,7 +20,7 @@ class LabelsTableViewTrackCell : public muse::uicomponents::TableViewCell
 
     Q_PROPERTY(muse::uicomponents::MenuItemList availableTracks READ availableTracks NOTIFY availableTracksChanged FINAL)
 
-    Q_PROPERTY(au::trackedit::TrackId currentTrackId READ currentTrackId NOTIFY valueChanged FINAL)
+    Q_PROPERTY(agu::trackedit::TrackId currentTrackId READ currentTrackId NOTIFY valueChanged FINAL)
 
 public:
     explicit LabelsTableViewTrackCell(QObject* parent = nullptr);

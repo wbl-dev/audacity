@@ -15,14 +15,14 @@
 #include "internal/appshellcommandsregister.h"
 #include "internal/applicationactioncontroller.h"
 #include "internal/applicationuiactions.h"
-#include "qml/Audacity/AppShell/appmenumodel.h"
-#include "qml/Audacity/AppShell/aboutmodel.h"
+#include "qml/AGu/AppShell/appmenumodel.h"
+#include "qml/AGu/AppShell/aboutmodel.h"
 
 #include "effects/effects_base/effectscommands.h"
 #include "project/projectcommands.h"
 #include "framework/diagnostics/diagnosticscommands.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 namespace {
 
 bool contains(const std::vector<muse::rcommand::Command>& commands, const muse::rcommand::Command& command)
@@ -79,4 +79,4 @@ TEST(workbench_online_surfaces_appshell, removes_about_dialog_external_links)
 }
 
 } // namespace
-} // namespace au::appshell
+} // namespace agu::appshell

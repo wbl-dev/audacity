@@ -15,7 +15,7 @@
 #include "modularity/imoduleinterface.h"
 #include "framework/global/modularity/ioc.h"
 
-namespace au::au3 {
+namespace agu::au3 {
 //! NOTE It's exactly IAu3Project, not just IProject
 class IAu3Project : public muse::Contextable
 {

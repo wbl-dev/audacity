@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 
 #include "context/tests/mocks/globalcontextmock.h"
-#include "project/tests/mocks/audacityprojectmock.h"
+#include "project/tests/mocks/aguprojectmock.h"
 #include "mocks/trackeditprojectmock.h"
 
 #include "au3wrap/internal/au3project.h"
@@ -19,11 +19,11 @@ using ::testing::Return;
 using ::testing::Truly;
 using ::testing::_;
 
-using namespace au;
-using namespace au::au3;
-using namespace au::trackedit;
+using namespace agu;
+using namespace agu::au3;
+using namespace agu::trackedit;
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class Au3TrackEditClipboardTests : public ::testing::Test
 {
 public:
@@ -34,7 +34,7 @@ public:
 
         m_au3TrackEditClipboard = std::make_unique<Au3TrackeditClipboard>(muse::modularity::globalCtx());
 
-        m_globalContext = std::make_shared<au::context::GlobalContextMock>();
+        m_globalContext = std::make_shared<agu::context::GlobalContextMock>();
 
         m_au3TrackEditClipboard->globalContext.set(m_globalContext);
 
@@ -42,7 +42,7 @@ public:
         ON_CALL(*m_globalContext, currentTrackeditProject())
         .WillByDefault(Return(m_trackEditProject));
 
-        m_currentProject = std::make_shared<project::AudacityProjectMock>();
+        m_currentProject = std::make_shared<project::AGuProjectMock>();
         ON_CALL(*m_globalContext, currentProject())
         .WillByDefault(Return(m_currentProject));
 
@@ -126,8 +126,8 @@ public:
     std::unique_ptr<Au3TrackeditClipboard> m_au3TrackEditClipboard;
     std::shared_ptr<ClipboardData> m_clipboardData;
 
-    std::shared_ptr<au::context::GlobalContextMock> m_globalContext;
-    std::shared_ptr<project::AudacityProjectMock> m_currentProject;
+    std::shared_ptr<agu::context::GlobalContextMock> m_globalContext;
+    std::shared_ptr<project::AGuProjectMock> m_currentProject;
     std::shared_ptr<TrackeditProjectMock> m_trackEditProject;
 
     std::shared_ptr<au3::Au3ProjectAccessor> m_au3ProjectAccessor;

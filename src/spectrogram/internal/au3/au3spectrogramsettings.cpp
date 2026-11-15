@@ -20,7 +20,7 @@
 #include <cmath>
 #include <memory>
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 namespace {
 static std::weak_ptr<IGlobalSpectrogramConfiguration> sGlobalConfiguration;
 
@@ -329,4 +329,4 @@ int Au3SpectrogramSettings::ZeroPaddingFactor() const
 {
     return algorithm == SpectrogramAlgorithm::Pitch ? 1 : m_zeroPaddingFactor;
 }
-} // namespace au::spectrogram
+} // namespace agu::spectrogram

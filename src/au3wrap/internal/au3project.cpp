@@ -39,7 +39,7 @@
 
 #include <random>
 
-using namespace au::au3;
+using namespace agu::au3;
 
 namespace {
 size_t randomIndex()
@@ -73,7 +73,7 @@ muse::Ret Au3ProjectCreator::removeUnsavedData(const muse::io::path_t& projectPa
     // Helper method to remove autosave data from a project file without keeping it open
     const auto tempProject = create(muse::modularity::globalCtx());
     if (!tempProject) {
-        return muse::make_ret(static_cast<muse::Ret::Code>(au::project::Err::NoProjectError));
+        return muse::make_ret(static_cast<muse::Ret::Code>(agu::project::Err::NoProjectError));
     }
     constexpr auto ignoreAutosave = true;
     auto ret = tempProject->load(projectPath, ignoreAutosave);
@@ -89,7 +89,7 @@ muse::Ret Au3ProjectCreator::removeUnsavedData(const muse::io::path_t& projectPa
     return ret;
 }
 
-struct au::au3::Au3ProjectData
+struct agu::au3::Au3ProjectData
 {
     std::shared_ptr<Au3Project> project;
 

@@ -9,7 +9,7 @@
 
 #include "global/async/asyncable.h"
 
-namespace au::effects {
+namespace agu::effects {
 class EffectsMenuProvider : public IEffectsMenuProvider, public muse::async::Asyncable, public muse::Contextable
 {
     muse::GlobalInject<IEffectsConfiguration> configuration;

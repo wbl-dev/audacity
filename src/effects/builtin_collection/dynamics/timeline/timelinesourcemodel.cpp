@@ -12,7 +12,7 @@
 #include <QTimer>
 #include <QtQuick/qsgflatcolormaterial.h>
 
-namespace au::effects {
+namespace agu::effects {
 namespace {
 constexpr auto deliveryPeriodMs = 10;
 }
@@ -125,4 +125,4 @@ void TimelineSourceModel::initializeForPlayback(double sampleRate, int audioThre
 
     m_deliveryTimer->start();
 }
-} // namespace au::effects
+} // namespace agu::effects

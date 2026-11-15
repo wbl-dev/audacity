@@ -7,7 +7,7 @@
 
 #include "record/irecordcontroller.h"
 
-namespace au::record {
+namespace agu::record {
 class RecordControllerMock : public IRecordController
 {
 public:

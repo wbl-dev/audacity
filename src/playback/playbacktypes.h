@@ -9,7 +9,7 @@
 
 #include "audio/audiotypes.h"
 
-namespace au::playback {
+namespace agu::playback {
 using msecs_t = int64_t; //! TODO need to remove
 
 using TrackId = int32_t;

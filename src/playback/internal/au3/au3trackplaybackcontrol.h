@@ -12,14 +12,14 @@
 
 #include "itrackplaybackcontrol.h"
 
-namespace au::playback {
-using au::audio::volume_dbfs_t;
-using au::audio::pan_t;
+namespace agu::playback {
+using agu::audio::volume_dbfs_t;
+using agu::audio::pan_t;
 
 class Au3TrackPlaybackControl : public ITrackPlaybackControl, public muse::Contextable
 {
-    muse::ContextInject<au::context::IGlobalContext> globalContext { this };
-    muse::ContextInject<au::trackedit::IProjectHistory> projectHistory { this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext { this };
+    muse::ContextInject<agu::trackedit::IProjectHistory> projectHistory { this };
 
     friend class Au3TrackPlaybackControlTests;
 
@@ -30,7 +30,7 @@ public:
     void setVolume(long trackId, volume_dbfs_t vol, bool completed) override;
 
     pan_t pan(long trackId) const override;
-    void setPan(long trackId, au::audio::pan_t pan, bool completed) override;
+    void setPan(long trackId, agu::audio::pan_t pan, bool completed) override;
 
     bool solo(long trackId) const override;
     void setSolo(long trackId, bool solo, bool exclusive) override;

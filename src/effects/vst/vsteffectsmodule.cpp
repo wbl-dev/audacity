@@ -19,7 +19,7 @@
 #include "internal/musevstpluginsregister.h"
 
 using namespace muse;
-using namespace au::effects;
+using namespace agu::effects;
 
 static const std::string mname("effects_vst");
 

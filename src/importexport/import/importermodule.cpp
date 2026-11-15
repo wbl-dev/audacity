@@ -11,7 +11,7 @@
 
 #include "RegisterImportPlugins.h" // from the au3-import-export-modules library (au3/modules/import-export)
 
-using namespace au::importexport;
+using namespace agu::importexport;
 
 static const std::string mname("importer");
 

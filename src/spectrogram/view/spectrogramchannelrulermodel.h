@@ -16,7 +16,7 @@
 #include <QQmlParserStatus>
 #include <QVariantList>
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class SpectrogramChannelRulerModel : public QObject, public QQmlParserStatus, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT
@@ -84,7 +84,7 @@ private:
     void zoomBy(double factor, double centerPosition);
     double frequencyToPosition(double freq) const;
     double positionToFrequency(double pos) const;
-    QVariantList tickListToVariants(const std::vector<au::shared::AxisTick>& ticks) const;
+    QVariantList tickListToVariants(const std::vector<agu::shared::AxisTick>& ticks) const;
 
     int m_trackId = -1;
     int m_labelHeight = 0;
@@ -92,4 +92,4 @@ private:
     SpectrogramRulerTicks m_ticks;
     double m_popupPosition = 0.0;
 };
-} // namespace au::spectrogram
+} // namespace agu::spectrogram

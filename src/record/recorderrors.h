@@ -7,7 +7,7 @@
 #include "framework/global/types/ret.h"
 #include "framework/global/translation.h"
 
-namespace au::record {
+namespace agu::record {
 static constexpr int RECORD_FIRST = 5000;
 
 enum class Err {
@@ -43,7 +43,7 @@ inline muse::Ret make_ret(Err e)
     case Err::TooFewCompatibleTracksSelected: return muse::Ret(retCode,
                                                                muse::trc("record",
                                                                          "Too few tracks are selected for recording at this sample rate.\n"
-                                                                         "(Audacity requires two channels at the same sample rate foreach stereo track)"));
+                                                                         "(AGu requires two channels at the same sample rate foreach stereo track)"));
     case Err::NoRecordingDevice: return muse::Ret(retCode,
                                                   muse::trc("record",
                                                             "No recording device available.\n"

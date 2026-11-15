@@ -12,7 +12,7 @@
 #include "../effectstypes.h"
 
 class EffectSettingsManager;
-namespace au::effects {
+namespace agu::effects {
 class EffectPresetsProvider : public IEffectPresetsProvider, public muse::Contextable
 {
     muse::GlobalInject<IEffectsProvider> effectsProvider;

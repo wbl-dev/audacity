@@ -9,7 +9,7 @@
 #include "framework/uicomponents/qml/Muse/UiComponents/abstractmenumodel.h"
 #include "ispectraleffectsregister.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class TrackSpectrogramContextMenuModel : public muse::uicomponents::AbstractMenuModel
 {
     Q_OBJECT

@@ -5,7 +5,7 @@
 
 #include "playback/iplayer.h"
 
-namespace au::effects {
+namespace agu::effects {
 DynamicsPlayStateModel::DynamicsPlayStateModel(QObject* parent)
     : QObject(parent), muse::Contextable(muse::iocCtxForQmlObject(this))
 {

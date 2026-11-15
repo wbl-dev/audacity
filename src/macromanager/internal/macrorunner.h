@@ -20,7 +20,7 @@
 #include "macromanager/imacrorunner.h"
 #include "macromanager/imacrosrepository.h"
 
-namespace au::macromanager {
+namespace agu::macromanager {
 class MacroRunner : public IMacroRunner, public muse::Contextable, public muse::async::Asyncable
 {
     struct MissingStep {

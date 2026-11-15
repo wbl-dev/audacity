@@ -19,7 +19,7 @@
 #include "global/settings.h"
 #include "testing/testcontext.h"
 
-namespace au::project {
+namespace agu::project {
 class ProjectRecoveryTests : public ::testing::TestWithParam<bool>
 {
 protected:

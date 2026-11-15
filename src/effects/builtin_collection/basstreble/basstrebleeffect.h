@@ -5,7 +5,7 @@
 bool operator==(const BassTrebleSettings& a, const BassTrebleSettings& b);
 inline bool operator!=(const BassTrebleSettings& a, const BassTrebleSettings& b) { return !(a == b); }
 
-namespace au::effects {
+namespace agu::effects {
 class BassTrebleEffect : public BassTrebleBase
 {
 public:

@@ -10,7 +10,7 @@
 #include "au3-lv2/LV2Instance.h"
 #include "au3-lv2/LV2Ports.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 using namespace muse;
 
 namespace {
@@ -20,19 +20,19 @@ struct PortLookup {
     size_t valueIndex = 0;
 };
 
-const LV2Instance* toLv2Instance(au::effects::EffectInstance* instance)
+const LV2Instance* toLv2Instance(agu::effects::EffectInstance* instance)
 {
     return dynamic_cast<const LV2Instance*>(instance);
 }
 
-std::optional<PortLookup> findPort(au::effects::EffectInstance* instance, const String& parameterId)
+std::optional<PortLookup> findPort(agu::effects::EffectInstance* instance, const String& parameterId)
 {
     const LV2Instance* lv2Instance = toLv2Instance(instance);
     if (!lv2Instance) {
         return std::nullopt;
     }
 
-    const wxString symbol = au::au3::wxFromString(parameterId);
+    const wxString symbol = agu::au3::wxFromString(parameterId);
     const LV2ControlPortArray& ports = lv2Instance->GetPorts().mControlPorts;
     for (size_t i = 0; i < ports.size(); ++i) {
         if (ports[i]->mIsInput && ports[i]->mSymbol == symbol) {
@@ -47,7 +47,7 @@ const LV2EffectSettings* lv2Settings(const EffectSettings& settings)
     return settings.cast<LV2EffectSettings>();
 }
 
-float storedValue(const PortLookup& lookup, const au::effects::EffectSettingsAccessPtr& settingsAccess)
+float storedValue(const PortLookup& lookup, const agu::effects::EffectSettingsAccessPtr& settingsAccess)
 {
     if (settingsAccess) {
         if (const LV2EffectSettings* settings = lv2Settings(settingsAccess->Get())) {
@@ -82,10 +82,10 @@ ParameterInfo makeInfo(const PortLookup& lookup, float stored)
     const float factor = displayFactor(port, *lookup.instance);
 
     ParameterInfo info;
-    info.id = au::au3::wxToString(port.mSymbol);
-    info.name = au::au3::wxToString(port.mName);
-    info.group = au::au3::wxToString(port.mGroup.Translation());
-    info.units = au::au3::wxToString(port.mUnits);
+    info.id = agu::au3::wxToString(port.mSymbol);
+    info.name = agu::au3::wxToString(port.mName);
+    info.group = agu::au3::wxToString(port.mGroup.Translation());
+    info.units = agu::au3::wxToString(port.mUnits);
 
     info.minValue = port.mMin * factor;
     info.maxValue = port.mMax * factor;
@@ -107,7 +107,7 @@ ParameterInfo makeInfo(const PortLookup& lookup, float stored)
         info.enumIndices.reserve(port.mScaleValues.size());
         for (size_t i = 0; i < port.mScaleValues.size(); ++i) {
             info.enumValues.push_back(i < port.mScaleLabels.size()
-                                      ? au::au3::wxToString(port.mScaleLabels[i])
+                                      ? agu::au3::wxToString(port.mScaleLabels[i])
                                       : String::number(port.mScaleValues[i]));
             info.enumIndices.push_back(port.mScaleValues[i] * factor);
         }

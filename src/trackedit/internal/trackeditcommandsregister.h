@@ -5,7 +5,7 @@
 
 #include "framework/rcommand/imodulecommandsregister.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class TrackeditCommandsRegister : public muse::rcommand::IModuleCommandsRegister
 {
 public:

@@ -11,12 +11,12 @@
 #include "trackedit/itracksinteraction.h"
 #include "interactive/iinteractive.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class DropController : public QObject, public muse::Contextable
 {
     Q_OBJECT
 
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
     muse::ContextInject<importexport::IImporter> importer{ this };
     muse::ContextInject<importexport::ILabelsImporter> labelsImporter{ this };
     muse::ContextInject<trackedit::ITracksInteraction> tracksInteraction{ this };
@@ -38,7 +38,7 @@ public:
 
 private:
     friend class DropControllerTests;
-    std::vector<au::importexport::FileInfo> m_lastDraggedFilesInfo;
+    std::vector<agu::importexport::FileInfo> m_lastDraggedFilesInfo;
     QStringList m_lastDraggedUrls;
     std::vector<muse::io::path_t> m_lastDraggedLabelPaths;
     int m_trackCountBeforeImport = -1;

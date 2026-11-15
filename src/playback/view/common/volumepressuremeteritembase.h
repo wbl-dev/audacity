@@ -11,12 +11,12 @@
 
 #include "metermodel.h"
 
-namespace au::playback {
+namespace agu::playback {
 class VolumePressureMeterItemBase : public QQuickPaintedItem
 {
     Q_OBJECT
 
-    Q_PROPERTY(au::playback::MeterModel * meterModel READ meterModel WRITE setMeterModel NOTIFY meterModelChanged)
+    Q_PROPERTY(agu::playback::MeterModel * meterModel READ meterModel WRITE setMeterModel NOTIFY meterModelChanged)
 
     Q_PROPERTY(qreal currentVolumePressure READ currentVolumePressure WRITE setCurrentVolumePressure NOTIFY currentVolumePressureChanged)
     Q_PROPERTY(qreal currentRMS READ currentRMS WRITE setCurrentRMS NOTIFY currentRMSChanged)

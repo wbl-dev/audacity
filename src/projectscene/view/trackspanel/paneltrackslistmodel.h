@@ -25,12 +25,12 @@ class ItemMultiSelectionModel;
 
 class QItemSelectionModel;
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class PanelTracksListModel : public QAbstractListModel, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT
 
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
 
     Q_PROPERTY(bool isMovingUpAvailable READ isMovingUpAvailable NOTIFY isMovingUpAvailableChanged)
     Q_PROPERTY(bool isMovingDownAvailable READ isMovingDownAvailable NOTIFY isMovingDownAvailableChanged)

@@ -9,7 +9,7 @@
 #include "global/translation.h"
 #include "global/types/number.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 PaulstretchViewModel::PaulstretchViewModel(QObject* parent, int instanceId)
     : BuiltinEffectModel(parent, instanceId)

@@ -13,7 +13,7 @@
 
 #include "trackedit/trackedittypes.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class DeleteBehaviorOnboardingScenario : public muse::Contextable
 {
     muse::GlobalInject<ITrackeditConfiguration> configuration;

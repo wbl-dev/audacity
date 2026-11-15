@@ -9,7 +9,7 @@
 
 #include "labelstypes.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 inline ::LabelFormat au3labelFormatFromSuffix(const muse::io::path_t& filePath)
 {
     std::string suffix = muse::io::suffix(filePath);

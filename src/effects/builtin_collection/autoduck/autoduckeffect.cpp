@@ -26,7 +26,7 @@
 
 #include <cmath>
 
-using namespace au::effects;
+using namespace agu::effects;
 
 const ComponentInterfaceSymbol AutoDuckEffect::Symbol { "Auto Duck", TranslatableString("effects-autoduck", "Auto duck") };
 

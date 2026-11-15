@@ -7,9 +7,9 @@ are translated in MuseScore already. This tool copies those
 translations into our catalogues. How a string travels:
 
 1. `run_lupdate.sh` scans the muse framework sources and adds the
-   string to `share/locale/audacity_en.ts`.
+   string to `share/locale/agu_en.ts`.
 2. `import_musescore_ts.py` adds the string to every
-   `audacity_<lang>.ts` and looks it up in MuseScore's
+   `agu_<lang>.ts` and looks it up in MuseScore's
    `musescore_<lang>.ts` (same context, same source text).
 3. Found: the translation is copied. Not found: the entry stays
    `unfinished` and goes to translators via Transifex.

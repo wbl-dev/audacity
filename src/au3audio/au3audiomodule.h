@@ -7,7 +7,7 @@
 
 #include "framework/global/modularity/imodulesetup.h"
 
-namespace au::au3audio {
+namespace agu::au3audio {
 class Au3AudioEngine;
 class Au3AudioDriverController;
 class ISystemAudioDevicesListener;

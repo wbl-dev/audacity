@@ -3,7 +3,7 @@
  */
 #pragma once
 
-namespace au::shared {
+namespace agu::shared {
 enum class AxisScale {
     Undefined = -1,
     Linear,

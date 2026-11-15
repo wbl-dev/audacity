@@ -1,4 +1,4 @@
-#Cross toolchain file for building QT project (specifically Audacity)
+#Cross toolchain file for building QT project (specifically AGu)
 #For use in Debian x86-64 + armhf with cross compiler
 
 SET(CMAKE_SYSTEM_NAME Linux)

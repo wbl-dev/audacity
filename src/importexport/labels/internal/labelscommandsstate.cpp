@@ -1,6 +1,6 @@
 #include "labelscommandsstate.h"
 
-using namespace au::importexport;
+using namespace agu::importexport;
 using namespace muse::rcommand;
 
 std::string LabelsCommandsState::moduleName() const

@@ -6,7 +6,7 @@
 
 #include "modularity/imodulesetup.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class LabelsConfiguration;
 class LabelsCommandsController;
 class LabelsModule : public muse::modularity::IModuleSetup

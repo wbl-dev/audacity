@@ -3,7 +3,7 @@
  */
 #include "mousehelper.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 void MouseHelper::callUngrabMouseOnItem(QQuickItem* item)
 {
     if (item) {

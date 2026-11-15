@@ -16,7 +16,7 @@
 #include "context/iglobalcontext.h"
 #include "importexport/export/iexportconfiguration.h"
 #include "importexport/export/iexporter.h"
-#include "project/iaudacityproject.h"
+#include "project/iaguproject.h"
 #include "project/iprojectfilescontroller.h"
 #include "record/irecord.h"
 #include "record/irecordconfiguration.h"
@@ -24,7 +24,7 @@
 #include "record/itimedrecordingscenario.h"
 #include "record/timedrecordingtypes.h"
 
-namespace au::record {
+namespace agu::record {
 class TimedRecordingScenario : public ITimedRecordingScenario, public muse::async::Asyncable, public muse::Contextable
 {
     muse::GlobalInject<muse::toast::IToastService> toastService;
@@ -33,7 +33,7 @@ class TimedRecordingScenario : public ITimedRecordingScenario, public muse::asyn
 
     muse::ContextInject<muse::rcommand::ICommandDispatcher> commandDispatcher{ this };
     muse::ContextInject<muse::IInteractive> interactive{ this };
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
     muse::ContextInject<IRecordController> recordController{ this };
     muse::ContextInject<IRecord> record{ this };
     muse::ContextInject<project::IProjectFilesController> projectFilesController{ this };
@@ -61,7 +61,7 @@ private:
         muse::io::path_t saveProjectPath;
         muse::io::path_t exportAudioPath;
         std::string exportFormat;
-        bool quitAudacity = false;
+        bool quitAGu = false;
     };
 
     enum class Outcome {
@@ -80,10 +80,10 @@ private:
     void confirmStop();
     void finish(Outcome outcome);
     void scheduleCompletionActions();
-    void runCompletionActions(const project::IAudacityProjectPtr& project, const CompletionActions& actions);
-    bool exportAudio(const project::IAudacityProjectPtr& project, const muse::io::path_t& path, const std::string& format);
+    void runCompletionActions(const project::IAGuProjectPtr& project, const CompletionActions& actions);
+    bool exportAudio(const project::IAGuProjectPtr& project, const muse::io::path_t& path, const std::string& format);
     void beginQuitCountdown();
-    void quitAudacity();
+    void quitAGu();
     void cancelQuit();
     void setState(State state);
 
@@ -92,7 +92,7 @@ private:
 
     TimedRecordingSchedule m_schedule;
     CompletionActions m_completionActions;
-    std::weak_ptr<project::IAudacityProject> m_project;
+    std::weak_ptr<project::IAGuProject> m_project;
     bool m_completionActionsPending = false;
     TimedRecordingSchedule::TimePoint m_startTime;
     TimedRecordingSchedule::TimePoint m_endTime;

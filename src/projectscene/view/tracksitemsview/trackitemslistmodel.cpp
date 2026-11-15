@@ -11,8 +11,8 @@
 
 #include "view/common/selectioncolor.h"
 
-using namespace au::projectscene;
-using namespace au::trackedit;
+using namespace agu::projectscene;
+using namespace agu::trackedit;
 
 constexpr int CACHE_BUFFER_PX = 200;
 
@@ -209,7 +209,7 @@ QVariant TrackItemsListModel::prev(const TrackItemKey& key) const
 
 QColor TrackItemsListModel::timeSelectionColor(const QColor& itemColor) const
 {
-    return au::projectscene::timeSelectionColor(itemColor);
+    return agu::projectscene::timeSelectionColor(itemColor);
 }
 
 bool TrackItemsListModel::containsItem(const TrackItemKey& key) const
@@ -398,7 +398,7 @@ void TrackItemsListModel::handleItemRelease(const trackedit::TrackItemKey& key)
     m_pendingToggleDeselect = {};
 }
 
-au::trackedit::SelectionMode TrackItemsListModel::selectionMode() const
+agu::trackedit::SelectionMode TrackItemsListModel::selectionMode() const
 {
     const Qt::KeyboardModifiers modifiers = keyboardModifiers();
 
@@ -478,19 +478,19 @@ void TrackItemsListModel::reload()
         return;
     }
 
-    prj->trackChanged().onReceive(this, [this](const au::trackedit::Track& track) {
+    prj->trackChanged().onReceive(this, [this](const agu::trackedit::Track& track) {
         if (track.id == m_trackId) {
             reload();
         }
     }, muse::async::Asyncable::Mode::SetReplace);
 
-    prj->trackClipListChanged().onReceive(this, [this](const au::trackedit::Track& track) {
+    prj->trackClipListChanged().onReceive(this, [this](const agu::trackedit::Track& track) {
         if (track.id == m_trackId) {
             reload();
         }
     }, muse::async::Asyncable::Mode::SetReplace);
 
-    prj->trackRemoved().onReceive(this, [this](const au::trackedit::Track& track) {
+    prj->trackRemoved().onReceive(this, [this](const agu::trackedit::Track& track) {
         if (track.id == m_trackId) {
             m_trackId = -1;
         }

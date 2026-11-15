@@ -1,7 +1,7 @@
 #include "playbackstate.h"
 
-using namespace au::context;
-using namespace au::playback;
+using namespace agu::context;
+using namespace agu::playback;
 
 void PlaybackState::setPlayer(playback::IPlayerPtr player)
 {

@@ -7,7 +7,7 @@
 
 #include "iffmpegoptionsaccessor.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class Au3FFmpegOptionsAccessor : public IFFmpegOptionsAccessor
 {
 public:

@@ -6,7 +6,7 @@
 #include "effectsutils.h"
 #include "au3wrap/internal/wxtypes_convert.h"
 
-namespace au::effects {
+namespace agu::effects {
 PluginID EffectIdResolver::EffectId(const EffectDefinitionInterface* effect) const
 {
     return au3::wxFromString(utils::effectId(effect));

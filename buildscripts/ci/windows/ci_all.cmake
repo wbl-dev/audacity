@@ -33,7 +33,7 @@ execute_process(
 message(STATUS "~~Generate dump symbols~~")
 
 set(CONFIG
-    -DAPP_BIN="${ROOT_DIR}/build.release/Audacity4.pdb"
+    -DAPP_BIN="${ROOT_DIR}/build.release/AGu.pdb"
 )
 
 execute_process(

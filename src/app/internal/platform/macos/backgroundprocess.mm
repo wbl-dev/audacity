@@ -19,7 +19,7 @@ BOOL keepAccessoryActivationPolicy(id self, SEL cmd, NSApplicationActivationPoli
 }
 }
 
-namespace au::app {
+namespace agu::app {
 void makeProcessBackground()
 {
     // LSUIElement in the live info dictionary: windows allowed, no dock icon

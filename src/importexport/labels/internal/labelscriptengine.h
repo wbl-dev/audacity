@@ -6,7 +6,7 @@
 #include "types/retval.h"
 #include "labelscriptdata.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class LabelScriptEngine
 {
 public:

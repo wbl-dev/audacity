@@ -5,7 +5,7 @@
 
 #include <cmath>
 
-namespace au::shared {
+namespace agu::shared {
 Decibel Decibel::fromLinear(double linear)
 {
     return Decibel { 20.0 * std::log10(std::abs(linear)) };

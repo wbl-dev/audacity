@@ -6,7 +6,7 @@
 #include "effects/effects_base/internal/au3effectloader.h"
 #include "au3-nyquist-effects/LoadNyquist.h"
 
-namespace au::effects {
+namespace agu::effects {
 class NyquistEffectsLoader final : public Au3EffectLoader
 {
 public:
@@ -16,4 +16,4 @@ public:
 private:
     ::NyquistEffectsModule m_module;
 };
-} // namespace au::effects
+} // namespace agu::effects

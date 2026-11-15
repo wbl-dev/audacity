@@ -18,8 +18,8 @@
 #include "framework/global/log.h"
 
 using namespace muse;
-using namespace au::trackedit;
-using namespace au::au3;
+using namespace agu::trackedit;
+using namespace agu::au3;
 
 struct Au3TrackeditProject::Au3Impl
 {
@@ -46,7 +46,7 @@ Au3TrackeditProject::Au3TrackeditProject(const muse::modularity::ContextPtr& ctx
         onProjectTempoChange(
             event.newTempo);
 
-        au::trackedit::TimeSignature trackeditTimeSignature = au::trackedit::TimeSignature { event.newTempo, event.newUpperTimeSignature, event.newLowerTimeSignature };
+        agu::trackedit::TimeSignature trackeditTimeSignature = agu::trackedit::TimeSignature { event.newTempo, event.newUpperTimeSignature, event.newLowerTimeSignature };
         m_timeSignatureChanged.send(trackeditTimeSignature);
     });
 
@@ -89,9 +89,9 @@ std::set<int64_t> Au3TrackeditProject::groupsIdsList() const
     return groupsList;
 }
 
-std::vector<au::trackedit::TrackId> Au3TrackeditProject::trackIdList() const
+std::vector<agu::trackedit::TrackId> Au3TrackeditProject::trackIdList() const
 {
-    std::vector<au::trackedit::TrackId> au4trackIds;
+    std::vector<agu::trackedit::TrackId> au4trackIds;
 
     for (const Au3Track* t : *m_impl->trackList) {
         au4trackIds.push_back(t->GetId());
@@ -150,9 +150,9 @@ void Au3TrackeditProject::setHasLabels(bool has)
     }
 }
 
-au::trackedit::TrackList Au3TrackeditProject::trackList() const
+agu::trackedit::TrackList Au3TrackeditProject::trackList() const
 {
-    au::trackedit::TrackList au4tracks;
+    agu::trackedit::TrackList au4tracks;
 
     for (const Au3Track* t : *m_impl->trackList) {
         Track au4t = DomConverter::track(t);
@@ -162,9 +162,9 @@ au::trackedit::TrackList Au3TrackeditProject::trackList() const
     return au4tracks;
 }
 
-std::optional<au::trackedit::Track> Au3TrackeditProject::track(TrackId trackId) const
+std::optional<agu::trackedit::Track> Au3TrackeditProject::track(TrackId trackId) const
 {
-    std::optional<au::trackedit::Track> toReturn;
+    std::optional<agu::trackedit::Track> toReturn;
 
     for (const Au3Track* t : *m_impl->trackList) {
         if (t->GetId() == trackId) {
@@ -246,9 +246,9 @@ void Au3TrackeditProject::onProjectTempoChange(double newTempo)
     }
 }
 
-au::trackedit::Clips Au3TrackeditProject::getClips(const TrackId& trackId) const
+agu::trackedit::Clips Au3TrackeditProject::getClips(const TrackId& trackId) const
 {
-    au::trackedit::Clips clips;
+    agu::trackedit::Clips clips;
 
     const Au3WaveTrack* waveTrack = DomAccessor::findWaveTrack(*m_impl->prj, Au3TrackId(trackId));
     if (!waveTrack) {
@@ -256,16 +256,16 @@ au::trackedit::Clips Au3TrackeditProject::getClips(const TrackId& trackId) const
     }
 
     for (const std::shared_ptr<const Au3WaveClip>& interval : waveTrack->Intervals()) {
-        au::trackedit::Clip clip = DomConverter::clip(waveTrack, interval.get());
+        agu::trackedit::Clip clip = DomConverter::clip(waveTrack, interval.get());
         clips.push_back(std::move(clip));
     }
 
     return clips;
 }
 
-au::trackedit::Labels Au3TrackeditProject::getLabels(const TrackId& trackId) const
+agu::trackedit::Labels Au3TrackeditProject::getLabels(const TrackId& trackId) const
 {
-    au::trackedit::Labels labels;
+    agu::trackedit::Labels labels;
 
     const Au3LabelTrack* labelTrack = DomAccessor::findLabelTrack(*m_impl->prj, Au3TrackId(trackId));
     if (!labelTrack) {
@@ -274,17 +274,17 @@ au::trackedit::Labels Au3TrackeditProject::getLabels(const TrackId& trackId) con
 
     const auto& au3labels = labelTrack->GetLabels();
     for (size_t i = 0; i < au3labels.size(); ++i) {
-        au::trackedit::Label label = DomConverter::label(labelTrack, &au3labels[i]);
+        agu::trackedit::Label label = DomConverter::label(labelTrack, &au3labels[i]);
         labels.push_back(std::move(label));
     }
 
     return labels;
 }
 
-muse::async::NotifyList<au::trackedit::Clip> Au3TrackeditProject::clipList(const au::trackedit::TrackId& trackId) const
+muse::async::NotifyList<agu::trackedit::Clip> Au3TrackeditProject::clipList(const agu::trackedit::TrackId& trackId) const
 {
-    au::trackedit::Clips clips = getClips(trackId);
-    muse::async::NotifyList<au::trackedit::Clip> clipNotifyList;
+    agu::trackedit::Clips clips = getClips(trackId);
+    muse::async::NotifyList<agu::trackedit::Clip> clipNotifyList;
 
     clipNotifyList.reserve(clips.size());
     for (Clip& clip : clips) {
@@ -297,10 +297,10 @@ muse::async::NotifyList<au::trackedit::Clip> Au3TrackeditProject::clipList(const
     return clipNotifyList;
 }
 
-muse::async::NotifyList<au::trackedit::Label> Au3TrackeditProject::labelList(const au::trackedit::TrackId& trackId) const
+muse::async::NotifyList<agu::trackedit::Label> Au3TrackeditProject::labelList(const agu::trackedit::TrackId& trackId) const
 {
-    au::trackedit::Labels labels = getLabels(trackId);
-    muse::async::NotifyList<au::trackedit::Label> labelNotifyList;
+    agu::trackedit::Labels labels = getLabels(trackId);
+    muse::async::NotifyList<agu::trackedit::Label> labelNotifyList;
 
     labelNotifyList.reserve(labels.size());
     for (Label& label : labels) {
@@ -313,7 +313,7 @@ muse::async::NotifyList<au::trackedit::Label> Au3TrackeditProject::labelList(con
     return labelNotifyList;
 }
 
-au::trackedit::ItemTimeSpanList Au3TrackeditProject::itemTimeSpansSorted(const au::trackedit::TrackId& trackId) const
+agu::trackedit::ItemTimeSpanList Au3TrackeditProject::itemTimeSpansSorted(const agu::trackedit::TrackId& trackId) const
 {
     const std::optional<Track> track = this->track(trackId);
     if (!track.has_value()) {
@@ -338,7 +338,7 @@ au::trackedit::ItemTimeSpanList Au3TrackeditProject::itemTimeSpansSorted(const a
     return items;
 }
 
-std::optional<au::trackedit::TimeSpan> Au3TrackeditProject::itemTimeSpan(const au::trackedit::TrackItemKey& key) const
+std::optional<agu::trackedit::TimeSpan> Au3TrackeditProject::itemTimeSpan(const agu::trackedit::TrackItemKey& key) const
 {
     const std::optional<Track> track = this->track(key.trackId);
     if (!track.has_value()) {
@@ -362,11 +362,11 @@ std::optional<au::trackedit::TimeSpan> Au3TrackeditProject::itemTimeSpan(const a
 
 std::optional<std::string> Au3TrackeditProject::trackName(const TrackId& trackId) const
 {
-    const Au3Track* au3Track = au::au3::DomAccessor::findTrack(*m_impl->prj, au::au3::Au3TrackId { trackId });
+    const Au3Track* au3Track = agu::au3::DomAccessor::findTrack(*m_impl->prj, agu::au3::Au3TrackId { trackId });
     if (au3Track == nullptr) {
         return std::nullopt;
     }
-    return au::au3::DomConverter::track(au3Track).title.toStdString();
+    return agu::au3::DomConverter::track(au3Track).title.toStdString();
 }
 
 void Au3TrackeditProject::reload()
@@ -406,7 +406,7 @@ void Au3TrackeditProject::notifyAboutTrackMoved(const Track& track, int pos)
     return m_trackMoved.send(track, pos);
 }
 
-au::trackedit::Clip Au3TrackeditProject::clip(const ClipKey& key) const
+agu::trackedit::Clip Au3TrackeditProject::clip(const ClipKey& key) const
 {
     Au3WaveTrack* waveTrack = DomAccessor::findWaveTrack(*m_impl->prj, Au3TrackId(key.trackId));
     if (!waveTrack) {
@@ -421,7 +421,7 @@ au::trackedit::Clip Au3TrackeditProject::clip(const ClipKey& key) const
     return DomConverter::clip(waveTrack, au3Clip.get());
 }
 
-au::trackedit::Label Au3TrackeditProject::label(const LabelKey& key) const
+agu::trackedit::Label Au3TrackeditProject::label(const LabelKey& key) const
 {
     Au3LabelTrack* labelTrack = DomAccessor::findLabelTrack(*m_impl->prj, Au3TrackId(key.trackId));
     if (!labelTrack) {
@@ -485,7 +485,7 @@ void Au3TrackeditProject::notifyAboutLabelAdded(const Label& label)
     setHasLabels(true);
 }
 
-au::trackedit::TimeSignature Au3TrackeditProject::timeSignature() const
+agu::trackedit::TimeSignature Au3TrackeditProject::timeSignature() const
 {
     trackedit::TimeSignature result;
 
@@ -540,42 +540,42 @@ void Au3TrackeditProject::setTimeSignature(const trackedit::TimeSignature& timeS
     projectHistory()->pushHistoryState(historyStateMessage, historyStateMessage, trackedit::UndoPushType::CONSOLIDATE);
 }
 
-muse::async::Channel<au::trackedit::TimeSignature> Au3TrackeditProject::timeSignatureChanged() const
+muse::async::Channel<agu::trackedit::TimeSignature> Au3TrackeditProject::timeSignatureChanged() const
 {
     return m_timeSignatureChanged;
 }
 
-muse::async::Channel<std::vector<au::trackedit::Track> > Au3TrackeditProject::tracksChanged() const
+muse::async::Channel<std::vector<agu::trackedit::Track> > Au3TrackeditProject::tracksChanged() const
 {
     return m_tracksChanged;
 }
 
-muse::async::Channel<au::trackedit::Track> Au3TrackeditProject::trackAdded() const
+muse::async::Channel<agu::trackedit::Track> Au3TrackeditProject::trackAdded() const
 {
     return m_trackAdded;
 }
 
-muse::async::Channel<au::trackedit::Track> Au3TrackeditProject::trackChanged() const
+muse::async::Channel<agu::trackedit::Track> Au3TrackeditProject::trackChanged() const
 {
     return m_trackChanged;
 }
 
-muse::async::Channel<au::trackedit::Track> Au3TrackeditProject::trackClipListChanged() const
+muse::async::Channel<agu::trackedit::Track> Au3TrackeditProject::trackClipListChanged() const
 {
     return m_trackClipListChanged;
 }
 
-muse::async::Channel<au::trackedit::Track> Au3TrackeditProject::trackRemoved() const
+muse::async::Channel<agu::trackedit::Track> Au3TrackeditProject::trackRemoved() const
 {
     return m_trackRemoved;
 }
 
-muse::async::Channel<au::trackedit::Track, int> Au3TrackeditProject::trackInserted() const
+muse::async::Channel<agu::trackedit::Track, int> Au3TrackeditProject::trackInserted() const
 {
     return m_trackInserted;
 }
 
-muse::async::Channel<au::trackedit::Track, int> Au3TrackeditProject::trackMoved() const
+muse::async::Channel<agu::trackedit::Track, int> Au3TrackeditProject::trackMoved() const
 {
     return m_trackMoved;
 }

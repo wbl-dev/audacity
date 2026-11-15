@@ -14,7 +14,7 @@
 #include "audio/iaudiostreamsuspender.h"
 #include "au3audio/isystemaudiodeviceslistener.h"
 
-namespace au::au3audio {
+namespace agu::au3audio {
 class Au3AudioDriverController final : public audio::IAudioDriverController, public muse::async::Asyncable
 {
     muse::GlobalInject<audio::IAudioEngine> audioEngine;

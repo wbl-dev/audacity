@@ -21,7 +21,7 @@
 
 using namespace std::chrono_literals;
 
-namespace au::au3audio {
+namespace agu::au3audio {
 /**
  * @brief Fixture for testing AudioIO monitoring against a real PortAudio stream.
  *
@@ -35,7 +35,7 @@ protected:
     void SetUp() override
     {
         // StartPortAudioStream asserts an owning project, so load a real (empty) one, like au3record_tests does.
-        m_au3ProjectAccessor = std::make_shared<au::au3::Au3ProjectAccessor>(muse::modularity::globalCtx());
+        m_au3ProjectAccessor = std::make_shared<agu::au3::Au3ProjectAccessor>(muse::modularity::globalCtx());
         const std::string source = std::string(au3audio_tests_DATA_ROOT) + "/../../trackedit/tests/data/empty.aup4";
         m_workingProjectPath = std::string(au3audio_tests_DATA_ROOT) + "/monitoring_working.aup4";
         testtools::removeProjectIfExists(m_workingProjectPath);
@@ -55,9 +55,9 @@ protected:
         testtools::removeProjectIfExists(m_workingProjectPath);
     }
 
-    au::au3::Au3Project& projectRef() const
+    agu::au3::Au3Project& projectRef() const
     {
-        return *reinterpret_cast<au::au3::Au3Project*>(m_au3ProjectAccessor->au3ProjectPtr());
+        return *reinterpret_cast<agu::au3::Au3Project*>(m_au3ProjectAccessor->au3ProjectPtr());
     }
 
     //! Points the recording-device prefs at a usable capture device.
@@ -96,7 +96,7 @@ protected:
         return true;
     }
 
-    std::shared_ptr<au::au3::Au3ProjectAccessor> m_au3ProjectAccessor;
+    std::shared_ptr<agu::au3::Au3ProjectAccessor> m_au3ProjectAccessor;
     std::string m_workingProjectPath;
 };
 
@@ -149,4 +149,4 @@ TEST_F(AudioIOMonitoringTest, MonitoringDoesNotNeedAudioThread)
     EXPECT_FALSE(hangs([&] { audioIO->StopMonitoring(); }, Acknowledge::eStop))
         << "StopMonitoring waits for the audio thread";
 }
-} // namespace au::au3audio
+} // namespace agu::au3audio

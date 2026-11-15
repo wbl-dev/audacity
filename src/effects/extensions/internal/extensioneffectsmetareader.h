@@ -9,7 +9,7 @@
 #include "framework/audioplugins/iaudiopluginmetareader.h"
 #include "framework/global/modularity/ioc.h"
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 class ExtensionEffectsRepository;
 
 class ExtensionEffectsMetaReader final : public muse::audioplugins::IAudioPluginMetaReader
@@ -26,4 +26,4 @@ private:
 
     std::shared_ptr<ExtensionEffectsRepository> m_repository;
 };
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

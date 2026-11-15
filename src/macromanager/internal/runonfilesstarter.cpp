@@ -3,11 +3,11 @@
 */
 #include "runonfilesstarter.h"
 
-using namespace au::macromanager;
+using namespace agu::macromanager;
 using namespace muse;
 
 namespace {
-const Uri RUN_ON_FILES_URI("audacity://macromanager/runonfiles");
+const Uri RUN_ON_FILES_URI("agu://macromanager/runonfiles");
 }
 
 void RunOnFilesStarter::init()

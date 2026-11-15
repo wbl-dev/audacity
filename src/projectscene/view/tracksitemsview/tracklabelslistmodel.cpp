@@ -10,8 +10,8 @@
 
 #include "log.h"
 
-using namespace au::projectscene;
-using namespace au::trackedit;
+using namespace agu::projectscene;
+using namespace agu::trackedit;
 
 static constexpr double EDGE_COLLAPSE_SNAP_PX = 4.0;
 static constexpr double SHARED_STALK_TOLERANCE_PX = 2.0;
@@ -86,7 +86,7 @@ void TrackLabelsListModel::onReload()
 
     m_allLabelList.onItemAdded(this, [this](const Label& label) {
         ITrackeditProjectPtr prj = globalContext()->currentTrackeditProject();
-        muse::async::NotifyList<au::trackedit::Label> newList = prj->labelList(m_trackId);
+        muse::async::NotifyList<agu::trackedit::Label> newList = prj->labelList(m_trackId);
         for (size_t i = 0; i < newList.size(); ++i) {
             if (newList.at(i).key != label.key) {
                 continue;
@@ -124,7 +124,7 @@ void TrackLabelsListModel::update()
     QList<TrackLabelItem*> newList;
 
     // Building a new list, reusing existing labels
-    for (const au::trackedit::Label& l : m_allLabelList) {
+    for (const agu::trackedit::Label& l : m_allLabelList) {
         auto it = oldItems.find(l.key.itemId);
         TrackLabelItem* item = nullptr;
 

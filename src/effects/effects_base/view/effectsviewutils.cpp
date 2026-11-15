@@ -3,7 +3,7 @@
  */
 #include "effectsviewutils.h"
 
-namespace au::effects {
+namespace agu::effects {
 muse::uicomponents::MenuItemList utils::toMenuItemList(const std::vector<DropdownOption>& options, int selectedIndex, QObject* parent)
 {
     muse::uicomponents::MenuItemList result;

@@ -27,7 +27,7 @@
 #include "../ieffectsconfiguration.h"
 #include "../ieffectinstancesregister.h"
 
-namespace au::effects {
+namespace agu::effects {
 class EffectsUiActions;
 class EffectsActionsController : public muse::actions::Actionable, public muse::rcommand::Commandable, public muse::async::Asyncable,
     public muse::Contextable
@@ -44,7 +44,7 @@ class EffectsActionsController : public muse::actions::Actionable, public muse::
     muse::ContextInject<IEffectExecutionScenario> effectExecutionScenario{ this };
     muse::ContextInject<IEffectPresetsScenario> presetsScenario{ this };
     muse::ContextInject<muse::IInteractive> interactive{ this };
-    muse::ContextInject<au::playback::IPlaybackController> playbackController{ this };
+    muse::ContextInject<agu::playback::IPlaybackController> playbackController{ this };
     muse::ContextInject<spectrogram::IFrequencySelectionController> frequencySelectionController{ this };
 
 public:

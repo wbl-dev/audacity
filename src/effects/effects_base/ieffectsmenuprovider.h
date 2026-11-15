@@ -9,7 +9,7 @@
 #include "global/async/notification.h"
 #include "uicomponents/qml/Muse/UiComponents/menuitem.h"
 
-namespace au::effects {
+namespace agu::effects {
 enum class EffectFilter {
     GeneratorsOnly,
     ProcessorsOnly,

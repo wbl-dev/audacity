@@ -14,7 +14,7 @@
 
 #include <set>
 
-namespace au::effects {
+namespace agu::effects {
 class Lv2ViewLauncher final : public AbstractViewLauncher, public muse::async::Asyncable
 {
     muse::GlobalInject<IEffectsProvider> effectsProvider;

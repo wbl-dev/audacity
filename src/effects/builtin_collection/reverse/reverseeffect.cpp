@@ -9,7 +9,7 @@
 #include "au3-wave-track/WaveTrack.h"
 #include "au3-wave-track/WaveTrackUtilities.h"
 
-namespace au::effects {
+namespace agu::effects {
 ReverseEffect::ReverseEffect()
 {
 }

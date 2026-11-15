@@ -11,7 +11,7 @@
 #include "effects/effects_base/ieffectsprovider.h"
 #include "effects/effects_base/ieffectviewlaunchregister.h"
 
-namespace au::effects {
+namespace agu::effects {
 class PresetsContextMenuModel : public muse::uicomponents::AbstractMenuModel
 {
     Q_OBJECT

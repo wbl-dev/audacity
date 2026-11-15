@@ -18,7 +18,7 @@
 
 #include <algorithm>
 
-namespace au::effects {
+namespace agu::effects {
 namespace {
 // Tunable: each zoom step widens or narrows the visible dB range by this
 // amount on each side (so the total range changes by 2×step).

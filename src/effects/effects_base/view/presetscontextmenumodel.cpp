@@ -8,7 +8,7 @@
 using namespace muse;
 using namespace muse::rcommand;
 using namespace muse::uicomponents;
-using namespace au::effects;
+using namespace agu::effects;
 
 PresetsContextMenuModel::PresetsContextMenuModel(QObject* parent)
     : AbstractMenuModel(parent)

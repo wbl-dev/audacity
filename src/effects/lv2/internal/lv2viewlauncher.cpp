@@ -10,7 +10,7 @@
 #include "au3-lv2/LV2EffectBase.h"
 #include "au3-realtime-effects/RealtimeEffectState.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 Lv2ViewLauncher::Lv2ViewLauncher(const muse::modularity::ContextPtr& ctx)
     : AbstractViewLauncher(ctx)

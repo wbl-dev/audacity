@@ -12,7 +12,7 @@
 
 class EffectDefinitionInterface;
 
-namespace au::effects::utils {
+namespace agu::effects::utils {
 using EffectFilter = std::function<bool (const EffectMeta&)>;
 
 muse::uicomponents::MenuItemList destructiveEffectMenu(EffectMenuOrganization organization, EffectMetaList metaList,

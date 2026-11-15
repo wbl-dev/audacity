@@ -25,18 +25,18 @@
 struct TransportSequences;
 struct AudioIOStartTransportOptions;
 
-namespace au::record {
+namespace agu::record {
 class Au3Record : public IRecord, public muse::async::Asyncable, public muse::Contextable
 {
-    muse::GlobalInject<au::audio::IAudioEngine> audioEngine;
+    muse::GlobalInject<agu::audio::IAudioEngine> audioEngine;
     muse::GlobalInject<record::IRecordConfiguration> recordConfiguration;
     muse::GlobalInject<audio::IAudioDriverController> audioDriverController;
 
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
     muse::ContextInject<muse::rcommand::ICommandDispatcher> commandDispatcher{ this };
-    muse::ContextInject<au::trackedit::IProjectHistory> projectHistory{ this };
+    muse::ContextInject<agu::trackedit::IProjectHistory> projectHistory{ this };
     muse::ContextInject<trackedit::ITrackeditInteraction> trackeditInteraction{ this };
-    muse::ContextInject<au::trackedit::ISelectionController> selectionController{ this };
+    muse::ContextInject<agu::trackedit::ISelectionController> selectionController{ this };
 
     friend class Au3RecordTests;
 

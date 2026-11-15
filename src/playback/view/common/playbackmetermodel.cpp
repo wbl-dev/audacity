@@ -9,7 +9,7 @@
 
 #include <memory>
 
-using namespace au::playback;
+using namespace agu::playback;
 
 PlaybackMeterModel::PlaybackMeterModel(QObject* parent)
     : MeterModel(parent)

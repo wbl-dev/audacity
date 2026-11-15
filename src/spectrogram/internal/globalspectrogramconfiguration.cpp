@@ -5,7 +5,7 @@
 
 #include "framework/global/settings.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 namespace {
 static const std::string moduleName("spectrogram");
 

@@ -8,7 +8,7 @@
 
 #include "view/timeline/irulerformat.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class BeatsMeasuresFormat : public IRulerFormat
 {
 public:

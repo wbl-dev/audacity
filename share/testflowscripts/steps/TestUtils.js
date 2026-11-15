@@ -4,7 +4,7 @@
  * Common utilities for testflow scripts.
  */
 
-var Project = require("Audacity.Project")
+var Project = require("AGu.Project")
 
 var EPSILON = 0.001
 

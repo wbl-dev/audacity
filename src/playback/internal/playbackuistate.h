@@ -9,7 +9,7 @@
 #include "framework/global/modularity/ioc.h"
 #include "framework/ui/iuistate.h"
 
-namespace au::playback {
+namespace agu::playback {
 class PlaybackUiState : public IPlaybackUiState, public muse::Contextable, public muse::async::Asyncable
 {
     muse::ContextInject<muse::ui::IUiState> uiState { this };

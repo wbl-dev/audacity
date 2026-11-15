@@ -5,7 +5,7 @@
 
 #include "abstractdbmetermodel.h"
 
-namespace au::effects {
+namespace agu::effects {
 class CompressionDbMeterModel : public AbstractDbMeterModel
 {
     Q_OBJECT
@@ -15,4 +15,4 @@ public:
 
     float latestValue() override;
 };
-} // namespace au::effects
+} // namespace agu::effects

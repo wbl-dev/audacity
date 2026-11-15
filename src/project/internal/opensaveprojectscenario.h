@@ -33,7 +33,7 @@
 #include "project/iprojectconfiguration.h"
 #include "project/iprojectfilescontroller.h"
 
-namespace au::project {
+namespace agu::project {
 class OpenSaveProjectScenario : public IOpenSaveProjectScenario, public muse::Contextable
 {
     muse::GlobalInject<IProjectConfiguration> configuration;
@@ -47,7 +47,7 @@ public:
     OpenSaveProjectScenario(const muse::modularity::ContextPtr& ctx)
         : muse::Contextable(ctx) {}
 
-    muse::RetVal<muse::io::path_t> askLocalPath(IAudacityProjectPtr project, SaveMode mode) const override;
+    muse::RetVal<muse::io::path_t> askLocalPath(IAGuProjectPtr project, SaveMode mode) const override;
     muse::RetVal<muse::io::path_t> resolveLegacyProjectFormat(const muse::io::path_t& path) const override;
 };
 }

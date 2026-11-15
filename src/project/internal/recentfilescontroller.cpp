@@ -26,7 +26,7 @@
 #include "framework/global/serialization/json.h"
 #include "framework/multiwindows/resourcelockguard.h"
 
-using namespace au::project;
+using namespace agu::project;
 using namespace muse;
 using namespace muse::async;
 

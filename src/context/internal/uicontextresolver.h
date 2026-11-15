@@ -37,7 +37,7 @@
 #include "playback/iplaybackcontroller.h"
 #endif
 
-namespace au::context {
+namespace agu::context {
 class UiContextResolver : public muse::ui::IUiContextResolver, public muse::extensions::IExtensionContextResolver,
     public muse::async::Asyncable, public muse::Contextable
 {

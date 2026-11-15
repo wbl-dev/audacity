@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-namespace au::importexport {
+namespace agu::importexport {
 static const std::string DEFAULT_EXPORT_FORMAT = "WAV (Microsoft)";
 constexpr int DEFAULT_EXPORT_SAMPLE_RATE = 44100;
 

@@ -5,7 +5,7 @@
 
 #include "playback/iaudiooutput.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 SelectionStatusModel::SelectionStatusModel(QObject* parent)
     : QObject(parent), muse::Contextable(muse::iocCtxForQmlObject(this))

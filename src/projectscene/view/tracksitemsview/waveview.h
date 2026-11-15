@@ -15,7 +15,7 @@
 #include "types/projectscenetypes.h"
 
 class WaveClipItem;
-namespace au::projectscene {
+namespace agu::projectscene {
 class WaveView : public QQuickPaintedItem, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT
@@ -45,9 +45,9 @@ class WaveView : public QQuickPaintedItem, public muse::async::Asyncable, public
 
     muse::GlobalInject<IProjectSceneConfiguration> configuration;
 
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
-    muse::ContextInject<au::projectscene::IWavePainter> wavePainter{ this };
-    muse::ContextInject<au::trackedit::IProjectHistory> projectHistory{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::projectscene::IWavePainter> wavePainter{ this };
+    muse::ContextInject<agu::trackedit::IProjectHistory> projectHistory{ this };
 
 public:
     WaveView(QQuickItem* parent = nullptr);

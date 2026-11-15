@@ -15,7 +15,7 @@ target_link_libraries(uicomponents PRIVATE
     Qt::Quick
 )
 
-add_subdirectory(qml/Audacity/UiComponents)
+add_subdirectory(qml/AGu/UiComponents)
 
 if (AU_BUILD_UICOMPONENTS_TESTS)
     add_subdirectory(tests)

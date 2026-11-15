@@ -5,7 +5,7 @@
 
 #include "projectscene/view/trackruler/linearbaseruler.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class LinearStereoRuler : public LinearBaseRuler
 {
 public:

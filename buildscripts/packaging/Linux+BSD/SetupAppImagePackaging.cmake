@@ -4,12 +4,12 @@ if(NOT(OS_IS_LIN OR OS_IS_FBSD))
     return()
 endif()
 
-set(DESKTOP_LAUNCHER_NAME "${MUSE_APP_NAME_VERSION} Portable")
+set(DESKTOP_LAUNCHER_NAME "${MUSE_APP_NAME}")
 
 # Identify App's main window so that it receives the correct name
 # and icon in the OS dock / taskbar. Run `xprop WM_CLASS` and click on
 # App's main window to find out what string to use here.
-set(WINDOW_MANAGER_CLASS ${MUSE_APP_NAME_VERSION})
+set(WINDOW_MANAGER_CLASS ${MUSE_APP_NAME})
 
 if (AU4_BUILD_CONFIGURATION STREQUAL "app-portable")
     # Build portable AppImage as per https://github.com/probonopd/AppImageKit
@@ -31,8 +31,8 @@ if (AU4_BUILD_CONFIGURATION STREQUAL "app-portable")
 endif()
 
 # Install desktop file (perform variable substitution first)
-configure_file(${CMAKE_CURRENT_LIST_DIR}/org.audacityteam.Audacity.desktop.in org.audacityteam.Audacity${MUSE_APP_INSTALL_SUFFIX}.desktop)
-install(FILES ${PROJECT_BINARY_DIR}/org.audacityteam.Audacity${MUSE_APP_INSTALL_SUFFIX}.desktop DESTINATION share/applications)
+configure_file(${CMAKE_CURRENT_LIST_DIR}/org.agu.app.desktop.in org.agu.app${MUSE_APP_INSTALL_SUFFIX}.desktop)
+install(FILES ${PROJECT_BINARY_DIR}/org.agu.app${MUSE_APP_INSTALL_SUFFIX}.desktop DESTINATION share/applications)
 
 # Install appdata file (perform variable substitution first)
 if("${MUSE_APP_INSTALL_SUFFIX}" MATCHES "-")
@@ -43,11 +43,11 @@ if("${MUSE_APP_INSTALL_SUFFIX}" MATCHES "-")
     )
 endif()
 
-configure_file(${CMAKE_CURRENT_LIST_DIR}/org.audacityteam.Audacity.appdata.xml.in org.audacityteam.Audacity${MUSE_APP_INSTALL_SUFFIX}.appdata.xml)
-install(FILES ${PROJECT_BINARY_DIR}/org.audacityteam.Audacity${MUSE_APP_INSTALL_SUFFIX}.appdata.xml DESTINATION share/metainfo)
+configure_file(${CMAKE_CURRENT_LIST_DIR}/org.agu.app.appdata.xml.in org.agu.app${MUSE_APP_INSTALL_SUFFIX}.appdata.xml)
+install(FILES ${PROJECT_BINARY_DIR}/org.agu.app${MUSE_APP_INSTALL_SUFFIX}.appdata.xml DESTINATION share/metainfo)
 
 # Add .AUP4 to MIME database (informs system that filetypes .AUP4 are Audacity files)
-configure_file(${CMAKE_CURRENT_LIST_DIR}/audacity.xml.in audacity${MUSE_APP_INSTALL_SUFFIX}.xml)
-install(FILES ${PROJECT_BINARY_DIR}/audacity${MUSE_APP_INSTALL_SUFFIX}.xml DESTINATION share/mime/packages COMPONENT doc)
+configure_file(${CMAKE_CURRENT_LIST_DIR}/agu.xml.in agu${MUSE_APP_INSTALL_SUFFIX}.xml)
+install(FILES ${PROJECT_BINARY_DIR}/agu${MUSE_APP_INSTALL_SUFFIX}.xml DESTINATION share/mime/packages COMPONENT doc)
 
 # Note: Must now run "update-mime-database" to apply changes.

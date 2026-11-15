@@ -13,7 +13,7 @@
 
 #include "extensioneffect.h"
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 namespace {
 std::string stringMember(const muse::ValMap& object, const std::string& name)
 {
@@ -144,4 +144,4 @@ bool ExtensionEffectsRepository::contains(const muse::io::path_t& path) const
         return effect.bundlePath == path;
     });
 }
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

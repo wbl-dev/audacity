@@ -8,7 +8,7 @@
 #include "framework/actions/actiontypes.h"
 #include "framework/rcommand/commandtypes.h"
 
-namespace au::project {
+namespace agu::project {
 inline static const muse::rcommand::Command PROJECT_NEW_COMMAND("command://project/new");
 inline static const muse::rcommand::Command PROJECT_OPEN_COMMAND("command://project/open");
 inline static const muse::rcommand::Command PROJECT_CLEAR_RECENT_COMMAND("command://project/clear-recent");

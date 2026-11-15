@@ -9,7 +9,7 @@
 #include "global/async/channel.h"
 #include "effectstypes.h"
 
-namespace au::effects {
+namespace agu::effects {
 class IEffectPresetsProvider : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IEffectsPresetsProvider)

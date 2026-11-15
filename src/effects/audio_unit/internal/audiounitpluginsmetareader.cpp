@@ -10,17 +10,17 @@
 
 #include "audiounittypes.h"
 
-au::effects::AudioUnitPluginsMetaReader::AudioUnitPluginsMetaReader()
+agu::effects::AudioUnitPluginsMetaReader::AudioUnitPluginsMetaReader()
     : Au3AudioPluginMetaReader(m_module)
 {
 }
 
-muse::audioplugins::PluginType au::effects::AudioUnitPluginsMetaReader::metaType() const
+muse::audioplugins::PluginType agu::effects::AudioUnitPluginsMetaReader::metaType() const
 {
-    return std::string(au::effects::audio_unit::AUDIO_RESOURCE_TYPE_NAME);
+    return std::string(agu::effects::audio_unit::AUDIO_RESOURCE_TYPE_NAME);
 }
 
-bool au::effects::AudioUnitPluginsMetaReader::canReadMeta(const muse::io::path_t& path) const
+bool agu::effects::AudioUnitPluginsMetaReader::canReadMeta(const muse::io::path_t& path) const
 {
     // AudioUnit path: "type/subtype/manufacturer/name"
     // each field is FourCharCode

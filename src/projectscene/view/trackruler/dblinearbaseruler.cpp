@@ -8,7 +8,7 @@
 
 #include "dblinearbaseruler.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 DbLinearBaseRuler::DbLinearBaseRuler(DbLinearRulerUiSettings settings)
     : m_ui_settings(std::move(settings))

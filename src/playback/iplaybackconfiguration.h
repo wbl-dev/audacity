@@ -11,7 +11,7 @@
 #include "uicomponents/types/numerictypes.h"
 #include "trackedit/trackedittypes.h"
 
-namespace au::playback {
+namespace agu::playback {
 class IPlaybackConfiguration : MODULE_GLOBAL_INTERFACE
 {
     INTERFACE_ID(IPlaybackConfiguration)
@@ -19,8 +19,8 @@ class IPlaybackConfiguration : MODULE_GLOBAL_INTERFACE
 public:
     virtual ~IPlaybackConfiguration() = default;
 
-    virtual au::uicomponents::TimecodeFormatType playbackTimeItemFormat() const = 0;
-    virtual void setPlaybackTimeItemFormat(au::uicomponents::TimecodeFormatType format) = 0;
+    virtual agu::uicomponents::TimecodeFormatType playbackTimeItemFormat() const = 0;
+    virtual void setPlaybackTimeItemFormat(agu::uicomponents::TimecodeFormatType format) = 0;
     virtual muse::async::Notification playbackTimeItemFormatChanged() const = 0;
 
     virtual PlaybackMeterStyle::MeterStyle playbackMeterStyle() const = 0;

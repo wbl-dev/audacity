@@ -1,9 +1,9 @@
 #!/bin/bash
 
 INSTALL_DIR="build.install"
-APPNAME=OnlyAudios
-LONG_NAME="OnlyAudios"
-LONGER_NAME="OnlyAudios"
+APPNAME=AGu
+LONG_NAME="AGu"
+LONGER_NAME="AGu"
 VERSION=0
 HERE="$(cd "$(dirname "$0")" && pwd)"
 
@@ -22,7 +22,7 @@ echo "LONGER_NAME: $LONGER_NAME"
 echo "VERSION: $VERSION"
 
 WORKING_DIRECTORY=${INSTALL_DIR}
-BACKGROUND=$HERE/audacity-dmg-background.tiff
+BACKGROUND=$HERE/agu-dmg-background.tiff
 APP_PATH=${INSTALL_DIR}/${APPNAME}.app
 
 VOLNAME=${LONG_NAME}-${VERSION}

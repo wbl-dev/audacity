@@ -9,7 +9,7 @@
 
 class AudacityProject;
 
-namespace au::audio {
+namespace agu::audio {
 using AudioDeviceSelection = std::optional<std::string>;
 
 struct AudioConfiguration {

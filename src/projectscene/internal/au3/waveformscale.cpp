@@ -12,7 +12,7 @@
 
 #include "waveformscale.h"
 
-using namespace au::au3;
+using namespace agu::au3;
 
 static const ChannelGroup::Attachments::RegisteredFactory
     key2{ [](auto&) { return std::make_unique<WaveformScale>(); } };

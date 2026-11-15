@@ -7,7 +7,7 @@
 
 #include "playback/iplayer.h"
 
-namespace au::effects {
+namespace agu::effects {
 AbstractEffectViewModel::AbstractEffectViewModel(QObject* parent, int instanceId)
     : QObject(parent), muse::Contextable(muse::iocCtxForQmlObject(this)), m_instanceId{instanceId}
 {

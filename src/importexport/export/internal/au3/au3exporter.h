@@ -15,16 +15,16 @@
 #include "trackedit/iselectioncontroller.h"
 #include "playback/iplaybackcontroller.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 using OptionsEditorUPtr = std::unique_ptr<ExportOptionsEditor>;
 
 class Au3Exporter : public IExporter, public muse::Contextable
 {
-    muse::GlobalInject<au::importexport::ExportConfiguration> exportConfiguration;
+    muse::GlobalInject<agu::importexport::ExportConfiguration> exportConfiguration;
 
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
-    muse::ContextInject<au::trackedit::ISelectionController> selectionController{ this };
-    muse::ContextInject<au::playback::IPlaybackController> playbackController{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::trackedit::ISelectionController> selectionController{ this };
+    muse::ContextInject<agu::playback::IPlaybackController> playbackController{ this };
 
 public:
     Au3Exporter(const muse::modularity::ContextPtr& ctx)
@@ -32,7 +32,7 @@ public:
 
     void init() override;
     muse::Ret exportData(const muse::io::path_t& path, const Options& options = {}, muse::ProgressPtr progress = nullptr,
-                         au::project::IAudacityProjectPtr project = nullptr) override;
+                         agu::project::IAGuProjectPtr project = nullptr) override;
 
     muse::Ret prepareSeparateFiles(const Options& options = {}) override;
     std::vector<std::string> separateFileNames() const override;
@@ -66,12 +66,12 @@ private:
     };
 
     muse::Ret prepareFormat(const Options& options);
-    muse::Ret prepareMix(au::au3::Au3Project& project, const Options& options);
+    muse::Ret prepareMix(agu::au3::Au3Project& project, const Options& options);
     std::string formatExtension(const Options& options) const;
-    std::vector<SeparateFile> trackFiles(au::au3::Au3Project& project, const std::string& prefix, bool includeNumbers) const;
-    std::vector<SeparateFile> labelFiles(au::au3::Au3Project& project, const std::string& prefix, bool includeNumbers,
+    std::vector<SeparateFile> trackFiles(agu::au3::Au3Project& project, const std::string& prefix, bool includeNumbers) const;
+    std::vector<SeparateFile> labelFiles(agu::au3::Au3Project& project, const std::string& prefix, bool includeNumbers,
                                          bool includeAudioBeforeFirstLabel) const;
-    muse::Ret runExport(au::au3::Au3Project& project, const wxFileName& filename, muse::ProgressPtr progress);
+    muse::Ret runExport(agu::au3::Au3Project& project, const wxFileName& filename, muse::ProgressPtr progress);
 
     double m_t0 {};
     double m_t1 {};

@@ -6,7 +6,7 @@
 #include "global/settings.h"
 #include "projectscene/internal/projectsceneconfiguration.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 namespace {
 const muse::Settings::Key PREF("projectscene", "projectscene/asymmetricStereoHeights");

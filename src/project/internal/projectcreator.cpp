@@ -3,23 +3,23 @@
 */
 #include "projectcreator.h"
 
-#include "audacityproject.h"
+#include "aguproject.h"
 
-using namespace au::project;
+using namespace agu::project;
 
-IAudacityProjectPtr ProjectCreator::newProject() const
+IAGuProjectPtr ProjectCreator::newProject() const
 {
-    return std::make_shared<Audacity4Project>(iocContext());
+    return std::make_shared<AGuProject>(iocContext());
 }
 
-muse::RetVal<IAudacityProjectPtr> ProjectCreator::loadProject(const muse::io::path_t& path) const
+muse::RetVal<IAGuProjectPtr> ProjectCreator::loadProject(const muse::io::path_t& path) const
 {
-    IAudacityProjectPtr project = std::make_shared<Audacity4Project>(iocContext());
+    IAGuProjectPtr project = std::make_shared<AGuProject>(iocContext());
 
     const muse::Ret ret = project->load(path);
     if (!ret) {
-        return muse::RetVal<IAudacityProjectPtr>::make_ret(ret);
+        return muse::RetVal<IAGuProjectPtr>::make_ret(ret);
     }
 
-    return muse::RetVal<IAudacityProjectPtr>::make_ok(project);
+    return muse::RetVal<IAGuProjectPtr>::make_ok(project);
 }

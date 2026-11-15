@@ -15,7 +15,7 @@
 #include <functional>
 
 struct EffectSettings;
-namespace au::effects {
+namespace agu::effects {
 class IEffectsProvider : MODULE_GLOBAL_EXPORT_INTERFACE
 {
     INTERFACE_ID(IEffectsProvider)

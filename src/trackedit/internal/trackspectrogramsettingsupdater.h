@@ -12,13 +12,13 @@
 
 #include <functional>
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class Au3TrackSpectrogramConfiguration;
 class TrackSpectrogramSettingsUpdater : public muse::async::Asyncable, public muse::Contextable
 {
     muse::GlobalInject<spectrogram::IGlobalSpectrogramConfiguration> globalSpectrogramConfiguration;
 
-    muse::ContextInject<au::context::IGlobalContext> globalContext { this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext { this };
     muse::ContextInject<spectrogram::ISpectrogramService> spectrogramService { this };
 
 public:

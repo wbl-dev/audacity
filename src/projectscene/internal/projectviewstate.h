@@ -19,15 +19,15 @@
 
 #include "../iprojectviewstate.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class ProjectViewState : public QObject, public IProjectViewState, public muse::Contextable, public muse::async::Asyncable
 {
     Q_OBJECT
 
     muse::GlobalInject<IProjectSceneConfiguration> configuration;
-    muse::GlobalInject<au::playback::IPlaybackConfiguration> playbackConfiguration;
+    muse::GlobalInject<agu::playback::IPlaybackConfiguration> playbackConfiguration;
 
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
     muse::ContextInject<trackedit::ISelectionController> selectionController{ this };
     muse::ContextInject<spectrogram::IFrequencySelectionController> frequencySelectionController{ this };
     muse::ContextInject<trackedit::IProjectHistory> projectHistory{ this };

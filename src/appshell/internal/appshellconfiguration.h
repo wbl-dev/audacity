@@ -37,7 +37,7 @@
 
 #include "iappshellconfiguration.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 class AppShellConfiguration : public IAppShellConfiguration, public muse::Contextable, public muse::async::Asyncable
 {
     muse::GlobalInject<muse::IGlobalConfiguration> globalConfiguration;
@@ -72,13 +72,7 @@ public:
 
     muse::io::path_t userDataPath() const override;
 
-    std::string handbookUrl() const override;
-    std::string askForHelpUrl() const override;
-    std::string appUrl() const override;
-    std::string forumUrl() const override;
-    std::string contributionUrl() const override;
-
-    std::string audacityVersion() const override;
+    std::string aguVersion() const override;
     std::string appRevision() const override;
 
     bool needShowSplashScreen() const override;

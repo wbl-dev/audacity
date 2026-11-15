@@ -6,7 +6,7 @@
 
 #include "modularity/imodulesetup.h"
 
-namespace au::uicomponents {
+namespace agu::uicomponents {
 class UiComponentsModule : public muse::modularity::IModuleSetup
 {
 public:

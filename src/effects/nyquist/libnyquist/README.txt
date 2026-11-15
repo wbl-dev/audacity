@@ -8,7 +8,7 @@ which was based on xlisp 2 by David Michael Betz.
 
 For license information, please see the file LICENSE.txt
 
-libnyquist currently only exists as part of Audacity.  For
+libnyquist currently only exists as part of AGu.  For
 information on using libnyquist as an embedded audio processor
 within another application, contact the Audacity developers:
 

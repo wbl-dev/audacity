@@ -6,7 +6,7 @@
 #include "../../common/effectsettingmodelimpl.h"
 #include "limitereffect.h"
 
-namespace au::effects {
+namespace agu::effects {
 class LimiterSettingModel : public EffectSettingModelImpl<LimiterEffect>
 {
 public:

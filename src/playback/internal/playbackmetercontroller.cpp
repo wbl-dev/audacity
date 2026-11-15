@@ -10,7 +10,7 @@
 #include "playback/internal/meters/dblinearmeter.h"
 #include "playback/internal/meters/linearmeter.h"
 
-using namespace au::playback;
+using namespace agu::playback;
 
 namespace {
 std::shared_ptr<IPlaybackMeter> createMeter(PlaybackMeterType::MeterType meterType, double dbRange)

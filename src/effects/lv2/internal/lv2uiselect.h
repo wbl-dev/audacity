@@ -5,7 +5,7 @@
 
 #include "au3-lv2/LV2Utils.h"
 
-namespace au::effects {
+namespace agu::effects {
 struct Lv2UiSelection {
     Lilv_ptr<LilvUIs, lilv_uis_free> uis;
     const LilvUI* ui = nullptr;

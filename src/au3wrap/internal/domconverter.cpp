@@ -12,47 +12,47 @@
 
 #include "../au3types.h"
 
-using namespace au::au3;
+using namespace agu::au3;
 
 namespace {
-au::trackedit::TrackType trackType(const Au3Track* track)
+agu::trackedit::TrackType trackType(const Au3Track* track)
 {
     if (dynamic_cast<const LabelTrack*>(track)) {
-        return au::trackedit::TrackType::Label;
+        return agu::trackedit::TrackType::Label;
     }
 
     if (dynamic_cast<const TimeTrack*>(track)) {
-        return au::trackedit::TrackType::Undefined;
+        return agu::trackedit::TrackType::Undefined;
     }
 
     switch (track->NChannels()) {
     case 1:
-        return au::trackedit::TrackType::Mono;
+        return agu::trackedit::TrackType::Mono;
     case 2:
-        return au::trackedit::TrackType::Stereo;
+        return agu::trackedit::TrackType::Stereo;
     default:
         break;
     }
 
-    return au::trackedit::TrackType::Undefined;
+    return agu::trackedit::TrackType::Undefined;
 }
 
-au::trackedit::TrackFormat trackFormat(const Au3Track* track)
+agu::trackedit::TrackFormat trackFormat(const Au3Track* track)
 {
     const WaveTrack* waveTrack = dynamic_cast<const WaveTrack*>(track);
     if (!waveTrack) {
-        return au::trackedit::TrackFormat::Undefined;
+        return agu::trackedit::TrackFormat::Undefined;
     }
 
     switch (waveTrack->GetSampleFormat()) {
     case sampleFormat::int16Sample:
-        return au::trackedit::TrackFormat::Int16;
+        return agu::trackedit::TrackFormat::Int16;
     case sampleFormat::int24Sample:
-        return au::trackedit::TrackFormat::Int24;
+        return agu::trackedit::TrackFormat::Int24;
     case sampleFormat::floatSample:
-        return au::trackedit::TrackFormat::Float32;
+        return agu::trackedit::TrackFormat::Float32;
     default:
-        return au::trackedit::TrackFormat::Undefined;
+        return agu::trackedit::TrackFormat::Undefined;
     }
 }
 
@@ -86,9 +86,9 @@ bool trackMute(const Au3Track* track)
 }
 }
 
-au::trackedit::Clip DomConverter::clip(const Au3WaveTrack* waveTrack, const Au3WaveClip* au3clip)
+agu::trackedit::Clip DomConverter::clip(const Au3WaveTrack* waveTrack, const Au3WaveClip* au3clip)
 {
-    au::trackedit::Clip clip;
+    agu::trackedit::Clip clip;
     clip.key.trackId = waveTrack->GetId();
     clip.key.itemId = au3clip->GetId();
     clip.clipVersion = au3clip->GetVersion();
@@ -111,7 +111,7 @@ au::trackedit::Clip DomConverter::clip(const Au3WaveTrack* waveTrack, const Au3W
     return clip;
 }
 
-au::trackedit::Track DomConverter::track(const Au3Track* track)
+agu::trackedit::Track DomConverter::track(const Au3Track* track)
 {
     trackedit::Track au4t;
     au4t.id = track->GetId();
@@ -131,14 +131,14 @@ au::trackedit::Track DomConverter::track(const Au3Track* track)
     return au4t;
 }
 
-au::trackedit::Track DomConverter::labelTrack(const Au3LabelTrack* labelTrack)
+agu::trackedit::Track DomConverter::labelTrack(const Au3LabelTrack* labelTrack)
 {
     return track(labelTrack);
 }
 
-au::trackedit::Label DomConverter::label(const Au3LabelTrack* labelTrack, const Au3Label* au3label)
+agu::trackedit::Label DomConverter::label(const Au3LabelTrack* labelTrack, const Au3Label* au3label)
 {
-    au::trackedit::Label label;
+    agu::trackedit::Label label;
     label.key.trackId = labelTrack->GetId();
     label.key.itemId = au3label->GetId();
 

@@ -7,7 +7,7 @@
 
 #include <QRect>
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 struct ClipTimes {
     const double playStartTime;
     const double playEndTime;

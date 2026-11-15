@@ -7,7 +7,7 @@
 #include "context/iglobalcontext.h"
 #include "uicomponents/qml/Muse/UiComponents/abstractmenumodel.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class AudioSetupContextMenuModel : public muse::uicomponents::AbstractMenuModel
 {
     Q_OBJECT

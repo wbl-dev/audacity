@@ -9,7 +9,7 @@
 #include "framework/global/async/channel.h"
 #include "framework/global/async/notification.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class IGlobalSpectrogramConfiguration : MODULE_GLOBAL_INTERFACE, public ISpectrogramConfiguration
 {
     INTERFACE_ID(IGlobalSpectrogramConfiguration)
@@ -34,4 +34,4 @@ public:
     virtual muse::async::Channel<int> zeroPaddingFactorChanged() const = 0;
     virtual muse::async::Notification someSettingChanged() const = 0;
 };
-} // namespace au::spectrogram
+} // namespace agu::spectrogram

@@ -22,7 +22,7 @@
 #include "projectscene/view/playcursor/playpositionactioncontroller.h"
 #include "projectscene/view/tracksitemsview/selectionviewcontroller.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 //! Test-only helper that reaches the private injects of TimelineContext,
 //! PlayCursorController and SelectionViewController so the snapping/guideline
 //! and selection logic can be exercised without running their full init() machinery.

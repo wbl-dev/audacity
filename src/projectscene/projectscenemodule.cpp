@@ -84,7 +84,7 @@
 
 #include "view/trackruler/trackrulermodel.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 using namespace muse::modularity;
 using namespace muse::ui;
 using namespace muse::interactive;
@@ -118,14 +118,14 @@ void ProjectSceneModule::resolveImports()
 {
     auto ir = globalIoc()->resolve<IInteractiveUriRegister>(mname);
     if (ir) {
-        ir->registerQmlUri(muse::Uri("audacity://projectscene/editpitchandspeed"),
-                           "Audacity/ProjectScene/tracksitemsview/pitchandspeed/PitchAndSpeedChangeDialog.qml");
-        ir->registerQmlUri(muse::Uri("audacity://projectscene/insertsilence"),
-                           "Audacity/ProjectScene/common/InsertSilence.qml");
-        ir->registerQmlUri(muse::Uri("audacity://projectscene/openlabeleditor"),
-                           "Audacity/ProjectScene/tracksitemsview/labeleditor/LabelEditorDialog.qml");
-        ir->registerQmlUri(muse::Uri("audacity://projectscene/addnewlabeltrack"),
-                           "Audacity/ProjectScene/tracksitemsview/labeleditor/AddNewLabelTrackDialog.qml");
+        ir->registerQmlUri(muse::Uri("agu://projectscene/editpitchandspeed"),
+                           "AGu/ProjectScene/tracksitemsview/pitchandspeed/PitchAndSpeedChangeDialog.qml");
+        ir->registerQmlUri(muse::Uri("agu://projectscene/insertsilence"),
+                           "AGu/ProjectScene/common/InsertSilence.qml");
+        ir->registerQmlUri(muse::Uri("agu://projectscene/openlabeleditor"),
+                           "AGu/ProjectScene/tracksitemsview/labeleditor/LabelEditorDialog.qml");
+        ir->registerQmlUri(muse::Uri("agu://projectscene/addnewlabeltrack"),
+                           "AGu/ProjectScene/tracksitemsview/labeleditor/AddNewLabelTrackDialog.qml");
     }
 
     auto cr = globalIoc()->resolve<muse::rcommand::ICommandsRegister>(mname);
@@ -137,87 +137,87 @@ void ProjectSceneModule::resolveImports()
 void ProjectSceneModule::registerUiTypes()
 {
     // types
-    qmlRegisterUncreatableType<TrackTypes>("Audacity.ProjectScene", 1, 0, "TrackType", "Not creatable from QML");
-    qmlRegisterUncreatableType<ClipKey>("Audacity.ProjectScene", 1, 0, "ClipKey", "Not creatable from QML");
-    qmlRegisterUncreatableType<ClipStyles>("Audacity.ProjectScene", 1, 0, "ClipStyle", "Not creatable from QML");
-    qmlRegisterUncreatableType<StereoHeightsPref>("Audacity.ProjectScene", 1, 0, "AsymmetricStereoHeights", "Not creatable from QML");
-    qmlRegisterUncreatableType<ClipBoundary>("Audacity.ProjectScene", 1, 0, "ClipBoundaryAction", "Not creatable from QML");
-    qmlRegisterUncreatableType<DirectionType>("Audacity.ProjectScene", 1, 0, "Direction", "Not creatable from QML");
+    qmlRegisterUncreatableType<TrackTypes>("AGu.ProjectScene", 1, 0, "TrackType", "Not creatable from QML");
+    qmlRegisterUncreatableType<ClipKey>("AGu.ProjectScene", 1, 0, "ClipKey", "Not creatable from QML");
+    qmlRegisterUncreatableType<ClipStyles>("AGu.ProjectScene", 1, 0, "ClipStyle", "Not creatable from QML");
+    qmlRegisterUncreatableType<StereoHeightsPref>("AGu.ProjectScene", 1, 0, "AsymmetricStereoHeights", "Not creatable from QML");
+    qmlRegisterUncreatableType<ClipBoundary>("AGu.ProjectScene", 1, 0, "ClipBoundaryAction", "Not creatable from QML");
+    qmlRegisterUncreatableType<DirectionType>("AGu.ProjectScene", 1, 0, "Direction", "Not creatable from QML");
 
     // common
-    qmlRegisterType<TracksViewStateModel>("Audacity.ProjectScene", 1, 0, "TracksViewStateModel");
-    qmlRegisterType<TrackViewStateModel>("Audacity.ProjectScene", 1, 0, "TrackViewStateModel");
-    qmlRegisterType<CustomCursor>("Audacity.ProjectScene", 1, 0, "CustomCursor");
-    qmlRegisterSingletonType<CustomCursorProvider>("Audacity.ProjectScene", 1, 0, "CustomCursorProvider",
+    qmlRegisterType<TracksViewStateModel>("AGu.ProjectScene", 1, 0, "TracksViewStateModel");
+    qmlRegisterType<TrackViewStateModel>("AGu.ProjectScene", 1, 0, "TrackViewStateModel");
+    qmlRegisterType<CustomCursor>("AGu.ProjectScene", 1, 0, "CustomCursor");
+    qmlRegisterSingletonType<CustomCursorProvider>("AGu.ProjectScene", 1, 0, "CustomCursorProvider",
                                                    [](QQmlEngine*, QJSEngine*) -> QObject* {
         return new CustomCursorProvider();
     });
 
     // toolbars
-    qmlRegisterType<ProjectToolBarModel>("Audacity.ProjectScene", 1, 0, "ProjectToolBarModel");
-    qmlRegisterType<UndoRedoToolBarModel>("Audacity.ProjectScene", 1, 0, "UndoRedoToolBarModel");
-    qmlRegisterType<AudioSetupContextMenuModel>("Audacity.ProjectScene", 1, 0, "AudioSetupContextMenuModel");
+    qmlRegisterType<ProjectToolBarModel>("AGu.ProjectScene", 1, 0, "ProjectToolBarModel");
+    qmlRegisterType<UndoRedoToolBarModel>("AGu.ProjectScene", 1, 0, "UndoRedoToolBarModel");
+    qmlRegisterType<AudioSetupContextMenuModel>("AGu.ProjectScene", 1, 0, "AudioSetupContextMenuModel");
 
-    qmlRegisterType<PlaybackToolBarModel>("Audacity.ProjectScene", 1, 0, "PlaybackToolBarModel");
-    qmlRegisterType<PlaybackToolBarCustomiseModel>("Audacity.ProjectScene", 1, 0, "PlaybackToolBarCustomiseModel");
-    qmlRegisterUncreatableType<PlaybackToolBarCustomiseItem>("Audacity.ProjectScene", 1, 0, "PlaybackToolBarCustomiseItem",
+    qmlRegisterType<PlaybackToolBarModel>("AGu.ProjectScene", 1, 0, "PlaybackToolBarModel");
+    qmlRegisterType<PlaybackToolBarCustomiseModel>("AGu.ProjectScene", 1, 0, "PlaybackToolBarCustomiseModel");
+    qmlRegisterUncreatableType<PlaybackToolBarCustomiseItem>("AGu.ProjectScene", 1, 0, "PlaybackToolBarCustomiseItem",
                                                              "Cannot create");
 
     // tracks panel
-    qmlRegisterType<PanelTracksListModel>("Audacity.ProjectScene", 1, 0, "PanelTracksListModel");
-    qmlRegisterType<AddEffectMenuModel>("Audacity.ProjectScene", 1, 0, "AddEffectMenuModel");
-    qmlRegisterType<RealtimeEffectListModel>("Audacity.ProjectScene", 1, 0, "RealtimeEffectListModel");
-    qmlRegisterType<RealtimeEffectListItemMenuModel>("Audacity.ProjectScene", 1, 0, "RealtimeEffectListItemMenuModel");
-    qmlRegisterType<RealtimeEffectRowActionsController>("Audacity.ProjectScene", 1, 0, "RealtimeEffectRowActionsController");
-    qmlRegisterType<RealtimeEffectSectionModel>("Audacity.ProjectScene", 1, 0, "RealtimeEffectSectionModel");
-    qmlRegisterType<TrackContextMenuModel>("Audacity.ProjectScene", 1, 0, "TrackContextMenuModel");
-    qmlRegisterType<VolumePressureMeterItem>("Audacity.ProjectScene", 1, 0, "VolumePressureMeterItem");
+    qmlRegisterType<PanelTracksListModel>("AGu.ProjectScene", 1, 0, "PanelTracksListModel");
+    qmlRegisterType<AddEffectMenuModel>("AGu.ProjectScene", 1, 0, "AddEffectMenuModel");
+    qmlRegisterType<RealtimeEffectListModel>("AGu.ProjectScene", 1, 0, "RealtimeEffectListModel");
+    qmlRegisterType<RealtimeEffectListItemMenuModel>("AGu.ProjectScene", 1, 0, "RealtimeEffectListItemMenuModel");
+    qmlRegisterType<RealtimeEffectRowActionsController>("AGu.ProjectScene", 1, 0, "RealtimeEffectRowActionsController");
+    qmlRegisterType<RealtimeEffectSectionModel>("AGu.ProjectScene", 1, 0, "RealtimeEffectSectionModel");
+    qmlRegisterType<TrackContextMenuModel>("AGu.ProjectScene", 1, 0, "TrackContextMenuModel");
+    qmlRegisterType<VolumePressureMeterItem>("AGu.ProjectScene", 1, 0, "VolumePressureMeterItem");
 
     // clips view
-    qmlRegisterType<ViewTracksListModel>("Audacity.ProjectScene", 1, 0, "ViewTracksListModel");
-    qmlRegisterType<TrackItemsMoveController>("Audacity.ProjectScene", 1, 0, "TrackItemsMoveController");
-    qmlRegisterType<TrackClipsListModel>("Audacity.ProjectScene", 1, 0, "TrackClipsListModel");
-    qmlRegisterUncreatableType<TrackClipItem>("Audacity.ProjectScene", 1, 0, "TrackClipItem", "Not creatable from QML");
-    qmlRegisterType<MouseHelper>("Audacity.ProjectScene", 1, 0, "MouseHelper");
-    qmlRegisterType<TrackLabelsListModel>("Audacity.ProjectScene", 1, 0, "TrackLabelsListModel");
-    qmlRegisterType<TrackLabelsLayoutManager>("Audacity.ProjectScene", 1, 0, "TrackLabelsLayoutManager");
-    qmlRegisterUncreatableType<TrackLabelItem>("Audacity.ProjectScene", 1, 0, "TrackLabelItem", "Not creatable from QML");
-    qmlRegisterType<WaveView>("Audacity.ProjectScene", 1, 0, "WaveView");
-    qmlRegisterType<ClipContextMenuModel>("Audacity.ProjectScene", 1, 0, "ClipContextMenuModel");
-    qmlRegisterType<MultiClipContextMenuModel>("Audacity.ProjectScene", 1, 0, "MultiClipContextMenuModel");
-    qmlRegisterType<LabelContextMenuModel>("Audacity.ProjectScene", 1, 0, "LabelContextMenuModel");
-    qmlRegisterType<SelectionContextMenuModel>("Audacity.ProjectScene", 1, 0, "SelectionContextMenuModel");
-    qmlRegisterType<CanvasContextMenuModel>("Audacity.ProjectScene", 1, 0, "CanvasContextMenuModel");
-    qmlRegisterType<SelectionViewController>("Audacity.ProjectScene", 1, 0, "SelectionViewController");
-    qmlRegisterType<PitchAndSpeedChangeModel>("Audacity.ProjectScene", 1, 0, "PitchAndSpeedChangeModel");
-    qmlRegisterType<SplitToolController>("Audacity.ProjectScene", 1, 0, "SplitToolController");
-    qmlRegisterType<DropController>("Audacity.ProjectScene", 1, 0, "DropController");
-    qmlRegisterType<LabelsTableViewModel>("Audacity.ProjectScene", 1, 0, "LabelsTableViewModel");
+    qmlRegisterType<ViewTracksListModel>("AGu.ProjectScene", 1, 0, "ViewTracksListModel");
+    qmlRegisterType<TrackItemsMoveController>("AGu.ProjectScene", 1, 0, "TrackItemsMoveController");
+    qmlRegisterType<TrackClipsListModel>("AGu.ProjectScene", 1, 0, "TrackClipsListModel");
+    qmlRegisterUncreatableType<TrackClipItem>("AGu.ProjectScene", 1, 0, "TrackClipItem", "Not creatable from QML");
+    qmlRegisterType<MouseHelper>("AGu.ProjectScene", 1, 0, "MouseHelper");
+    qmlRegisterType<TrackLabelsListModel>("AGu.ProjectScene", 1, 0, "TrackLabelsListModel");
+    qmlRegisterType<TrackLabelsLayoutManager>("AGu.ProjectScene", 1, 0, "TrackLabelsLayoutManager");
+    qmlRegisterUncreatableType<TrackLabelItem>("AGu.ProjectScene", 1, 0, "TrackLabelItem", "Not creatable from QML");
+    qmlRegisterType<WaveView>("AGu.ProjectScene", 1, 0, "WaveView");
+    qmlRegisterType<ClipContextMenuModel>("AGu.ProjectScene", 1, 0, "ClipContextMenuModel");
+    qmlRegisterType<MultiClipContextMenuModel>("AGu.ProjectScene", 1, 0, "MultiClipContextMenuModel");
+    qmlRegisterType<LabelContextMenuModel>("AGu.ProjectScene", 1, 0, "LabelContextMenuModel");
+    qmlRegisterType<SelectionContextMenuModel>("AGu.ProjectScene", 1, 0, "SelectionContextMenuModel");
+    qmlRegisterType<CanvasContextMenuModel>("AGu.ProjectScene", 1, 0, "CanvasContextMenuModel");
+    qmlRegisterType<SelectionViewController>("AGu.ProjectScene", 1, 0, "SelectionViewController");
+    qmlRegisterType<PitchAndSpeedChangeModel>("AGu.ProjectScene", 1, 0, "PitchAndSpeedChangeModel");
+    qmlRegisterType<SplitToolController>("AGu.ProjectScene", 1, 0, "SplitToolController");
+    qmlRegisterType<DropController>("AGu.ProjectScene", 1, 0, "DropController");
+    qmlRegisterType<LabelsTableViewModel>("AGu.ProjectScene", 1, 0, "LabelsTableViewModel");
     qmlRegisterUncreatableMetaObject(LabelsTableViewCellType::staticMetaObject,
-                                     "Audacity.ProjectScene", 1, 0, "LabelsTableViewCellType", "");
-    qmlRegisterType<AddNewLabelTrackModel>("Audacity.ProjectScene", 1, 0, "AddNewLabelTrackModel");
+                                     "AGu.ProjectScene", 1, 0, "LabelsTableViewCellType", "");
+    qmlRegisterType<AddNewLabelTrackModel>("AGu.ProjectScene", 1, 0, "AddNewLabelTrackModel");
 
     // timeline
-    qmlRegisterType<TimelineContext>("Audacity.ProjectScene", 1, 0, "TimelineContext");
-    qmlRegisterType<TimelineRuler>("Audacity.ProjectScene", 1, 0, "TimelineRuler");
-    qmlRegisterType<TimelineContextMenuModel>("Audacity.ProjectScene", 1, 0, "TimelineContextMenuModel");
-    qmlRegisterType<PlayRegionController>("Audacity.ProjectScene", 1, 0, "PlayRegionController");
-    qmlRegisterType<PlayRegionModel>("Audacity.ProjectScene", 1, 0, "PlayRegionModel");
+    qmlRegisterType<TimelineContext>("AGu.ProjectScene", 1, 0, "TimelineContext");
+    qmlRegisterType<TimelineRuler>("AGu.ProjectScene", 1, 0, "TimelineRuler");
+    qmlRegisterType<TimelineContextMenuModel>("AGu.ProjectScene", 1, 0, "TimelineContextMenuModel");
+    qmlRegisterType<PlayRegionController>("AGu.ProjectScene", 1, 0, "PlayRegionController");
+    qmlRegisterType<PlayRegionModel>("AGu.ProjectScene", 1, 0, "PlayRegionModel");
 
     // gridlines
-    qmlRegisterType<GridLines>("Audacity.ProjectScene", 1, 0, "GridLines");
+    qmlRegisterType<GridLines>("AGu.ProjectScene", 1, 0, "GridLines");
 
     // play cursor
-    qmlRegisterType<PlayCursorController>("Audacity.ProjectScene", 1, 0, "PlayCursorController");
+    qmlRegisterType<PlayCursorController>("AGu.ProjectScene", 1, 0, "PlayCursorController");
 
     // status bar
-    qmlRegisterType<SelectionStatusModel>("Audacity.ProjectScene", 1, 0, "SelectionStatusModel");
+    qmlRegisterType<SelectionStatusModel>("AGu.ProjectScene", 1, 0, "SelectionStatusModel");
 
     // history panel
-    qmlRegisterType<HistoryPanelModel>("Audacity.ProjectScene", 1, 0, "HistoryPanelModel");
+    qmlRegisterType<HistoryPanelModel>("AGu.ProjectScene", 1, 0, "HistoryPanelModel");
 
     //track ruler
-    qmlRegisterType<TrackRulerModel>("Audacity.ProjectScene", 1, 0, "TrackRulerModel");
+    qmlRegisterType<TrackRulerModel>("AGu.ProjectScene", 1, 0, "TrackRulerModel");
 }
 
 void ProjectSceneModule::onInit(const muse::IApplication::RunMode&)

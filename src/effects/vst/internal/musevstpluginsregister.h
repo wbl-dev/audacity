@@ -8,7 +8,7 @@
 // from muse
 #include "vst/internal/vstinstancesregister.h"
 
-namespace au::effects {
+namespace agu::effects {
 class MuseVstInstancesRegister : public muse::vst::IVstInstancesRegister
 {
 public:

@@ -8,7 +8,7 @@
 
 struct EffectSettings;
 
-namespace au::effects {
+namespace agu::effects {
 class ToneEffect : public ::ToneGenBase, public GeneratorEffect
 {
 public:

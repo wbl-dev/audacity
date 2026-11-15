@@ -14,7 +14,7 @@
 #include "framework/extensions/extensionbundle.h"
 #include "log.h"
 
-namespace au::extensions {
+namespace agu::extensions {
 namespace {
 constexpr auto EXTENSION_DISPATCH_SYMBOL = "extension_dispatch_v0";
 
@@ -113,4 +113,4 @@ QObject* NativeApi::createBuffer(qulonglong byteLength)
     QJSEngine::setObjectOwnership(buffer, QJSEngine::JavaScriptOwnership);
     return buffer;
 }
-} // namespace au::extensions
+} // namespace agu::extensions

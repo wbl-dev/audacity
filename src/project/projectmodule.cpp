@@ -55,7 +55,7 @@
 #include "internal/recentfilescontroller.h"
 #endif
 
-using namespace au::project;
+using namespace agu::project;
 using namespace muse::modularity;
 
 static const std::string mname("project");
@@ -108,15 +108,15 @@ void ProjectModule::registerResources()
 
 void ProjectModule::registerUiTypes()
 {
-    qmlRegisterType<ProjectsPageModel>("Audacity.Project", 1, 0, "ProjectsPageModel");
-    qmlRegisterUncreatableType<AbstractItemModel>("Audacity.Project", 1, 0, "AbstractItemModel",
+    qmlRegisterType<ProjectsPageModel>("AGu.Project", 1, 0, "ProjectsPageModel");
+    qmlRegisterUncreatableType<AbstractItemModel>("AGu.Project", 1, 0, "AbstractItemModel",
                                                   "Not creatable as it is an abstract type");
-    qmlRegisterType<RecentProjectsModel>("Audacity.Project", 1, 0, "RecentProjectsModel");
-    qmlRegisterType<NewProjectModel>("Audacity.Project", 1, 0, "NewProjectModel");
-    qmlRegisterType<ProjectThumbnailLoader>("Audacity.Project", 1, 0, "ProjectThumbnailLoader");
-    qmlRegisterType<ThumbnailLoader>("Audacity.Project", 1, 0, "ThumbnailLoader");
-    qmlRegisterType<PixmapProjectThumbnailView>("Audacity.Project", 1, 0, "PixmapProjectThumbnailView");
-    qmlRegisterType<ProjectPropertiesModel>("Audacity.Project", 1, 0, "ProjectPropertiesModel");
+    qmlRegisterType<RecentProjectsModel>("AGu.Project", 1, 0, "RecentProjectsModel");
+    qmlRegisterType<NewProjectModel>("AGu.Project", 1, 0, "NewProjectModel");
+    qmlRegisterType<ProjectThumbnailLoader>("AGu.Project", 1, 0, "ProjectThumbnailLoader");
+    qmlRegisterType<ThumbnailLoader>("AGu.Project", 1, 0, "ThumbnailLoader");
+    qmlRegisterType<PixmapProjectThumbnailView>("AGu.Project", 1, 0, "PixmapProjectThumbnailView");
+    qmlRegisterType<ProjectPropertiesModel>("AGu.Project", 1, 0, "ProjectPropertiesModel");
 }
 
 void ProjectModule::onInit(const muse::IApplication::RunMode&)

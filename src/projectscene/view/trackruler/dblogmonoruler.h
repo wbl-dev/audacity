@@ -5,7 +5,7 @@
 
 #include "projectscene/view/trackruler/dblogbaseruler.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class DbLogMonoRuler : public DbLogBaseRuler
 {
 public:

@@ -29,7 +29,7 @@
 #include "loadingscreenview.h"
 #include "newinstanceloadingscreenview.h"
 
-using namespace au::appshell;
+using namespace agu::appshell;
 
 #ifdef Q_OS_MAC
 // Necessary to remove undesired background, so that we really get our rounded corners

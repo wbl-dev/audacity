@@ -19,7 +19,7 @@
 
 using namespace muse;
 using namespace muse::rcommand;
-using namespace au::macromanager;
+using namespace agu::macromanager;
 
 using ::testing::_;
 using ::testing::HasSubstr;

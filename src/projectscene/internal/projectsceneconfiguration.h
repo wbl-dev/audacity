@@ -7,7 +7,7 @@
 #include "framework/ui/iuiconfiguration.h"
 #include "../iprojectsceneconfiguration.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class ProjectSceneConfiguration : public IProjectSceneConfiguration
 {
 public:

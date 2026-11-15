@@ -9,7 +9,7 @@
 
 #include <cmath>
 
-namespace au::effects {
+namespace agu::effects {
 template<typename T>
 struct Param
 {

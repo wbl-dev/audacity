@@ -15,7 +15,7 @@
 #include "trackedit/trackedittypes.h"
 #include "iaudioinput.h"
 
-namespace au::record {
+namespace agu::record {
 class IRecord : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IRecord)

@@ -3,7 +3,7 @@
 */
 #include "effectviewlaunchregister.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 void EffectViewLaunchRegister::regLauncher(EffectFamily family, const IEffectViewLauncherPtr& launcher)
 {

@@ -12,7 +12,7 @@
 
 #include "projectsceneactionscontroller.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class ProjectSceneUiActions : public muse::ui::IUiActionsModule, public muse::Contextable, public muse::async::Asyncable
 {
     muse::GlobalInject<IProjectSceneConfiguration> configuration;

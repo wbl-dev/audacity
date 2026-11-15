@@ -5,7 +5,7 @@
 
 #include "framework/global/realfn.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 TrackClipItem::TrackClipItem(QObject* parent)
     : ViewTrackItem(parent)

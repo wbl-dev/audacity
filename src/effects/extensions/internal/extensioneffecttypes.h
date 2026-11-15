@@ -13,7 +13,7 @@
 #include "effects/effects_base/effectstypes.h"
 #include "framework/extensions/extensionstypes.h"
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 enum class ParameterType {
     Boolean,
     Int64,
@@ -74,4 +74,4 @@ inline EffectType effectTypeFromGroup(const std::string& group)
 struct Settings {
     std::map<std::string, Value> values;
 };
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

@@ -3,8 +3,8 @@
 */
 #include "trackrulertypeattachment.h"
 
-using namespace au::au3;
-using namespace au::trackedit;
+using namespace agu::au3;
+using namespace agu::trackedit;
 
 static const AttachedTrackObjects::RegisteredFactory keyTrackRulerType{
     [](Au3Track& track) -> std::shared_ptr<TrackRulerTypeAttachment> { return std::make_shared<TrackRulerTypeAttachment>(track); }

@@ -10,7 +10,7 @@
 #include "au3wrap/internal/wxtypes_convert.h"
 
 using namespace muse;
-using namespace au::effects;
+using namespace agu::effects;
 
 namespace {
 constexpr int USER_PRESET_ICON_CODE = 0xEF99;

@@ -1,2 +1,2 @@
-module Audacity.Nyquist
+module AGu.Nyquist
 NyquistPromptView 1.0 NyquistPromptView.qml

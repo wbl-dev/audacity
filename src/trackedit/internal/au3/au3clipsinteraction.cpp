@@ -35,8 +35,8 @@
 #include "trackediterrors.h"
 #include "translation.h"
 
-using namespace au::trackedit;
-using namespace au::au3;
+using namespace agu::trackedit;
+using namespace agu::au3;
 
 namespace {
 static const std::string mixingDownToMonoLabel = muse::trc("trackedit", "Mixing down to mono…");
@@ -48,18 +48,18 @@ Au3ClipsInteraction::Au3ClipsInteraction(const muse::modularity::ContextPtr& ctx
     m_progress.setMaxNumIncrements(200);
 }
 
-au::au3::Au3Project& Au3ClipsInteraction::projectRef() const
+agu::au3::Au3Project& Au3ClipsInteraction::projectRef() const
 {
     Au3Project* project = reinterpret_cast<Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());
     return *project;
 }
 
-au::context::IPlaybackStatePtr Au3ClipsInteraction::playbackState() const
+agu::context::IPlaybackStatePtr Au3ClipsInteraction::playbackState() const
 {
     return globalContext()->playbackState();
 }
 
-muse::async::Channel<au::trackedit::ClipKey, secs_t, bool> Au3ClipsInteraction::clipStartTimeChanged() const
+muse::async::Channel<agu::trackedit::ClipKey, secs_t, bool> Au3ClipsInteraction::clipStartTimeChanged() const
 {
     return m_clipStartTimeChanged;
 }

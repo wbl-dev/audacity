@@ -5,13 +5,13 @@
 
 #include "effectstypes.h"
 #include "au3wrap/au3types.h"
-#include "project/iaudacityproject.h"
+#include "project/iaguproject.h"
 #include "au3-realtime-effects/RealtimeEffectState.h"
 #include "au3-realtime-effects/RealtimeEffectList.h"
 
 #include <optional>
 
-namespace au::effects::utils {
+namespace agu::effects::utils {
 struct UtilData
 {
     au3::Au3Project* const au3Project;
@@ -19,7 +19,7 @@ struct UtilData
     RealtimeEffectList* const effectList;
 };
 
-std::optional<TrackId> trackId(const project::IAudacityProjectPtr& project, const RealtimeEffectStatePtr& state);
-std::optional<EffectChainLinkIndex> effectIndex(const project::IAudacityProjectPtr& project, const RealtimeEffectStatePtr& state);
-std::optional<UtilData> utilData(const project::IAudacityProjectPtr& project, TrackId trackId);
+std::optional<TrackId> trackId(const project::IAGuProjectPtr& project, const RealtimeEffectStatePtr& state);
+std::optional<EffectChainLinkIndex> effectIndex(const project::IAGuProjectPtr& project, const RealtimeEffectStatePtr& state);
+std::optional<UtilData> utilData(const project::IAGuProjectPtr& project, TrackId trackId);
 }

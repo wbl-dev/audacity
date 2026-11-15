@@ -7,7 +7,7 @@
 
 #include "playback/iaudiooutput.h"
 
-namespace au::playback {
+namespace agu::playback {
 class AudioOutputMock : public IAudioOutput
 {
 public:

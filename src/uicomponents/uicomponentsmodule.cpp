@@ -8,11 +8,11 @@
 
 #include "log.h"
 
-using namespace au::uicomponents;
+using namespace agu::uicomponents;
 
 std::string UiComponentsModule::moduleName() const
 {
-    return "au::uicomponents";
+    return "agu::uicomponents";
 }
 
 void UiComponentsModule::onInit(const muse::IApplication::RunMode& mode)

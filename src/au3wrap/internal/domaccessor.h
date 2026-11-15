@@ -13,7 +13,7 @@
 #include "trackedit/trackedittypes.h"
 #include "../au3types.h"
 
-namespace au::au3 {
+namespace agu::au3 {
 class DomAccessor
 {
 public:

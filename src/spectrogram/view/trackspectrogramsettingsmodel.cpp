@@ -6,7 +6,7 @@
 
 #include "framework/global/log.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 namespace {
 constexpr auto isPowerOfTwo(int x) -> bool
 {
@@ -295,4 +295,4 @@ void TrackSpectrogramSettingsModel::setZeroPaddingFactor(int value)
     emit zeroPaddingFactorChanged();
     onSettingChanged();
 }
-} // namespace au::spectrogram
+} // namespace agu::spectrogram

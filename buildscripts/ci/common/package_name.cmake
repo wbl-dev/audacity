@@ -17,9 +17,9 @@
 # Every placeholder used must have a value. NIGHTLY_PATTERN, when given, is
 # used instead of PATTERN for a nightly build; MODE defaults to build_mode.env.
 #
-#   muse_package_name(NAME APP audacity VERSION 4.0.1 OS linux ARCH x86_64 EXT AppImage
+#   muse_package_name(NAME APP agu VERSION 4.0.1 OS linux ARCH x86_64 EXT AppImage
 #       PATTERN "{app}-{os}-{version}-{arch}.{ext}")
-#     -> audacity-linux-4.0.1-x86_64.AppImage
+#     -> agu-linux-4.0.1-x86_64.AppImage
 #   muse_package_name(NAME APP MuseScore-Studio VERSION 4.7.5 ARCH x86_64 EXT msi
 #       PATTERN "{app}-{version}.{build}-{arch}.{ext}")
 #     -> MuseScore-Studio-4.7.5.260831071-x86_64.msi

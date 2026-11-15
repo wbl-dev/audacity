@@ -11,7 +11,7 @@
 
 #include "playback/iplaybackcontroller.h"
 
-namespace au {
+namespace agu {
 class PlayRegionModel : public QObject, public muse::Contextable, public muse::async::Asyncable
 {
     Q_OBJECT

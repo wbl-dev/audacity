@@ -2,7 +2,7 @@
 
 #include <QEventLoop>
 
-using namespace au::project;
+using namespace agu::project;
 
 void ThumbnailCreator::onThumbnailCreated(std::vector<uint8_t> pngData)
 {

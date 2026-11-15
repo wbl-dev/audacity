@@ -29,18 +29,18 @@
 #include "trackedit/internal/itracknavigationcontroller.h"
 #include "trackedit/iselectioncontroller.h"
 
-namespace au::playback {
+namespace agu::playback {
 class PlaybackUiActions;
 class PlaybackController : public IPlaybackController, public audio::IAudioStreamSuspender, public muse::actions::Actionable,
     public muse::rcommand::Commandable, public muse::async::Asyncable, public muse::Contextable
 {
 public:
-    muse::GlobalInject<au::playback::IPlaybackConfiguration> playbackConfiguration;
+    muse::GlobalInject<agu::playback::IPlaybackConfiguration> playbackConfiguration;
     muse::GlobalInject<audio::IAudioDriverController> audioDriverController;
     muse::GlobalInject<audio::IAudioEngine> audioEngine;
     muse::GlobalInject<muse::toast::IToastService> toastService;
 
-    muse::ContextInject<au::context::IGlobalContext> globalContext { this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext { this };
     muse::ContextInject<IPlayback> playback { this };
     muse::ContextInject<muse::actions::IActionsDispatcher> dispatcher { this };
     muse::ContextInject<muse::rcommand::ICommandDispatcher> commandDispatcher { this };

@@ -5,7 +5,7 @@
 
 #include <QObject>
 
-namespace au::effects {
+namespace agu::effects {
 class ViewerComponentTypes
 {
     Q_GADGET

@@ -12,7 +12,7 @@
 #include "effectsactionscontroller.h"
 #include "ieffectsprovider.h"
 
-namespace au::effects {
+namespace agu::effects {
 class EffectsUiActions : public muse::ui::IUiActionsModule, public muse::async::Asyncable, public muse::Contextable
 {
     muse::GlobalInject<IEffectsConfiguration> configuration;

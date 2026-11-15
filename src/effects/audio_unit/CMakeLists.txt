@@ -26,4 +26,4 @@ target_link_libraries(effects_audio_unit PRIVATE
     au3-audio-unit
 )
 
-add_subdirectory(qml/Audacity/AudioUnit)
+add_subdirectory(qml/AGu/AudioUnit)

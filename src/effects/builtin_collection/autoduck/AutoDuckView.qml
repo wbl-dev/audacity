@@ -3,9 +3,9 @@ import QtQuick.Layouts
 import Muse.Ui
 import Muse.UiComponents
 import Muse.GraphicalEffects
-import Audacity.Effects
-import Audacity.BuiltinEffects
-import Audacity.BuiltinEffectsCollection
+import AGu.Effects
+import AGu.BuiltinEffects
+import AGu.BuiltinEffectsCollection
 
 BuiltinEffectBase {
     id: root

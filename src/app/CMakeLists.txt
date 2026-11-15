@@ -6,7 +6,7 @@
 ###########################################
 # Common
 ###########################################
-set(EXECUTABLE_NAME audacity)
+set(EXECUTABLE_NAME agu)
 
 ###########################################
 # Platform specific
@@ -14,7 +14,7 @@ set(EXECUTABLE_NAME audacity)
 include(GetPlatformInfo)
 
 if (OS_IS_WIN)
-    set(APP_OUTPUT_NAME ${MUSE_APP_NAME}${MUSE_APP_VERSION_MAJOR})
+    set(APP_OUTPUT_NAME ${MUSE_APP_NAME})
 
     include(GetCompilerInfo)
 
@@ -61,7 +61,7 @@ elseif(OS_IS_LIN)
     endif(BUILD_SHARED_LIBS)
 
 elseif(OS_IS_MAC)
-    set(EXECUTABLE_NAME audacity MACOSX_BUNDLE)
+    set(EXECUTABLE_NAME agu MACOSX_BUNDLE)
     set(APP_OUTPUT_NAME ${MUSE_APP_NAME})
     set(MACOSX_BUNDLE_GUI_IDENTIFIER ${MUSE_APP_GUI_IDENTIFIER})
     set(MACOSX_BUNDLE_BUNDLE_NAME ${MUSE_APP_TITLE})
@@ -132,7 +132,7 @@ add_to_link_if_exists(muse::uicomponents)
 add_to_link_if_exists(muse::workspace)
 
 add_to_link_if_exists(appshell)
-add_to_link_if_exists(audacity_extensions)
+add_to_link_if_exists(agu_extensions)
 add_to_link_if_exists(au3audio)
 add_to_link_if_exists(au3wrap)
 add_to_link_if_exists(audio)
@@ -205,7 +205,7 @@ qt_add_executable(${EXECUTABLE_NAME}
 # Includes
 ###########################################
 
-target_include_directories(audacity PRIVATE
+target_include_directories(agu PRIVATE
     ${PROJECT_BINARY_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}
 
@@ -222,7 +222,7 @@ target_include_directories(audacity PRIVATE
 ###########################################
 
 if (APP_OUTPUT_NAME)
-  set_target_properties(audacity PROPERTIES OUTPUT_NAME ${APP_OUTPUT_NAME})
+  set_target_properties(agu PROPERTIES OUTPUT_NAME ${APP_OUTPUT_NAME})
 endif (APP_OUTPUT_NAME)
 
 if (OS_IS_WIN)
@@ -235,8 +235,8 @@ endif()
 if (MUSE_ENABLE_UNIT_TESTS_CODE_COVERAGE)
     set(COVERAGE_FLAGS -fprofile-arcs -ftest-coverage --coverage)
     set(COVERAGE_LINK_FLAGS --coverage)
-    target_compile_options(audacity PRIVATE ${COVERAGE_FLAGS})
-    target_link_options(audacity PRIVATE ${COVERAGE_LINK_FLAGS})
+    target_compile_options(agu PRIVATE ${COVERAGE_FLAGS})
+    target_link_options(agu PRIVATE ${COVERAGE_LINK_FLAGS})
 endif()
 
 if (OS_IS_MAC)
@@ -257,16 +257,16 @@ if (OS_IS_MAC)
     endforeach()
 
     # Preserve the approved artwork without adding Icon Composer materials.
-    set(AU4_APP_ICON "${PROJECT_SOURCE_DIR}/share/icons/AppIcon/AU4_AppIcon.icns")
-    target_sources(audacity PRIVATE "${AU4_APP_ICON}")
+    set(AU4_APP_ICON "${PROJECT_SOURCE_DIR}/share/icons/AppIcon/AGu_AppIcon.icns")
+    target_sources(agu PRIVATE "${AU4_APP_ICON}")
     set_source_files_properties("${AU4_APP_ICON}" PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
-    set_target_properties(audacity PROPERTIES MACOSX_BUNDLE_ICON_FILE AU4_AppIcon.icns)
+    set_target_properties(agu PROPERTIES MACOSX_BUNDLE_ICON_FILE AGu_AppIcon.icns)
 
-    set_target_properties(audacity
+    set_target_properties(agu
         PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/buildscripts/packaging/MacOS/MacOSXBundleInfo.plist.in
         XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER ${MACOSX_BUNDLE_GUI_IDENTIFIER}
     )
-    target_link_libraries(audacity PRIVATE "-framework Cocoa")
+    target_link_libraries(agu PRIVATE "-framework Cocoa")
 
     set_source_files_properties(
         internal/platform/macos/backgroundprocess.mm
@@ -275,8 +275,8 @@ if (OS_IS_MAC)
         SKIP_PRECOMPILE_HEADERS ON
     )
 
-    add_custom_command(TARGET audacity POST_BUILD
-        COMMAND codesign --force --sign - "$<TARGET_BUNDLE_DIR:audacity>"
+    add_custom_command(TARGET agu POST_BUILD
+        COMMAND codesign --force --sign - "$<TARGET_BUNDLE_DIR:agu>"
         VERBATIM
     )
 endif (OS_IS_MAC)
@@ -306,7 +306,7 @@ endif(CC_IS_MSVC)
 ###########################################
 # Link
 ##########################################
-target_link_libraries(audacity
+target_link_libraries(agu
         PRIVATE
         ${LINK_LIB}
         ${COVERAGE_LINK_FLAGS}
@@ -317,10 +317,10 @@ target_link_libraries(audacity
 ###########################################
 
 if (AU_MODULE_EFFECTS_NYQUIST)
-    add_dependencies(audacity nyquist-runtime nyquist-plug-ins)
+    add_dependencies(agu nyquist-runtime nyquist-plug-ins)
 endif()
 
-add_dependencies(audacity builtin-workspaces eq-default-curves)
+add_dependencies(agu builtin-workspaces eq-default-curves)
 
 ###########################################
 # INSTALL
@@ -349,7 +349,7 @@ if (OS_IS_WIN)
 
     # Install Qt
     qt_generate_deploy_qml_app_script(
-        TARGET audacity
+        TARGET agu
         OUTPUT_SCRIPT deploy_script
         NO_UNSUPPORTED_PLATFORM_ERROR
         NO_TRANSLATIONS
@@ -362,7 +362,7 @@ if (OS_IS_WIN)
     )
 
     add_custom_command(
-        TARGET audacity PRE_LINK
+        TARGET agu PRE_LINK
         COMMAND ${CMAKE_COMMAND} -DSCRIPT_PATH=${deploy_script} -P ${CMAKE_CURRENT_SOURCE_DIR}/add_NO_OVERWRITE_option.cmake
         COMMENT "Injecting NO_OVERWRITE into Qt deploy script"
     )
@@ -375,10 +375,10 @@ if (OS_IS_WIN)
 
     if (WIN_PORTABLE)
         # deploy the files and directory structure needed for the PortableApps.com format
-        install(DIRECTORY ${PROJECT_SOURCE_DIR}/build/PortableApps/App DESTINATION ${CMAKE_INSTALL_PREFIX}/../..)
-        install(DIRECTORY ${PROJECT_SOURCE_DIR}/build/PortableApps/Other DESTINATION ${CMAKE_INSTALL_PREFIX}/../..)
-        install(FILES ${PROJECT_SOURCE_DIR}/build/PortableApps/help.html DESTINATION ${CMAKE_INSTALL_PREFIX}/../..)
-        configure_file(${PROJECT_SOURCE_DIR}/build/PortableApps/appinfo.ini.in     ${CMAKE_INSTALL_PREFIX}/../../App/AppInfo/appinfo.ini   @ONLY)
+        install(DIRECTORY ${PROJECT_SOURCE_DIR}/buildscripts/packaging/Windows/PortableApps/App DESTINATION ${CMAKE_INSTALL_PREFIX}/../..)
+        install(DIRECTORY ${PROJECT_SOURCE_DIR}/buildscripts/packaging/Windows/PortableApps/Other DESTINATION ${CMAKE_INSTALL_PREFIX}/../..)
+        install(FILES ${PROJECT_SOURCE_DIR}/buildscripts/packaging/Windows/PortableApps/help.html DESTINATION ${CMAKE_INSTALL_PREFIX}/../..)
+        configure_file(${PROJECT_SOURCE_DIR}/buildscripts/packaging/Windows/PortableApps/appinfo.ini.in ${CMAKE_INSTALL_PREFIX}/../../App/AppInfo/appinfo.ini @ONLY)
     endif (WIN_PORTABLE)
 
     if (MSVC)
@@ -406,7 +406,7 @@ elseif(OS_IS_FBSD)
 ###########################################
 elseif(OS_IS_MAC)
 
-    install(TARGETS audacity BUNDLE DESTINATION ${CMAKE_INSTALL_PREFIX})
+    install(TARGETS agu BUNDLE DESTINATION ${CMAKE_INSTALL_PREFIX})
 
     if(MUSE_MODULE_DIAGNOSTICS_CRASHPAD_CLIENT)
         install(PROGRAMS "${MUSE_MODULE_DIAGNOSTICS_CRASHPAD_HANDLER_PATH}"
@@ -415,7 +415,7 @@ elseif(OS_IS_MAC)
     endif()
 
     qt_generate_deploy_qml_app_script(
-        TARGET audacity
+        TARGET agu
         OUTPUT_SCRIPT deploy_script
         NO_TRANSLATIONS
         EXCLUDE_PLUGIN_TYPES qmltooling sqldrivers styles

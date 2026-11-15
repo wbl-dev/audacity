@@ -11,7 +11,7 @@
 
 #include "log.h"
 
-using namespace au::importexport;
+using namespace agu::importexport;
 
 LteAudioReaderBridge::LteAudioReaderBridge(std::shared_ptr<const ClipInterface> clip)
     : m_clip(std::move(clip))

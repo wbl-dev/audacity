@@ -33,7 +33,7 @@
 using ::testing::Truly;
 using ::testing::_;
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class Au3ClipsInteractionTests : public Au3InteractionTestBase
 {
 public:
@@ -60,7 +60,7 @@ public:
         ON_CALL(*m_globalContext, currentTrackeditProject())
         .WillByDefault(Return(m_trackEditProject));
 
-        m_currentProject = std::make_shared<NiceMock<project::AudacityProjectMock> >();
+        m_currentProject = std::make_shared<NiceMock<project::AGuProjectMock> >();
         ON_CALL(*m_globalContext, currentProject())
         .WillByDefault(Return(m_currentProject));
         ON_CALL(*m_globalContext, playbackState())

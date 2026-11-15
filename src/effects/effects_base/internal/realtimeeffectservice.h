@@ -30,12 +30,12 @@ namespace au3 {
 using Au3Project = ::AudacityProject;
 }
 
-namespace au::effects {
+namespace agu::effects {
 class RealtimeEffectService : public IRealtimeEffectService, muse::async::Asyncable, public muse::Contextable,
     public std::enable_shared_from_this<RealtimeEffectService>
 {
     muse::GlobalInject<IEffectsProvider> effectsProvider;
-    muse::GlobalInject<au::audio::IAudioEngine> audioEngine;
+    muse::GlobalInject<agu::audio::IAudioEngine> audioEngine;
 
     muse::ContextInject<context::IGlobalContext> globalContext{ this };
     muse::ContextInject<trackedit::IProjectHistory> projectHistory{ this };
@@ -77,15 +77,15 @@ public:
     static wxString resolveEffectId(const wxString&);
 
 private:
-    void onProjectChanged(const au::project::IAudacityProjectPtr& project);
+    void onProjectChanged(const agu::project::IAGuProjectPtr& project);
     void registerRealtimeEffectList(TrackId, RealtimeEffectList&);
     void unregisterRealtimeEffectList(TrackId);
     void onTrackListEvent(const TrackListEvent&);
     std::string getEffectName(const RealtimeEffectState& state) const;
     std::optional<std::string> effectTrackName(TrackId trackId) const;
     RealtimeEffectStatePtr effect(TrackId trackId, EffectChainLinkIndex index) const;
-    const RealtimeEffectList* realtimeEffectList(au::effects::TrackId) const;
-    RealtimeEffectList* realtimeEffectList(au::effects::TrackId);
+    const RealtimeEffectList* realtimeEffectList(agu::effects::TrackId) const;
+    RealtimeEffectList* realtimeEffectList(agu::effects::TrackId);
 
     muse::async::Channel<RealtimeEffectStatePtr> m_isActiveChanged;
     Observer::Subscription m_tracklistSubscription;

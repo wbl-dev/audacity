@@ -11,7 +11,7 @@
 #include "rcommand/tests/mocks/commanddispatchermock.h"
 #include "context/tests/mocks/globalcontextmock.h"
 #include "context/tests/mocks/playbackstatemock.h"
-#include "project/tests/mocks/audacityprojectmock.h"
+#include "project/tests/mocks/aguprojectmock.h"
 #include "project/tests/testtools.h"
 #include "trackedit/tests/mocks/selectioncontrollermock.h"
 #include "trackedit/tests/mocks/trackeditprojectmock.h"
@@ -37,9 +37,9 @@ using ::testing::Return;
 using ::testing::SaveArg;
 using ::testing::Truly;
 
-using namespace au::au3;
+using namespace agu::au3;
 
-namespace au::record {
+namespace agu::record {
 constexpr static double TEST_SAMPLE_RATE = 44100.0;
 
 class Au3RecordTests : public ::testing::Test
@@ -63,7 +63,7 @@ public:
         m_recordConfiguration = std::make_shared<NiceMock<RecordConfigurationMock> >();
         m_audioDriverController = std::make_shared<NiceMock<audio::AudioDriverControllerMock> >();
         m_trackeditProject = std::make_shared<NiceMock<trackedit::TrackeditProjectMock> >();
-        m_currentProject = std::make_shared<NiceMock<project::AudacityProjectMock> >();
+        m_currentProject = std::make_shared<NiceMock<project::AGuProjectMock> >();
 
         m_record->globalContext.set(m_globalContext);
         m_record->commandDispatcher.set(m_commandDispatcher);
@@ -166,7 +166,7 @@ public:
     std::shared_ptr<RecordConfigurationMock> m_recordConfiguration;
     std::shared_ptr<audio::AudioDriverControllerMock> m_audioDriverController;
     std::shared_ptr<trackedit::TrackeditProjectMock> m_trackeditProject;
-    std::shared_ptr<project::AudacityProjectMock> m_currentProject;
+    std::shared_ptr<project::AGuProjectMock> m_currentProject;
 
     std::shared_ptr<Au3ProjectAccessor> m_au3ProjectAccessor;
     std::string m_workingProjectPath;

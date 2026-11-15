@@ -1,4 +1,4 @@
-// Audacity TXT label import. Times are seconds; -1 means an undefined frequency bound.
+// AGu TXT label import. Times are seconds; -1 means an undefined frequency bound.
 function parse(input) {
     const lines = input.text.split(/\r\n|\n|\r/);
     if (lines.length && lines[lines.length - 1] === "") {

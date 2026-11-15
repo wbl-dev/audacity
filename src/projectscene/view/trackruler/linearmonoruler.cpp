@@ -5,7 +5,7 @@
 
 #include "linearmonoruler.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 double LinearMonoRuler::stepToPosition(double step, [[maybe_unused]] size_t channel, [[maybe_unused]] bool isNegativeSample) const
 {

@@ -9,7 +9,7 @@
 #include <QQuickItem>
 #include <QCursor>
 
-namespace au::projectscene {
+namespace agu::projectscene {
 constexpr static int DEFAULT_CURSOR_SIZE = 32;
 
 //! QML component that installs a global override cursor from a pixmap source

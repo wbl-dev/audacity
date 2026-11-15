@@ -6,7 +6,7 @@
 #include "framework/global/types/number.h"
 #include "realfn.h"
 
-namespace au::shared {
+namespace agu::shared {
 class Decibel
 {
 public:

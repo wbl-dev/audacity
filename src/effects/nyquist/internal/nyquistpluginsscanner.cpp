@@ -5,7 +5,7 @@
 
 #include "au3-effects/EffectBase.h" // NYQUIST_PROMPT_ID
 
-namespace au::effects {
+namespace agu::effects {
 ::PluginPaths NyquistPluginsScanner::pluginPaths(BasicUI::ProgressDialog* progress) const
 {
     auto paths = Au3AudioPluginScanner::pluginPaths(progress);

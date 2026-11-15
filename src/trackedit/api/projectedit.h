@@ -21,7 +21,7 @@ class TrackList;
 class WaveTrack;
 class WaveTrackFactory;
 
-namespace au::trackedit::api {
+namespace agu::trackedit::api {
 struct ProjectAudioClip {
     int64_t nativeId = 0;
     double start = 0.0;
@@ -108,4 +108,4 @@ QObject* beginRootProjectEdit(
     AudacityProject* project, double start, double end, const ClipKeyList& selectedClips, const QString& name, IProjectHistoryPtr history,
     std::function<bool()> projectAvailable, std::function<void(double, double, const std::vector<int64_t>&)> setSelection, QObject* parent);
 void throwProjectError(QObject* object, const QString& message);
-} // namespace au::trackedit::api
+} // namespace agu::trackedit::api

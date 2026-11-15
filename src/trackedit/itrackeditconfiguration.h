@@ -7,7 +7,7 @@
 #include "async/channel.h"
 #include "async/notification.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class ITrackeditConfiguration : MODULE_GLOBAL_INTERFACE
 {
     INTERFACE_ID(ITrackeditConfiguration)

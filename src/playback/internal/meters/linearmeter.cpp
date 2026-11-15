@@ -11,7 +11,7 @@
 #include <cmath>
 #include <algorithm>
 
-using namespace au::playback;
+using namespace agu::playback;
 
 namespace {
 constexpr double MIN_VOLUME_LIN = 0.0;

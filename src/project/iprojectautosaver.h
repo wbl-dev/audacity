@@ -25,9 +25,9 @@
 #include "io/path.h"
 
 #include "modularity/imoduleinterface.h"
-#include "iaudacityproject.h"
+#include "iaguproject.h"
 
-namespace au::project {
+namespace agu::project {
 // we don't use at the moment 01/09/2025 the project auto saver as we already have the autosave table
 class IProjectAutoSaver : MODULE_EXPORT_INTERFACE
 {

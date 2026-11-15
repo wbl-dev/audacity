@@ -8,7 +8,7 @@
 #include "framework/global/log.h"
 #include "framework/global/realfn.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 using namespace muse;
 
 EffectParametersListModel::EffectParametersListModel(QObject* parent, EffectInstanceId instanceId)

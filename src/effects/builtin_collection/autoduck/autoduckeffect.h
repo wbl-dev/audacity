@@ -24,7 +24,7 @@
 class WaveChannel;
 class WaveTrack;
 
-namespace au::effects {
+namespace agu::effects {
 class AutoDuckEffect : public StatefulEffect
 {
 public:

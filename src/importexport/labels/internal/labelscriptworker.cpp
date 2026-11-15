@@ -16,7 +16,7 @@
 #include <sys/resource.h>
 #endif
 
-namespace au::importexport {
+namespace agu::importexport {
 namespace {
 constexpr uint32_t MAX_INPUT_BYTES = 4 * 1024 * 1024;
 constexpr int MAX_OUTPUT_BYTES = 2 * 1024 * 1024;

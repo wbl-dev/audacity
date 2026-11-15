@@ -6,7 +6,7 @@
 
 #include "framework/global/types/number.h"
 
-namespace au::effects {
+namespace agu::effects {
 struct NoiseSettings
 {
     enum Type

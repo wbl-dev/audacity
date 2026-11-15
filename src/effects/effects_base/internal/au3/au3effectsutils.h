@@ -6,10 +6,10 @@
 #include "au3-module-manager/PluginDescriptor.h"
 #include "effects/effects_base/effectstypes.h"
 
-namespace au::effects {
+namespace agu::effects {
 constexpr auto toAu4EffectCategory(::EffectGroup group)
 {
-    using namespace au::effects;
+    using namespace agu::effects;
     switch (group) {
     case ::EffectGroup::Unspecified: return EffectCategory::Unspecified;
     case ::EffectGroup::None: return EffectCategory::None;
@@ -50,7 +50,7 @@ constexpr ::EffectGroup toAu3EffectGroup(EffectCategory category)
 
 constexpr auto toAu4EffectType(::EffectType type)
 {
-    using namespace au::effects;
+    using namespace agu::effects;
     switch (type) {
     case ::EffectTypeNone: return EffectType::Unknown;
     case ::EffectTypeGenerate: return EffectType::Generator;

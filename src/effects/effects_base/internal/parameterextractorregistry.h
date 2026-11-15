@@ -7,7 +7,7 @@
 
 #include <map>
 
-namespace au::effects {
+namespace agu::effects {
 class ParameterExtractorRegistry : public IParameterExtractorRegistry
 {
 public:

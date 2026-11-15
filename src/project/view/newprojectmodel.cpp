@@ -24,7 +24,7 @@
 #include "ui/view/musicalsymbolcodes.h"
 #include "log.h"
 
-using namespace au::project;
+using namespace agu::project;
 using namespace muse;
 using namespace muse::ui;
 

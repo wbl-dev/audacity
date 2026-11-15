@@ -13,7 +13,7 @@
 #include "../trackeditcommands.h"
 #include "../trackeditutils.h"
 
-using namespace au::trackedit;
+using namespace agu::trackedit;
 using namespace muse;
 using namespace muse::rcommand;
 

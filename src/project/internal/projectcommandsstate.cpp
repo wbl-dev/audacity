@@ -8,7 +8,7 @@
 
 #include "../projectcommands.h"
 
-using namespace au::project;
+using namespace agu::project;
 using namespace muse;
 using namespace muse::rcommand;
 
@@ -109,7 +109,7 @@ void ProjectCommandsState::updateCommandStates(const std::vector<Command>& comma
 
 CommandState ProjectCommandsState::commandState(const Command& command) const
 {
-    const IAudacityProjectPtr project = globalContext()->currentProject();
+    const IAGuProjectPtr project = globalContext()->currentProject();
     if (!project) {
         return CommandState(muse::contains(commandsAllowedWithoutProject, command));
     }

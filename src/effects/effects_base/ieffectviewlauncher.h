@@ -8,7 +8,7 @@
 #include "global/types/ret.h"
 #include "effectstypes.h"
 
-namespace au::effects {
+namespace agu::effects {
 class IEffectViewLauncher
 {
 public:

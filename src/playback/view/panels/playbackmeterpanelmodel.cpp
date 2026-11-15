@@ -2,7 +2,7 @@
 
 #include "playback/playbacktypes.h"
 
-using namespace au::playback;
+using namespace agu::playback;
 
 PlaybackMeterPanelModel::PlaybackMeterPanelModel(QObject* parent)
     : QObject(parent), muse::Contextable(muse::iocCtxForQmlObject(this))
@@ -125,7 +125,7 @@ void PlaybackMeterPanelModel::setRightChannelRMS(float rightChannelRMS)
     emit rightChannelRMSChanged(m_rightChannelRMS);
 }
 
-au::playback::PlaybackMeterModel* PlaybackMeterPanelModel::meterModel() const
+agu::playback::PlaybackMeterModel* PlaybackMeterPanelModel::meterModel() const
 {
     return m_meterModel;
 }

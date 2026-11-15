@@ -11,7 +11,7 @@
 
 #include "../timeline/timelinecontext.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class TrackLabelsListModel;
 class TrackLabelItem;
 

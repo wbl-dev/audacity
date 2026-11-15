@@ -7,7 +7,7 @@
 
 #include "log.h"
 
-namespace au::effects {
+namespace agu::effects {
 CompressorViewModel::CompressorViewModel(QObject* parent, int instanceId)
     : BuiltinEffectModel{parent, instanceId}
 {

@@ -7,7 +7,7 @@
 
 #include "../exportcommands.h"
 
-using namespace au::importexport;
+using namespace agu::importexport;
 using namespace muse;
 using namespace muse::rcommand;
 

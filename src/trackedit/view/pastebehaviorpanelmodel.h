@@ -9,7 +9,7 @@
 
 #include "trackedit/trackedittypes.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class PasteBehaviorPanelModel : public QObject, public muse::async::Asyncable
 {
     Q_OBJECT

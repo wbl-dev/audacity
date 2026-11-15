@@ -6,7 +6,7 @@
 #include "effects/effects_base/internal/au3/au3audiopluginscanner.h"
 #include "au3-nyquist-effects/LoadNyquist.h"
 
-namespace au::effects {
+namespace agu::effects {
 class NyquistPluginsScanner : public Au3AudioPluginScanner
 {
 public:

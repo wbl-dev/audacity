@@ -27,7 +27,7 @@
 #include "types/projecttypes.h"
 #include "../projectcommands.h"
 
-using namespace au::project;
+using namespace agu::project;
 using namespace muse;
 
 ProjectsPageModel::ProjectsPageModel(QObject* parent)

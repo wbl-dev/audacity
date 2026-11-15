@@ -6,7 +6,7 @@
 #include "../common/generatoreffect.h"
 #include <array>
 
-namespace au::effects {
+namespace agu::effects {
 struct DtmfSettings
 {
     static constexpr char DefaultSequence[] = "audacity";

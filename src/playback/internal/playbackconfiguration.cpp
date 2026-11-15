@@ -7,7 +7,7 @@
 #include "playbackconfiguration.h"
 
 using namespace muse;
-using namespace au::playback;
+using namespace agu::playback;
 
 static const std::string moduleName("playback");
 
@@ -34,13 +34,13 @@ static const std::vector<std::string> ditherNames{
     "None", "Rectangle", "Triangle", "Shaped"
 };
 
-au::uicomponents::TimecodeFormatType PlaybackConfiguration::playbackTimeItemFormat() const
+agu::uicomponents::TimecodeFormatType PlaybackConfiguration::playbackTimeItemFormat() const
 {
     return muse::settings()->value(PLAYBACK_TIME_ITEM_FORMAT)
-           .toEnum<au::uicomponents::TimecodeFormatType>();
+           .toEnum<agu::uicomponents::TimecodeFormatType>();
 }
 
-void PlaybackConfiguration::setPlaybackTimeItemFormat(au::uicomponents::TimecodeFormatType format)
+void PlaybackConfiguration::setPlaybackTimeItemFormat(agu::uicomponents::TimecodeFormatType format)
 {
     muse::settings()->setSharedValue(PLAYBACK_TIME_ITEM_FORMAT, muse::Val(static_cast<int>(format)));
 }
@@ -116,7 +116,7 @@ muse::async::Notification PlaybackConfiguration::playbackHorizontalMeterSizeChan
 void PlaybackConfiguration::init()
 {
     muse::settings()->setDefaultValue(PLAYBACK_TIME_ITEM_FORMAT,
-                                      muse::Val(static_cast<int>(au::uicomponents::TimecodeFormatType::HHMMSSHundredths)));
+                                      muse::Val(static_cast<int>(agu::uicomponents::TimecodeFormatType::HHMMSSHundredths)));
     muse::settings()->valueChanged(PLAYBACK_TIME_ITEM_FORMAT).onReceive(nullptr, [this](const muse::Val&) {
         m_playbackTimeItemFormatChanged.notify();
     });
@@ -170,13 +170,13 @@ void PlaybackConfiguration::init()
     });
 }
 
-std::vector<au::playback::PlaybackQualityPrefs::PlaybackQuality> PlaybackConfiguration::playbackQualityList() const
+std::vector<agu::playback::PlaybackQualityPrefs::PlaybackQuality> PlaybackConfiguration::playbackQualityList() const
 {
     return { PlaybackQualityPrefs::PlaybackQuality::LowQuality, PlaybackQualityPrefs::PlaybackQuality::MediumQuality,
              PlaybackQualityPrefs::PlaybackQuality::HighQuality, PlaybackQualityPrefs::PlaybackQuality::BestQuality };
 }
 
-au::playback::PlaybackQualityPrefs::PlaybackQuality PlaybackConfiguration::currentPlaybackQuality() const
+agu::playback::PlaybackQualityPrefs::PlaybackQuality PlaybackConfiguration::currentPlaybackQuality() const
 {
     // best quality is default one
     int idx = 3;
@@ -226,7 +226,7 @@ async::Notification PlaybackConfiguration::playbackQualityChanged() const
     return m_playbackQualityChanged;
 }
 
-au::trackedit::secs_t PlaybackConfiguration::shortSkip() const
+agu::trackedit::secs_t PlaybackConfiguration::shortSkip() const
 {
     return muse::settings()->value(SEEK_SHORT_PERIOD).toDouble();
 }
@@ -241,7 +241,7 @@ async::Notification PlaybackConfiguration::shortSkipChanged() const
     return m_shortSkipChanged;
 }
 
-au::trackedit::secs_t PlaybackConfiguration::longSkip() const
+agu::trackedit::secs_t PlaybackConfiguration::longSkip() const
 {
     return muse::settings()->value(SEEK_LONG_PERIOD).toDouble();
 }

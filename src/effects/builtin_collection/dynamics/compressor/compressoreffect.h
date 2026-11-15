@@ -8,7 +8,7 @@
 #include "au3-components/SettingsVisitor.h"
 #include "dynamics/dynamicseffectsmacros.h"
 
-namespace au::effects {
+namespace agu::effects {
 class CompressorEffect : public EffectWithSettings<CompressorSettings, PerTrackEffect>
 {
 public:

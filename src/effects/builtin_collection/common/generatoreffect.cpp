@@ -5,7 +5,7 @@
 #include "au3-components/EffectInterface.h"
 #include "log.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 GeneratorEffect::GeneratorEffect(const double& t0, double& t1)
     : m_t0{t0}

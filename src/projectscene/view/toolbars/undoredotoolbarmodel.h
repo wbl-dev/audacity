@@ -9,7 +9,7 @@
 #include "context/iglobalcontext.h"
 #include "trackedit/iprojecthistory.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class UndoRedoToolBarModel : public muse::uicomponents::AbstractToolBarModel
 {
     Q_OBJECT

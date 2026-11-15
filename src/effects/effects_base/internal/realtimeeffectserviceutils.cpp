@@ -5,7 +5,7 @@
 #include "irealtimeeffectservice.h"
 #include "au3wrap/internal/domaccessor.h"
 
-std::optional<au::effects::TrackId> au::effects::utils::trackId(const au::project::IAudacityProjectPtr& project,
+std::optional<agu::effects::TrackId> agu::effects::utils::trackId(const agu::project::IAGuProjectPtr& project,
                                                                 const RealtimeEffectStatePtr& state)
 {
     if (!project) {
@@ -25,7 +25,7 @@ std::optional<au::effects::TrackId> au::effects::utils::trackId(const au::projec
     return {};
 }
 
-std::optional<au::effects::EffectChainLinkIndex> au::effects::utils::effectIndex(const au::project::IAudacityProjectPtr& project,
+std::optional<agu::effects::EffectChainLinkIndex> agu::effects::utils::effectIndex(const agu::project::IAGuProjectPtr& project,
                                                                                  const RealtimeEffectStatePtr& state)
 {
     if (!project) {
@@ -45,7 +45,7 @@ std::optional<au::effects::EffectChainLinkIndex> au::effects::utils::effectIndex
     return {};
 }
 
-std::optional<au::effects::utils::UtilData> au::effects::utils::utilData(const project::IAudacityProjectPtr& project, TrackId trackId)
+std::optional<agu::effects::utils::UtilData> agu::effects::utils::utilData(const project::IAGuProjectPtr& project, TrackId trackId)
 {
     if (!project) {
         return {};

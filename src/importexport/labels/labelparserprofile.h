@@ -3,7 +3,7 @@
 #include <QString>
 #include <QStringList>
 
-namespace au::importexport {
+namespace agu::importexport {
 struct LabelParserProfile {
     QString id;
     QString displayName;

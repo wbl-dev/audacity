@@ -6,7 +6,7 @@
 #include "projectscene/view/trackruler/dblogbaseruler.h"
 #include "view/trackruler/itrackruler.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class DbLogStereoRuler : public DbLogBaseRuler
 {
 public:

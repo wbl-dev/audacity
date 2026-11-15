@@ -10,7 +10,7 @@
 
 #include "metadatamodel.h"
 
-using namespace au::importexport;
+using namespace agu::importexport;
 using namespace muse;
 using namespace muse::io;
 
@@ -223,7 +223,7 @@ void MetadataModel::renameTag(int row, const QString& newTag)
     }
 
     // disallow renaming to any standard tag name
-    if (au::project::isStandardTag(trimmed)) {
+    if (agu::project::isStandardTag(trimmed)) {
         return;
     }
 
@@ -289,7 +289,7 @@ QString MetadataModel::buildXml() const
     return QString::fromStdString(data);
 }
 
-au::project::ProjectMeta MetadataModel::parseXml(const QString& xml) const
+agu::project::ProjectMeta MetadataModel::parseXml(const QString& xml) const
 {
     project::ProjectMeta meta = metadata()->parseXml(xml.toStdString());
 
@@ -300,7 +300,7 @@ au::project::ProjectMeta MetadataModel::parseXml(const QString& xml) const
     return meta;
 }
 
-bool MetadataModel::isMetadataEmpty(const au::project::ProjectMeta& meta) const
+bool MetadataModel::isMetadataEmpty(const agu::project::ProjectMeta& meta) const
 {
     for (size_t i = 0; i < project::kStdMembers.size(); ++i) {
         const QString& value = QString::fromStdString(meta.*(project::kStdMembers[i]));

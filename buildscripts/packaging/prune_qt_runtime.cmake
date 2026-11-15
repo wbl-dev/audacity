@@ -1,7 +1,7 @@
 # Remove unused Qt runtime content
 
 if(NOT MUSE_APP_BUNDLE_NAME)
-    set(MUSE_APP_BUNDLE_NAME "OnlyAudios.app")
+    set(MUSE_APP_BUNDLE_NAME "AGu.app")
 endif()
 
 if(NOT QT_DEPLOY_ROOT AND CMAKE_INSTALL_PREFIX)

@@ -7,9 +7,9 @@
 #include <QTimeZone>
 
 #include "../internal/timedrecordingformatter.h"
-#include "../qml/Audacity/Record/timedrecordingviewformatter.h"
+#include "../qml/AGu/Record/timedrecordingviewformatter.h"
 
-namespace au::record {
+namespace agu::record {
 namespace {
 constexpr qint64 MINUTE = 60;
 constexpr qint64 HOUR = 60 * MINUTE;

@@ -21,7 +21,7 @@
 
 #include "view/exportlabelsmodel.h"
 
-using namespace au::importexport;
+using namespace agu::importexport;
 
 static const std::string mname("iex_labels");
 
@@ -51,7 +51,7 @@ void LabelsModule::registerResources()
 
 void LabelsModule::registerUiTypes()
 {
-    qmlRegisterType<ExportLabelsModel>("Audacity.Export", 1, 0, "ExportLabelsModel");
+    qmlRegisterType<ExportLabelsModel>("AGu.Export", 1, 0, "ExportLabelsModel");
 }
 
 void LabelsModule::resolveImports()
@@ -62,7 +62,7 @@ void LabelsModule::resolveImports()
     }
     auto ir = globalIoc()->resolve<muse::interactive::IInteractiveUriRegister>(mname);
     if (ir) {
-        ir->registerQmlUri(muse::Uri("audacity://project/export/labels"), "Export/ExportLabelsDialog.qml");
+        ir->registerQmlUri(muse::Uri("agu://project/export/labels"), "Export/ExportLabelsDialog.qml");
     }
 }
 

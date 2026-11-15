@@ -59,7 +59,7 @@
 #include "internal/au3/au3clipsinteraction.h"
 #include "internal/au3/au3labelsinteraction.h"
 
-using namespace au::trackedit;
+using namespace agu::trackedit;
 using namespace muse;
 using namespace muse::modularity;
 using namespace muse::ui;
@@ -92,16 +92,16 @@ void TrackeditModule::registerExports()
 
 void TrackeditModule::registerUiTypes()
 {
-    qmlRegisterType<DeleteBehaviorPanelModel>("Audacity.TrackEdit", 1, 0, "DeleteBehaviorPanelModel");
-    qmlRegisterType<PasteBehaviorPanelModel>("Audacity.TrackEdit", 1, 0, "PasteBehaviorPanelModel");
-    qmlRegisterType<TrackNavigationModel>("Audacity.TrackEdit", 1, 0, "TrackNavigationModel");
+    qmlRegisterType<DeleteBehaviorPanelModel>("AGu.TrackEdit", 1, 0, "DeleteBehaviorPanelModel");
+    qmlRegisterType<PasteBehaviorPanelModel>("AGu.TrackEdit", 1, 0, "PasteBehaviorPanelModel");
+    qmlRegisterType<TrackNavigationModel>("AGu.TrackEdit", 1, 0, "TrackNavigationModel");
 }
 
 void TrackeditModule::resolveImports()
 {
     auto ar = globalIoc()->resolve<muse::api::IApiRegister>(mname);
     if (ar) {
-        ar->regApiCreator(mname, "Audacity.Project", new muse::api::ApiCreator<api::ProjectApi>());
+        ar->regApiCreator(mname, "AGu.Project", new muse::api::ApiCreator<api::ProjectApi>());
     }
 
     auto cr = globalIoc()->resolve<muse::rcommand::ICommandsRegister>(mname);
@@ -111,12 +111,12 @@ void TrackeditModule::resolveImports()
 
     auto ir = globalIoc()->resolve<muse::interactive::IInteractiveUriRegister>(mname);
     if (ir) {
-        ir->registerQmlUri(muse::Uri("audacity://trackedit/custom_rate"), "Audacity/TrackEdit/CustomRateDialog.qml");
-        ir->registerQmlUri(muse::Uri("audacity://trackedit/custom_time"), "Audacity/TrackEdit/CustomTimeDialog.qml");
-        ir->registerQmlUri(muse::Uri("audacity://trackedit/delete_behavior"), "Audacity/TrackEdit/DeleteBehaviorOnboardingDialog.qml");
+        ir->registerQmlUri(muse::Uri("agu://trackedit/custom_rate"), "AGu/TrackEdit/CustomRateDialog.qml");
+        ir->registerQmlUri(muse::Uri("agu://trackedit/custom_time"), "AGu/TrackEdit/CustomTimeDialog.qml");
+        ir->registerQmlUri(muse::Uri("agu://trackedit/delete_behavior"), "AGu/TrackEdit/DeleteBehaviorOnboardingDialog.qml");
         ir->registerQmlUri(muse::Uri(
-                               "audacity://trackedit/delete_behavior_followup"),
-                           "Audacity/TrackEdit/DeleteBehaviorOnboardingFollowupDialog.qml");
+                               "agu://trackedit/delete_behavior_followup"),
+                           "AGu/TrackEdit/DeleteBehaviorOnboardingFollowupDialog.qml");
     }
 }
 

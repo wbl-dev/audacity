@@ -16,11 +16,11 @@
 #include "playback/iplaybackcontroller.h"
 #include "record/irecordcontroller.h"
 
-namespace au::project {
-class IAudacityProject;
+namespace agu::project {
+class IAGuProject;
 }
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class PlaybackToolBarModel : public muse::uicomponents::AbstractToolBarModel
 {
     Q_OBJECT
@@ -62,7 +62,7 @@ signals:
 
 private:
     void reload();
-    void setupProjectConnections(project::IAudacityProject& project);
+    void setupProjectConnections(project::IAGuProject& project);
 
     void onCommandStateChanged(const muse::rcommand::Command& command, const muse::rcommand::CommandState& state) override;
 

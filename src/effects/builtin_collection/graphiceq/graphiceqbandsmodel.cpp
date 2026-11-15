@@ -7,7 +7,7 @@
 
 #include "log.h"
 
-namespace au::effects {
+namespace agu::effects {
 namespace {
 QString centerFrequencyToString(double frequency)
 {

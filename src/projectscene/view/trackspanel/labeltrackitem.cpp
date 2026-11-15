@@ -4,8 +4,8 @@
 
 #include "labeltrackitem.h"
 
-using namespace au::projectscene;
-using namespace au::trackedit;
+using namespace agu::projectscene;
+using namespace agu::trackedit;
 
 LabelTrackItem::LabelTrackItem(QObject* parent)
     : TrackItem(parent)

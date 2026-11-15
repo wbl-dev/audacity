@@ -3,7 +3,7 @@
  */
 #include "x11idleui.h"
 
-namespace au::effects {
+namespace agu::effects {
 X11IdleUi::X11IdleUi(const LV2UI_Show_Interface* show, const LV2UI_Idle_Interface& idle, const SuilHandle handle)
     : m_uiShowInterface{show}, m_uiIdleInterface{&idle}, m_suilHandle{handle}
 {

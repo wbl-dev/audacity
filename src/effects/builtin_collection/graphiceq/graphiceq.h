@@ -5,7 +5,7 @@
 
 #include "au3-builtin-effects/EqualizationBase.h"
 
-namespace au::effects {
+namespace agu::effects {
 class GraphicEq : public EqualizationBase
 {
 public:

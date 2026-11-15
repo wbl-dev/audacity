@@ -3,7 +3,7 @@
 */
 #include "playbacktoolbarcustomiseitem.h"
 
-using namespace au::playback;
+using namespace agu::playback;
 using namespace muse::uicomponents;
 
 PlaybackToolBarCustomiseItem::PlaybackToolBarCustomiseItem(const ItemType& type, QObject* parent)

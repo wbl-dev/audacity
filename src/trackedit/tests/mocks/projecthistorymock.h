@@ -7,7 +7,7 @@
 
 #include "trackedit/iprojecthistory.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class ProjectHistoryMock : public IProjectHistory
 {
 public:

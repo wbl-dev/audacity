@@ -9,11 +9,6 @@ on:
         type: boolean
         required: false
         default: false
-      publish_coverage_report:
-        description: 'Publish code coverage badge to S3 (main repository only)'
-        type: boolean
-        required: false
-        default: false
   schedule:
     - cron: "0 3 * * 4" # Every Thursday night at 03:00 for master branch
 
@@ -124,18 +119,6 @@ jobs:
           filtered_coverage.info
           coverage_badge.svg
           coverage_report/
-
-    - name: Push to S3
-      if: github.repository == 'audacity/audacity' && ( github.event_name == 'schedule' || ( inputs.code_coverage && inputs.publish_coverage_report ) )
-      run: |
-        S3_URL='s3://extensions.musescore.org/test/code_coverage/au_coverage_badge.svg'
-
-        bash ./muse/buildscripts/ci/tools/s3_push_file.sh \
-          --s3_key '${{ secrets.S3_KEY }}' \
-          --s3_secret '${{ secrets.S3_SECRET }}' \
-          --s3_url "${S3_URL}" \
-          --file_path "coverage_badge.svg" \
-          --cache_control "max-age=300"
 
     - name: Prepare ccache files for saving
       id: prepare-save-ccache

@@ -9,7 +9,7 @@
 
 #include "ui/view/iconcodes.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class PlaybackToolBarCustomiseItem : public QObject
 {
     Q_OBJECT

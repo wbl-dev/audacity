@@ -11,7 +11,7 @@
 #include "au3-builtin-effects/EqualizationFilter.h"
 #include "au3-mixer/Envelope.h"
 
-namespace au::effects {
+namespace agu::effects {
 FilterCurveModel::FilterCurveModel(QObject* parent, FilterCurveEq& eq)
     : QObject(parent), m_eq(eq)
 {

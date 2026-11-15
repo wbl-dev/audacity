@@ -18,7 +18,7 @@
 #include "framework/global/log.h"
 #include "framework/global/progress.h"
 
-namespace au::effects {
+namespace agu::effects {
 namespace {
 //! Adapter exposing a muse::Progress as a BasicUI::ProgressDialog, so Audacity
 //! backend modules (VST3 / AU / LV2) which expect a real BasicUI::ProgressDialog*

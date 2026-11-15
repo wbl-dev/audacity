@@ -6,7 +6,7 @@
 // TODO: au3 EffectInterface shouldn't be a dependency in Qt models
 #include "au3-components/EffectInterface.h"
 
-namespace au::effects {
+namespace agu::effects {
 DestructiveEffectViewerDialogModel::DestructiveEffectViewerDialogModel(QObject* parent)
     : QObject(parent), muse::Contextable(muse::iocCtxForQmlObject(this))
 {
@@ -153,4 +153,4 @@ void DestructiveEffectViewerDialogModel::captureInitialSettings()
 
     m_initialSettings = std::make_shared<EffectSettings>(*settings);
 }
-} // namespace au::effects
+} // namespace agu::effects

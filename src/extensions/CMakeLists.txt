@@ -2,11 +2,11 @@
 # Audacity: A Digital Audio Editor
 #
 
-declare_module(audacity_extensions)
+declare_module(agu_extensions)
 
 set(MODULE_SRC
-    ${CMAKE_CURRENT_LIST_DIR}/audacityextensionsmodule.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/audacityextensionsmodule.h
+    ${CMAKE_CURRENT_LIST_DIR}/aguextensionsmodule.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/aguextensionsmodule.h
     ${CMAKE_CURRENT_LIST_DIR}/extensionpreferences.cpp
     ${CMAKE_CURRENT_LIST_DIR}/extensionpreferences.h
     ${CMAKE_CURRENT_LIST_DIR}/api/audiotransformapi.cpp

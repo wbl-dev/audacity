@@ -26,7 +26,7 @@
 #include "internal/uicontextresolver.h"
 #include "shortcutcontext.h"
 
-using namespace au::context;
+using namespace agu::context;
 using namespace muse::modularity;
 using namespace muse::shortcuts;
 
@@ -64,7 +64,7 @@ void ContextModuleContext::onInit(const muse::IApplication::RunMode& mode)
 
 void ContextModuleContext::onDeinit()
 {
-    au::project::IAudacityProjectPtr prj = m_globalContext->currentProject();
+    agu::project::IAGuProjectPtr prj = m_globalContext->currentProject();
     if (prj) {
         prj->close();
     }

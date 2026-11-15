@@ -8,7 +8,7 @@
 
 #include "uicomponents/qml/Muse/UiComponents/toolbaritem.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class SnapToolBarItem : public muse::uicomponents::ToolBarItem
 {
     Q_OBJECT

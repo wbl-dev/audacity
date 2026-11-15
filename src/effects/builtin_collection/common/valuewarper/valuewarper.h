@@ -9,7 +9,7 @@
 #include <QQmlParserStatus>
 #include <QVariant>
 
-namespace au::effects {
+namespace agu::effects {
 /*!
  * \brief Warps `value` to `warpedValue`, i.e., if `value == min`, then `warpedValue == min`, and likewise for `max`.
  * The `warpedValue` of `ValueWarper` and the value of the control to be warped must be bound together and to nothing else.
@@ -66,4 +66,4 @@ private:
     QVariant m_middle; // null would mean passthrough
     std::unique_ptr<IValueTransformer> m_transformer;
 };
-} // namespace au::effects
+} // namespace agu::effects

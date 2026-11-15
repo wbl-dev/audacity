@@ -9,7 +9,7 @@
 
  #include "au3-module-manager/PluginDescriptor.h"
 
-namespace au {
+namespace agu {
 effects::EffectMeta effects::toEffectMeta(const ::PluginDescriptor& desc)
 {
     EffectMeta meta;

@@ -42,7 +42,7 @@
 //! ID3v2.3: libid3tag writes v2.4 unless built from a fork that has
 //! `ID3_TAG_OPTION_ID3V2_3`, and the exporters silently fall back to v2.4.
 
-namespace au::importexport {
+namespace agu::importexport {
 namespace {
 constexpr double SAMPLE_RATE = 48000.0; // Opus only supports a few rates, 48 kHz among them
 constexpr double DURATION = 1.0;

@@ -24,7 +24,7 @@
 
 #include "modularity/imoduleinterface.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 class ISessionsManager : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(ISessionsManager)

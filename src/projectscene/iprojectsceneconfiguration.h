@@ -11,7 +11,7 @@
 #include "trackedit/trackedittypes.h"
 #include "types/projectscenetypes.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 struct ClipColorInfo {
     muse::TranslatableString title;
     trackedit::ClipColorIndex index = 0;

@@ -5,7 +5,7 @@
 
 #include "framework/global/log.h"
 
-namespace au::effects {
+namespace agu::effects {
 BuiltinEffectSettingModel::BuiltinEffectSettingModel(QObject* parent, int instanceId)
     : QObject{parent}, muse::Contextable(muse::iocCtxForQmlObject(this)), BuiltinEffectInstanceAccess(instanceId)
 {
@@ -49,4 +49,4 @@ void BuiltinEffectSettingModel::setParamId(const QString& newParamId)
     m_paramId = newParamId;
     emit paramIdChanged();
 }
-} // namespace au::effects
+} // namespace agu::effects

@@ -8,7 +8,7 @@
 #include "effects/effects_base/internal/realtimeeffectservice.h"
 
 #include "context/tests/mocks/globalcontextmock.h"
-#include "project/tests/mocks/audacityprojectmock.h"
+#include "project/tests/mocks/aguprojectmock.h"
 #include "project/tests/mocks/dummyeffectinstancefactory.h"
 
 #include "testing/testcontext.h"
@@ -21,7 +21,7 @@
 
 using namespace ::testing;
 
-namespace au::effects {
+namespace agu::effects {
 class Effects_RealtimeEffectServiceTests : public ::testing::Test, public muse::async::Asyncable
 {
 protected:
@@ -33,7 +33,7 @@ protected:
         muse::modularity::ioc(m_ctx)->registerExport<context::IGlobalContext>("utests", m_globalContext);
 
         m_au3Project = ::AudacityProject::Create();
-        m_project = std::make_shared<NiceMock<project::AudacityProjectMock> >();
+        m_project = std::make_shared<NiceMock<project::AGuProjectMock> >();
 
         ON_CALL(*m_project, au3ProjectPtr())
         .WillByDefault(Return(reinterpret_cast<uintptr_t>(m_au3Project.get())));
@@ -53,7 +53,7 @@ protected:
 
     muse::modularity::ContextPtr m_ctx;
     std::shared_ptr<NiceMock<context::GlobalContextMock> > m_globalContext;
-    std::shared_ptr<NiceMock<project::AudacityProjectMock> > m_project;
+    std::shared_ptr<NiceMock<project::AGuProjectMock> > m_project;
     std::shared_ptr<::AudacityProject> m_au3Project;
     muse::async::Notification m_currentProjectChanged;
     std::shared_ptr<RealtimeEffectService> m_service;

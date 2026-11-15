@@ -8,7 +8,7 @@
 
 #include "../view/timeline/snaptimeformatter.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class SnapTimeFormatterTests : public ::testing::Test
 {
 public:

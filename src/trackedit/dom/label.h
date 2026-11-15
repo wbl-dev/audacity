@@ -8,7 +8,7 @@
 #include "global/types/string.h"
 #include "../trackedittypes.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 enum class LabelKind {
     Point,
     Range,

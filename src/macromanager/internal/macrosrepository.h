@@ -12,7 +12,7 @@
 
 #include "macromanager/imacrosrepository.h"
 
-namespace au::macromanager {
+namespace agu::macromanager {
 class MacrosRepository : public IMacrosRepository
 {
     muse::GlobalInject<muse::IApplication> application;

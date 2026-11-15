@@ -10,12 +10,12 @@
 #include "au3wrap/iau3project.h"
 #include "projectscene/iprojectviewstate.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class ProjectViewStateCreatorMock final : public IProjectViewStateCreator
 {
 public:
     MOCK_METHOD(IProjectViewStatePtr, createViewState,
-                (std::shared_ptr<au::au3::IAu3Project> au3project),
+                (std::shared_ptr<agu::au3::IAu3Project> au3project),
                 (const, override));
 };
-} // namespace au::projectscene
+} // namespace agu::projectscene

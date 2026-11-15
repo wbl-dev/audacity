@@ -6,7 +6,7 @@
 
 #include "framework/global/realfn.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 FrequencySelection::FrequencySelection(int trackId)
     : trackId(trackId)
 {

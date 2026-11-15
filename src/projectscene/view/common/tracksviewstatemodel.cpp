@@ -3,8 +3,8 @@
 */
 #include "tracksviewstatemodel.h"
 
-using namespace au::projectscene;
-using namespace au::project;
+using namespace agu::projectscene;
+using namespace agu::project;
 
 TracksViewStateModel::TracksViewStateModel(QObject* parent)
     : QObject(parent), muse::Contextable(muse::iocCtxForQmlObject(this))
@@ -13,7 +13,7 @@ TracksViewStateModel::TracksViewStateModel(QObject* parent)
 
 IProjectViewStatePtr TracksViewStateModel::viewState() const
 {
-    IAudacityProjectPtr prj = globalContext()->currentProject();
+    IAGuProjectPtr prj = globalContext()->currentProject();
     return prj ? prj->viewState() : nullptr;
 }
 
@@ -86,7 +86,7 @@ bool TracksViewStateModel::isItemEditInProgress() const
     return false;
 }
 
-au::trackedit::TrackId TracksViewStateModel::trackAtPosition(double x, double y) const
+agu::trackedit::TrackId TracksViewStateModel::trackAtPosition(double x, double y) const
 {
     UNUSED(x);
     IProjectViewStatePtr vs = viewState();

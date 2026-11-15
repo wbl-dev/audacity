@@ -9,7 +9,7 @@
             "program": "${command:cmake.launchTargetPath}",
             "args": [
                 // "--memory-leak-report", // Enable memory-leak reporting
-                // Comment this out to run audacity in plugin registration mode
+                // Comment this out to run AGu in plugin registration mode
                 // "--register-audio-plugin", "C:/Program Files/Common Files/VST3/Your plugin.vst3"
             ],
             "environment": [
@@ -20,7 +20,7 @@
                 {
                     // The install step copies everything needed to `app/bin`
                     "name": "PATH",
-                    "value": "${env:PATH};${workspaceFolder}/build/audacity-debug/src/app/bin"
+                    "value": "${env:PATH};${workspaceFolder}/build/workbench-debug/src/app/bin"
                 }
             ],
             "sourceFileMap": {
@@ -33,7 +33,7 @@
             "visualizerFile": "${workspaceFolder}/.vscode/qt6.natvis"
         },
         {
-            "name": "run audacity (MacOS)",
+            "name": "run AGu (MacOS)",
             "type": "cppdbg",
             "MIMode": "lldb",
             "request": "launch",

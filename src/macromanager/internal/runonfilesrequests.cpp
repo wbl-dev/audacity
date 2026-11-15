@@ -5,7 +5,7 @@
 
 #include <algorithm>
 
-using namespace au::macromanager;
+using namespace agu::macromanager;
 
 void RunOnFilesRequests::push(const muse::modularity::ContextPtr& ctx, const RunOnFilesRequest& request)
 {

@@ -12,7 +12,7 @@
 #include "trackedit/iselectioncontroller.h"
 #include "trackedit/internal/itracknavigationcontroller.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class TrackContextMenuModel : public muse::uicomponents::AbstractMenuModel
 {
     Q_OBJECT

@@ -7,7 +7,7 @@
 
 #include "playback/iplayer.h"
 
-namespace au::playback {
+namespace agu::playback {
 class PlayerMock : public IPlayer
 {
 public:

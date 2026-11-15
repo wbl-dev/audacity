@@ -5,7 +5,7 @@
 
 #include "global/log.h"
 
-namespace au::effects {
+namespace agu::effects {
 Stopwatch::Stopwatch(QObject* parent)
     : QObject{parent}
 {
@@ -71,4 +71,4 @@ void Stopwatch::onTick()
     }
     emit tick();
 }
-} // namespace au::effects
+} // namespace agu::effects

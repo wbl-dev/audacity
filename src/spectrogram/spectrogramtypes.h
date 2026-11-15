@@ -10,14 +10,14 @@
 #include "shared/axis/axistypes.h"
 #include "shared/axis/numberscale.h"
 
-namespace au::spectrogram {
-static const muse::Uri TRACK_SPECTROGRAM_SETTINGS_URI("audacity://spectrogram/track-settings");
+namespace agu::spectrogram {
+static const muse::Uri TRACK_SPECTROGRAM_SETTINGS_URI("agu://spectrogram/track-settings");
 
 /** SpectrogramScale and NumberScale are aliases for the generic axis types
  *  from the shared module. Kept here to avoid churn across spectrogram call
  *  sites. */
-using SpectrogramScale = au::shared::AxisScale;
-using NumberScale = au::shared::NumberScale;
+using SpectrogramScale = agu::shared::AxisScale;
+using NumberScale = agu::shared::NumberScale;
 
 enum class SpectrogramColorScheme {
     Roseus = 0,
@@ -100,8 +100,8 @@ private:
     double m_centerFrequency = SelectionInfo::UndefinedFrequency;
 };
 
-using SpectrogramRulerTick = au::shared::AxisTick;
-using SpectrogramRulerTicks = au::shared::AxisTicks;
+using SpectrogramRulerTick = agu::shared::AxisTick;
+using SpectrogramRulerTicks = agu::shared::AxisTicks;
 
 enum class SpectralEffectId {
     DeleteSelection,

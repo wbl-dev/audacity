@@ -5,7 +5,7 @@ import QtQuick 2.15
 import Muse.Ui 1.0
 import Muse.UiComponents
 
-import Audacity.Export 1.0
+import AGu.Export 1.0
 
 StyledTableView {
     id: root

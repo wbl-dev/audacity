@@ -3,7 +3,7 @@
  */
 #pragma once
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class Au3SpectrogramSettings;
 struct SpectrogramTrackContext {
     Au3SpectrogramSettings& settings;

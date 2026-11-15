@@ -12,7 +12,7 @@
 #include "framework/global/types/secs.h"
 #include "trackedit/trackedittypes.h"
 
-namespace au::record {
+namespace agu::record {
 class IRecordController : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IRecordController)

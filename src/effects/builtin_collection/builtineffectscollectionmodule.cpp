@@ -12,7 +12,7 @@
 
 #include "effects/effects_base/ieffectviewlaunchregister.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 static const std::string mname("builtin_effects_collection");
 
@@ -40,7 +40,7 @@ void BuiltinEffectsCollectionModule::registerResources()
 
 void BuiltinEffectsCollectionModule::registerUiTypes()
 {
-    qmlRegisterType<ValueWarper>("Audacity.BuiltinEffects", 1, 0, "ValueWarper");
+    qmlRegisterType<ValueWarper>("AGu.BuiltinEffects", 1, 0, "ValueWarper");
 }
 
 void BuiltinEffectsCollectionModule::onPreInit(const muse::IApplication::RunMode&)

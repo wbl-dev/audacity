@@ -3,7 +3,7 @@
  */
 #pragma once
 
-namespace au::effects {
+namespace agu::effects {
 class ILv2IdleUi
 {
 public:

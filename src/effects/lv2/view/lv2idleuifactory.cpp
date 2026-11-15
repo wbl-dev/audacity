@@ -6,7 +6,7 @@
 #include "externalidleui.h"
 #include "x11idleui.h"
 
-std::unique_ptr<au::effects::ILv2IdleUi> au::effects::tryCreateLv2IdleUi(SuilInstance& suilInstance, bool isExternalUi)
+std::unique_ptr<agu::effects::ILv2IdleUi> agu::effects::tryCreateLv2IdleUi(SuilInstance& suilInstance, bool isExternalUi)
 {
     if (isExternalUi) {
         return std::make_unique<ExternalIdleUi>(suilInstance);

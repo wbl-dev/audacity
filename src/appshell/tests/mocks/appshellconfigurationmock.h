@@ -7,7 +7,7 @@
 
 #include "iappshellconfiguration.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 class AppShellConfigurationMock : public IAppShellConfiguration
 {
 public:
@@ -32,13 +32,7 @@ public:
 
     MOCK_METHOD(muse::io::path_t, userDataPath, (), (const, override));
 
-    MOCK_METHOD(std::string, handbookUrl, (), (const, override));
-    MOCK_METHOD(std::string, askForHelpUrl, (), (const, override));
-    MOCK_METHOD(std::string, appUrl, (), (const, override));
-    MOCK_METHOD(std::string, forumUrl, (), (const, override));
-    MOCK_METHOD(std::string, contributionUrl, (), (const, override));
-
-    MOCK_METHOD(std::string, audacityVersion, (), (const, override));
+    MOCK_METHOD(std::string, aguVersion, (), (const, override));
     MOCK_METHOD(std::string, appRevision, (), (const, override));
 
     MOCK_METHOD(bool, needShowSplashScreen, (), (const, override));

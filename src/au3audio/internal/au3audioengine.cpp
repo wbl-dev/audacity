@@ -14,12 +14,12 @@
 #include "defaultplaybackpolicy.h"
 #include "au3audioiolistener.h"
 
-using namespace au::au3audio;
+using namespace agu::au3audio;
 
 std::shared_ptr<Au3AudioIOListener> s_audioIOListener;
 
 static ProjectAudioIO::DefaultOptions::Scope s_defaultOptionsScope {
-    [](au::au3::Au3Project& project, const bool newDefault) -> AudioIOStartTransportOptions {
+    [](agu::au3::Au3Project& project, const bool newDefault) -> AudioIOStartTransportOptions {
         auto options = ProjectAudioIO::DefaultOptionsFactory(project, newDefault);
         options.listener = s_audioIOListener;
 
@@ -89,7 +89,7 @@ bool Au3AudioEngine::isMonitoring() const
     return AudioIO::Get()->IsMonitoring();
 }
 
-std::optional<au::audio::AudioStreamDescriptor> Au3AudioEngine::currentStream() const
+std::optional<agu::audio::AudioStreamDescriptor> Au3AudioEngine::currentStream() const
 {
     const auto audioIO = AudioIO::Get();
     if (!audioIO->IsBusy() && !audioIO->IsStreamActive() && !audioIO->IsMonitoring()) {
@@ -98,15 +98,15 @@ std::optional<au::audio::AudioStreamDescriptor> Au3AudioEngine::currentStream() 
 
     const auto owner = audioIO->GetOwningProject();
 
-    au::audio::AudioStreamKind kind = au::audio::AudioStreamKind::Playback;
+    agu::audio::AudioStreamKind kind = agu::audio::AudioStreamKind::Playback;
     if (audioIO->IsMonitoring()) {
-        kind = au::audio::AudioStreamKind::Monitoring;
+        kind = agu::audio::AudioStreamKind::Monitoring;
     } else if (audioIO->GetNumCaptureChannels() > 0) {
         // Recording lead-in has capture channels before IsCapturing() becomes true.
-        kind = au::audio::AudioStreamKind::Recording;
+        kind = agu::audio::AudioStreamKind::Recording;
     }
 
-    return au::audio::AudioStreamDescriptor {
+    return agu::audio::AudioStreamDescriptor {
         kind,
         owner.get(),
         audioIO->GetPlaybackSampleRate(),
@@ -147,7 +147,7 @@ void Au3AudioEngine::stopTransport()
 std::shared_ptr<RealtimeEffectState> Au3AudioEngine::addRealtimeEffectState(AudacityProject& project, ChannelGroup* group,
                                                                             const std::string& effectId)
 {
-    return AudioIO::Get()->AddState(project, group, au::au3::wxFromStdString(effectId));
+    return AudioIO::Get()->AddState(project, group, agu::au3::wxFromStdString(effectId));
 }
 
 void Au3AudioEngine::removeRealtimeEffectState(AudacityProject& project, ChannelGroup* group,
@@ -159,7 +159,7 @@ void Au3AudioEngine::removeRealtimeEffectState(AudacityProject& project, Channel
 std::shared_ptr<RealtimeEffectState> Au3AudioEngine::replaceRealtimeEffectState(AudacityProject& project, ChannelGroup* group,
                                                                                 size_t effectListIndex, const std::string& newEffectId)
 {
-    return AudioIO::Get()->ReplaceState(project, group, effectListIndex, au::au3::wxFromStdString(newEffectId));
+    return AudioIO::Get()->ReplaceState(project, group, effectListIndex, agu::au3::wxFromStdString(newEffectId));
 }
 
 void Au3AudioEngine::pauseTransport(const bool pause)
@@ -234,7 +234,7 @@ void Au3AudioEngine::handleDeviceChange()
 
 muse::String Au3AudioEngine::lastErrorString() const
 {
-    return au::au3::wxToString(AudioIO::Get()->LastPaErrorString());
+    return agu::au3::wxToString(AudioIO::Get()->LastPaErrorString());
 }
 
 double Au3AudioEngine::getPlaybackSampleRate() const
@@ -247,11 +247,11 @@ void Au3AudioEngine::updateTimePosition(const unsigned long newlyConsumedSamples
     AudioIO::Get()->UpdateTimePosition(newlyConsumedSamples);
 }
 
-std::optional<au::audio::AudioCallbackInfo> Au3AudioEngine::consumeNextCallbackInfo()
+std::optional<agu::audio::AudioCallbackInfo> Au3AudioEngine::consumeNextCallbackInfo()
 {
     AudioIoCallback::AudioCallbackInfo au3Info;
     if (AudioIO::Get()->GetAudioCallbackInfoQueue().Get(au3Info)) {
-        return au::audio::AudioCallbackInfo { au3Info.dacTime, au3Info.numSamples };
+        return agu::audio::AudioCallbackInfo { au3Info.dacTime, au3Info.numSamples };
     }
     return std::nullopt;
 }
@@ -281,7 +281,7 @@ muse::async::Notification Au3AudioEngine::streamStopped() const
     return m_streamStopped;
 }
 
-muse::async::Channel<au::au3::Au3TrackId, au::au3::Au3ClipId> Au3AudioEngine::recordingClipChanged() const
+muse::async::Channel<agu::au3::Au3TrackId, agu::au3::Au3ClipId> Au3AudioEngine::recordingClipChanged() const
 {
     return s_audioIOListener->recordingClipChanged();
 }

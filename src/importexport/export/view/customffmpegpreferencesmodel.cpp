@@ -7,7 +7,7 @@
 
 #include "translation.h"
 
-using namespace au::importexport;
+using namespace agu::importexport;
 
 CustomFFmpegPreferencesModel::CustomFFmpegPreferencesModel(QObject* parent)
     : QObject(parent), muse::Contextable(muse::iocCtxForQmlObject(this))
@@ -154,7 +154,7 @@ void CustomFFmpegPreferencesModel::locateFFmpegLibrary()
         auto ret = interactive()->warningSync(muse::trc("preferences", "Installation found"),
                                               muse::trc(
                                                   "preferences",
-                                                  "Audacity already has detected a valid FFmpeg version. Do you want to choose another FFmpeg installation instead?"),
+                                                  "AGu has detected a valid FFmpeg version. Do you want to choose another FFmpeg installation instead?"),
         {
             muse::IInteractive::ButtonData(
                 muse::IInteractive::Button::Cancel, muse::trc("preferences", "Cancel"),

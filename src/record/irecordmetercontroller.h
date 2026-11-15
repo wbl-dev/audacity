@@ -6,7 +6,7 @@
 #include "modularity/imoduleinterface.h"
 #include "async/notification.h"
 
-namespace au::record {
+namespace agu::record {
 class IRecordMeterController : MODULE_GLOBAL_INTERFACE
 {
     INTERFACE_ID(IRecordMeterController)

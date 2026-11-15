@@ -12,7 +12,7 @@
 #include "au3wrap/internal/wxtypes_convert.h"
 #include "framework/global/log.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 void Vst3ViewLauncher::registerFxPlugin(const EffectInstanceId& instanceId) const
 {

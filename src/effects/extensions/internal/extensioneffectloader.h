@@ -11,7 +11,7 @@
 
 #include "effects/effects_base/ieffectloader.h"
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 class ExtensionEffect;
 class ExtensionEffectsRepository;
 
@@ -32,4 +32,4 @@ private:
     std::map<EffectId, std::unique_ptr<ExtensionEffect> > m_effects;
     std::vector<std::unique_ptr<ExtensionEffect> > m_retired;
 };
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

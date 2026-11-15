@@ -33,7 +33,7 @@
 
 #include "windows.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 class WinFramelessWindowController : public QObject, public FramelessWindowController, public muse::Contextable
 {
     muse::ContextInject<muse::ui::IUiContextConfiguration> uiContextConfiguration = { this };

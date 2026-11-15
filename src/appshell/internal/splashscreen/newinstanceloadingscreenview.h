@@ -28,7 +28,7 @@
 #include "modularity/ioc.h"
 #include "ui/iuiconfiguration.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 class NewInstanceLoadingScreenView : public QWidget
 {
     Q_OBJECT

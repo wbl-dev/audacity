@@ -35,7 +35,7 @@
 
 #include "../timeline/timelinecontext.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class PlayCursorController : public QObject, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT

@@ -4,7 +4,7 @@
 #ifndef AU_APP_BACKGROUNDPROCESS_H
 #define AU_APP_BACKGROUNDPROCESS_H
 
-namespace au::app {
+namespace agu::app {
 void makeProcessBackground();
 }
 

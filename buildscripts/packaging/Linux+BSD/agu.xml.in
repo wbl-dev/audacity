@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>@Variables_substituted_by_CMAKE_on_installation@
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+
+    <!-- AGu projects retain the Audacity project MIME type. -->
+
+    <mime-type type="application/x-audacity">
+        <comment>AGu Project</comment>
+        <glob pattern="*.aup4"/>
+        <icon name="application-x-agu@MUSE_APP_INSTALL_SUFFIX@"/>
+    </mime-type>
+
+    <!-- AGu application URLs -->
+
+    <mime-type type="x-scheme-handler/agu">
+        <comment>AGu URL Protocol</comment>
+    </mime-type>
+</mime-info>

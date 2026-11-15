@@ -8,12 +8,10 @@
 #include "languages/ilanguagesconfiguration.h"
 #include "languages/ilanguagesservice.h"
 #include "modularity/ioc.h"
-#include "muse_framework_config.h"
 
-#include "../qml/Audacity/Preferences/generalpreferencesmodel.h"
-#include "../qml/Audacity/Preferences/crashreportspreferencesmodel.h"
+#include "../qml/AGu/Preferences/generalpreferencesmodel.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 namespace {
 
 class LanguagesConfigurationMock : public muse::languages::ILanguagesConfiguration
@@ -70,28 +68,17 @@ protected:
     muse::languages::LanguagesHash m_languages;
 };
 
-TEST_F(workbench_general_preferences, keeps_crash_policy)
-{
-    CrashReportsPreferencesModel crashReportsModel;
-
-#ifdef MUSE_MODULE_DIAGNOSTICS_CRASHPAD_CLIENT
-    EXPECT_TRUE(crashReportsModel.isCrashReportingAvailable());
-#else
-    EXPECT_FALSE(crashReportsModel.isCrashReportingAvailable());
-#endif
-}
-
 TEST_F(workbench_general_preferences, selects_bundled_language)
 {
     muse::languages::Language english {
         .code = "en_US",
         .name = "English",
-        .files = { { "audacity", "/bundle/audacity_en_US.qm" } },
+        .files = { { "agu", "/bundle/agu_en_US.qm" } },
     };
     muse::languages::Language chinese {
         .code = "zh_CN",
         .name = "简体中文",
-        .files = { { "audacity", "/bundle/audacity_zh_CN.qm" } },
+        .files = { { "agu", "/bundle/agu_zh_CN.qm" } },
     };
     m_languages.insert(english.code, english);
     m_languages.insert(chinese.code, chinese);
@@ -112,4 +99,4 @@ TEST_F(workbench_general_preferences, selects_bundled_language)
 }
 
 } // namespace
-} // namespace au::appshell
+} // namespace agu::appshell

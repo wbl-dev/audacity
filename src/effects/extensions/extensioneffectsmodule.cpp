@@ -24,7 +24,7 @@
 #include "internal/extensionparameterextractor.h"
 #include "internal/extensionviewlauncher.h"
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 namespace {
 const std::string mname = "effects_extensions";
 }
@@ -98,4 +98,4 @@ void ExtensionEffectsContext::refreshPlugins() const
         m_scanner->refreshPlugins(*scenario);
     }
 }
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

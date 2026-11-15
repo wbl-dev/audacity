@@ -10,7 +10,7 @@
 #include <string>
 #include <vector>
 
-namespace au::playback {
+namespace agu::playback {
 class IPlaybackMeterController : MODULE_GLOBAL_INTERFACE
 {
     INTERFACE_ID(IPlaybackMeterController)

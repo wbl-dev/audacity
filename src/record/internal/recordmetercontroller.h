@@ -5,7 +5,7 @@
 
 #include "record/irecordmetercontroller.h"
 
-namespace au::record {
+namespace agu::record {
 class RecordMeterController : public IRecordMeterController
 {
 public:

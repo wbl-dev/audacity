@@ -15,7 +15,7 @@
 
 class WaveChannel;
 
-namespace au::effects {
+namespace agu::effects {
 class NormalizeEffect : public StatefulEffect
 {
 public:

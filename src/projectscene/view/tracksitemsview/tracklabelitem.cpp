@@ -5,7 +5,7 @@
 
 #include "global/realfn.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 TrackLabelItem::TrackLabelItem(QObject* parent)
     : ViewTrackItem(parent)

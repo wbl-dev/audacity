@@ -1,6 +1,6 @@
 import QtQuick 2.15
-import Audacity.UiComponents
-import Audacity.BuiltinEffectsCollection
+import AGu.UiComponents
+import AGu.BuiltinEffectsCollection
 
 GridPlot {
     id: root

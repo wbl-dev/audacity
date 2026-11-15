@@ -11,8 +11,8 @@
 #include "log.h"
 
 using namespace muse;
-using namespace au::projectscene;
-using namespace au::effects;
+using namespace agu::projectscene;
+using namespace agu::effects;
 
 RealtimeEffectListModel::RealtimeEffectListModel(QObject* parent)
     : QAbstractListModel(parent), muse::Contextable(muse::iocCtxForQmlObject(this))
@@ -22,7 +22,7 @@ RealtimeEffectListModel::RealtimeEffectListModel(QObject* parent)
 void RealtimeEffectListModel::onProjectChanged()
 {
     if (const trackedit::ITrackeditProjectPtr project = globalContext()->currentTrackeditProject()) {
-        project->trackChanged().onReceive(this, [this](au::trackedit::Track track)
+        project->trackChanged().onReceive(this, [this](agu::trackedit::Track track)
         {
             if (trackId() == track.id) {
                 emit trackNameChanged();
@@ -33,7 +33,7 @@ void RealtimeEffectListModel::onProjectChanged()
             // The master track is not part of `trackIdList()`, so populate it explicitly.
             onChanged(IRealtimeEffectService::masterTrackId);
         } else {
-            const std::vector<au::trackedit::TrackId> trackIds = project->trackIdList();
+            const std::vector<agu::trackedit::TrackId> trackIds = project->trackIdList();
             for (const auto& trackId : trackIds) {
                 if (belongsWithMe(trackId)) {
                     onChanged(trackId);
@@ -281,7 +281,7 @@ void RealtimeEffectListModel::onSelectedTrackIdChanged()
     emit trackEffectsActiveChanged();
 }
 
-std::optional<au::effects::TrackId> RealtimeEffectListModel::trackId() const
+std::optional<agu::effects::TrackId> RealtimeEffectListModel::trackId() const
 {
     return m_isMasterTrack ? IRealtimeEffectService::masterTrackId : trackSelection()->selectedTrackId();
 }

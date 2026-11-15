@@ -15,11 +15,11 @@
 struct EffectSettings;
 class EffectOutputTracks;
 
-namespace au::trackedit::api {
+namespace agu::trackedit::api {
 class ProjectEditSession;
 }
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 class ExtensionEffect;
 class ExtensionEffectInstance;
 
@@ -88,4 +88,4 @@ private:
     bool m_finished = false;
     bool m_updatingProgress = false;
 };
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

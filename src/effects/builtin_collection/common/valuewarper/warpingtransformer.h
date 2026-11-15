@@ -5,7 +5,7 @@
 
 #include "valuewarpertypes.h"
 
-namespace au::effects {
+namespace agu::effects {
 class WarpingTransformer : public IValueTransformer
 {
 public:
@@ -20,4 +20,4 @@ private:
     const double m_min;
     const double m_max;
 };
-} // namespace au::effects
+} // namespace agu::effects

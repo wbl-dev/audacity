@@ -3,7 +3,7 @@
 */
 #include "playbacktoolbarcontrolitem.h"
 
-using namespace au::playback;
+using namespace agu::playback;
 
 PlaybackToolBarControlItem::PlaybackToolBarControlItem(const muse::rcommand::CommandInfo& info,
                                                        muse::uicomponents::ToolBarItemType::Type type,

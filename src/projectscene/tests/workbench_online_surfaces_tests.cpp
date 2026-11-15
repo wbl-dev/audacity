@@ -6,7 +6,7 @@
 
 #include "view/trackspanel/addeffectmenumodel.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 namespace {
 
 TEST(workbench_online_surfaces_projectscene, hides_realtime_effects_external_help)
@@ -17,4 +17,4 @@ TEST(workbench_online_surfaces_projectscene, hides_realtime_effects_external_hel
 }
 
 } // namespace
-} // namespace au::projectscene
+} // namespace agu::projectscene

@@ -1,7 +1,7 @@
 import QtQuick 2.15
 
-import Audacity.ProjectScene
-import Audacity.UiComponents
+import AGu.ProjectScene
+import AGu.UiComponents
 
 import Muse.UiComponents
 

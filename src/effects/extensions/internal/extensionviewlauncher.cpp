@@ -3,7 +3,7 @@
  */
 #include "extensionviewlauncher.h"
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 muse::Ret ExtensionViewLauncher::showEffect(const EffectInstanceId& instanceId) const
 {
     return doShowEffect(instanceId, EffectFamily::Extension);
@@ -12,4 +12,4 @@ muse::Ret ExtensionViewLauncher::showEffect(const EffectInstanceId& instanceId) 
 void ExtensionViewLauncher::showRealtimeEffect(const RealtimeEffectStatePtr&) const
 {
 }
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

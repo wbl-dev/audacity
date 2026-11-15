@@ -8,7 +8,7 @@
 #include "framework/global/async/notification.h"
 #include "framework/actions/actiontypes.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class ITimelineViewController;
 class IPlayPositionViewController;
 class IProjectSceneActionsController : MODULE_EXPORT_INTERFACE

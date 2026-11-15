@@ -9,7 +9,7 @@
 #include "context/iplaybackstate.h"
 #include "playback/iplayer.h"
 
-namespace au::context {
+namespace agu::context {
 class PlaybackState : public IPlaybackState, public muse::async::Asyncable
 {
 public:

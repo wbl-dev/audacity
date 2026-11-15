@@ -11,7 +11,7 @@
 
 #include "ui/internal/qmlnetworkaccessmanagerfactory.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 namespace {
 TEST(LocalNetworkPolicy, rejectsRemoteRequests)
 {

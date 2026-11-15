@@ -7,7 +7,7 @@
 
 #include "record/irecord.h"
 
-namespace au::record {
+namespace agu::record {
 class RecordMock : public IRecord
 {
 public:

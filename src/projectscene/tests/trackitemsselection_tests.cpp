@@ -19,7 +19,7 @@
 
 using namespace ::testing;
 
-namespace au::projectscene {
+namespace agu::projectscene {
 static TrackItemKey makeKey(trackedit::TrackId trackId, trackedit::TrackItemId itemId)
 {
     return TrackItemKey(trackedit::TrackItemKey(trackId, itemId));

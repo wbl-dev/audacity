@@ -29,7 +29,7 @@
 
 class QPixmap;
 
-namespace au::project {
+namespace agu::project {
 class IRecentFilesController : MODULE_GLOBAL_INTERFACE
 {
     INTERFACE_ID(IRecentFilesProvider)

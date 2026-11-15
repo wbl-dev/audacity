@@ -12,7 +12,7 @@
 
 #include "projectscene/iprojectsceneactionscontroller.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class RealtimeEffectRowActionsController : public QObject, public muse::async::Asyncable, public muse::Injectable
 {
     Q_OBJECT

@@ -6,7 +6,7 @@
 #include "axisscale.h"
 #include "axistypes.h"
 
-namespace au::shared {
+namespace agu::shared {
 /** Minimum number of major ticks returned by `axisTicks()`. */
 static constexpr auto kMinMajorTicks = 4;
 

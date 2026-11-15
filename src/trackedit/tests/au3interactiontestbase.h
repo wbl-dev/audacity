@@ -8,7 +8,7 @@
 
 #include "context/tests/mocks/globalcontextmock.h"
 #include "context/tests/mocks/playbackstatemock.h"
-#include "project/tests/mocks/audacityprojectmock.h"
+#include "project/tests/mocks/aguprojectmock.h"
 #include "mocks/trackeditprojectmock.h"
 
 #include "au3wrap/tests/tracktemplatefactory.h"
@@ -21,10 +21,10 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-using namespace au;
-using namespace au::au3;
+using namespace agu;
+using namespace agu::au3;
 
-namespace au::trackedit {
+namespace agu::trackedit {
 /*******************************************************************************
  * DEFAULT TRACK CONFIGURATIONS
  * ===========================
@@ -321,7 +321,7 @@ public:
 
 protected:
     std::shared_ptr<context::GlobalContextMock> m_globalContext;
-    std::shared_ptr<project::AudacityProjectMock> m_currentProject;
+    std::shared_ptr<project::AGuProjectMock> m_currentProject;
     std::shared_ptr<TrackeditProjectMock> m_trackEditProject;
     std::shared_ptr<context::PlaybackStateMock> m_playbackState;
 

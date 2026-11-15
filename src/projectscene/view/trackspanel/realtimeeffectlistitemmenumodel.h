@@ -7,7 +7,7 @@
 #include "effects/effects_base/effectstypes.h"
 #include <QObject>
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class RealtimeEffectListItemMenuModel : public RealtimeEffectMenuModelBase
 {
     Q_OBJECT

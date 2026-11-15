@@ -16,7 +16,7 @@
 #include "playback/view/common/playbackmetermodel.h"
 #include "types/val.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class TrackViewStateModel : public QObject, public muse::Contextable, public muse::async::Asyncable
 {
     Q_OBJECT

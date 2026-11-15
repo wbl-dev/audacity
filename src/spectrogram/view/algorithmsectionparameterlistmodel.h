@@ -6,7 +6,7 @@
 #include "abstractsectionparameterslistmodel.h"
 #include "abstractspectrogramsettingsmodel.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class AlgorithmSectionParameterListModel : public AbstractSectionParametersListModel
 {
 public:

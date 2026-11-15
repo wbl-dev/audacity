@@ -5,7 +5,7 @@
 
 #include "global/settings.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 static const std::string moduleName("effects");
 static const muse::Settings::Key APPLY_EFFECT_TO_ALL_AUDIO(moduleName, "effects/applyEffectToAllAudio");

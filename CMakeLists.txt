@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 3.24)
 
 cmake_policy(SET CMP0091 OLD) # not set MSVC default args
 
-project(audacity LANGUAGES C CXX)
+project(AGu LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -205,8 +205,8 @@ add_subdirectory(src)
 add_subdirectory(share)
 
 if (MSVC)
-    # Now that the `audacity` target is defined, we can set it as the startup project in Visual Studio.
-    set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT audacity)
+    # Now that the `agu` target is defined, we can set it as the startup project in Visual Studio.
+    set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT agu)
 endif()
 
 ###########################################

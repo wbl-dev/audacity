@@ -9,7 +9,7 @@
 
 #include "../ieffectsprovider.h"
 
-namespace au::effects {
+namespace agu::effects {
 class EffectsCommandsRegister : public muse::rcommand::IModuleCommandsRegister, public muse::async::Asyncable
 {
     muse::GlobalInject<IEffectsProvider> effectsProvider;

@@ -16,7 +16,7 @@ namespace BasicUI {
 class ProgressDialog;
 }
 
-namespace au::effects {
+namespace agu::effects {
 class Au3AudioPluginScanner : public muse::audioplugins::IAudioPluginsScanner
 {
 public:

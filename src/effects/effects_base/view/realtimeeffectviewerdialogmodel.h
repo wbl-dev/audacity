@@ -19,7 +19,7 @@
 
 #include <QObject>
 
-namespace au::effects {
+namespace agu::effects {
 class RealtimeEffectViewerDialogModel : public QObject, public muse::Contextable, public muse::async::Asyncable,
     public muse::actions::Actionable
 {

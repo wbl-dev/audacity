@@ -8,7 +8,7 @@
 #include "au3-dynamic-range-processor/DynamicRangeProcessorTypes.h"
 #include "au3-dynamic-range-processor/MeterValueProvider.h"
 
-namespace au::effects {
+namespace agu::effects {
 namespace {
 // An overestimate: 44.1kHz and 512 samples per buffer, in frames per second,
 // would be 86.13.
@@ -77,4 +77,4 @@ void AbstractDbMeterModel::setPlaystate(Stopwatch::PlayState state)
     m_playState = state;
     emit playStateChanged();
 }
-} // namespace au::effects
+} // namespace agu::effects

@@ -3,7 +3,7 @@
 */
 #include "presetstatesregister.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 std::string PresetStatesRegister::keyString(const PresetKey& key)
 {

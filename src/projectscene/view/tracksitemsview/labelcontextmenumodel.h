@@ -9,7 +9,7 @@
 #include "iprojectsceneconfiguration.h"
 #include "types/projectscenetypes.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class LabelContextMenuModel : public muse::uicomponents::AbstractMenuModel
 {
     Q_OBJECT

@@ -10,7 +10,7 @@
 #include <QString>
 #endif
 
-namespace au::au3 {
+namespace agu::au3 {
 inline std::string wxToStdString(const wxString& s)
 {
     return s.ToStdString(wxConvUTF8);

@@ -8,15 +8,15 @@
 #include "framework/global/translation.h"
 #include "framework/global/log.h"
 
-#include "uicomponents/qml/Audacity/UiComponents/timecodemodel.h"
-#include "uicomponents/qml/Audacity/UiComponents/frequencymodel.h"
+#include "uicomponents/qml/AGu/UiComponents/timecodemodel.h"
+#include "uicomponents/qml/AGu/UiComponents/frequencymodel.h"
 
 #include "labelstableviewverticalheader.h"
 #include "labelstableviewtrackcell.h"
 #include "labelstableviewtimecodecell.h"
 
 #include "trackedit/trackeditcommands.h"
-#include "project/iaudacityproject.h"
+#include "project/iaguproject.h"
 
 static const QString SELECT_LABEL_TRACK_ID("select-label-track");
 static const QString NEW_LABEL_TRACK_ID("new-label-track");
@@ -37,15 +37,15 @@ static const int HIGH_FREQUENCY_COLUMN = 5;
 static const std::string HIGH_FREQUENCY_COLUMN_NAME = "highFrequency";
 static const int KIND_COLUMN = 6;
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 using namespace muse;
 using namespace muse::ui;
 using namespace muse::uicomponents;
 
-static std::vector<std::string> importExportFilter(const std::vector<au::importexport::FileFilter>& fileFilters)
+static std::vector<std::string> importExportFilter(const std::vector<agu::importexport::FileFilter>& fileFilters)
 {
     std::vector<std::string> result;
-    for (const au::importexport::FileFilter& fileFilter : fileFilters) {
+    for (const agu::importexport::FileFilter& fileFilter : fileFilters) {
         result.push_back(fileFilter.title);
     }
     return result;
@@ -74,7 +74,7 @@ QVector<TableViewHeader*> LabelsTableViewModel::makeHorizontalHeaders()
     hHeaders << makeHorizontalHeader(qtrc("projectscene", "Label text"), TableViewCellType::Type::String,
                                      TableViewCellEditMode::Mode::DoubleClick, 296);
 
-    static auto startTimeModelStub = au::uicomponents::TimecodeModel();
+    static auto startTimeModelStub = agu::uicomponents::TimecodeModel();
     MenuItemList startTimeFormats = startTimeModelStub.availableFormats();
 
     TableViewHeader* startTimeHeader = makeHorizontalHeader(qtrc("projectscene", "Start time"),
@@ -86,7 +86,7 @@ QVector<TableViewHeader*> LabelsTableViewModel::makeHorizontalHeaders()
     connectToColumnFormatChange(startTimeHeader, START_TIME_COLUMN_NAME);
     hHeaders << startTimeHeader;
 
-    static auto endTimeModelStub = au::uicomponents::TimecodeModel();
+    static auto endTimeModelStub = agu::uicomponents::TimecodeModel();
     MenuItemList endTimeFormats = endTimeModelStub.availableFormats();
 
     TableViewHeader* endTimeHeader = makeHorizontalHeader(qtrc("projectscene", "End time"),
@@ -97,7 +97,7 @@ QVector<TableViewHeader*> LabelsTableViewModel::makeHorizontalHeaders()
     connectToColumnFormatChange(endTimeHeader, END_TIME_COLUMN_NAME);
     hHeaders << endTimeHeader;
 
-    static auto lowFrequencyModelStub = au::uicomponents::FrequencyModel();
+    static auto lowFrequencyModelStub = agu::uicomponents::FrequencyModel();
     MenuItemList lowFrequencyFormats = lowFrequencyModelStub.availableFormats();
 
     TableViewHeader* lowFrequencyHeader = makeHorizontalHeader(qtrc("projectscene",
@@ -109,7 +109,7 @@ QVector<TableViewHeader*> LabelsTableViewModel::makeHorizontalHeaders()
     connectToColumnFormatChange(lowFrequencyHeader, LOW_FREQUENCY_COLUMN_NAME);
     hHeaders << lowFrequencyHeader;
 
-    static auto highFrequencyModelStub = au::uicomponents::FrequencyModel();
+    static auto highFrequencyModelStub = agu::uicomponents::FrequencyModel();
     MenuItemList highFrequencyFormats = highFrequencyModelStub.availableFormats();
 
     TableViewHeader* highFrequencyHeader = makeHorizontalHeader(qtrc("projectscene", "High frequency"),
@@ -390,7 +390,7 @@ TableViewCell* LabelsTableViewModel::makeTimecodeCell(const muse::Val& value)
     return new LabelsTableViewTimecodeCell(makeCell(value));
 }
 
-std::vector<au::trackedit::Track> LabelsTableViewModel::allLabelTracks() const
+std::vector<agu::trackedit::Track> LabelsTableViewModel::allLabelTracks() const
 {
     const trackedit::ITrackeditProjectPtr project = globalContext()->currentTrackeditProject();
     if (!project) {
@@ -602,7 +602,7 @@ muse::RetVal<QString> LabelsTableViewModel::createNewLabelTrack(int currentRow)
 {
     muse::RetVal<QString> result;
 
-    RetVal<muse::Val> rv = interactive()->openSync("audacity://projectscene/addnewlabeltrack");
+    RetVal<muse::Val> rv = interactive()->openSync("agu://projectscene/addnewlabeltrack");
     if (!rv.ret) {
         result.ret = rv.ret;
         return result;

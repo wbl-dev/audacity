@@ -16,11 +16,11 @@
 
 #include "extensioneffecttypes.h"
 
-namespace au::trackedit::api {
+namespace agu::trackedit::api {
 class ProjectEditSession;
 }
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 class ExtensionEffectRuntime final
 {
 public:
@@ -43,4 +43,4 @@ private:
     std::unique_ptr<muse::extensions::IExtensionSession> m_session;
     QJSValue m_effect;
 };
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

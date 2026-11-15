@@ -8,7 +8,7 @@
 #include "global/log.h"
 #include "global/translation.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 AmplifyViewModel::AmplifyViewModel(QObject* parent, int instanceId)
     : BuiltinEffectModel(parent, instanceId)

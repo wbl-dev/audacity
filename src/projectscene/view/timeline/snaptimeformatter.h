@@ -9,7 +9,7 @@
 #include "projectscene/iprojectviewstate.h"
 #include "../../types/projectscenetypes.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 using Direction = DirectionType::Direction;
 class SnapTimeFormatter : public muse::Contextable
 {

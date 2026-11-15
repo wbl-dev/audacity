@@ -12,7 +12,7 @@
 
 #include "log.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 namespace {
 qreal resolveDevicePixelRatio(const QQuickItem* item)

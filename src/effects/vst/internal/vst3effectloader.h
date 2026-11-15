@@ -6,7 +6,7 @@
 #include "effects/effects_base/internal/au3effectloader.h"
 #include "au3-vst3/VST3EffectsModule.h"
 
-namespace au::effects {
+namespace agu::effects {
 class Vst3EffectLoader final : public Au3EffectLoader
 {
 public:
@@ -16,4 +16,4 @@ public:
 private:
     VST3EffectsModule m_module;
 };
-} // namespace au::effects
+} // namespace agu::effects

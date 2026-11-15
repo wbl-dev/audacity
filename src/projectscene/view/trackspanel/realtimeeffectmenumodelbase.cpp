@@ -5,7 +5,7 @@
 #include "effects/effects_base/effectscommands.h"
 #include "effects/effects_base/irealtimeeffectservice.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 using namespace muse::uicomponents;
 
 RealtimeEffectMenuModelBase::RealtimeEffectMenuModelBase(QObject* parent)
@@ -53,9 +53,9 @@ MenuItem* RealtimeEffectMenuModelBase::makeEffectItem(const effects::EffectId& e
     return item;
 }
 
-std::optional<au::trackedit::TrackId> RealtimeEffectMenuModelBase::trackId() const
+std::optional<agu::trackedit::TrackId> RealtimeEffectMenuModelBase::trackId() const
 {
-    return m_isMasterTrack ? au::effects::IRealtimeEffectService::masterTrackId : trackSelection()->selectedTrackId();
+    return m_isMasterTrack ? agu::effects::IRealtimeEffectService::masterTrackId : trackSelection()->selectedTrackId();
 }
 
 void RealtimeEffectMenuModelBase::prop_setIsMasterTrack(bool isMasterTrack)

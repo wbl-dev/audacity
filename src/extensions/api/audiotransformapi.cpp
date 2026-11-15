@@ -15,7 +15,7 @@
 #include "extensions/native/nativelibrary.h"
 #include "trackedit/api/audiotransform.h"
 
-namespace au::extensions {
+namespace agu::extensions {
 namespace {
 constexpr quint32 MAX_CHANNEL_COUNT = 2;
 
@@ -84,4 +84,4 @@ QObject* AudioTransformApi::create(QObject* declaredLibrary, const QString& oper
     QJSEngine::setObjectOwnership(transform, QJSEngine::JavaScriptOwnership);
     return transform;
 }
-} // namespace au::extensions
+} // namespace agu::extensions

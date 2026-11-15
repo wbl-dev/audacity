@@ -9,7 +9,7 @@
 #include "framework/global/log.h"
 #include "framework/global/translation.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 ColorSectionParameterListModel::ColorSectionParameterListModel(QObject* parent)
     : AbstractSectionParametersListModel(parent) {}
 

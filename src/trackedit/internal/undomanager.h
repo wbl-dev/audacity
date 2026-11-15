@@ -10,12 +10,12 @@
 #include "context/iglobalcontext.h"
 #include "modularity/ioc.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class UndoManager : public IUndoManager, public muse::Contextable
 {
 private:
-    muse::ContextInject<au::context::IGlobalContext> globalContext { this };
-    muse::ContextInject<au::trackedit::IProjectHistory> projectHistory { this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext { this };
+    muse::ContextInject<agu::trackedit::IProjectHistory> projectHistory { this };
 
 public:
     UndoManager(const muse::modularity::ContextPtr& ctx)

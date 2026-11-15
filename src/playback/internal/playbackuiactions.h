@@ -12,7 +12,7 @@
 #include "internal/playbackcontroller.h"
 #include "trackedit/iselectioncontroller.h"
 
-namespace au::playback {
+namespace agu::playback {
 class PlaybackUiActions : public muse::ui::IUiActionsModule, public muse::async::Asyncable, public muse::Contextable
 {
     muse::GlobalInject<audio::IAudioDriverController> audioDriverController;

@@ -10,7 +10,7 @@
 
 #include "../projectcommands.h"
 
-using namespace au::project;
+using namespace agu::project;
 using namespace muse::rcommand;
 
 namespace {

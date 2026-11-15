@@ -28,7 +28,7 @@ using MenuItemList = QList<MenuItem*>;
 }
 }
 
-namespace au::effects {
+namespace agu::effects {
 using secs_t = muse::number_t<double>;
 using percent_t = muse::number_t<float>;
 using ratio_t = muse::ratio_t;
@@ -268,7 +268,7 @@ const std::string EFFECT_OPEN_ACTION = "action://effects/open?effectId=%1";
 const std::string REALTIME_EFFECT_ADD_ACTION = "action://effects/realtime-add?effectId=%1";
 const std::string REALTIME_EFFECT_REPLACE_ACTION = "action://effects/realtime-replace?effectId=%1";
 
-const std::string DESTRUCTIVE_EFFECT_VIEWER_URI = "audacity://effects/destructive_viewer?instanceId=%1&effectFamily=%2";
+const std::string DESTRUCTIVE_EFFECT_VIEWER_URI = "agu://effects/destructive_viewer?instanceId=%1&effectFamily=%2";
 
 inline std::string makeEffectAction(const std::string& action, const EffectId& id)
 {

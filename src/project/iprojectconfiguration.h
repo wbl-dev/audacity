@@ -6,9 +6,9 @@
 #include "global/io/path.h"
 #include "global/async/channel.h"
 
-#include "iaudacityproject.h"
+#include "iaguproject.h"
 
-namespace au::project {
+namespace agu::project {
 class IProjectConfiguration : MODULE_GLOBAL_INTERFACE
 {
     INTERFACE_ID(IProjectConfiguration)
@@ -31,7 +31,7 @@ public:
     virtual muse::io::path_t lastSavedProjectsPath() const = 0;
     virtual void setLastSavedProjectsPath(const muse::io::path_t& path) = 0;
 
-    virtual muse::io::path_t defaultSavingFilePath(IAudacityProjectPtr project, const std::string& filenameAddition = "",
+    virtual muse::io::path_t defaultSavingFilePath(IAGuProjectPtr project, const std::string& filenameAddition = "",
                                                    const std::string& suffix = "") const = 0;
 
     virtual muse::io::path_t temporaryDir() const = 0;

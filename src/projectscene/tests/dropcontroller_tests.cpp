@@ -5,11 +5,11 @@
 
 #include "projectscene/view/tracksitemsview/dropcontroller.h"
 #include "context/tests/mocks/globalcontextmock.h"
-#include "project/tests/mocks/audacityprojectmock.h"
+#include "project/tests/mocks/aguprojectmock.h"
 
 using namespace ::testing;
 
-namespace au::projectscene {
+namespace agu::projectscene {
 namespace {
 class ImporterMock : public importexport::IImporter
 {
@@ -38,7 +38,7 @@ protected:
         m_importer = std::make_shared<NiceMock<ImporterMock> >();
         m_labelsImporter = std::make_shared<NiceMock<LabelsImporterMock> >();
         m_context = std::make_shared<NiceMock<context::GlobalContextMock> >();
-        m_project = std::make_shared<NiceMock<project::AudacityProjectMock> >();
+        m_project = std::make_shared<NiceMock<project::AGuProjectMock> >();
         m_controller->importer.set(m_importer);
         m_controller->labelsImporter.set(m_labelsImporter);
         m_controller->globalContext.set(m_context);
@@ -51,7 +51,7 @@ protected:
     std::shared_ptr<NiceMock<ImporterMock> > m_importer;
     std::shared_ptr<NiceMock<LabelsImporterMock> > m_labelsImporter;
     std::shared_ptr<NiceMock<context::GlobalContextMock> > m_context;
-    std::shared_ptr<NiceMock<project::AudacityProjectMock> > m_project;
+    std::shared_ptr<NiceMock<project::AGuProjectMock> > m_project;
 };
 
 TEST_F(DropControllerTests, CustomLabelDropDoesNotReserveAudioTrack)

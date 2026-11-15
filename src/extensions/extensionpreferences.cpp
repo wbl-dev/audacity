@@ -12,7 +12,7 @@
 
 #include "framework/global/containers.h"
 
-namespace au::extensions {
+namespace agu::extensions {
 muse::Settings::Key extensionPreferenceKey(const muse::Uri& uri, const std::string& key)
 {
     const std::string id = QByteArray::fromStdString(uri.toString()).toHex().toStdString();
@@ -64,4 +64,4 @@ void registerExtensionPreferenceDefaults(const muse::extensions::Manifest& manif
         muse::settings()->setDefaultValue(extensionPreferenceKey(manifest.uri, id.toString()), muse::Val::fromQVariant(value));
     }
 }
-} // namespace au::extensions
+} // namespace agu::extensions

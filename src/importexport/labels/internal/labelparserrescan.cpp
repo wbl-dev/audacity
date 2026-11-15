@@ -4,7 +4,7 @@
 
 #include "labelparserregistry.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 namespace {
 QStringList supportedSuffixes(ILabelsConfiguration& configuration)
 {

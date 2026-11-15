@@ -7,7 +7,7 @@
 
 #include "effectstypes.h"
 
-namespace au::effects {
+namespace agu::effects {
 class IEffectPresetsScenario : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IEffectsPresetsScenario)

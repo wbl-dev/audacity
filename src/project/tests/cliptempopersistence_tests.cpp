@@ -99,12 +99,12 @@ wxString writtenXml(const WaveClip& clip)
 }
 }
 
-namespace au::project {
+namespace agu::project {
 class ClipTempoPersistenceTests : public ::testing::Test
 {
 protected:
     QTemporaryDir m_directory;
-    au3::Au3ProjectAccessor m_accessor { au::testutils::makeTestContext() };
+    au3::Au3ProjectAccessor m_accessor { agu::testutils::makeTestContext() };
 
     ::AudacityProject& project()
     {

@@ -28,7 +28,7 @@
 #include <cctype>
 #include <iterator>
 
-namespace au::effects {
+namespace agu::effects {
 muse::String utils::effectFamilyToString(EffectFamily family)
 {
     switch (family) {
@@ -519,7 +519,7 @@ EffectMeta utils::museToAuEffectMeta(const muse::io::path_t& path, const muse::a
 namespace impl {
 using namespace muse;
 using namespace muse::uicomponents;
-using namespace au::effects;
+using namespace agu::effects;
 
 int builtinEffectCategoryIdOrder(const String& category)
 {
@@ -611,7 +611,7 @@ MenuItem* makeRealtimeBuiltinEffectSubmenu(const EffectMetaList& effects, IEffec
             ids.insert(CiString { meta.id });
         }
     }
-    return makeEffectSubmenu(muse::String { "Audacity" }, ids, effectMenu);
+    return makeEffectSubmenu(muse::String { "AGu" }, ids, effectMenu);
 }
 
 MenuItemList audacityDestructiveEffectsGroup(const EffectMetaList& effects, IEffectMenuItemFactory& effectMenu)

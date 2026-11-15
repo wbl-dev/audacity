@@ -10,7 +10,7 @@
 
 #include <string>
 
-namespace au::importexport {
+namespace agu::importexport {
 class IImporterConfiguration : MODULE_GLOBAL_INTERFACE
 {
     INTERFACE_ID(IImporterConfiguration)

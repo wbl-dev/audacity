@@ -11,7 +11,7 @@
 
 #include <optional>
 
-namespace au::trackedit {
+namespace agu::trackedit {
 //! NOTE Currently implemented in the au3wrap module
 class ISelectionController : MODULE_EXPORT_INTERFACE
 {

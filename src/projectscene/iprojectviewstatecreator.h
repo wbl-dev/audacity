@@ -5,13 +5,13 @@
 
 #include "iprojectviewstate.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class IProjectViewStateCreator : MODULE_GLOBAL_INTERFACE
 {
     INTERFACE_ID(IProjectViewStateCreator)
 public:
     virtual ~IProjectViewStateCreator() = default;
 
-    virtual IProjectViewStatePtr createViewState(std::shared_ptr<au::au3::IAu3Project> au3project) const = 0;
+    virtual IProjectViewStatePtr createViewState(std::shared_ptr<agu::au3::IAu3Project> au3project) const = 0;
 };
 }

@@ -3,11 +3,11 @@
 #include <QFileInfo>
 #include "global/translation.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 namespace {
-auto isAudioTrack = [](au::trackedit::TrackType type) {
-    return type == au::trackedit::TrackType::Mono || type == au::trackedit::TrackType::Stereo;
+auto isAudioTrack = [](agu::trackedit::TrackType type) {
+    return type == agu::trackedit::TrackType::Mono || type == agu::trackedit::TrackType::Stereo;
 };
 }
 
@@ -44,7 +44,7 @@ void DropController::probeAudioFiles(const QStringList& fileUrls)
 
     for (size_t i = 0; i < localPaths.size(); ++i) {
         const auto& path = localPaths[i];
-        au::importexport::FileInfo fileInfo = importer()->fileInfo(path);
+        agu::importexport::FileInfo fileInfo = importer()->fileInfo(path);
         if (fileInfo.isEmpty()) {
             continue;
         }
@@ -90,7 +90,7 @@ void DropController::startImportSession()
         return;
     }
 
-    au::trackedit::ITrackeditProjectPtr prj = globalContext()->currentTrackeditProject();
+    agu::trackedit::ITrackeditProjectPtr prj = globalContext()->currentTrackeditProject();
     if (!prj) {
         return;
     }
@@ -124,7 +124,7 @@ void DropController::prepareConditionalTracks(int currentTrackId, int draggedFil
         return;
     }
 
-    au::trackedit::ITrackeditProjectPtr prj = globalContext()->currentTrackeditProject();
+    agu::trackedit::ITrackeditProjectPtr prj = globalContext()->currentTrackeditProject();
     if (!prj) {
         return;
     }
@@ -178,7 +178,7 @@ void DropController::prepareConditionalTracks(int currentTrackId, int draggedFil
 
 QVariantList DropController::draggedTracksIds(int currentTrackId, int draggedFilesCount)
 {
-    au::trackedit::ITrackeditProjectPtr prj = globalContext()->currentTrackeditProject();
+    agu::trackedit::ITrackeditProjectPtr prj = globalContext()->currentTrackeditProject();
     if (!prj) {
         return {};
     }
@@ -259,7 +259,7 @@ void DropController::removeDragAddedTracks(int currentTrackId, int draggedFilesC
         return;
     }
 
-    au::trackedit::ITrackeditProjectPtr prj = globalContext()->currentTrackeditProject();
+    agu::trackedit::ITrackeditProjectPtr prj = globalContext()->currentTrackeditProject();
     if (!prj) {
         return;
     }
@@ -330,7 +330,7 @@ void DropController::handleDroppedFiles(const std::vector<trackedit::TrackId>& t
         std::advance(dstTrackIter, info.trackCount);
     }
 
-    project::IAudacityProjectPtr prj = globalContext()->currentProject();
+    project::IAGuProjectPtr prj = globalContext()->currentProject();
 
     const muse::Ret result = prj->importDroppedFiles(localPaths, adjustedDstTrackIds, m_lastDraggedLabelPaths, startTime);
     if (!result && interactive()) {

@@ -8,7 +8,7 @@
 #include "extensioneffect.h"
 #include "extensioneffectsrepository.h"
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 ExtensionEffectLoader::ExtensionEffectLoader(std::shared_ptr<ExtensionEffectsRepository> repository)
     : m_repository(std::move(repository))
 {
@@ -57,4 +57,4 @@ void ExtensionEffectLoader::deinit()
     m_effects.clear();
     m_retired.clear();
 }
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

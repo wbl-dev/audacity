@@ -5,7 +5,7 @@
 
 #include "internal/audiothreadsecurer.h"
 
-namespace au::audio {
+namespace agu::audio {
 AudioModule::AudioModule()
     : m_audioThreadSecurer{std::make_shared<AudioThreadSecurer>()}
 {

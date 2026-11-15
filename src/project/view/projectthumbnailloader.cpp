@@ -25,7 +25,7 @@
 
 #include "log.h"
 
-using namespace au::project;
+using namespace agu::project;
 
 ProjectThumbnailLoader::ProjectThumbnailLoader(QObject* parent)
     : QObject(parent)

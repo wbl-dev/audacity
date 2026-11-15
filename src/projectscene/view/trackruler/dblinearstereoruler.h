@@ -5,7 +5,7 @@
 
 #include "projectscene/view/trackruler/dblinearbaseruler.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class DbLinearStereoRuler : public DbLinearBaseRuler
 {
 public:

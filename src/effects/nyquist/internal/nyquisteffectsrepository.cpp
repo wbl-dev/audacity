@@ -10,12 +10,12 @@
 #include "au3-effects/EffectManager.h"
 #include "spectrogram/spectrogramtypes.h"
 
-au::effects::NyquistEffectsRepository::NyquistEffectsRepository()
+agu::effects::NyquistEffectsRepository::NyquistEffectsRepository()
     : m_loader{m_module, EffectFamily::Nyquist}
 {
 }
 
-void au::effects::NyquistEffectsRepository::init()
+void agu::effects::NyquistEffectsRepository::init()
 {
     if (!effectsProvider()) {
         return;
@@ -26,7 +26,7 @@ void au::effects::NyquistEffectsRepository::init()
     });
 }
 
-void au::effects::NyquistEffectsRepository::registerSpectralEffects()
+void agu::effects::NyquistEffectsRepository::registerSpectralEffects()
 {
     if (m_spectralEffectsRegistered) {
         return;
@@ -66,7 +66,7 @@ void au::effects::NyquistEffectsRepository::registerSpectralEffects()
     }
 }
 
-au::effects::EffectMetaList au::effects::NyquistEffectsRepository::effectMetaList() const
+agu::effects::EffectMetaList agu::effects::NyquistEffectsRepository::effectMetaList() const
 {
     using namespace muse::audioplugins;
 

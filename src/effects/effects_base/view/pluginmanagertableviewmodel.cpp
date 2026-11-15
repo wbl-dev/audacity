@@ -16,7 +16,7 @@
 
 #include <array>
 
-namespace au::effects {
+namespace agu::effects {
 namespace {
 constexpr auto enabledColumnWidth = 100;
 constexpr auto nameColumnWidth = 152;
@@ -293,7 +293,7 @@ void PluginManagerTableViewModel::setAlsoRescanBrokenPlugins(bool alsoRescanBrok
     emit alsoRescanBrokenPluginsChanged();
 }
 
-au::uicomponents::TableSortFilterProxyModel* PluginManagerTableViewModel::sortFilterProxy() const
+agu::uicomponents::TableSortFilterProxyModel* PluginManagerTableViewModel::sortFilterProxy() const
 {
     return m_sortFilterProxy;
 }

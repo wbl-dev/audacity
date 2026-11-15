@@ -21,7 +21,7 @@
  */
 #include "pixmapprojectthumbnailview.h"
 
-using namespace au::project;
+using namespace agu::project;
 
 PixmapProjectThumbnailView::PixmapProjectThumbnailView(QQuickItem* parent)
     : muse::uicomponents::QuickPaintedView(parent)

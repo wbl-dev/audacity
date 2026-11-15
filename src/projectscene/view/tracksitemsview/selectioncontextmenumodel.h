@@ -11,7 +11,7 @@
 
 #include "uicomponents/qml/Muse/UiComponents/abstractmenumodel.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class SelectionContextMenuModel : public muse::uicomponents::AbstractMenuModel
 {
     Q_OBJECT

@@ -19,7 +19,7 @@ using ::testing::InSequence;
 using ::testing::NiceMock;
 using ::testing::Return;
 
-namespace au::record {
+namespace agu::record {
 class RecordControllerTests : public ::testing::Test
 {
 public:

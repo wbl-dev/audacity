@@ -11,13 +11,13 @@
 #include "trackedit/trackedittypes.h"
 #include "trackedit/dom/track.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class TrackTypes
 {
     Q_GADGET
 
 public:
-    //! NOTE: must be in sync with au::trackedit::TrackType
+    //! NOTE: must be in sync with agu::trackedit::TrackType
     enum class Type {
         UNDEFINED = 0,
         MONO,

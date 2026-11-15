@@ -8,7 +8,7 @@
 #include "modularity/ioc.h"
 #include "global/iglobalconfiguration.h"
 
-namespace au::effects {
+namespace agu::effects {
 class EffectsConfiguration : public IEffectsConfiguration
 {
     muse::GlobalInject<muse::IGlobalConfiguration> globalConfiguration;

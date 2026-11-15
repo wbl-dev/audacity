@@ -11,7 +11,7 @@
 #include "trackedit/dom/track.h"
 #include "trackedit/trackeditcommands.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 using namespace muse;
 using namespace muse::uicomponents;
 using namespace muse::rcommand;
@@ -150,7 +150,7 @@ void ClipContextMenuModel::onCommandStateChanged(const Command& command, const C
 
 void ClipContextMenuModel::updateStretchEnabledState(MenuItem& item)
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     if (!project) {
         return;
     }
@@ -163,7 +163,7 @@ void ClipContextMenuModel::updateStretchEnabledState(MenuItem& item)
 
 void ClipContextMenuModel::updatePitchSpeedModifiedEnabledState(MenuItem& item)
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     if (!project) {
         return;
     }
@@ -178,7 +178,7 @@ void ClipContextMenuModel::updatePitchSpeedModifiedEnabledState(MenuItem& item)
 
 void ClipContextMenuModel::updateColorCheckedState()
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     if (!project) {
         return;
     }

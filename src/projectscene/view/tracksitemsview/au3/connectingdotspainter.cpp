@@ -7,10 +7,10 @@
 #include "wavepainterutils.h"
 #include "samplespainterutils.h"
 
-using namespace au::au3;
+using namespace agu::au3;
 namespace {
-void drawConnectingPoints(const au::projectscene::SampleData& samples, const au::projectscene::WaveMetrics& metrics, QPainter& painter,
-                          const au::projectscene::IWavePainter::Style& style)
+void drawConnectingPoints(const agu::projectscene::SampleData& samples, const agu::projectscene::WaveMetrics& metrics, QPainter& painter,
+                          const agu::projectscene::IWavePainter::Style& style)
 {
     painter.setPen(style.samplePen);
 
@@ -23,17 +23,17 @@ void drawConnectingPoints(const au::projectscene::SampleData& samples, const au:
 }
 }
 
-namespace au::projectscene {
+namespace agu::projectscene {
 void ConnectingDotsPainter::paint(QPainter& painter, const trackedit::ClipKey& clipKey, const IWavePainter::Params& params)
 {
-    au::au3::Au3Project* au3Project = reinterpret_cast<au::au3::Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());
+    agu::au3::Au3Project* au3Project = reinterpret_cast<agu::au3::Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());
 
-    WaveTrack* track = au::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
+    WaveTrack* track = agu::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
     if (!track) {
         return;
     }
 
-    std::shared_ptr<WaveClip> waveClip = au::au3::DomAccessor::findWaveClip(track, clipKey.itemId);
+    std::shared_ptr<WaveClip> waveClip = agu::au3::DomAccessor::findWaveClip(track, clipKey.itemId);
     if (!waveClip) {
         return;
     }

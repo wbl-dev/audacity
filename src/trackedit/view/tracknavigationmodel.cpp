@@ -15,7 +15,7 @@
 #define MYLOG() LOGN()
 #endif
 
-using namespace au::trackedit;
+using namespace agu::trackedit;
 
 static const QString makeTrackPanelName(const TrackId& trackId)
 {
@@ -134,7 +134,7 @@ void TrackNavigationModel::load()
 
     m_activateDefaultNavigationRequested = true;
 
-    prj->tracksChanged().onReceive(this, [this](const std::vector<au::trackedit::Track> tracks) {
+    prj->tracksChanged().onReceive(this, [this](const std::vector<agu::trackedit::Track> tracks) {
         clearPanels();
 
         for (size_t pos = 0; pos < tracks.size(); ++pos) {

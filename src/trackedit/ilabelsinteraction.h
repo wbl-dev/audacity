@@ -12,7 +12,7 @@
 
 #include "modularity/imoduleinterface.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class ILabelsInteraction : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(ILabelsInteraction)

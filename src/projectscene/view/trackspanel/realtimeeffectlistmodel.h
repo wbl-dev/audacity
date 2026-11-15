@@ -13,7 +13,7 @@
 #include <QAbstractListModel>
 #include <map>
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class RealtimeEffectListModel : public QAbstractListModel, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT

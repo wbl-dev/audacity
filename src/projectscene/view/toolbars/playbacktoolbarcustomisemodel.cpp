@@ -11,7 +11,7 @@
 #include "translation.h"
 #include "log.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 using namespace muse;
 using namespace muse::ui;
 using namespace muse::uicomponents;

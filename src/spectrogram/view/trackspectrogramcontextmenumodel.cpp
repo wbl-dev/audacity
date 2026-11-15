@@ -12,7 +12,7 @@
 #include "spectrogramtypes.h"
 #include "types/translatablestring.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 TrackSpectrogramContextMenuModel::TrackSpectrogramContextMenuModel(QObject* parent)
     : AbstractMenuModel(parent) {}
 

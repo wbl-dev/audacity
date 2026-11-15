@@ -8,7 +8,7 @@
 
 #include <suil/suil.h>
 
-namespace au::effects {
+namespace agu::effects {
 class ExternalIdleUi : public ILv2IdleUi
 {
 public:

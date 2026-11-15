@@ -26,7 +26,7 @@
 
 #include "playback/playbackcommands.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 PlayPositionActionController::PlayPositionActionController(TimelineContext* context, const muse::modularity::ContextPtr& ctx)
     : muse::Contextable(ctx), m_context(context)
@@ -207,7 +207,7 @@ void PlayPositionActionController::onProjectChanged()
     });
 }
 
-au::context::IPlaybackStatePtr PlayPositionActionController::playbackState() const
+agu::context::IPlaybackStatePtr PlayPositionActionController::playbackState() const
 {
     return globalContext()->playbackState();
 }

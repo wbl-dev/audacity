@@ -16,7 +16,7 @@
 #include "trackedit/internal/itracknavigationcontroller.h"
 #include "../timeline/timelinecontext.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class TrackItemsMoveController : public QObject, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT
@@ -57,7 +57,7 @@ signals:
     void activeChanged();
     void previewChanged();
     void guidelineChanged(double time);
-    void keyboardTrackChanged(au::trackedit::TrackId trackId);
+    void keyboardTrackChanged(agu::trackedit::TrackId trackId);
 
 private:
     friend class TrackItemsMoveControllerTests;

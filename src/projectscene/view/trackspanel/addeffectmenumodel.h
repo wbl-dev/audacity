@@ -5,7 +5,7 @@
 
 #include "realtimeeffectmenumodelbase.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class AddEffectMenuModel : public RealtimeEffectMenuModelBase
 {
     Q_OBJECT

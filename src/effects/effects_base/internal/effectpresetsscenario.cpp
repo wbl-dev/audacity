@@ -13,7 +13,7 @@
 #include "log.h"
 
 using namespace muse;
-using namespace au::effects;
+using namespace agu::effects;
 
 void EffectPresetsScenario::showError(const muse::Ret& ret, const std::string& text)
 {
@@ -30,7 +30,7 @@ void EffectPresetsScenario::loadPreset(const EffectInstanceId& effectInstanceId,
 
 void EffectPresetsScenario::savePresetAs(const EffectInstanceId& effectInstanceId)
 {
-    RetVal<Val> rv = interactive()->openSync("audacity://effects/presets/input_name");
+    RetVal<Val> rv = interactive()->openSync("agu://effects/presets/input_name");
     std::string name = rv.val.toString();
     if (rv.ret.code() == (int)Ret::Code::Cancel || name.empty()) {
         LOGD() << "input preset name is canceled";

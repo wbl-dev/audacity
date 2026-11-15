@@ -6,7 +6,7 @@
 #include "spectrogramtypes.h"
 #include "types/number.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 void SpectrogramViewService::init()
 {
     frequencySelectionController()->handleDragged().onReceive(this, [this](uintptr_t handle, bool complete) {

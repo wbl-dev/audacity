@@ -9,7 +9,7 @@
 #include <cassert>
 #include <cmath>
 
-namespace au::shared {
+namespace agu::shared {
 class NumberScale
 {
 public:

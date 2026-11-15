@@ -1,7 +1,7 @@
 #include "deletebehaviorpanelmodel.h"
 #include "global/translation.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 DeleteBehaviorPanelModel::DeleteBehaviorPanelModel(QObject* parent)
     : QObject(parent)
 {

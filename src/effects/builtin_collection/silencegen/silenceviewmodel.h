@@ -7,7 +7,7 @@
 
 #include "../common/generatoreffectmodel.h"
 
-namespace au::effects {
+namespace agu::effects {
 class SilenceViewModel : public GeneratorEffectModel
 {
     Q_OBJECT

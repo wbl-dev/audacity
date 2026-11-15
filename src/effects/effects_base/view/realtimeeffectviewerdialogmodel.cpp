@@ -8,7 +8,7 @@
 #include "trackedit/itrackeditproject.h"
 #include "au3wrap/internal/wxtypes_convert.h"
 
-namespace au::effects {
+namespace agu::effects {
 RealtimeEffectViewerDialogModel::RealtimeEffectViewerDialogModel(QObject* parent)
     : QObject(parent), muse::Contextable(muse::iocCtxForQmlObject(this))
 {
@@ -79,7 +79,7 @@ EffectFamily RealtimeEffectViewerDialogModel::prop_effectFamily() const
     if (!m_effectState) {
         return EffectFamily::Unknown;
     }
-    return effectsProvider()->meta(au::au3::wxToString(m_effectState->GetID())).family;
+    return effectsProvider()->meta(agu::au3::wxToString(m_effectState->GetID())).family;
 }
 
 bool RealtimeEffectViewerDialogModel::prop_isActive() const
@@ -113,7 +113,7 @@ void RealtimeEffectViewerDialogModel::prop_setEffectState(const QString& effectS
     }
 
     m_effectState = reinterpret_cast<RealtimeEffectState*>(effectState.toULongLong())->shared_from_this();
-    const auto effectId = au::au3::wxToString(m_effectState->GetID());
+    const auto effectId = agu::au3::wxToString(m_effectState->GetID());
     const auto instance = std::dynamic_pointer_cast<effects::EffectInstance>(m_effectState->GetInstance());
     instancesRegister()->regInstance(effectId, instance, m_effectState->GetAccess());
 
@@ -181,7 +181,7 @@ bool RealtimeEffectViewerDialogModel::useVendorUI() const
         return true; // Default to vendor UI
     }
 
-    const auto effectId = au::au3::wxToString(m_effectState->GetID());
+    const auto effectId = agu::au3::wxToString(m_effectState->GetID());
     if (effectId.empty()) {
         return true; // Default to vendor UI
     }
@@ -202,7 +202,7 @@ void RealtimeEffectViewerDialogModel::notifyVendorUiFailed()
         return;
     }
 
-    const EffectId effectId = au::au3::wxToString(m_effectState->GetID());
+    const EffectId effectId = agu::au3::wxToString(m_effectState->GetID());
     const IEffectViewLauncherPtr launcher = viewLaunchRegister()->launcher(prop_effectFamily());
     if (!launcher) {
         return;
@@ -252,7 +252,7 @@ bool RealtimeEffectViewerDialogModel::vendorUiSupported() const
         return true;
     }
 
-    const EffectId effectId = au::au3::wxToString(m_effectState->GetID());
+    const EffectId effectId = agu::au3::wxToString(m_effectState->GetID());
     const IEffectViewLauncherPtr launcher = viewLaunchRegister()->launcher(prop_effectFamily());
     return launcher ? launcher->vendorUiSupported(effectId) : true;
 }

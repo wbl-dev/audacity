@@ -5,9 +5,9 @@
 
 #include "trackedit/trackeditcommands.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
-std::optional<au::trackedit::TrackId> LabelsTableViewTrackCell::itemTrackId(const muse::uicomponents::MenuItem& item)
+std::optional<agu::trackedit::TrackId> LabelsTableViewTrackCell::itemTrackId(const muse::uicomponents::MenuItem& item)
 {
     const muse::rcommand::Params params = item.params();
     if (!params.contains(trackedit::TRACKEDIT_TRACK_ID_PARAM)) {
@@ -42,7 +42,7 @@ void LabelsTableViewTrackCell::setAvailableTracks(const muse::uicomponents::Menu
     emit availableTracksChanged();
 }
 
-au::trackedit::TrackId LabelsTableViewTrackCell::currentTrackId() const
+agu::trackedit::TrackId LabelsTableViewTrackCell::currentTrackId() const
 {
     return m_trackId;
 }

@@ -12,12 +12,12 @@
 
 #include "log.h"
 
-using namespace au::projectscene;
-using namespace au::trackedit;
+using namespace agu::projectscene;
+using namespace agu::trackedit;
 
 constexpr double MIN_CLIP_WIDTH = 3.0;
 
-static const muse::Uri EDIT_PITCH_AND_SPEED_URI("audacity://projectscene/editpitchandspeed");
+static const muse::Uri EDIT_PITCH_AND_SPEED_URI("agu://projectscene/editpitchandspeed");
 
 TrackClipsListModel::TrackClipsListModel(QObject* parent)
     : TrackItemsListModel(parent)
@@ -127,7 +127,7 @@ void TrackClipsListModel::onReload()
         }
 
         ITrackeditProjectPtr prj = globalContext()->currentTrackeditProject();
-        muse::async::NotifyList<au::trackedit::Clip> newList = prj->clipList(m_trackId);
+        muse::async::NotifyList<agu::trackedit::Clip> newList = prj->clipList(m_trackId);
         for (size_t i = 0; i < newList.size(); ++i) {
             if (newList.at(i).key != clip.key) {
                 continue;
@@ -173,7 +173,7 @@ void TrackClipsListModel::update()
     const bool isStereo = track && track->type == TrackType::Stereo;
 
     // Building a new list, reusing exiting clips
-    for (const au::trackedit::Clip& c : m_allClipList) {
+    for (const agu::trackedit::Clip& c : m_allClipList) {
         auto it = oldItems.find(c.key.itemId);
         TrackClipItem* item = nullptr;
 
@@ -331,7 +331,7 @@ bool TrackClipsListModel::changeClipTitle(const ClipKey& key, const QString& new
 
 bool TrackClipsListModel::isKeyboardTriggered() const
 {
-    project::IAudacityProjectPtr prj = globalContext()->currentProject();
+    project::IAGuProjectPtr prj = globalContext()->currentProject();
     if (!prj) {
         return 0;
     }

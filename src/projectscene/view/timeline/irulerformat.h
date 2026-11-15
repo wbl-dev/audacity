@@ -8,7 +8,7 @@
 
 #include "timelinecontext.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 enum class TickType {
     MAJOR,
     MINOR,

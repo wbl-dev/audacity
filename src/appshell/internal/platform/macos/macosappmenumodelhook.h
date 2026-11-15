@@ -24,7 +24,7 @@
 
 #include "../../iappmenumodelhook.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 class MacOSAppMenuModelHook : public IAppMenuModelHook
 {
 public:

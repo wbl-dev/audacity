@@ -5,7 +5,7 @@
 
 #include "iplaybackmeter.h"
 
-namespace au::playback {
+namespace agu::playback {
 class LinearMeter : public IPlaybackMeter
 {
 public:

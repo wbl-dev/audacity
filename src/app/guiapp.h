@@ -18,17 +18,17 @@
 
 #include "cmdoptions.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 class SplashScreen;
 }
 
-namespace au::app {
+namespace agu::app {
 class GuiApp : public muse::ui::GuiApplication, public muse::async::Asyncable
 {
     muse::GlobalInject<appshell::IAppShellConfiguration> appshellConfiguration;
 
 public:
-    GuiApp(const std::shared_ptr<AudacityCmdOptions>& options);
+    GuiApp(const std::shared_ptr<AGuCmdOptions>& options);
 
 private:
     std::shared_ptr<muse::CmdOptions> makeContextOptions(const muse::StringList& args) const override;

@@ -3,7 +3,7 @@
 */
 #include "pitchandspeedchangemodel.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 PitchAndSpeedChangeModel::PitchAndSpeedChangeModel(QObject* parent)
     : QObject(parent), muse::Contextable(muse::iocCtxForQmlObject(this))
@@ -111,12 +111,12 @@ void PitchAndSpeedChangeModel::setOptimizeForVoice(bool optimize)
     trackeditInteraction()->changeClipOptimizeForVoice(m_clip.key, optimize);
 }
 
-au::trackedit::ITrackeditProjectPtr PitchAndSpeedChangeModel::trackeditProject() const
+agu::trackedit::ITrackeditProjectPtr PitchAndSpeedChangeModel::trackeditProject() const
 {
     return globalContext()->currentTrackeditProject();
 }
 
-au::context::IPlaybackStatePtr PitchAndSpeedChangeModel::playbackState() const
+agu::context::IPlaybackStatePtr PitchAndSpeedChangeModel::playbackState() const
 {
     return globalContext()->playbackState();
 }

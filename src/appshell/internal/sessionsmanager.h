@@ -35,17 +35,17 @@
 
 #include "project/iprojectconfiguration.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 class SessionsManager : public ISessionsManager, public muse::async::Asyncable, public muse::Contextable
 {
     muse::GlobalInject<muse::io::IFileSystem> fileSystem;
     muse::GlobalInject<project::IProjectConfiguration> projectConfiguration;
     muse::GlobalInject<IAppShellConfiguration> configuration;
     muse::GlobalInject<muse::mi::IMultiWindowsProvider> multiwindowsProvider;
-    muse::GlobalInject<au::au3::IAu3ProjectCreator> au3ProjectCreator;
+    muse::GlobalInject<agu::au3::IAu3ProjectCreator> au3ProjectCreator;
 
     muse::ContextInject<muse::rcommand::ICommandDispatcher> commandDispatcher { this };
-    muse::ContextInject<au::context::IGlobalContext> globalContext { this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext { this };
 
 public:
     SessionsManager(const muse::modularity::ContextPtr& ctx)

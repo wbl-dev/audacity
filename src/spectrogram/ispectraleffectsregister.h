@@ -9,7 +9,7 @@
 
 #include <optional>
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class ISpectralEffectsRegister : MODULE_GLOBAL_INTERFACE
 {
     INTERFACE_ID(ISpectralEffectsRegister)

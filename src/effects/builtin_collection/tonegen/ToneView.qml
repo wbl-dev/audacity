@@ -4,13 +4,13 @@ import QtQuick.Layouts
 
 import Muse.UiComponents
 
-import Audacity.Effects
-import Audacity.BuiltinEffects
-import Audacity.BuiltinEffectsCollection
-import Audacity.UiComponents
+import AGu.Effects
+import AGu.BuiltinEffects
+import AGu.BuiltinEffectsCollection
+import AGu.UiComponents
 
 // TODO: move to common controls
-import Audacity.Preferences
+import AGu.Preferences
 
 BuiltinEffectBase {
     id: root

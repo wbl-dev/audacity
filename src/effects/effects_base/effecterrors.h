@@ -7,7 +7,7 @@
 #include "translation.h"
 #include "types/ret.h"
 
-namespace au::effects {
+namespace agu::effects {
 static constexpr int EFFECTS_FIRST = 7000; // TODO This has to go in framework's ret.h
 enum class Err {
     Undefined = int(muse::Ret::Code::Undefined),
@@ -57,4 +57,4 @@ inline muse::Ret make_ret(Err e, std::string text = "")
 
     return muse::Ret(static_cast<int>(e));
 }
-} // namespace au::effects
+} // namespace agu::effects

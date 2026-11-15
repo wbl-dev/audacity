@@ -16,8 +16,8 @@
 
 #include "defer.h"
 
-using namespace au::projectscene;
-using namespace au::trackedit;
+using namespace agu::projectscene;
+using namespace agu::trackedit;
 
 static const double COMPARE_EPS = 0.001;
 
@@ -38,7 +38,7 @@ void TrackLabelsLayoutManager::init()
     relink();
 }
 
-au::projectscene::LabelKey TrackLabelsLayoutManager::leftLinkedLabel(const LabelKey& key) const
+agu::projectscene::LabelKey TrackLabelsLayoutManager::leftLinkedLabel(const LabelKey& key) const
 {
     if (!m_leftLinkedLabels.contains(key)) {
         return LabelKey();
@@ -63,7 +63,7 @@ void TrackLabelsLayoutManager::activateLeftLinkedLabel(const LabelKey& key)
     }
 }
 
-au::projectscene::LabelKey TrackLabelsLayoutManager::rightLinkedLabel(const LabelKey& key) const
+agu::projectscene::LabelKey TrackLabelsLayoutManager::rightLinkedLabel(const LabelKey& key) const
 {
     if (!m_rightLinkedLabels.contains(key)) {
         return LabelKey();

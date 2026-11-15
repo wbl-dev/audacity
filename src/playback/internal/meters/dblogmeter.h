@@ -5,7 +5,7 @@
 
 #include "iplaybackmeter.h"
 
-namespace au::playback {
+namespace agu::playback {
 class DbLogMeter : public IPlaybackMeter
 {
 public:

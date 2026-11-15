@@ -7,7 +7,7 @@
 
 #include "../common/params.h"
 
-namespace au::effects {
+namespace agu::effects {
 class AmplifyEffect : public StatefulPerTrackEffect
 {
 public:

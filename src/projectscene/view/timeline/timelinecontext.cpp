@@ -27,7 +27,7 @@ static constexpr double SCROLL_MAX_SPEED = 0.025;
 
 static constexpr int SNAP_TO_CLIP_TOLERANCE_PX = 4;
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 namespace {
 // calculate auto-scroll speed based on where the mouse cursor is
@@ -531,15 +531,15 @@ double TimelineContext::maxFrameEndTime() const
     return std::max(m_lastZoomEndTime, totalTime + (m_frameEndTime - m_frameStartTime) * 3 / 4);
 }
 
-au::trackedit::ITrackeditProjectPtr TimelineContext::trackEditProject() const
+agu::trackedit::ITrackeditProjectPtr TimelineContext::trackEditProject() const
 {
-    project::IAudacityProjectPtr prj = globalContext()->currentProject();
+    project::IAGuProjectPtr prj = globalContext()->currentProject();
     return prj ? prj->trackeditProject() : nullptr;
 }
 
 IProjectViewStatePtr TimelineContext::viewState() const
 {
-    project::IAudacityProjectPtr prj = globalContext()->currentProject();
+    project::IAGuProjectPtr prj = globalContext()->currentProject();
     return prj ? prj->viewState() : nullptr;
 }
 
@@ -1313,7 +1313,7 @@ void TimelineContext::setStartVerticalScrollPosition(qreal position)
     emit verticalScrollChanged();
 }
 
-au::context::IPlaybackStatePtr TimelineContext::playbackState() const
+agu::context::IPlaybackStatePtr TimelineContext::playbackState() const
 {
     return globalContext()->playbackState();
 }

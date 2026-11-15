@@ -11,7 +11,7 @@
 
 #include "linearbaseruler.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 namespace {
 constexpr std::array<std::pair<double, double>, 4> STEP_INCREMENT = { { { 0.1, 0.05 }, { 0.5, 0.1 }, { 0.5, 0.25 }, { 1.0, 0.5 } } };

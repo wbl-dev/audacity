@@ -5,6 +5,6 @@
 
 #include <string_view>
 
-namespace au::effects::nyquist {
+namespace agu::effects::nyquist {
 inline constexpr std::string_view AUDIO_RESOURCE_TYPE_NAME = "NyquistPlugin";
 }

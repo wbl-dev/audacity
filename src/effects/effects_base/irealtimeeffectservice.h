@@ -12,11 +12,11 @@
 struct TransportSequences;
 struct AudioIOStartTransportOptions;
 
-namespace au::project {
-class IAudacityProject;
+namespace agu::project {
+class IAGuProject;
 }
 
-namespace au::effects {
+namespace agu::effects {
 class IRealtimeEffectService : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IRealtimeEffectService);

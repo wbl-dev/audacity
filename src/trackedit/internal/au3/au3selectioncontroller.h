@@ -17,10 +17,10 @@
 #include "../../iselectioncontroller.h"
 #include "../../iprojecthistory.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class Au3SelectionController : public ISelectionController, public muse::async::Asyncable, public muse::Contextable
 {
-    muse::ContextInject<au::context::IGlobalContext> globalContext { this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext { this };
     muse::ContextInject<IProjectHistory> projectHistory { this };
     muse::ContextInject<spectrogram::IFrequencySelectionController> frequencySelectionController { this };
 

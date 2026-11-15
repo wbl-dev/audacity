@@ -10,7 +10,7 @@
 #include "modularity/ioc.h"
 #include "ui/iuiengine.h"
 
-namespace au::effects {
+namespace agu::effects {
 class QmlApiEngine;
 class EffectsUiEngine : public QObject, public IEffectsUiEngine, public muse::Contextable
 {

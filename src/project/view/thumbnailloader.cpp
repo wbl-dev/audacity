@@ -10,7 +10,7 @@
 #include <QPixmap>
 #include <qpixmap.h>
 
-using namespace au::project;
+using namespace agu::project;
 
 namespace {
 const muse::io::path_t DEFAULT_PLACEHOLDER(":/resources/ProjectPlaceholder.svg");

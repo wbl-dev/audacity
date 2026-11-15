@@ -7,7 +7,7 @@
 
 #include "framework/global/async/asyncable.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class GlobalSpectrogramConfiguration : public IGlobalSpectrogramConfiguration, public muse::async::Asyncable
 {
 public:

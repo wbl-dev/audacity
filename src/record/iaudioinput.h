@@ -10,7 +10,7 @@
 
 #include "audio/audiotypes.h"
 
-namespace au::record {
+namespace agu::record {
 class IAudioInput
 {
 public:

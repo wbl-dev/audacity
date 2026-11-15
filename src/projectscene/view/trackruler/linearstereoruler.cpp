@@ -7,7 +7,7 @@
 
 #include "linearstereoruler.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 namespace {
 constexpr double MIN_CHANNEL_HEIGHT = 40.0;

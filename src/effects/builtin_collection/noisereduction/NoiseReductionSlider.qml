@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import Muse.UiComponents
-import Audacity.Effects
+import AGu.Effects
 
 Row {
     id: root

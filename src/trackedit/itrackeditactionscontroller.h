@@ -7,7 +7,7 @@
 #include "async/channel.h"
 #include "actions/actiontypes.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class ITrackeditActionsController
 {
 public:

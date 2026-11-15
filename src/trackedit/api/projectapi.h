@@ -17,7 +17,7 @@
 
 class AudacityProject;
 
-namespace au::trackedit::api {
+namespace agu::trackedit::api {
 class ProjectApi : public muse::api::ApiObject
 {
     Q_OBJECT

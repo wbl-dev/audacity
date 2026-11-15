@@ -11,7 +11,7 @@
 #include "context/iuicontextresolver.h"
 #include "audio/driver/iaudiodrivercontroller.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class TrackeditUiActions : public muse::ui::IUiActionsModule, public muse::async::Asyncable, public muse::Contextable
 {
     muse::GlobalInject<audio::IAudioDriverController> audioDriverController;

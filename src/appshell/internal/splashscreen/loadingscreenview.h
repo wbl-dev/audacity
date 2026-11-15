@@ -34,7 +34,7 @@
 
 class QSvgRenderer;
 
-namespace au::appshell {
+namespace agu::appshell {
 class LoadingScreenView : public QWidget, public muse::Contextable
 {
     Q_OBJECT

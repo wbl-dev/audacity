@@ -3,9 +3,9 @@
  */
 #include "extensioneffectsstubmodule.h"
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 std::string ExtensionEffectsModule::moduleName() const
 {
     return "effects_extensions";
 }
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

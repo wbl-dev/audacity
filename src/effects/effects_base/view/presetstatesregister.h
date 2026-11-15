@@ -7,7 +7,7 @@
 
 #include "effects/effects_base/ipresetstatesregister.h"
 
-namespace au::effects {
+namespace agu::effects {
 class PresetStatesRegister : public IPresetStatesRegister
 {
 public:

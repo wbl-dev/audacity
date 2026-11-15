@@ -5,8 +5,8 @@
 
 #include "playback/view/common/volumepressuremeteritembase.h"
 
-namespace au::projectscene {
-class VolumePressureMeterItem : public au::playback::VolumePressureMeterItemBase
+namespace agu::projectscene {
+class VolumePressureMeterItem : public agu::playback::VolumePressureMeterItemBase
 {
     Q_OBJECT
 

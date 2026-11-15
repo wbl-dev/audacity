@@ -10,7 +10,7 @@
 
 #include "appshelltypes.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 inline static const muse::rcommand::Command APP_TOGGLE_FULLSCREEN_COMMAND("command://app/toggle-fullscreen");
 inline static const muse::rcommand::Command APP_ABOUT_COMMAND("command://app/about");
 inline static const muse::rcommand::Command APP_ABOUT_QT_COMMAND("command://app/about-qt");

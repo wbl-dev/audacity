@@ -5,7 +5,7 @@
 
 #include "au3-lv2/LV2UIFeaturesList.h"
 
-namespace au::effects {
+namespace agu::effects {
 class Lv2ViewModel;
 
 class Lv2UiHandler : public LV2UIFeaturesList::UIHandler

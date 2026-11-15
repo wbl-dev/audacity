@@ -4,7 +4,7 @@
 
 #include "au3wrap/au3types.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class WaveformSettings final : public ClientData::Cloneable<>
 {
 public:

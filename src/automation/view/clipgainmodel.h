@@ -19,7 +19,7 @@
 #include "trackedit/trackedittypes.h"
 #include "projectscene/types/projectscenetypes.h"
 
-namespace au::automation {
+namespace agu::automation {
 class ClipGainModel : public QAbstractListModel, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT

@@ -18,7 +18,7 @@
 
 #include "log.h"
 
-using namespace au::app;
+using namespace agu::app;
 
 //! NOTE No signal says the UI is ready: startupCompleted() is set before the
 //! startup page even opens, so the first step just has to wait
@@ -33,22 +33,22 @@ namespace {
 }
 }
 
-void TestflowRunner::prepare(const muse::modularity::ContextPtr& ctx, const AudacityCmdOptions::Testflow& options)
+void TestflowRunner::prepare(const muse::modularity::ContextPtr& ctx, const AGuCmdOptions::Testflow& options)
 {
     if (options.testCaseNameOrFile.isEmpty()) {
         return;
     }
 
-    au::appshell::installTestflowStartupScenario(ctx);
+    agu::appshell::installTestflowStartupScenario(ctx);
 
-    auto effectsInitializer = muse::modularity::ioc(ctx)->resolve<au::effects::IEffectsProviderInitializer>("app");
+    auto effectsInitializer = muse::modularity::ioc(ctx)->resolve<agu::effects::IEffectsProviderInitializer>("app");
     IF_ASSERT_FAILED(effectsInitializer) {
         return;
     }
-    effectsInitializer->setStartupPluginValidationPolicy(au::effects::StartupPluginValidationPolicy::Skip);
+    effectsInitializer->setStartupPluginValidationPolicy(agu::effects::StartupPluginValidationPolicy::Skip);
 }
 
-void TestflowRunner::runIfRequested(const muse::modularity::ContextPtr& ctx, const AudacityCmdOptions::Testflow& options)
+void TestflowRunner::runIfRequested(const muse::modularity::ContextPtr& ctx, const AGuCmdOptions::Testflow& options)
 {
     if (options.testCaseNameOrFile.isEmpty()) {
         return;
@@ -58,7 +58,7 @@ void TestflowRunner::runIfRequested(const muse::modularity::ContextPtr& ctx, con
     (new TestflowRunner(ctx, options))->run();
 }
 
-TestflowRunner::TestflowRunner(const muse::modularity::ContextPtr& ctx, const AudacityCmdOptions::Testflow& options)
+TestflowRunner::TestflowRunner(const muse::modularity::ContextPtr& ctx, const AGuCmdOptions::Testflow& options)
     : m_ctx(ctx), m_options(options)
 {
 }

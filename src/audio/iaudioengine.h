@@ -20,7 +20,7 @@ struct TransportSequences;
 struct AudioIOStartTransportOptions;
 class ChannelGroup;
 class RealtimeEffectState;
-namespace au::audio {
+namespace agu::audio {
 struct AudioCallbackInfo {
     std::chrono::steady_clock::time_point dacTime;
     int numSamples = 0;

@@ -3,7 +3,7 @@
 #include "au3-track/Track.h"
 #include "trackedit/trackedittypes.h"
 
-namespace au::au3 {
+namespace agu::au3 {
 class TrackColor : public TrackAttachment
 {
 public:

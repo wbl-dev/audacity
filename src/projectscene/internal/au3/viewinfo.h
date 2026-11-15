@@ -10,7 +10,7 @@
 
 class AudacityProject;
 
-namespace au::au3 {
+namespace agu::au3 {
 class ViewInfo : public ClientData::Base
 {
 public:

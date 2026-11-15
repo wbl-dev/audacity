@@ -3,9 +3,9 @@
 */
 #pragma once
 
-#include "effects/builtin/qml/Audacity/BuiltinEffects/builtineffectmodel.h"
+#include "effects/builtin/qml/AGu/BuiltinEffects/builtineffectmodel.h"
 
-namespace au::effects {
+namespace agu::effects {
 class AmplifyEffect;
 class AmplifyViewModel : public BuiltinEffectModel
 {

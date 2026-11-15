@@ -14,8 +14,8 @@
 
 #include "labelsutils.h"
 
-using namespace au::au3;
-using namespace au::importexport;
+using namespace agu::au3;
+using namespace agu::importexport;
 
 muse::Ret Au3LabelsExporter::exportData(const muse::io::path_t& filePath, const trackedit::TrackIdList& includedLabelTracksIds)
 {

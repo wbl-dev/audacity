@@ -7,7 +7,7 @@
 
 #include "au3-builtin-effects/CompressorInstance.h"
 
-namespace au::effects {
+namespace agu::effects {
 OutputDbMeterModel::OutputDbMeterModel(QObject* parent)
     : AbstractDbMeterModel{MeterValueProvider::Direction::Upwards, parent}
 {

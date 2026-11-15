@@ -5,7 +5,7 @@
 
 struct EqualizationFilter;
 
-namespace au::effects::eq_common {
+namespace agu::effects::eq_common {
 //! Convert mLogEnvelope points to mLinEnvelope (called when toggling
 //! frequency scale from log to linear). No-op if mLogEnvelope is empty.
 void envLogToLin(EqualizationFilter& parameters);

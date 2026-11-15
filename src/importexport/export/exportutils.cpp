@@ -8,7 +8,7 @@
 
 #include <QString>
 
-muse::Val au::importexport::utils::matrixToVal(const std::vector<std::vector<bool> >& matrix)
+muse::Val agu::importexport::utils::matrixToVal(const std::vector<std::vector<bool> >& matrix)
 {
     muse::ValList rows;
     rows.reserve(matrix.size());
@@ -25,7 +25,7 @@ muse::Val au::importexport::utils::matrixToVal(const std::vector<std::vector<boo
     return muse::Val(rows);
 }
 
-std::vector<std::vector<bool> > au::importexport::utils::valToMatrix(const muse::Val& val)
+std::vector<std::vector<bool> > agu::importexport::utils::valToMatrix(const muse::Val& val)
 {
     std::vector<std::vector<bool> > matrix;
 
@@ -52,7 +52,7 @@ std::vector<std::vector<bool> > au::importexport::utils::valToMatrix(const muse:
     return matrix;
 }
 
-std::string au::importexport::utils::formatFileName(const std::string& prefix, std::optional<int> number, const std::string& name)
+std::string agu::importexport::utils::formatFileName(const std::string& prefix, std::optional<int> number, const std::string& name)
 {
     std::string result;
     const auto append = [&result](const std::string& part) {
@@ -93,7 +93,7 @@ bool isReservedDeviceName(const std::string& stem)
 }
 }
 
-std::string au::importexport::utils::sanitizeFileName(const std::string& name)
+std::string agu::importexport::utils::sanitizeFileName(const std::string& name)
 {
     static const std::string invalidChars = "\\/:*?\"<>|~";
 
@@ -113,7 +113,7 @@ std::string au::importexport::utils::sanitizeFileName(const std::string& name)
     return result;
 }
 
-std::string au::importexport::utils::UniqueFileNames::registerName(const std::string& name)
+std::string agu::importexport::utils::UniqueFileNames::registerName(const std::string& name)
 {
     const auto fold = [](const std::string& value) {
         return QString::fromStdString(value).normalized(QString::NormalizationForm_C).toCaseFolded().toStdString();
@@ -130,13 +130,13 @@ std::string au::importexport::utils::UniqueFileNames::registerName(const std::st
     return result;
 }
 
-std::string au::importexport::utils::makeFileName(const std::string& prefix, std::optional<int> number, const std::string& name,
+std::string agu::importexport::utils::makeFileName(const std::string& prefix, std::optional<int> number, const std::string& name,
                                                   UniqueFileNames& usedNames)
 {
     return usedNames.registerName(sanitizeFileName(formatFileName(prefix, number, name)));
 }
 
-std::vector<au::importexport::utils::TimeRange> au::importexport::utils::labelExportRanges(const std::vector<TimeRange>& labels,
+std::vector<agu::importexport::utils::TimeRange> agu::importexport::utils::labelExportRanges(const std::vector<TimeRange>& labels,
                                                                                            double projectEndTime)
 {
     std::vector<TimeRange> ranges;

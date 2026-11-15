@@ -24,7 +24,7 @@
 
 #include "framework/ui/uiaction.h"
 
-namespace au::context {
+namespace agu::context {
 //! NOTE Determines where to be, what the user is doing
 
 // common ui (re declared for convenience)

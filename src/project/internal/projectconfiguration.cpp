@@ -5,7 +5,7 @@
 
 #include "projectconfiguration.h"
 
-using namespace au::project;
+using namespace agu::project;
 
 static const std::string module_name("project");
 
@@ -95,7 +95,7 @@ void ProjectConfiguration::setLastSavedProjectsPath(const muse::io::path_t& path
     muse::settings()->setSharedValue(LAST_SAVED_PROJECTS_PATH, muse::Val(path));
 }
 
-muse::io::path_t ProjectConfiguration::defaultSavingFilePath(IAudacityProjectPtr project, const std::string& filenameAddition,
+muse::io::path_t ProjectConfiguration::defaultSavingFilePath(IAGuProjectPtr project, const std::string& filenameAddition,
                                                              const std::string& suffix) const
 {
     muse::io::path_t folderPath;

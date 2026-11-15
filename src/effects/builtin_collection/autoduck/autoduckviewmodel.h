@@ -3,12 +3,12 @@
 */
 #pragma once
 
-#include "effects/builtin/qml/Audacity/BuiltinEffects/builtineffectmodel.h"
+#include "effects/builtin/qml/AGu/BuiltinEffects/builtineffectmodel.h"
 
 #include <QVariantList>
 #include <QVariantMap>
 
-namespace au::effects {
+namespace agu::effects {
 class AutoDuckEffect;
 
 //! Presents the fade lengths of the effect as signed offsets from the start

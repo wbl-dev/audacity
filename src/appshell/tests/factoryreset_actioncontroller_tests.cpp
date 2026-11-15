@@ -22,9 +22,9 @@ using ::testing::NiceMock;
 using ::testing::HasSubstr;
 
 using namespace muse;
-using namespace au::appshell;
+using namespace agu::appshell;
 
-namespace au::appshell {
+namespace agu::appshell {
 class FactoryResetActionTests : public ::testing::Test
 {
 public:
@@ -79,7 +79,7 @@ public:
         m_configuration = std::make_shared<NiceMock<AppShellConfigurationMock> >();
         m_controller->configuration.set(m_configuration);
 
-        m_projectFilesController = std::make_shared<NiceMock<au::project::ProjectFilesControllerMock> >();
+        m_projectFilesController = std::make_shared<NiceMock<agu::project::ProjectFilesControllerMock> >();
         m_controller->projectFilesController.set(m_projectFilesController);
 
         m_multiWindowsProvider = std::make_shared<NiceMock<muse::mi::MultiWindowsProviderMock> >();
@@ -116,7 +116,7 @@ public:
     void setupRestartDialog()
     {
         EXPECT_CALL(*m_interactive, question(
-                        HasSubstr("restart Audacity"),
+                        HasSubstr("restart AGu"),
                         _, _, _, _, _))
         .WillOnce([this](const std::string&, const IInteractive::Text&,
                          const IInteractive::ButtonDatas&, int,
@@ -172,7 +172,7 @@ protected:
     std::shared_ptr<NiceMock<InteractiveMock> > m_interactive;
     std::shared_ptr<NiceMock<ApplicationMock> > m_application;
     std::shared_ptr<NiceMock<AppShellConfigurationMock> > m_configuration;
-    std::shared_ptr<NiceMock<au::project::ProjectFilesControllerMock> > m_projectFilesController;
+    std::shared_ptr<NiceMock<agu::project::ProjectFilesControllerMock> > m_projectFilesController;
     std::shared_ptr<NiceMock<muse::mi::MultiWindowsProviderMock> > m_multiWindowsProvider;
 
     std::map<std::string, ActionCB> m_registeredActions;

@@ -9,7 +9,7 @@
 #include "trackedit/dom/track.h"
 #include "trackedit/itrackeditproject.h"
 
-namespace au::trackedit::utils {
+namespace agu::trackedit::utils {
 bool hasStereoTrack(const TrackList& tracks);
 
 TrackIdList itemTrackIds(const ItemKeys& items);

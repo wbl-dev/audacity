@@ -8,7 +8,7 @@
 
 #include "au3audio/isystemaudiodeviceslistener.h"
 
-namespace au::au3audio {
+namespace agu::au3audio {
 class MacosSystemAudioDevicesListener : public QObject, public ISystemAudioDevicesListener
 {
 public:

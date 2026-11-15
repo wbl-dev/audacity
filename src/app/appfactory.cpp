@@ -75,20 +75,20 @@
 
 #ifdef MUSE_MODULE_EXTENSIONS
 #include "framework/extensions/extensionsmodule.h"
-#include "extensions/audacityextensionsmodule.h"
+#include "extensions/aguextensionsmodule.h"
 #include "effects/extensions/extensioneffectsmodule.h"
 #else
 #include "framework/stubs/extensions/extensionsstubmodule.h"
-#include "stubs/extensions/audacityextensionsstubmodule.h"
+#include "stubs/extensions/aguextensionsstubmodule.h"
 #include "stubs/effects_extensions/extensioneffectsstubmodule.h"
 #endif
 
 #include "au3wrap/au3wrapmodule.h"
 
 using namespace muse;
-using namespace au::app;
+using namespace agu::app;
 
-std::shared_ptr<muse::IApplication> AppFactory::newApp(const std::shared_ptr<AudacityCmdOptions>& options) const
+std::shared_ptr<muse::IApplication> AppFactory::newApp(const std::shared_ptr<AGuCmdOptions>& options) const
 {
     IF_ASSERT_FAILED(options) {
         return nullptr;
@@ -106,7 +106,7 @@ std::shared_ptr<muse::IApplication> AppFactory::newApp(const std::shared_ptr<Aud
     return newGuiApp(options);
 }
 
-std::shared_ptr<muse::IApplication> AppFactory::newGuiApp(const std::shared_ptr<AudacityCmdOptions>& options) const
+std::shared_ptr<muse::IApplication> AppFactory::newGuiApp(const std::shared_ptr<AGuCmdOptions>& options) const
 {
     std::shared_ptr<GuiApp> app = std::make_shared<GuiApp>(options);
 
@@ -136,38 +136,38 @@ std::shared_ptr<muse::IApplication> AppFactory::newGuiApp(const std::shared_ptr<
 #endif
 
     // Audacity modules
-    app->addModule(new au::appshell::AppShellModule());
-    app->addModule(new au::preferences::PreferencesModule());
-    app->addModule(new au::uicomponents::UiComponentsModule());
-    app->addModule(new au::extensions::AudacityExtensionsModule());
-    app->addModule(new au::effects::AudioUnitEffectsModule());
-    app->addModule(new au::effects::Lv2EffectsModule());
-    app->addModule(new au::effects::VstEffectsModule());
-    app->addModule(new au::effects::NyquistEffectsModule());
-    app->addModule(new au::effects::extensions::ExtensionEffectsModule());
-    app->addModule(new au::context::ContextModule());
-    app->addModule(new au::audio::AudioModule());
-    app->addModule(new au::au3audio::Au3AudioModule());
-    app->addModule(new au::projectscene::ProjectSceneModule());
-    app->addModule(new au::playback::PlaybackModule());
-    app->addModule(new au::record::RecordModule());
-    app->addModule(new au::trackedit::TrackeditModule());
-    app->addModule(new au::macromanager::MacroManagerModule());
-    app->addModule(new au::spectrogram::SpectrogramModule());
-    app->addModule(new au::project::ProjectModule());
-    app->addModule(new au::importexport::ExporterModule());
-    app->addModule(new au::importexport::ImporterModule());
-    app->addModule(new au::importexport::LabelsModule());
-    app->addModule(new au::au3::Au3WrapModule());
-    app->addModule(new au::effects::EffectsModule());
-    app->addModule(new au::effects::BuiltinEffectsModule());
-    app->addModule(new au::effects::BuiltinEffectsCollectionModule());
-    app->addModule(new au::automation::AutomationModule());
+    app->addModule(new agu::appshell::AppShellModule());
+    app->addModule(new agu::preferences::PreferencesModule());
+    app->addModule(new agu::uicomponents::UiComponentsModule());
+    app->addModule(new agu::extensions::AGuExtensionsModule());
+    app->addModule(new agu::effects::AudioUnitEffectsModule());
+    app->addModule(new agu::effects::Lv2EffectsModule());
+    app->addModule(new agu::effects::VstEffectsModule());
+    app->addModule(new agu::effects::NyquistEffectsModule());
+    app->addModule(new agu::effects::extensions::ExtensionEffectsModule());
+    app->addModule(new agu::context::ContextModule());
+    app->addModule(new agu::audio::AudioModule());
+    app->addModule(new agu::au3audio::Au3AudioModule());
+    app->addModule(new agu::projectscene::ProjectSceneModule());
+    app->addModule(new agu::playback::PlaybackModule());
+    app->addModule(new agu::record::RecordModule());
+    app->addModule(new agu::trackedit::TrackeditModule());
+    app->addModule(new agu::macromanager::MacroManagerModule());
+    app->addModule(new agu::spectrogram::SpectrogramModule());
+    app->addModule(new agu::project::ProjectModule());
+    app->addModule(new agu::importexport::ExporterModule());
+    app->addModule(new agu::importexport::ImporterModule());
+    app->addModule(new agu::importexport::LabelsModule());
+    app->addModule(new agu::au3::Au3WrapModule());
+    app->addModule(new agu::effects::EffectsModule());
+    app->addModule(new agu::effects::BuiltinEffectsModule());
+    app->addModule(new agu::effects::BuiltinEffectsCollectionModule());
+    app->addModule(new agu::automation::AutomationModule());
 
     return app;
 }
 
-std::shared_ptr<muse::IApplication> AppFactory::newPluginRegistrationApp(const std::shared_ptr<AudacityCmdOptions>& options) const
+std::shared_ptr<muse::IApplication> AppFactory::newPluginRegistrationApp(const std::shared_ptr<AGuCmdOptions>& options) const
 {
     std::shared_ptr<PluginRegistrationApp> app = std::make_shared<PluginRegistrationApp>(options);
 
@@ -181,10 +181,10 @@ std::shared_ptr<muse::IApplication> AppFactory::newPluginRegistrationApp(const s
     app->addModule(new muse::audioplugins::AudioPluginsModule());
     app->addModule(new muse::actions::ActionsModule());
 
-    app->addModule(new au::effects::AudioUnitEffectsModule());
-    app->addModule(new au::effects::Lv2EffectsModule());
-    app->addModule(new au::effects::VstEffectsModule());
-    app->addModule(new au::effects::NyquistEffectsModule());
+    app->addModule(new agu::effects::AudioUnitEffectsModule());
+    app->addModule(new agu::effects::Lv2EffectsModule());
+    app->addModule(new agu::effects::VstEffectsModule());
+    app->addModule(new agu::effects::NyquistEffectsModule());
 
     return app;
 }

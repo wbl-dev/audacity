@@ -1,10 +1,10 @@
 #pragma once
 
-#include "effects/builtin/qml/Audacity/BuiltinEffects/builtineffectmodel.h"
+#include "effects/builtin/qml/AGu/BuiltinEffects/builtineffectmodel.h"
 
 struct BassTrebleSettings;
 
-namespace au::effects {
+namespace agu::effects {
 class BassTrebleEffect;
 class BassTrebleViewModel : public BuiltinEffectModel
 {

@@ -10,7 +10,7 @@
 
 #include "modularity/imoduleinterface.h"
 
-namespace au::automation {
+namespace agu::automation {
 class IClipGainInteraction : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IClipGainInteraction)

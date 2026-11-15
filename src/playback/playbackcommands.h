@@ -5,7 +5,7 @@
 
 #include "framework/rcommand/commandtypes.h"
 
-namespace au::playback {
+namespace agu::playback {
 inline static const muse::rcommand::Command PLAYBACK_TOGGLE_PLAY_PAUSE_COMMAND("command://playback/toggle-play-pause");
 inline static const muse::rcommand::Command PLAYBACK_TOGGLE_PLAY_STOP_COMMAND("command://playback/toggle-play-stop");
 inline static const muse::rcommand::Command PLAYBACK_TOGGLE_PLAY_STOP_AND_SET_CURSOR_COMMAND(

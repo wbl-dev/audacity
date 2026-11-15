@@ -15,12 +15,12 @@
 #include "actions/tests/mocks/actionsdispatchermock.h"
 #include "framework/rcommand/tests/mocks/commanddispatchermock.h"
 #include "context/tests/mocks/globalcontextmock.h"
-#include "project/tests/mocks/audacityprojectmock.h"
+#include "project/tests/mocks/aguprojectmock.h"
 
 using ::testing::NiceMock;
 using ::testing::Return;
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class TrackeditActionsControllerTests : public ::testing::Test
 {
 public:
@@ -46,7 +46,7 @@ public:
         m_controller->commandDispatcher.set(m_commandDispatcher);
 
         m_globalContext = std::make_shared<NiceMock<context::GlobalContextMock> >();
-        m_project = std::make_shared<NiceMock<project::AudacityProjectMock> >();
+        m_project = std::make_shared<NiceMock<project::AGuProjectMock> >();
         m_trackeditProject = std::make_shared<NiceMock<TrackeditProjectMock> >();
         m_controller->globalContext.set(m_globalContext);
         ON_CALL(*m_globalContext, currentProject()).WillByDefault(Return(m_project));
@@ -148,7 +148,7 @@ public:
     std::vector<Track> m_tracks;
     std::shared_ptr<TracksViewRequestsService> m_requests;
     std::shared_ptr<context::GlobalContextMock> m_globalContext;
-    std::shared_ptr<project::AudacityProjectMock> m_project;
+    std::shared_ptr<project::AGuProjectMock> m_project;
     std::shared_ptr<TrackeditProjectMock> m_trackeditProject;
 };
 

@@ -7,7 +7,7 @@
 
 #include "au3-audio-unit/AudioUnitEffectsModule.h"
 
-namespace au::effects {
+namespace agu::effects {
 class AudioUnitPluginsScanner : public Au3AudioPluginScanner
 {
 public:

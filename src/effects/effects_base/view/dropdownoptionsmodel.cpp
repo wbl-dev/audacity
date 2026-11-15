@@ -5,7 +5,7 @@
 
 #include "framework/global/log.h"
 
-namespace au::effects {
+namespace agu::effects {
 DropdownOptionsModel::DropdownOptionsModel(QObject* parent)
     : QObject(parent)
 {

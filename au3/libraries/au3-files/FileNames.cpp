@@ -267,13 +267,6 @@ static_assert(
 
 FilePath GetXDGTargetDir(DirTarget target)
 {
-    static const auto oldUnixDataDir = wxFileName::GetHomeDir() + wxT("/.audacity-data");
-    static const auto oldUnixDataDirExists = wxDirExists(oldUnixDataDir);
-    // Compatibility: Use old user data dir folder, if it already exists
-    if (oldUnixDataDirExists) {
-        return oldUnixDataDir;
-    }
-
     // see if the XDG_*_HOME env var is defined. if it is, use its value.
     // if it isn't, use the default XDG-specified value.
     wxString newDir;
@@ -282,11 +275,7 @@ FilePath GetXDGTargetDir(DirTarget target)
         newDir = wxFileName::GetHomeDir() + dirDefault;
     }
 
-#ifdef AUDACITY_NAME
-    newDir = newDir + wxT("/" AUDACITY_NAME);
-#else
-    newDir = newDir + wxT("/audacity4");
-#endif
+    newDir = newDir + wxT("/agu");
 
     return newDir;
 }

@@ -10,7 +10,7 @@
 // gmock needs the complete TrackId type used by recordingClipChanged().
 #include "au3-track/Track.h"
 
-namespace au::audio {
+namespace agu::audio {
 class AudioEngineMock : public IAudioEngine
 {
 public:

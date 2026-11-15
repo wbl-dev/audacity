@@ -3,7 +3,7 @@
  */
 #include "pluginmanagertableviewverticalheader.h"
 
-namespace au::effects {
+namespace agu::effects {
 PluginManagerTableViewVerticalHeader::PluginManagerTableViewVerticalHeader(QObject* parent)
     : muse::uicomponents::TableViewHeader(parent)
 {

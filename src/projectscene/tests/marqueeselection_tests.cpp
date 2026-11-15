@@ -12,7 +12,7 @@
 #include "global/tests/mocks/applicationmock.h"
 #include "context/tests/mocks/globalcontextmock.h"
 #include "context/tests/mocks/playbackstatemock.h"
-#include "project/tests/mocks/audacityprojectmock.h"
+#include "project/tests/mocks/aguprojectmock.h"
 #include "playback/tests/mocks/playbackmock.h"
 #include "spectrogram/tests/mocks/globalspectrogramconfigurationmock.h"
 #include "spectrogram/tests/mocks/frequencyselectioncontrollermock.h"
@@ -24,7 +24,7 @@
 
 using namespace ::testing;
 
-namespace au::projectscene {
+namespace agu::projectscene {
 //! The timeline context is left at its default zoom, so one second is one pixel
 class MarqueeSelectionTests : public ::testing::Test
 {
@@ -32,7 +32,7 @@ protected:
     void SetUp() override
     {
         m_globalContext = std::make_shared<NiceMock<context::GlobalContextMock> >();
-        m_project = std::make_shared<NiceMock<project::AudacityProjectMock> >();
+        m_project = std::make_shared<NiceMock<project::AGuProjectMock> >();
         m_trackeditProject = std::make_shared<NiceMock<trackedit::TrackeditProjectMock> >();
         m_selectionController = std::make_shared<NiceMock<trackedit::SelectionControllerMock> >();
         m_trackNavigationController = std::make_shared<NiceMock<trackedit::TrackNavigationControllerMock> >();
@@ -90,7 +90,7 @@ protected:
     const trackedit::ItemKeys m_touched { { { 1, 11 }, { 1, 12 } }, { { 2, 21 } } };
 
     std::shared_ptr<NiceMock<context::GlobalContextMock> > m_globalContext;
-    std::shared_ptr<NiceMock<project::AudacityProjectMock> > m_project;
+    std::shared_ptr<NiceMock<project::AGuProjectMock> > m_project;
     std::shared_ptr<NiceMock<trackedit::TrackeditProjectMock> > m_trackeditProject;
     std::shared_ptr<NiceMock<trackedit::SelectionControllerMock> > m_selectionController;
     std::shared_ptr<NiceMock<trackedit::TrackNavigationControllerMock> > m_trackNavigationController;

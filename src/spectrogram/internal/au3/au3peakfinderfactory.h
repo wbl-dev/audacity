@@ -10,7 +10,7 @@
 
 #include "framework/global/modularity/ioc.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class Au3PeakFinderFactory : public IPeakFinderFactory, public muse::Contextable
 {
     muse::ContextInject<context::IGlobalContext> globalContext { this };

@@ -9,7 +9,7 @@
 
 #include <algorithm>
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 AbstractSpectrogramSettingsModel::AbstractSpectrogramSettingsModel(QObject* parent)
     : QObject(parent) {}
 

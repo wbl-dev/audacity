@@ -34,15 +34,15 @@
 #include "au3wrap/iau3project.h"
 // maybe use the #include "appshell/internal/isessionsmanager.h"
 
-namespace au::project {
+namespace agu::project {
 class ProjectAutoSaver : public IProjectAutoSaver, public muse::async::Asyncable, public muse::Contextable
 {
     muse::GlobalInject<muse::io::IFileSystem> fileSystem;
     muse::GlobalInject<IProjectConfiguration> configuration;
-    muse::GlobalInject<au::au3::IAu3ProjectCreator> au3ProjectCreator;
+    muse::GlobalInject<agu::au3::IAu3ProjectCreator> au3ProjectCreator;
 
-    muse::ContextInject<au::context::IGlobalContext> globalContext { this };
-    // maybe use the muse::ContextInject<au::appshell::ISessionsManager> sessionsManager;
+    muse::ContextInject<agu::context::IGlobalContext> globalContext { this };
+    // maybe use the muse::ContextInject<agu::appshell::ISessionsManager> sessionsManager;
 
 public:
     ProjectAutoSaver(const muse::modularity::ContextPtr& ctx)
@@ -51,7 +51,7 @@ public:
     void init();
 
 private:
-    IAudacityProjectPtr currentProject() const;
+    IAGuProjectPtr currentProject() const;
 
     void update();
 

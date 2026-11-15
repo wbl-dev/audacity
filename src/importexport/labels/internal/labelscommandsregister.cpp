@@ -3,7 +3,7 @@
 #include "framework/global/types/translatablestring.h"
 #include "../labelscommands.h"
 
-using namespace au::importexport;
+using namespace agu::importexport;
 using namespace muse::rcommand;
 
 namespace {

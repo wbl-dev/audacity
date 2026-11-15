@@ -5,7 +5,7 @@
 
 #include <vector>
 
-namespace au::shared {
+namespace agu::shared {
 struct AxisTick {
     double val = 0.;
     double position = 0.;   ///< Fractional position along the axis, in [0, 1].

@@ -7,7 +7,7 @@
 
 #include "macromanager/irunonfilesrequests.h"
 
-namespace au::macromanager {
+namespace agu::macromanager {
 class RunOnFilesRequests : public IRunOnFilesRequests
 {
 public:

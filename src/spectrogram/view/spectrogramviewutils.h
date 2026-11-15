@@ -5,7 +5,7 @@
 
 #include <QString>
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 template<typename PropertyType>
 struct TableEntry {
     const int index;

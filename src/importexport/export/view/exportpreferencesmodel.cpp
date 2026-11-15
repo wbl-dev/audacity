@@ -17,7 +17,7 @@
 #include <algorithm>
 #include <optional>
 
-using namespace au::importexport;
+using namespace agu::importexport;
 
 namespace {
 QString prepareExtensionsString(const QStringList& extensionList)
@@ -574,7 +574,7 @@ void ExportPreferencesModel::setExportSampleRate(const QString& rateName)
 
 void ExportPreferencesModel::openCustomSampleRateDialog()
 {
-    muse::UriQuery customRateUri("audacity://trackedit/custom_rate");
+    muse::UriQuery customRateUri("agu://trackedit/custom_rate");
     customRateUri.addParam("title", muse::Val(muse::trc("export", "Set sample rate")));
     customRateUri.addParam("rate", muse::Val(exportConfiguration()->exportSampleRate()));
 
@@ -702,7 +702,7 @@ void ExportPreferencesModel::updateExportChannels()
     const auto project = globalContext()->currentTrackeditProject();
     if (project) {
         const bool recordsStereo = m_settingsOnly && audioDriverController()->configuration().inputChannels >= 2;
-        const bool hasStereo = recordsStereo || au::trackedit::utils::hasStereoTrack(project->trackList());
+        const bool hasStereo = recordsStereo || agu::trackedit::utils::hasStereoTrack(project->trackList());
         ExportChannelsPref::ExportChannels recommended = hasStereo
                                                          ? ExportChannelsPref::ExportChannels::STEREO
                                                          : ExportChannelsPref::ExportChannels::MONO;

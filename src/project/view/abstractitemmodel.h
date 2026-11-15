@@ -23,7 +23,7 @@
 
 #include <QAbstractListModel>
 
-namespace au::project {
+namespace agu::project {
 class AbstractItemModel : public QAbstractListModel
 {
     Q_OBJECT

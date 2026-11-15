@@ -11,7 +11,7 @@
 #include "playback/iaudiooutput.h"
 #include "trackedit/itrackeditproject.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 GeneratorEffectModel::GeneratorEffectModel(QObject* parent, int instanceId)
     : BuiltinEffectModel{parent, instanceId}

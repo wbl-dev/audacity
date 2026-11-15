@@ -10,7 +10,7 @@
 
 #include <cmath>
 
-using namespace au::effects;
+using namespace agu::effects;
 
 ChangePitchViewModel::ChangePitchViewModel(QObject* parent, int instanceId)
     : BuiltinEffectModel(parent, instanceId)

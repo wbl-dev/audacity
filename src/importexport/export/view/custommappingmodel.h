@@ -10,7 +10,7 @@
 #include "modularity/ioc.h"
 #include "iexportconfiguration.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class CustomMappingModel : public QObject, public muse::async::Asyncable
 {
     Q_OBJECT

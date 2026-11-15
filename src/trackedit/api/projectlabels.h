@@ -10,7 +10,7 @@
 #include <QObject>
 #include <QVariantList>
 
-namespace au::trackedit::api {
+namespace agu::trackedit::api {
 struct ProjectLabel;
 
 namespace detail {
@@ -79,4 +79,4 @@ private:
     size_t m_index = 0;
 };
 } // namespace detail
-} // namespace au::trackedit::api
+} // namespace agu::trackedit::api

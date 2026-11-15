@@ -7,7 +7,7 @@
 
 #include "framework/rcommand/commandtypes.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 inline static const muse::rcommand::Command EXPORT_MP3_COMMAND("command://importexport/export/mp3");
 
 constexpr std::string_view EXPORT_COMMAND_PATH_PREFIX = "importexport/export/";

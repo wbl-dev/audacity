@@ -6,7 +6,7 @@
 
 #include <QKeyEvent>
 
-namespace au::projectscene {
+namespace agu::projectscene {
 TapHoldShortcut::TapHoldShortcut(muse::modularity::ContextPtr ctx, const std::string& action, QObject* target)
     : QObject(nullptr), muse::Contextable(ctx), m_action(action)
 {

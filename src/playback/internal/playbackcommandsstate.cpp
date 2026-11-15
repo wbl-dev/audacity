@@ -7,7 +7,7 @@
 
 #include "../playbackcommands.h"
 
-using namespace au::playback;
+using namespace agu::playback;
 using namespace muse;
 using namespace muse::rcommand;
 

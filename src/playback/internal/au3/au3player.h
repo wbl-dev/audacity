@@ -21,13 +21,13 @@
 #include <optional>
 
 struct TransportSequences;
-namespace au::playback {
+namespace agu::playback {
 class Au3Player : public IPlayer, public muse::async::Asyncable, public muse::Contextable
 {
-    muse::GlobalInject<au::audio::IAudioEngine> audioEngine;
+    muse::GlobalInject<agu::audio::IAudioEngine> audioEngine;
 
     muse::ContextInject<context::IGlobalContext> globalContext{ this };
-    muse::ContextInject<au::trackedit::ISelectionController> selectionController{ this };
+    muse::ContextInject<agu::trackedit::ISelectionController> selectionController{ this };
 
 public:
 

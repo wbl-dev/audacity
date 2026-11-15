@@ -20,7 +20,7 @@
 #include "trackedit/iselectioncontroller.h"
 #include "audio/driver/iaudiodrivercontroller.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class ExportPreferencesModel : public QObject, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT
@@ -35,7 +35,7 @@ class ExportPreferencesModel : public QObject, public muse::async::Asyncable, pu
     muse::ContextInject<context::IGlobalContext> globalContext{ this };
     muse::ContextInject<IExporter> exporter{ this };
     muse::ContextInject<effects::IRealtimeEffectService> realtimeEffectService{ this };
-    muse::ContextInject<au::playback::IPlaybackController> playbackController{ this };
+    muse::ContextInject<agu::playback::IPlaybackController> playbackController{ this };
     muse::ContextInject<trackedit::ISelectionController> selectionController{ this };
 
     Q_PROPERTY(QString currentProcess READ currentProcess NOTIFY currentProcessChanged)

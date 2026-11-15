@@ -8,7 +8,7 @@
 #include "project/projectcommands.h"
 #include "projectscene/projectscenecommands.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 using namespace muse::uicomponents;
 using namespace muse::rcommand;
 

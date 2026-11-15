@@ -14,7 +14,7 @@
 
 class WaveChannel;
 
-namespace au::effects {
+namespace agu::effects {
 class RemoveDCOffsetEffect : public StatefulEffect
 {
 public:

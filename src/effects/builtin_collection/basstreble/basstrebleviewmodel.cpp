@@ -5,7 +5,7 @@
 
 #include "basstrebleeffect.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 BassTrebleViewModel::BassTrebleViewModel(QObject* parent, int instanceId)
     : BuiltinEffectModel(parent, instanceId)

@@ -31,7 +31,7 @@
 #include "global/types/uri.h"
 #include "modularity/imodulesetup.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 struct AppShellPageManifest
 {
     std::vector<muse::Uri> pages;

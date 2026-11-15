@@ -22,7 +22,7 @@ class TrackList;
 class TransactionScope;
 class WaveTrack;
 
-namespace au::trackedit::api::detail {
+namespace agu::trackedit::api::detail {
 constexpr size_t AUDIO_CHUNK_SAMPLES = 65536;
 
 struct AudioFormat {
@@ -146,4 +146,4 @@ QObject* makeProjectEdit(std::shared_ptr<EditState> state, QObject* parent);
 bool prepareChanges(EditState& state, PreparedChanges& prepared, std::string& error);
 bool applyChanges(EditState& state, std::string& error, AppliedChanges* applied = nullptr);
 bool rollbackChanges(EditState& state, AppliedChanges& applied, std::string& error);
-} // namespace au::trackedit::api::detail
+} // namespace agu::trackedit::api::detail

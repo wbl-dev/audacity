@@ -8,7 +8,7 @@
 #include "projectscene/iprojectsceneactionscontroller.h"
 #include "projectscene/itimelineviewcontroller.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class TimelineContext;
 class TimelineViewController : public ITimelineViewController, public muse::Contextable
 {

@@ -7,7 +7,7 @@
 
 #include "effects/builtin/internal/builtintypes.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 namespace {
 // resource type builtin effects were cached under before the rename to

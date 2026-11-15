@@ -11,7 +11,7 @@
 
 #include "log.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 MuseVstPluginInstance::MuseVstPluginInstance(const EffectId& effectId,
                                              const EffectInstanceId& instanceId,

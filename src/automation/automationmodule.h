@@ -5,7 +5,7 @@
 
 #include "framework/global/modularity/imodulesetup.h"
 
-namespace au::automation {
+namespace agu::automation {
 class AutomationModule : public muse::modularity::IModuleSetup
 {
 public:

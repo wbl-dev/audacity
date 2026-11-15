@@ -12,7 +12,7 @@
  * It compares these, and calls the corresponding notifications in AU4,
  * to update as small a GUI section as needed, for reflecting the changes before and after.
  */
-namespace au::trackedit::changeDetection {
+namespace agu::trackedit::changeDetection {
 /**
  * Takes two structures, one created before and one after Undo/Redo.
  * It compares these, and calls the corresponding notifications in Audacity,

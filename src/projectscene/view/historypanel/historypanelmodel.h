@@ -13,7 +13,7 @@
 #include "trackedit/itrackeditinteraction.h"
 #include "trackedit/iprojecthistory.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class HistoryPanelModel : public QAbstractListModel, public QQmlParserStatus, public muse::Contextable, public muse::async::Asyncable
 {
     Q_OBJECT

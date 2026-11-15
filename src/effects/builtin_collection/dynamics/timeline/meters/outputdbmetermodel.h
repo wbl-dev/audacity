@@ -5,7 +5,7 @@
 
 #include "abstractdbmetermodel.h"
 
-namespace au::effects {
+namespace agu::effects {
 class OutputDbMeterModel : public AbstractDbMeterModel
 {
     Q_OBJECT
@@ -25,4 +25,4 @@ private:
     bool m_isClipping = false;
     float latestValue() override;
 };
-} // namespace au::effects
+} // namespace agu::effects

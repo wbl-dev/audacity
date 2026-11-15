@@ -7,7 +7,7 @@
 
 #include "trackedit/itrackeditclipboard.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class ClipboardMock : public ITrackeditClipboard
 {
 public:

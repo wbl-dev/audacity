@@ -7,7 +7,7 @@
 
 #include "trackedit/itracksinteraction.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class TracksInteractionMock : public ITracksInteraction
 {
 public:

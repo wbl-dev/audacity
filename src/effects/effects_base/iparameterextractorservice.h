@@ -5,7 +5,7 @@
 
 #include "effectstypes.h"
 
-namespace au::effects {
+namespace agu::effects {
 //! Generic interface for parameter extraction from plugin effects.
 //! Each plugin format (VST3, LV2, AudioUnit) provides its own implementation.
 //! Implementations are registered with IParameterExtractorRegistry.

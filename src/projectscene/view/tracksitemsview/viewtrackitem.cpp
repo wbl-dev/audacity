@@ -4,7 +4,7 @@
 #include <realfn.h>
 #include "viewtrackitem.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 ViewTrackItem::ViewTrackItem(QObject* parent)
     : QObject(parent)

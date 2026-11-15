@@ -17,7 +17,7 @@
 #include <string>
 #include <vector>
 
-using au::importexport::LegacyAupImporter;
+using agu::importexport::LegacyAupImporter;
 
 namespace {
 struct AudioData

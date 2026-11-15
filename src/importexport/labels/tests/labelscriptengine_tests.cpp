@@ -14,7 +14,7 @@
 #include <QDir>
 #include <QFile>
 
-using namespace au::importexport;
+using namespace agu::importexport;
 
 TEST(LabelParserCommandTests, RescanHasEnabledCommandState)
 {

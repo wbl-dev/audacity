@@ -12,7 +12,7 @@
 
 #include "uicomponents/qml/Muse/UiComponents/toolbaritem.h"
 
-namespace au::playback {
+namespace agu::playback {
 class PlaybackToolBarLevelItem : public muse::uicomponents::ToolBarItem
 {
     Q_OBJECT

@@ -7,7 +7,7 @@
 
 #include "itrackdata.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class IClipboardData : MODULE_GLOBAL_INTERFACE
 {
     INTERFACE_ID(IClipboardData)

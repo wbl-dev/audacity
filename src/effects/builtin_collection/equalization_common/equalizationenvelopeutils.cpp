@@ -10,7 +10,7 @@
 #include "au3-builtin-effects/EqualizationFilter.h"
 #include "au3-mixer/Envelope.h"
 
-namespace au::effects::eq_common {
+namespace agu::effects::eq_common {
 namespace {
 constexpr double kLoFreqRef = 20.0;
 }

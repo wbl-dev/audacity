@@ -20,7 +20,7 @@ class wxArrayStringEx;
 class WaveChannel;
 class WaveTrack;
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class Au3SpectrogramSettings : public TrackAttachment
 {
 public:

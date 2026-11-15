@@ -3,7 +3,7 @@
 */
 #include "clipboarddata.h"
 
-using namespace au::trackedit;
+using namespace agu::trackedit;
 
 std::vector<ITrackDataPtr> ClipboardData::trackData() const
 {

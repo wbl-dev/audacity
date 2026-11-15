@@ -7,7 +7,7 @@
 #include "types/importtypes.h"
 #include "trackedit/trackedittypes.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class IImporter : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IImporter)

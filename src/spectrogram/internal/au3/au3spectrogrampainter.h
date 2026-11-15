@@ -11,7 +11,7 @@
 #include "framework/global/modularity/ioc.h"
 #include "framework/global/async/asyncable.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class Au3SpectrogramPainter final : public ISpectrogramPainter, public muse::async::Asyncable, public muse::Contextable
 {
     muse::ContextInject<context::IGlobalContext> globalContext { this };

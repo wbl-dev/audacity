@@ -18,21 +18,21 @@
 
 #include "../../itracksinteraction.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class Au3TrackData;
 using Au3TrackDataPtr = std::shared_ptr<Au3TrackData>;
 
 class Au3TracksInteraction : public ITracksInteraction, public muse::Contextable
 {
-    muse::GlobalInject<au::trackedit::ITrackeditConfiguration> configuration;
-    muse::GlobalInject<au::playback::IPlaybackConfiguration> playbackConfiguration;
+    muse::GlobalInject<agu::trackedit::ITrackeditConfiguration> configuration;
+    muse::GlobalInject<agu::playback::IPlaybackConfiguration> playbackConfiguration;
 
     muse::ContextInject<muse::IInteractive> interactive{ this };
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
-    muse::ContextInject<au::trackedit::ISelectionController> selectionController{ this };
-    muse::ContextInject<au::trackedit::IProjectHistory> projectHistory{ this };
-    muse::ContextInject<au::trackedit::IClipsInteraction> clipsInteraction{ this };
-    muse::ContextInject<au::trackedit::ITrackNavigationController> trackNavigationController{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::trackedit::ISelectionController> selectionController{ this };
+    muse::ContextInject<agu::trackedit::IProjectHistory> projectHistory{ this };
+    muse::ContextInject<agu::trackedit::IClipsInteraction> clipsInteraction{ this };
+    muse::ContextInject<agu::trackedit::ITrackNavigationController> trackNavigationController{ this };
 
 public:
     Au3TracksInteraction(const muse::modularity::ContextPtr& ctx);
@@ -82,7 +82,7 @@ public:
 
     double nearestZeroCrossing(double time) const override;
 
-    au::trackedit::TrackId addWaveTrack(int nChannels) override;
+    agu::trackedit::TrackId addWaveTrack(int nChannels) override;
     void removeDragAddedTracks(size_t numTracksWhenDragStarted, bool emptyOnly) override;
 
     muse::Progress progress() const override;

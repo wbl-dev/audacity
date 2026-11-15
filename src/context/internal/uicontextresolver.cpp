@@ -26,12 +26,12 @@
 #include "shortcutcontext.h"
 #include "log.h"
 
-using namespace au::context;
+using namespace agu::context;
 using namespace muse;
 using namespace muse::ui;
 
-static const Uri HOME_PAGE_URI("audacity://home");
-static const Uri PROJECT_PAGE_URI("audacity://project");
+static const Uri HOME_PAGE_URI("agu://home");
+static const Uri PROJECT_PAGE_URI("agu://project");
 
 static const muse::Uri EXTENSIONS_DIALOG_URI("muse://extensions/viewer");
 

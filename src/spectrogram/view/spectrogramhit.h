@@ -5,7 +5,7 @@
 
 #include <QObject>
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class SpectrogramHit
 {
 public:

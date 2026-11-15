@@ -26,8 +26,8 @@
 #define MYLOG LOGN
 #endif
 
-using namespace au::trackedit;
-using namespace au::au3;
+using namespace agu::trackedit;
+using namespace agu::au3;
 
 void Au3SelectionController::init()
 {
@@ -300,7 +300,7 @@ void Au3SelectionController::resetSelectedClips()
     MYLOG() << "[SELECTION] resetSelectedClip";
     //! NOTE: sync clip deselection with au3 persistence
     au3::DomAccessor::clearAllClipSelection(projectRef());
-    m_selectedClips.set(au::trackedit::ClipKeyList(), true);
+    m_selectedClips.set(agu::trackedit::ClipKeyList(), true);
     resetItemSelectionAnchorIfNoSelection();
 }
 
@@ -330,7 +330,7 @@ ClipKeyList Au3SelectionController::selectedClipsInTrackOrder() const
 }
 
 namespace {
-int trackIndexOf(const std::vector<au::trackedit::Track>& tracks, const au::trackedit::TrackId& trackId)
+int trackIndexOf(const std::vector<agu::trackedit::Track>& tracks, const agu::trackedit::TrackId& trackId)
 {
     for (int i = 0; i < static_cast<int>(tracks.size()); ++i) {
         if (tracks.at(i).id == trackId) {
@@ -518,7 +518,7 @@ void Au3SelectionController::resetSelectedLabels()
 {
     MYLOG() << "[SELECTION] resetSelectedLabels";
     au3::DomAccessor::clearAllLabelSelection(projectRef());
-    m_selectedLabels.set(au::trackedit::LabelKeyList(), true);
+    m_selectedLabels.set(agu::trackedit::LabelKeyList(), true);
     resetItemSelectionAnchorIfNoSelection();
 }
 
@@ -730,7 +730,7 @@ void Au3SelectionController::setSelectedItems(const ItemKeys& items, bool comple
         au3::DomAccessor::setLabelSelected(projectRef(), key, true);
     }
 
-    const TrackIdList itemTracks = au::trackedit::utils::itemTrackIds(items);
+    const TrackIdList itemTracks = agu::trackedit::utils::itemTrackIds(items);
     TrackIdList tracks;
     for (Au3Track* au3Track : Au3TrackList::Get(projectRef())) {
         const TrackId trackId = TrackId(au3Track->GetId());
@@ -942,7 +942,7 @@ bool Au3SelectionController::timeSelectionIsEmpty() const
         m_selectedEndTime.val, m_selectedStartTime.val);
 }
 
-bool au::trackedit::Au3SelectionController::timeSelectionHasAudioData() const
+bool agu::trackedit::Au3SelectionController::timeSelectionHasAudioData() const
 {
     if (timeSelectionIsEmpty() || m_selectedTracks.val.empty()) {
         return false;
@@ -1030,12 +1030,12 @@ LabelKeyList Au3SelectionController::findLabelsIntersectingRangeSelection() cons
     return result;
 }
 
-au::trackedit::secs_t Au3SelectionController::dataSelectedStartTime() const
+agu::trackedit::secs_t Au3SelectionController::dataSelectedStartTime() const
 {
     return m_selectedStartTime.val;
 }
 
-void Au3SelectionController::setDataSelectedStartTime(au::trackedit::secs_t time, bool complete)
+void Au3SelectionController::setDataSelectedStartTime(agu::trackedit::secs_t time, bool complete)
 {
     MYLOG() << "[SELECTION] setDataSelectedStartTime: " << time << ", complete: " << complete;
 
@@ -1051,22 +1051,22 @@ void Au3SelectionController::setDataSelectedStartTime(au::trackedit::secs_t time
     }
 }
 
-muse::async::Channel<au::trackedit::secs_t> Au3SelectionController::dataSelectedStartTimeChanged() const
+muse::async::Channel<agu::trackedit::secs_t> Au3SelectionController::dataSelectedStartTimeChanged() const
 {
     return m_selectedStartTime.changed;
 }
 
-muse::async::Channel<au::trackedit::secs_t> Au3SelectionController::dataSelectedStartTimeSelected() const
+muse::async::Channel<agu::trackedit::secs_t> Au3SelectionController::dataSelectedStartTimeSelected() const
 {
     return m_selectedStartTime.selected;
 }
 
-au::trackedit::secs_t Au3SelectionController::dataSelectedEndTime() const
+agu::trackedit::secs_t Au3SelectionController::dataSelectedEndTime() const
 {
     return m_selectedEndTime.val;
 }
 
-void Au3SelectionController::setDataSelectedEndTime(au::trackedit::secs_t time, bool complete)
+void Au3SelectionController::setDataSelectedEndTime(agu::trackedit::secs_t time, bool complete)
 {
     MYLOG() << "[SELECTION] setDataSelectedEndTime: " << time << ", complete: " << complete;
 
@@ -1096,12 +1096,12 @@ void Au3SelectionController::resetTimeSelection()
     resetSelectedLabels();
 }
 
-muse::async::Channel<au::trackedit::secs_t> Au3SelectionController::dataSelectedEndTimeChanged() const
+muse::async::Channel<agu::trackedit::secs_t> Au3SelectionController::dataSelectedEndTimeChanged() const
 {
     return m_selectedEndTime.changed;
 }
 
-muse::async::Channel<au::trackedit::secs_t> Au3SelectionController::dataSelectedEndTimeSelected() const
+muse::async::Channel<agu::trackedit::secs_t> Au3SelectionController::dataSelectedEndTimeSelected() const
 {
     return m_selectedEndTime.selected;
 }

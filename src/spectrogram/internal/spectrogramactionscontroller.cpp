@@ -8,7 +8,7 @@
 
 #include "../spectrogramcommands.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 void SpectrogramActionsController::init()
 {
     commandDispatcher()->onRequest(this, TRACK_SPECTROGRAM_SETTINGS_COMMAND, [this](const muse::rcommand::Params& params) {

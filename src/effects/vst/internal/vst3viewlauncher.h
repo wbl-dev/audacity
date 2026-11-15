@@ -10,7 +10,7 @@
 #include "effects/effects_base/ieffectinstancesregister.h"
 #include "effects/effects_base/internal/abstractviewlauncher.h"
 
-namespace au::effects {
+namespace agu::effects {
 class Vst3ViewLauncher final : public AbstractViewLauncher
 {
     muse::GlobalInject<muse::vst::IVstInstancesRegister> museInstancesRegister;

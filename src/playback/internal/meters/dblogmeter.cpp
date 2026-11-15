@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <array>
 
-using namespace au::playback;
+using namespace agu::playback;
 
 namespace {
 constexpr double MAX_VOLUME_DB = 0.0;

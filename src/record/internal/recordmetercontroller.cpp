@@ -4,7 +4,7 @@
 
 #include "recordmetercontroller.h"
 
-using namespace au::record;
+using namespace agu::record;
 
 bool RecordMeterController::isRecordMeterVisible() const
 {

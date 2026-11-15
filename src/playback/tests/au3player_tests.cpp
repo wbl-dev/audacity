@@ -6,7 +6,7 @@
 
 #include "au3audio/tests/mocks/audioenginemock.h"
 #include "context/tests/mocks/globalcontextmock.h"
-#include "project/tests/mocks/audacityprojectmock.h"
+#include "project/tests/mocks/aguprojectmock.h"
 #include "project/tests/testtools.h"
 #include "trackedit/tests/mocks/selectioncontrollermock.h"
 #include "trackedit/tests/mocks/trackeditprojectmock.h"
@@ -24,7 +24,7 @@ using ::testing::DoubleNear;
 using ::testing::NiceMock;
 using ::testing::Return;
 
-namespace au::playback {
+namespace agu::playback {
 constexpr double SAMPLE_RATE = 44100.0;
 constexpr double TRACK_DURATION = 0.5;
 constexpr double TIME_TOLERANCE = 1e-3;
@@ -37,7 +37,7 @@ public:
         m_globalContext = std::make_shared<NiceMock<context::GlobalContextMock> >();
         m_selectionController = std::make_shared<NiceMock<trackedit::SelectionControllerMock> >();
         m_audioEngine = std::make_shared<NiceMock<audio::AudioEngineMock> >();
-        m_currentProject = std::make_shared<NiceMock<project::AudacityProjectMock> >();
+        m_currentProject = std::make_shared<NiceMock<project::AGuProjectMock> >();
         m_trackeditProject = std::make_shared<NiceMock<trackedit::TrackeditProjectMock> >();
 
         //! NOTE: Au3Player subscribes to the global context in its constructor,
@@ -118,7 +118,7 @@ public:
     std::shared_ptr<NiceMock<context::GlobalContextMock> > m_globalContext;
     std::shared_ptr<NiceMock<trackedit::SelectionControllerMock> > m_selectionController;
     std::shared_ptr<NiceMock<audio::AudioEngineMock> > m_audioEngine;
-    std::shared_ptr<NiceMock<project::AudacityProjectMock> > m_currentProject;
+    std::shared_ptr<NiceMock<project::AGuProjectMock> > m_currentProject;
     std::shared_ptr<NiceMock<trackedit::TrackeditProjectMock> > m_trackeditProject;
 
     std::shared_ptr<au3::Au3ProjectAccessor> m_projectAccessor;

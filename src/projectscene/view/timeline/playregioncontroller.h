@@ -13,7 +13,7 @@
 
 #include "timelinecontext.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class PlayRegionController : public QObject, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT

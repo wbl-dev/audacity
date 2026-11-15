@@ -56,7 +56,7 @@ SRC_DIRS=(
     muse/framework/vst
     muse/framework/workspace
 )
-TS_FILE=share/locale/audacity_${1:-en}.ts
+TS_FILE=share/locale/agu_${1:-en}.ts
 DEFAULT_LUPDATE_ARGS=(
     -recursive
     -tr-function-alias translate+=trc
@@ -80,7 +80,7 @@ run_indented python3 tools/translations/extract_nyquist_strings.py \
 # We only need to update one ts file per "resource", that will be sent to Transifex.
 # We get .ts files for other languages from Transifex.
 
-echo "Audacity:"
+echo "AGu:"
 echo "Running" "${LUPDATE}" "${DEFAULT_LUPDATE_ARGS[@]}" ${LUPDATE_ARGS} "${SRC_DIRS[@]}" -ts "${TS_FILE}"
 run_indented "${LUPDATE}" "${DEFAULT_LUPDATE_ARGS[@]}" ${LUPDATE_ARGS} "${SRC_DIRS[@]}" -ts "${TS_FILE}"
 

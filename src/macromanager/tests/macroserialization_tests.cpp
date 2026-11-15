@@ -11,7 +11,7 @@
 
 using namespace muse;
 using namespace muse::rcommand;
-using namespace au::macromanager;
+using namespace agu::macromanager;
 
 namespace {
 Params roundTrip(const Params& params)

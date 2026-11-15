@@ -24,7 +24,7 @@ namespace muse::extensions {
 class ByteBuffer;
 }
 
-namespace au::trackedit::api {
+namespace agu::trackedit::api {
 struct ProjectAudioClip;
 
 namespace detail {
@@ -169,4 +169,4 @@ private:
     bool m_routed = false;
 };
 } // namespace detail
-} // namespace au::trackedit::api
+} // namespace agu::trackedit::api

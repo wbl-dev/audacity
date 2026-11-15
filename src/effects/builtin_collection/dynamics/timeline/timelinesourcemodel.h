@@ -14,7 +14,7 @@
 
 class QTimer;
 
-namespace au::effects {
+namespace agu::effects {
 class TimelineSourceModel : public AbstractDynamicsEffectInstanceModel
 {
     Q_OBJECT
@@ -49,4 +49,4 @@ private:
 
     QTimer* m_deliveryTimer = nullptr;
 };
-} // namespace au::effects
+} // namespace agu::effects

@@ -28,7 +28,7 @@ target_sources(macromanager PRIVATE
 
 target_link_libraries(macromanager PRIVATE exporter)
 
-add_subdirectory(qml/Audacity/MacroManager)
+add_subdirectory(qml/AGu/MacroManager)
 
 if (AU_BUILD_MACROMANAGER_TESTS)
     add_subdirectory(tests)

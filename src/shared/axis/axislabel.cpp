@@ -9,7 +9,7 @@
 
 #include <algorithm>
 
-namespace au {
+namespace agu {
 namespace {
 std::string valueToLabel(double value, int decimalDigits)
 {

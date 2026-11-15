@@ -18,7 +18,7 @@
 
 class WaveChannel;
 
-namespace au::effects {
+namespace agu::effects {
 class PaulstretchEffect : public StatefulEffect
 {
 public:

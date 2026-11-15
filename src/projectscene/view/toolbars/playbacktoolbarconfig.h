@@ -10,7 +10,7 @@
 #include "trackedit/trackeditcommands.h"
 #include "projectscene/projectscenecommands.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 inline const muse::ui::ToolConfig& defaultPlaybackToolBarConfig()
 {
     static const muse::ui::ToolConfig config = []() {

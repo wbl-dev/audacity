@@ -13,7 +13,7 @@
 #include <QAbstractListModel>
 #include <QHash>
 
-namespace au::effects {
+namespace agu::effects {
 //! Model that exposes effect parameters as a list for QML consumption.
 //! This is a separate model to allow GeneratedEffectViewerModel to inherit
 //! from AbstractEffectViewModel while still providing list-based parameter access.

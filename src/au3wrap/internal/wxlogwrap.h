@@ -3,7 +3,7 @@
 
 #include <wx/log.h>
 
-namespace au::au3 {
+namespace agu::au3 {
 class WxLogWrap : public wxLog
 {
 public:

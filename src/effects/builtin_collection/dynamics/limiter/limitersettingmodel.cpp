@@ -8,7 +8,7 @@
 
 #include <unordered_map>
 
-namespace au::effects {
+namespace agu::effects {
 LimiterSettingModel::LimiterSettingModel(QObject* parent, int instanceId)
     : EffectSettingModelImpl<LimiterEffect>(parent, instanceId, {
         { "thresholdDb", { muse::qtrc("effects", "Threshold"), muse::qtrc("effects", "dB") } },

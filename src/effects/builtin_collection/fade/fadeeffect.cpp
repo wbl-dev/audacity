@@ -2,7 +2,7 @@
 
 #include "au3-strings/TranslatableString.h"
 
-namespace au::effects {
+namespace agu::effects {
 FadeEffectBase::FadeEffectBase(bool fadeIn)
 {
     mFadeIn = fadeIn;

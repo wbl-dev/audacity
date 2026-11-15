@@ -9,7 +9,7 @@
 #include "modularity/ioc.h"
 #include "context/iglobalcontext.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class Au3TrackData;
 using Au3TrackDataPtr = std::shared_ptr<Au3TrackData>;
 
@@ -17,7 +17,7 @@ class Au3TrackeditClipboard : public ITrackeditClipboard, public muse::Contextab
 {
     muse::GlobalInject<IClipboardData> clipboardData;
 
-    muse::ContextInject<au::context::IGlobalContext> globalContext { this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext { this };
 
 public:
     Au3TrackeditClipboard(const muse::modularity::ContextPtr& ctx)

@@ -2,7 +2,7 @@
 
 #include "log.h"
 
-using namespace au::trackedit;
+using namespace agu::trackedit;
 
 namespace {
 /**
@@ -195,7 +195,7 @@ bool labelsPair(ITrackeditProjectPtr trackeditProjectPtr,
 }
 }  // namespace
 
-namespace au::trackedit::changeDetection {
+namespace agu::trackedit::changeDetection {
 void notifyOfUndoRedo(const TracksAndItems& before,
                       const TracksAndItems& after,
                       ITrackeditProjectPtr trackeditProject)

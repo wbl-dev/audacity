@@ -5,7 +5,7 @@
 
 #include "framework/rcommand/commandtypes.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 inline static const muse::rcommand::Command TRACKEDIT_UNDO_COMMAND("command://trackedit/undo");
 inline static const muse::rcommand::Command TRACKEDIT_REDO_COMMAND("command://trackedit/redo");
 inline static const muse::rcommand::Command TRACKEDIT_CANCEL_COMMAND("command://trackedit/cancel");

@@ -5,7 +5,7 @@
 
 #include "volumepressuremeteritembase.h"
 
-namespace au::playback {
+namespace agu::playback {
 class HorizontalVolumePressureMeterItem : public VolumePressureMeterItemBase
 {
     Q_OBJECT

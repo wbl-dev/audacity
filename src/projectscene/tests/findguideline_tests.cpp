@@ -18,14 +18,14 @@
 #include "snaptestaccess.h"
 
 #include "context/tests/mocks/globalcontextmock.h"
-#include "project/tests/mocks/audacityprojectmock.h"
+#include "project/tests/mocks/aguprojectmock.h"
 #include "mocks/audiooutputmock.h"
 #include "playback/tests/mocks/playbackmock.h"
 #include "trackedit/tests/mocks/trackeditprojectmock.h"
 
 using namespace ::testing;
 
-namespace au::projectscene {
+namespace agu::projectscene {
 //! Wires a real (uninitialised) TimelineContext to mocks so the snap/guideline
 //! helpers can be exercised in isolation. With the default zoom (1.0) and
 //! frame start (0.0), position and time are 1:1.
@@ -35,7 +35,7 @@ protected:
     void SetUp() override
     {
         m_globalContext = std::make_shared<NiceMock<context::GlobalContextMock> >();
-        m_project = std::make_shared<NiceMock<project::AudacityProjectMock> >();
+        m_project = std::make_shared<NiceMock<project::AGuProjectMock> >();
         m_trackeditProject = std::make_shared<NiceMock<trackedit::TrackeditProjectMock> >();
         m_viewState = std::make_shared<ProjectViewState>(muse::modularity::globalCtx());
         m_playback = std::make_shared<NiceMock<playback::PlaybackMock> >();
@@ -76,7 +76,7 @@ protected:
     }
 
     std::shared_ptr<NiceMock<context::GlobalContextMock> > m_globalContext;
-    std::shared_ptr<NiceMock<project::AudacityProjectMock> > m_project;
+    std::shared_ptr<NiceMock<project::AGuProjectMock> > m_project;
     std::shared_ptr<NiceMock<trackedit::TrackeditProjectMock> > m_trackeditProject;
     std::shared_ptr<ProjectViewState> m_viewState;
     std::shared_ptr<NiceMock<playback::PlaybackMock> > m_playback;

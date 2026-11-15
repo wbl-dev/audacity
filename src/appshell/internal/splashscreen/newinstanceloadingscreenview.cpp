@@ -29,7 +29,7 @@
 #include "translation.h"
 
 using namespace muse;
-using namespace au::appshell;
+using namespace agu::appshell;
 
 NewInstanceLoadingScreenView::NewInstanceLoadingScreenView(bool forNewProject, const QString& openingFileName, QWidget* parent)
     : QWidget(parent)

@@ -7,7 +7,7 @@
 
 #include "ieffectloader.h"
 
-namespace au::effects {
+namespace agu::effects {
 class IEffectLoadersRegister : MODULE_GLOBAL_EXPORT_INTERFACE
 {
     INTERFACE_ID(IEffectLoadersRegister)
@@ -18,4 +18,4 @@ public:
     virtual void registerLoader(IEffectLoaderPtr loader) = 0;
     virtual IEffectLoaderPtr loader(EffectFamily family) const = 0;
 };
-} // namespace au::effects
+} // namespace agu::effects

@@ -5,7 +5,7 @@
 
 #include "startupscenario.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 //! NOTE Starts empty, with no startup dialog and no session restore
 class TestflowStartupScenario : public StartupScenario
 {

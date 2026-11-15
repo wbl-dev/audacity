@@ -11,7 +11,7 @@
 
 #include "macromanagertypes.h"
 
-namespace au::macromanager {
+namespace agu::macromanager {
 struct RunOnFilesRequest {
     Macro macro;
     muse::io::paths_t files;

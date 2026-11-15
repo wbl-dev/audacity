@@ -5,7 +5,7 @@
 
 #include "effects/effects_base/internal/abstractviewlauncher.h"
 
-namespace au::effects {
+namespace agu::effects {
 class BuiltinViewLauncher final : public AbstractViewLauncher
 {
 public:

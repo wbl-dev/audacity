@@ -4,7 +4,7 @@
 
 #include "playbackstatemodel.h"
 
-using namespace au::playback;
+using namespace agu::playback;
 
 PlaybackStateModel::PlaybackStateModel(QObject* parent)
     : QObject(parent), muse::Contextable(muse::iocCtxForQmlObject(this))

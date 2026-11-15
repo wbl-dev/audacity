@@ -4,7 +4,7 @@
 #include "wavepainterutils.h"
 #include "WaveformPainter.h"
 
-using namespace au::au3;
+using namespace agu::au3;
 
 namespace {
 graphics::Color ColorFromQColor(const QColor& color)
@@ -31,17 +31,17 @@ float getDBValue(float value, float dbRange)
 }
 }
 
-namespace au::projectscene {
+namespace agu::projectscene {
 void MinMaxRMSPainter::paint(QPainter& painter, const trackedit::ClipKey& clipKey, const IWavePainter::Params& params)
 {
-    au::au3::Au3Project* au3Project = reinterpret_cast<au::au3::Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());
+    agu::au3::Au3Project* au3Project = reinterpret_cast<agu::au3::Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());
 
-    WaveTrack* track = au::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
+    WaveTrack* track = agu::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
     if (!track) {
         return;
     }
 
-    std::shared_ptr<WaveClip> waveClip = au::au3::DomAccessor::findWaveClip(track, clipKey.itemId);
+    std::shared_ptr<WaveClip> waveClip = agu::au3::DomAccessor::findWaveClip(track, clipKey.itemId);
     if (!waveClip) {
         return;
     }
@@ -87,7 +87,7 @@ void MinMaxRMSPainter::paint(QPainter& painter, const trackedit::ClipKey& clipKe
             ColorFromQColor(params.style.selectedEnvelopeBackground))
         .SetEnvelope(waveClip->GetEnvelope());
 
-        au::projectscene::WaveMetrics _metrics = metrics;
+        agu::projectscene::WaveMetrics _metrics = metrics;
         _metrics.fromTime += waveClip->GetTrimLeft();
         _metrics.toTime += waveClip->GetTrimLeft();
 

@@ -5,7 +5,7 @@
 
 #include "au3-audio-io/PlaybackSchedule.h"
 
-namespace au::au3audio {
+namespace agu::au3audio {
 //! The PlaybackPolicy used by Audacity for most playback.
 /*! It subscribes to messages from ViewInfo and PlayRegion for loop bounds
  adjustment.  Therefore it is not a low-level class that can be defined with

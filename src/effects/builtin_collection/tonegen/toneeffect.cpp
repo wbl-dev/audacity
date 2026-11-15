@@ -7,7 +7,7 @@
 
 #include "log.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 const ComponentInterfaceSymbol ToneEffect::Symbol{ TranslatableString("effects-tonegen", "Tone") };
 

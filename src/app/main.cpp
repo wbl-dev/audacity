@@ -58,7 +58,7 @@ static void crashCallback(int signum)
 int main(int argc, char** argv)
 {
     if (argc == 2 && std::strcmp(argv[1], "--label-script-worker") == 0) {
-        return au::importexport::runLabelScriptWorker(argc, argv);
+        return agu::importexport::runLabelScriptWorker(argc, argv);
     }
 #ifndef MUSE_MODULE_DIAGNOSTICS_CRASHPAD_CLIENT
     signal(SIGSEGV, crashCallback);
@@ -96,12 +96,7 @@ int main(int argc, char** argv)
     }
 #endif
 
-    const char* appName;
-#ifdef MUSE_APP_UNSTABLE
-    appName  = "OnlyAudiosDevelopment";
-#else
-    appName  = "OnlyAudios";
-#endif
+    const char* appName = "AGu";
 
 #ifdef Q_OS_WIN
     // NOTE: There are some problems with rendering the application window on some integrated graphics processors
@@ -115,8 +110,8 @@ int main(int argc, char** argv)
     QGuiApplication::styleHints()->setMousePressAndHoldInterval(250);
 
     QCoreApplication::setApplicationName(appName);
-    QCoreApplication::setOrganizationName("OnlyAudios");
-    QCoreApplication::setOrganizationDomain("onlyaudios.local");
+    QCoreApplication::setOrganizationName("AGu");
+    QCoreApplication::setOrganizationDomain("agu.local");
     QCoreApplication::setApplicationVersion(MUSE_APP_VERSION);
 
 #if !defined(Q_OS_WIN) && !defined(Q_OS_DARWIN) && !defined(Q_OS_WASM)
@@ -124,7 +119,7 @@ int main(int argc, char** argv)
 #define MUSE_APP_INSTALL_SUFFIX ""
 #endif
     // Any OS that uses Freedesktop.org Desktop Entry Specification (e.g. Linux, BSD)
-    QGuiApplication::setDesktopFileName("org.audacityteam.Audacity" MUSE_APP_INSTALL_SUFFIX ".desktop");
+    QGuiApplication::setDesktopFileName("org.agu.app" MUSE_APP_INSTALL_SUFFIX ".desktop");
 #endif
 
     // Force the 8-bit text encoding to UTF-8. This is the default encoding on all supported platforms except for MSVC under Windows, which
@@ -165,7 +160,7 @@ int main(int argc, char** argv)
     // ====================================================
     // Parse command line options
     // ====================================================
-    au::app::CommandLineParser commandLineParser;
+    agu::app::CommandLineParser commandLineParser;
     commandLineParser.init();
     commandLineParser.parse(argcFinal, argvFinal);
 
@@ -181,7 +176,7 @@ int main(int argc, char** argv)
 
 #ifdef Q_OS_WIN
     if (commandLineParser.options()->app.memoryLeakReport) {
-        au::app::winleaktracker::install();
+        agu::app::winleaktracker::install();
     }
 #endif
 
@@ -200,7 +195,7 @@ int main(int argc, char** argv)
                 forwardedArgs.append(QString::fromUtf8(argvFinal[i]));
             }
             if (muse::mi::activateExistingInstance(QString::fromLatin1(appName), forwardedArgs)) {
-                LOGI() << "existing Audacity instance activated";
+                LOGI() << "existing AGu instance activated";
                 LOGI() << "exiting";
                 return 0;
             }
@@ -216,7 +211,7 @@ int main(int argc, char** argv)
     // ====================================================
     // Create and run the application
     // ====================================================
-    au::app::AppFactory factory;
+    agu::app::AppFactory factory;
     std::shared_ptr<muse::IApplication> app = factory.newApp(commandLineParser.options());
 
     app->setup();

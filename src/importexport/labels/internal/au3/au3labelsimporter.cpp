@@ -15,8 +15,8 @@
 #include "au3wrap/internal/wxtypes_convert.h"
 #include "au3wrap/internal/domconverter.h"
 
-using namespace au::au3;
-using namespace au::importexport;
+using namespace agu::au3;
+using namespace agu::importexport;
 
 muse::Ret Au3LabelsImporter::importData(const muse::io::path_t& filePath)
 {

@@ -8,10 +8,10 @@
 #include "playbackstate.h"
 #include "record/irecordcontroller.h"
 
-namespace au::context {
-class GlobalContext : public au::context::IGlobalContext, public muse::Contextable
+namespace agu::context {
+class GlobalContext : public agu::context::IGlobalContext, public muse::Contextable
 {
-    muse::ContextInject<au::record::IRecordController> recordController { this };
+    muse::ContextInject<agu::record::IRecordController> recordController { this };
 
 public:
     GlobalContext(muse::modularity::ContextPtr ctx)
@@ -20,21 +20,21 @@ public:
     {
     }
 
-    void setCurrentProject(const au::project::IAudacityProjectPtr& project) override;
-    au::project::IAudacityProjectPtr currentProject() const override;
+    void setCurrentProject(const agu::project::IAGuProjectPtr& project) override;
+    agu::project::IAGuProjectPtr currentProject() const override;
     muse::async::Notification currentProjectChanged() const override;
 
-    au::trackedit::ITrackeditProjectPtr currentTrackeditProject() const override;
+    agu::trackedit::ITrackeditProjectPtr currentTrackeditProject() const override;
     muse::async::Notification currentTrackeditProjectChanged() const override;
 
-    void setPlayer(const au::playback::IPlayerPtr& player) override;
+    void setPlayer(const agu::playback::IPlayerPtr& player) override;
     IPlaybackStatePtr playbackState() const override;
 
     bool isRecording() const override;
     muse::async::Notification isRecordingChanged() const override;
 
 private:
-    au::project::IAudacityProjectPtr m_currentProject;
+    agu::project::IAGuProjectPtr m_currentProject;
     muse::async::Notification m_currentProjectChanged;
 
     std::shared_ptr<PlaybackState> m_playbackState;

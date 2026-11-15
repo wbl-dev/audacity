@@ -7,7 +7,7 @@
 
 #include "audio/driver/iaudiodrivercontroller.h"
 
-namespace au::audio {
+namespace agu::audio {
 class AudioDriverControllerMock : public IAudioDriverController
 {
 public:

@@ -11,7 +11,7 @@
 #include <memory>
 #include <optional>
 
-namespace au::audio {
+namespace agu::audio {
 using TimePoint = std::chrono::steady_clock::time_point;
 
 class IAudioMeter

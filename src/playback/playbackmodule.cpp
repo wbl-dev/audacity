@@ -27,7 +27,7 @@
 
 #include "playbackmodule.h"
 
-using namespace au::playback;
+using namespace agu::playback;
 using namespace muse;
 using namespace muse::modularity;
 using namespace muse::ui;
@@ -61,24 +61,24 @@ void PlaybackModule::registerResources()
 
 void PlaybackModule::registerUiTypes()
 {
-    qmlRegisterType<PlaybackStateModel>("Audacity.Playback", 1, 0, "PlaybackStateModel");
-    qmlRegisterType<PlaybackMeterPanelModel>("Audacity.Playback", 1, 0, "PlaybackMeterPanelModel");
-    qmlRegisterType<PlaybackMeterModel>("Audacity.Playback", 1, 0, "PlaybackMeterModel");
-    qmlRegisterType<MeterModel>("Audacity.Playback", 1, 0, "MeterModel");
-    qmlRegisterType<HorizontalVolumePressureMeterItem>("Audacity.Playback", 1, 0, "HorizontalVolumePressureMeterItem");
-    qmlRegisterUncreatableType<PlaybackQualityPrefs>("Audacity.Playback", 1, 0, "PlaybackQuality", "Not creatable from QML");
-    qmlRegisterUncreatableType<DitherTypePrefs>("Audacity.Playback", 1, 0, "DitherType", "Not creatable from QML");
-    qmlRegisterUncreatableType<PlaybackMeterType>("Audacity.Playback", 1, 0, "PlaybackMeterType", "Not creatable from QML");
-    qmlRegisterUncreatableType<PlaybackMeterStyle>("Audacity.Playback", 1, 0, "PlaybackMeterStyle", "Not creatable from QML");
-    qmlRegisterUncreatableType<PlaybackMeterPosition>("Audacity.Playback", 1, 0, "PlaybackMeterPosition", "Not creatable from QML");
-    qmlRegisterUncreatableType<PlaybackMeterDbRange>("Audacity.Playback", 1, 0, "PlaybackMeterDbRange", "Not creatable from QML");
+    qmlRegisterType<PlaybackStateModel>("AGu.Playback", 1, 0, "PlaybackStateModel");
+    qmlRegisterType<PlaybackMeterPanelModel>("AGu.Playback", 1, 0, "PlaybackMeterPanelModel");
+    qmlRegisterType<PlaybackMeterModel>("AGu.Playback", 1, 0, "PlaybackMeterModel");
+    qmlRegisterType<MeterModel>("AGu.Playback", 1, 0, "MeterModel");
+    qmlRegisterType<HorizontalVolumePressureMeterItem>("AGu.Playback", 1, 0, "HorizontalVolumePressureMeterItem");
+    qmlRegisterUncreatableType<PlaybackQualityPrefs>("AGu.Playback", 1, 0, "PlaybackQuality", "Not creatable from QML");
+    qmlRegisterUncreatableType<DitherTypePrefs>("AGu.Playback", 1, 0, "DitherType", "Not creatable from QML");
+    qmlRegisterUncreatableType<PlaybackMeterType>("AGu.Playback", 1, 0, "PlaybackMeterType", "Not creatable from QML");
+    qmlRegisterUncreatableType<PlaybackMeterStyle>("AGu.Playback", 1, 0, "PlaybackMeterStyle", "Not creatable from QML");
+    qmlRegisterUncreatableType<PlaybackMeterPosition>("AGu.Playback", 1, 0, "PlaybackMeterPosition", "Not creatable from QML");
+    qmlRegisterUncreatableType<PlaybackMeterDbRange>("AGu.Playback", 1, 0, "PlaybackMeterDbRange", "Not creatable from QML");
 }
 
 void PlaybackModule::resolveImports()
 {
     auto ir = globalIoc()->resolve<muse::interactive::IInteractiveUriRegister>(mname);
     if (ir) {
-        ir->registerQmlUri(muse::Uri("audacity://playback/loop_region_in_out"), "Audacity/Playback/dialogs/LoopRegionInOut.qml");
+        ir->registerQmlUri(muse::Uri("agu://playback/loop_region_in_out"), "AGu/Playback/dialogs/LoopRegionInOut.qml");
     }
 
     auto cr = globalIoc()->resolve<muse::rcommand::ICommandsRegister>(mname);

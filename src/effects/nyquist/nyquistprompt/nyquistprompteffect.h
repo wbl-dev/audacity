@@ -7,7 +7,7 @@
 
 class WaveChannel;
 
-namespace au::effects {
+namespace agu::effects {
 class NyquistPromptEffect : public NyquistBase
 {
 public:

@@ -18,7 +18,7 @@
 #include "internal/platform/stub/stubsystemaudiodeviceslistener.h"
 #endif
 
-using namespace au::au3audio;
+using namespace agu::au3audio;
 using namespace muse::modularity;
 
 static const std::string mname("au3audio");

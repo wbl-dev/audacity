@@ -21,7 +21,7 @@
 #include "../iprojectsceneconfiguration.h"
 #include "../iprojectsceneuistate.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class ProjectSceneActionsController : public IProjectSceneActionsController, public muse::actions::Actionable,
     public muse::rcommand::Commandable, public muse::async::Asyncable, public muse::Contextable
 {
@@ -30,7 +30,7 @@ class ProjectSceneActionsController : public IProjectSceneActionsController, pub
 
     muse::ContextInject<muse::actions::IActionsDispatcher> dispatcher { this };
     muse::ContextInject<muse::rcommand::ICommandDispatcher> commandDispatcher { this };
-    muse::ContextInject<au::context::IGlobalContext> globalContext { this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext { this };
     muse::ContextInject<muse::IInteractive> interactive { this };
     muse::ContextInject<muse::ui::INavigationController> navigationController { this };
 

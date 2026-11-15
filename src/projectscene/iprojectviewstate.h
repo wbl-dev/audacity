@@ -9,7 +9,7 @@
 #include "types/projectscenetypes.h"
 #include "types/secs.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class IProjectViewState
 {
 public:

@@ -5,7 +5,7 @@
 
 #include "../internal/effectsutils.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 namespace {
 EffectId makeId(const std::string& vendor, const std::string& name, const std::string& path)

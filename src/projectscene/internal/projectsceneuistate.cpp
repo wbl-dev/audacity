@@ -3,7 +3,7 @@
 */
 #include "projectsceneuistate.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 static const QString TIMELINE_RULER_MODE_KEY("projectscene/timelineRulerMode");
 

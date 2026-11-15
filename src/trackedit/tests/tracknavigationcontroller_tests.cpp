@@ -24,7 +24,7 @@ using ::testing::NiceMock;
 using ::testing::Return;
 using ::testing::_;
 
-namespace au::trackedit {
+namespace agu::trackedit {
 /*******************************************************************************
  * TRACK NAVIGATION CONTROLLER TESTS
  *

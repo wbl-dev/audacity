@@ -5,7 +5,7 @@
 #include "au3-command-parameters/ShuttleAutomation.h"
 #include "au3-strings/TranslatableString.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 // used for fadein/out needed to remove clicking noise
 static const double kFadeInOut = 250.0;

@@ -3,7 +3,7 @@
  */
 #include "linesequencepainter.h"
 
-namespace au::effects {
+namespace agu::effects {
 LineSequencePainter::LineSequencePainter(const double& viewportX)
     : AbstractSequencePainter{viewportX}
 {
@@ -44,4 +44,4 @@ int LineSequencePainter::numSamplesToDiscard() const
     }
     return numSamples;
 }
-} // namespace au::effects
+} // namespace agu::effects

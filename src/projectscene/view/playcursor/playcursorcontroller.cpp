@@ -29,7 +29,7 @@
 
 #include "playback/playbackcommands.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 static constexpr int SCROLL_SUPPRESSION_TIMEOUT_MS = 3000;
 static constexpr double ANIMATION_DURATION_SEC = TimelineContext::ANIMATION_DURATION_MS / 1000.0;
@@ -163,7 +163,7 @@ double PlayCursorController::snapTime(double time) const
     return m_context ? m_context->applyDetectedSnap(time) : time;
 }
 
-au::context::IPlaybackStatePtr PlayCursorController::playbackState() const
+agu::context::IPlaybackStatePtr PlayCursorController::playbackState() const
 {
     return globalContext()->playbackState();
 }

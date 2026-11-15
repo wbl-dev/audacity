@@ -15,7 +15,7 @@
 #include "spectrogram/ispectraleffectsregister.h"
 #include "../ieffectexecutionscenario.h"
 
-namespace au::effects {
+namespace agu::effects {
 class EffectsCommandsState : public muse::rcommand::IModuleCommandsState, public muse::Contextable, public muse::async::Asyncable
 {
     muse::GlobalInject<muse::rcommand::ICommandsRegister> commandsRegister;

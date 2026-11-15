@@ -12,10 +12,10 @@
 
 class AudacityProject;
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class FrequencySelectionRestorer : public IFrequencySelectionRestorer, public muse::Contextable
 {
-    muse::ContextInject<au::context::IGlobalContext> globalContext { this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext { this };
     muse::ContextInject<ISpectrogramService> spectrogramService { this };
 
 public:

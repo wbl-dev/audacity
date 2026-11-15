@@ -12,7 +12,7 @@
 #include "types/exporttypes.h"
 #include "types/val.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class IExportConfiguration : MODULE_GLOBAL_INTERFACE
 {
     INTERFACE_ID(IExportConfiguration)

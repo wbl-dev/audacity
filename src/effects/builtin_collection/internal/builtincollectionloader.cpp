@@ -77,7 +77,7 @@
 #include "changepitch/changepitchviewmodel.h"
 #endif
 
-using namespace au::effects;
+using namespace agu::effects;
 
 void BuiltinCollectionLoader::preInit()
 {
@@ -128,11 +128,11 @@ void BuiltinCollectionLoader::init()
     regView(NormalizeLoudnessEffect::Symbol, u"qrc:/loudness/NormalizeLoudnessView.qml");
 
     REGISTER_AUDACITY_EFFECTS_SINGLETON_TYPE(GraphicEqViewModelFactory);
-    qmlRegisterType<GraphicEqBandsModel>("Audacity.Effects", 1, 0, "GraphicEqBandsModel");
+    qmlRegisterType<GraphicEqBandsModel>("AGu.Effects", 1, 0, "GraphicEqBandsModel");
     regView(GraphicEq::Symbol, u"qrc:/graphiceq/GraphicEqView.qml");
 
     REGISTER_AUDACITY_EFFECTS_SINGLETON_TYPE(FilterCurveEqViewModelFactory);
-    qmlRegisterUncreatableType<FilterCurveModel>("Audacity.Effects", 1, 0, "FilterCurveModel",
+    qmlRegisterUncreatableType<FilterCurveModel>("AGu.Effects", 1, 0, "FilterCurveModel",
                                                  "Created by FilterCurveEqViewModel");
     regView(FilterCurveEq::Symbol, u"qrc:/filtercurveeq/FilterCurveEqView.qml");
 
@@ -188,10 +188,10 @@ void BuiltinCollectionLoader::init()
     REGISTER_AUDACITY_EFFECTS_SINGLETON_TYPE(SlidingStretchSettingModelFactory);
     regView(SlidingStretchEffect::Symbol, u"qrc:/slidingstretch/SlidingStretchView.qml");
 
-    qmlRegisterType<DynamicsTimeline>("Audacity.BuiltinEffectsCollection", 1, 0, "DynamicsTimeline");
-    qmlRegisterType<TimelineSourceModel>("Audacity.BuiltinEffectsCollection", 1, 0, "TimelineSourceModel");
-    qmlRegisterType<CompressionDbMeterModel>("Audacity.BuiltinEffectsCollection", 1, 0, "CompressionDbMeterModel");
-    qmlRegisterType<OutputDbMeterModel>("Audacity.BuiltinEffectsCollection", 1, 0, "OutputDbMeterModel");
-    qmlRegisterType<Stopwatch>("Audacity.BuiltinEffectsCollection", 1, 0, "Stopwatch");
-    qmlRegisterType<DynamicsPlayStateModel>("Audacity.BuiltinEffectsCollection", 1, 0, "DynamicsPlayStateModel");
+    qmlRegisterType<DynamicsTimeline>("AGu.BuiltinEffectsCollection", 1, 0, "DynamicsTimeline");
+    qmlRegisterType<TimelineSourceModel>("AGu.BuiltinEffectsCollection", 1, 0, "TimelineSourceModel");
+    qmlRegisterType<CompressionDbMeterModel>("AGu.BuiltinEffectsCollection", 1, 0, "CompressionDbMeterModel");
+    qmlRegisterType<OutputDbMeterModel>("AGu.BuiltinEffectsCollection", 1, 0, "OutputDbMeterModel");
+    qmlRegisterType<Stopwatch>("AGu.BuiltinEffectsCollection", 1, 0, "Stopwatch");
+    qmlRegisterType<DynamicsPlayStateModel>("AGu.BuiltinEffectsCollection", 1, 0, "DynamicsPlayStateModel");
 }

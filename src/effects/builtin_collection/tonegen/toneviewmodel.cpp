@@ -6,7 +6,7 @@
 
 #include "framework/global/translation.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 ToneViewModel::ToneViewModel(QObject* parent, int instanceId)
     : GeneratorEffectModel(parent, instanceId)

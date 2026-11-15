@@ -8,7 +8,7 @@
 
 #include "log.h"
 
-using namespace au::importexport;
+using namespace agu::importexport;
 
 static const std::string module_name("export");
 

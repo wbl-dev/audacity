@@ -5,7 +5,7 @@
 
 #include "../iimporterconfiguration.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class ImporterConfiguration : public IImporterConfiguration
 {
 public:

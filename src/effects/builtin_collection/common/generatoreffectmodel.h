@@ -3,12 +3,12 @@
  */
 #pragma once
 
-#include "effects/builtin/qml/Audacity/BuiltinEffects/builtineffectmodel.h"
+#include "effects/builtin/qml/AGu/BuiltinEffects/builtineffectmodel.h"
 
 #include "context/iglobalcontext.h"
 #include "playback/iplayback.h"
 
-namespace au::effects {
+namespace agu::effects {
 class GeneratorEffect;
 class ToneEffect;
 
@@ -23,8 +23,8 @@ class GeneratorEffectModel : public BuiltinEffectModel
     Q_PROPERTY(int lowerTimeSignature READ lowerTimeSignature NOTIFY lowerTimeSignatureChanged FINAL)
     Q_PROPERTY(bool isApplyAllowed READ isApplyAllowed NOTIFY isApplyAllowedChanged FINAL)
 
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
-    muse::ContextInject<au::playback::IPlayback> playback{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::playback::IPlayback> playback{ this };
 
 public:
     GeneratorEffectModel(QObject* parent, int instanceId);
@@ -70,4 +70,4 @@ private:
 
     bool m_isApplyAllowed = false;
 };
-} // namespace au::effects
+} // namespace agu::effects

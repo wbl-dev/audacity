@@ -7,7 +7,7 @@
 
 #include "framework/global/translation.h"
 
-using namespace au::record;
+using namespace agu::record;
 
 namespace {
 constexpr int64_t SECONDS_PER_MINUTE = 60;

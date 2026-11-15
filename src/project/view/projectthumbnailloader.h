@@ -8,12 +8,12 @@
 #include "framework/global/modularity/ioc.h"
 #include "au3wrap/iau3project.h"
 
-namespace au::project {
+namespace agu::project {
 class ProjectThumbnailLoader : public QObject, public muse::async::Asyncable
 {
     Q_OBJECT;
 
-    muse::GlobalInject<au::au3::IAu3ProjectReader> au3ProjectReader;
+    muse::GlobalInject<agu::au3::IAu3ProjectReader> au3ProjectReader;
 
     Q_PROPERTY(QString projectPath READ projectPath WRITE setProjectPath NOTIFY projectPathChanged)
 

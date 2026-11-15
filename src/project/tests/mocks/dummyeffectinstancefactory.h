@@ -5,7 +5,7 @@
 
 #include "au3-components/EffectInterface.h"
 
-namespace au::project {
+namespace agu::project {
 // Minimal EffectInstanceFactory so that RealtimeEffectList::AddState succeeds
 // (it requires state->GetEffect() != nullptr). No real plugin / PluginManager is
 // needed: serialization only writes the plugin id, and the state is retained on

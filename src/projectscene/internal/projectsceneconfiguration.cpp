@@ -16,7 +16,7 @@
 
 #include <algorithm>
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 static const std::string moduleName("projectscene");
 
@@ -80,13 +80,13 @@ void ProjectSceneConfiguration::init()
         m_asymmetricStereoHeightsChanged.notify();
     });
 
-    muse::settings()->setDefaultValue(SELECTION_TIMECODE_FORMAT, muse::Val(au::uicomponents::TimecodeFormatType::HHMMSSHundredths));
+    muse::settings()->setDefaultValue(SELECTION_TIMECODE_FORMAT, muse::Val(agu::uicomponents::TimecodeFormatType::HHMMSSHundredths));
     muse::settings()->valueChanged(SELECTION_TIMECODE_FORMAT).onReceive(nullptr, [this](const muse::Val& val) {
         UNUSED(val);
         m_selectionTimecodeFormatChanged.notify();
     });
 
-    muse::settings()->setDefaultValue(DURATION_TIMECODE_FORMAT, muse::Val(au::uicomponents::TimecodeFormatType::HHMMSSHundredths));
+    muse::settings()->setDefaultValue(DURATION_TIMECODE_FORMAT, muse::Val(agu::uicomponents::TimecodeFormatType::HHMMSSHundredths));
     muse::settings()->valueChanged(DURATION_TIMECODE_FORMAT).onReceive(nullptr, [this](const muse::Val& val) {
         UNUSED(val);
         m_durationTimecodeFormatChanged.notify();

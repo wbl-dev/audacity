@@ -11,7 +11,7 @@
 
 class WaveChannel;
 
-namespace au::effects {
+namespace agu::effects {
 class NyquistPromptLoader : public muse::async::Asyncable
 {
     muse::GlobalInject<IBuiltinEffectsViewRegister> builtinEffectsViewRegister;

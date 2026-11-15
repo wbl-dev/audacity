@@ -2,7 +2,7 @@
 * Audacity: A Digital Audio Editor
 */
 
-#include "project/iaudacityproject.h"
+#include "project/iaguproject.h"
 
 #include "framework/rcommand/actiontocommand.h"
 
@@ -10,7 +10,7 @@
 #include "../projectscenecommands.h"
 
 using namespace muse;
-using namespace au::projectscene;
+using namespace agu::projectscene;
 using namespace muse::async;
 using namespace muse::actions;
 using namespace muse::rcommand;
@@ -52,7 +52,7 @@ static const ActionCode SPLIT_TOOL_CODE("split-tool");
 static const ActionCode REALTIME_EFFECT_MOVE_UP_CODE("realtime-effect-move-up");
 static const ActionCode REALTIME_EFFECT_MOVE_DOWN_CODE("realtime-effect-move-down");
 
-static const muse::Uri EDIT_PITCH_AND_SPEED_URI("audacity://projectscene/editpitchandspeed");
+static const muse::Uri EDIT_PITCH_AND_SPEED_URI("agu://projectscene/editpitchandspeed");
 
 namespace {
 CommandQuery queryParamsConv(const Command& command, const ActionData& args)
@@ -74,7 +74,7 @@ CommandQuery clipKeyConv(const Command& command, const ActionData& args)
         return query;
     }
 
-    const au::trackedit::ClipKey clipKey = args.arg<au::trackedit::ClipKey>(0);
+    const agu::trackedit::ClipKey clipKey = args.arg<agu::trackedit::ClipKey>(0);
     query.addParam(PROJECTSCENE_CLIP_PITCH_AND_SPEED_TRACK_ID_PARAM, Val(static_cast<int64_t>(clipKey.trackId)));
     query.addParam(PROJECTSCENE_CLIP_PITCH_AND_SPEED_CLIP_ID_PARAM, Val(static_cast<int64_t>(clipKey.itemId)));
     return query;
@@ -399,7 +399,7 @@ muse::Ret ProjectSceneActionsController::openClipPitchAndSpeedEdit(const Params&
 
 muse::Ret ProjectSceneActionsController::openLabelEditor()
 {
-    interactive()->open("audacity://projectscene/openlabeleditor");
+    interactive()->open("agu://projectscene/openlabeleditor");
     return make_ok();
 }
 
@@ -413,7 +413,7 @@ muse::Ret ProjectSceneActionsController::togglePlaybackOnRulerClickEnabled()
 
 muse::Ret ProjectSceneActionsController::toggleAutomation()
 {
-    project::IAudacityProjectPtr prj = globalContext()->currentProject();
+    project::IAGuProjectPtr prj = globalContext()->currentProject();
     if (!prj) {
         return make_ret(Ret::Code::NotSupported);
     }
@@ -440,7 +440,7 @@ muse::Ret ProjectSceneActionsController::toggleTrackHalfWave(const Params& param
     }
     const int trackId = params.at(PROJECTSCENE_TOGGLE_TRACK_HALF_WAVE_TRACK_ID_PARAM).toInt();
 
-    project::IAudacityProjectPtr prj = globalContext()->currentProject();
+    project::IAGuProjectPtr prj = globalContext()->currentProject();
     if (!prj) {
         return make_ret(Ret::Code::NotSupported);
     }

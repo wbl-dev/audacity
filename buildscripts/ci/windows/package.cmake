@@ -10,7 +10,7 @@ set(INSTALL_DIR "build.install")
 set(BUILD_MODE "" CACHE STRING "Build mode")
 set(PACKARCH "x86_64" CACHE STRING "Package architecture")
 
-set(UPGRADE_UUID "11111111-1111-1111-1111-111111111111" CACHE STRING "WiX Upgrade GUID")
+set(UPGRADE_UUID "C7D6616A-E362-4611-93F0-B0C7ED1CB8D6" CACHE STRING "WiX Upgrade GUID")
 
 if (NOT BUILD_MODE)
   file (STRINGS "${ARTIFACTS_DIR}/env/build_mode.env" BUILD_MODE)
@@ -21,7 +21,7 @@ if (NOT BUILD_MODE)
   message(FATAL_ERROR "not set BUILD_MODE")
 endif()
 
-include(${CMAKE_CURRENT_LIST_DIR}/../common/audacity_package_name.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/../common/agu_package_name.cmake)
 
 # Setup package type
 set(PACK_TYPE "7z")
@@ -31,14 +31,8 @@ elseif(BUILD_MODE STREQUAL "nightly")
   set(PACK_TYPE "7z")
 elseif(BUILD_MODE STREQUAL "testing")
   set(PACK_TYPE "msi")
-  if(DEFINED ENV{WIN_MSI_TESTING_AU4_GUID} AND NOT "$ENV{WIN_MSI_TESTING_AU4_GUID}" STREQUAL "")
-    set(UPGRADE_UUID "$ENV{WIN_MSI_TESTING_AU4_GUID}" CACHE STRING "WiX Upgrade GUID" FORCE)
-  endif()
 elseif(BUILD_MODE STREQUAL "stable")
   set(PACK_TYPE "msi")
-  if(DEFINED ENV{WIN_MSI_STABLE_AU4_GUID} AND NOT "$ENV{WIN_MSI_STABLE_AU4_GUID}" STREQUAL "")
-    set(UPGRADE_UUID "$ENV{WIN_MSI_STABLE_AU4_GUID}" CACHE STRING "WiX Upgrade GUID" FORCE)
-  endif()
 endif()
 
 # Setup signing
@@ -83,7 +77,7 @@ file(MAKE_DIRECTORY "${ARTIFACTS_DIR}")
 
 # PACK 7z
 message(STATUS "Start 7z packing...")
-audacity_package_name(ARCHIVE_NAME win ${PACKARCH} 7z)
+agu_package_name(ARCHIVE_NAME win ${PACKARCH} 7z)
 string(REGEX REPLACE "\\.7z$" "" _archive_name "${ARCHIVE_NAME}") # the folder inside the archive is named like the file
 set(_archive_stage "${BUILD_DIR}/archive")
 set(_archive_root "${_archive_stage}/${_archive_name}")
@@ -189,7 +183,7 @@ if(PACK_TYPE STREQUAL "msi")
     message(FATAL_ERROR "No MSI produced in ${BUILD_DIR}")
   endif()
 
-  audacity_package_name(ARTIFACT_NAME win ${PACKARCH} msi)
+  agu_package_name(ARTIFACT_NAME win ${PACKARCH} msi)
 
   set(ARTIFACT_PATH "${ARTIFACTS_DIR}/${ARTIFACT_NAME}")
   file(COPY "${MSI_FILE}" DESTINATION "${ARTIFACTS_DIR}")

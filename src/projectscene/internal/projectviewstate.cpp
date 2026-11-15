@@ -25,7 +25,7 @@
 
 #include "projectviewstate.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 constexpr int TRACK_DEFAULT_HEIGHT = 116;
 constexpr int TRACK_LABEL_DEFAULT_HEIGHT = 86;
@@ -61,25 +61,25 @@ static_assert(numDecimals(0.14999999) == 2);
 static_assert(numDecimals(1.00) == 0);
 static_assert(numDecimals(0.005) == 3);
 
-void saveProjectSnap(std::shared_ptr<au::au3::IAu3Project> project, const Snap& snap)
+void saveProjectSnap(std::shared_ptr<agu::au3::IAu3Project> project, const Snap& snap)
 {
-    au::au3::Au3Project* au3Project = reinterpret_cast<au::au3::Au3Project*>(project->au3ProjectPtr());
+    agu::au3::Au3Project* au3Project = reinterpret_cast<agu::au3::Au3Project*>(project->au3ProjectPtr());
     IF_ASSERT_FAILED(au3Project) {
         return;
     }
-    auto& projectSnap = au::au3::ProjectSnap::Get(*au3Project);
+    auto& projectSnap = agu::au3::ProjectSnap::Get(*au3Project);
     projectSnap.setSnapType(static_cast<unsigned int>(snap.type));
     projectSnap.enableSnap(snap.enabled);
     projectSnap.setSnapTriplets(snap.isSnapTriplets);
 }
 
-Snap getProjectSnap(std::shared_ptr<au::au3::IAu3Project> project)
+Snap getProjectSnap(std::shared_ptr<agu::au3::IAu3Project> project)
 {
-    au::au3::Au3Project* au3Project = reinterpret_cast<au::au3::Au3Project*>(project->au3ProjectPtr());
+    agu::au3::Au3Project* au3Project = reinterpret_cast<agu::au3::Au3Project*>(project->au3ProjectPtr());
     IF_ASSERT_FAILED(au3Project) {
         return Snap {};
     }
-    auto& projectSnap = au::au3::ProjectSnap::Get(*au3Project);
+    auto& projectSnap = agu::au3::ProjectSnap::Get(*au3Project);
     return Snap {
         static_cast<SnapType>(projectSnap.snapType()),
         projectSnap.isSnapEnabled(),
@@ -87,17 +87,17 @@ Snap getProjectSnap(std::shared_ptr<au::au3::IAu3Project> project)
     };
 }
 
-void saveProjectZoomState(au::au3::Au3Project* au3Project, const ZoomState& zoomState)
+void saveProjectZoomState(agu::au3::Au3Project* au3Project, const ZoomState& zoomState)
 {
-    auto& projectZoomState = au::au3::ViewInfo::Get(*au3Project);
+    auto& projectZoomState = agu::au3::ViewInfo::Get(*au3Project);
     projectZoomState.setZoom(zoomState.zoom);
     projectZoomState.setVPos(zoomState.tracksVerticalOffset);
     projectZoomState.setHPos(zoomState.frameStart);
 }
 
-ZoomState getProjectZoomState(au::au3::Au3Project* au3Project)
+ZoomState getProjectZoomState(agu::au3::Au3Project* au3Project)
 {
-    auto& projectZoomState = au::au3::ViewInfo::Get(*au3Project);
+    auto& projectZoomState = agu::au3::ViewInfo::Get(*au3Project);
     return ZoomState {
         projectZoomState.zoom(),
         projectZoomState.hPos(),
@@ -105,12 +105,12 @@ ZoomState getProjectZoomState(au::au3::Au3Project* au3Project)
     };
 }
 
-std::pair<float, float> getVerticalDisplayBounds(const std::shared_ptr<au::project::IAudacityProject>& project,
-                                                 const au::trackedit::TrackId& trackId)
+std::pair<float, float> getVerticalDisplayBounds(const std::shared_ptr<agu::project::IAGuProject>& project,
+                                                 const agu::trackedit::TrackId& trackId)
 {
-    au::au3::Au3Project* au3Project = reinterpret_cast<au::au3::Au3Project*>(project->au3ProjectPtr());
+    agu::au3::Au3Project* au3Project = reinterpret_cast<agu::au3::Au3Project*>(project->au3ProjectPtr());
 
-    au::au3::Au3WaveTrack* waveTrack = au::au3::DomAccessor::findWaveTrack(*au3Project, au::au3::Au3TrackId(trackId));
+    agu::au3::Au3WaveTrack* waveTrack = agu::au3::DomAccessor::findWaveTrack(*au3Project, agu::au3::Au3TrackId(trackId));
     if (waveTrack == nullptr) {
         return { -1.0f, 1.0f };
     }
@@ -122,12 +122,12 @@ std::pair<float, float> getVerticalDisplayBounds(const std::shared_ptr<au::proje
     return { min, max };
 }
 
-void setVerticalDisplayBounds(const std::shared_ptr<au::project::IAudacityProject>& project, const au::trackedit::TrackId& trackId,
+void setVerticalDisplayBounds(const std::shared_ptr<agu::project::IAGuProject>& project, const agu::trackedit::TrackId& trackId,
                               const std::pair<float, float>& bounds)
 {
-    au::au3::Au3Project* au3Project = reinterpret_cast<au::au3::Au3Project*>(project->au3ProjectPtr());
+    agu::au3::Au3Project* au3Project = reinterpret_cast<agu::au3::Au3Project*>(project->au3ProjectPtr());
 
-    au::au3::Au3WaveTrack* waveTrack = au::au3::DomAccessor::findWaveTrack(*au3Project, au::au3::Au3TrackId(trackId));
+    agu::au3::Au3WaveTrack* waveTrack = agu::au3::DomAccessor::findWaveTrack(*au3Project, agu::au3::Au3TrackId(trackId));
     if (waveTrack == nullptr) {
         return;
     }
@@ -136,45 +136,45 @@ void setVerticalDisplayBounds(const std::shared_ptr<au::project::IAudacityProjec
     cache.SetDisplayBounds(bounds.first, bounds.second);
 }
 
-au::trackedit::TrackViewType getTrackViewType(const std::shared_ptr<au::project::IAudacityProject>& project,
-                                              const au::trackedit::TrackId& trackId)
+agu::trackedit::TrackViewType getTrackViewType(const std::shared_ptr<agu::project::IAGuProject>& project,
+                                              const agu::trackedit::TrackId& trackId)
 {
-    const au::au3::Au3Project* au3Project = reinterpret_cast<au::au3::Au3Project*>(project->au3ProjectPtr());
+    const agu::au3::Au3Project* au3Project = reinterpret_cast<agu::au3::Au3Project*>(project->au3ProjectPtr());
 
-    const au::au3::Au3WaveTrack* waveTrack = au::au3::DomAccessor::findWaveTrack(*au3Project, au::au3::Au3TrackId(trackId));
+    const agu::au3::Au3WaveTrack* waveTrack = agu::au3::DomAccessor::findWaveTrack(*au3Project, agu::au3::Au3TrackId(trackId));
     if (waveTrack == nullptr) {
-        return au::trackedit::TrackViewType::Undefined;
+        return agu::trackedit::TrackViewType::Undefined;
     }
 
-    const auto& cache = au::au3::TrackViewTypeAttachment::Get(waveTrack);
+    const auto& cache = agu::au3::TrackViewTypeAttachment::Get(waveTrack);
     const auto viewType = cache.GetTrackViewType();
-    return viewType == au::trackedit::TrackViewType::Undefined ? au::trackedit::TrackViewType::Waveform : viewType;
+    return viewType == agu::trackedit::TrackViewType::Undefined ? agu::trackedit::TrackViewType::Waveform : viewType;
 }
 
-int getTrackRulerType(const std::shared_ptr<au::project::IAudacityProject>& project, const au::trackedit::TrackId& trackId)
+int getTrackRulerType(const std::shared_ptr<agu::project::IAGuProject>& project, const agu::trackedit::TrackId& trackId)
 {
-    const au::au3::Au3Project* au3Project = reinterpret_cast<const au::au3::Au3Project*>(project->au3ProjectPtr());
+    const agu::au3::Au3Project* au3Project = reinterpret_cast<const agu::au3::Au3Project*>(project->au3ProjectPtr());
 
-    const au::au3::Au3Track* track = au::au3::DomAccessor::findTrack(*au3Project, au::au3::Au3TrackId(trackId));
+    const agu::au3::Au3Track* track = agu::au3::DomAccessor::findTrack(*au3Project, agu::au3::Au3TrackId(trackId));
     if (track == nullptr) {
-        return static_cast<int>(au::trackedit::TrackRulerType::Linear);
+        return static_cast<int>(agu::trackedit::TrackRulerType::Linear);
     }
 
     const auto& cache = TrackRulerTypeAttachment::Get(track);
     return static_cast<int>(cache.GetRulerType());
 }
 
-void setTrackRulerType(const std::shared_ptr<au::project::IAudacityProject>& project, const au::trackedit::TrackId& trackId, int rulerType)
+void setTrackRulerType(const std::shared_ptr<agu::project::IAGuProject>& project, const agu::trackedit::TrackId& trackId, int rulerType)
 {
-    au::au3::Au3Project* au3Project = reinterpret_cast<au::au3::Au3Project*>(project->au3ProjectPtr());
+    agu::au3::Au3Project* au3Project = reinterpret_cast<agu::au3::Au3Project*>(project->au3ProjectPtr());
 
-    au::au3::Au3Track* track = au::au3::DomAccessor::findTrack(*au3Project, au::au3::Au3TrackId(trackId));
+    agu::au3::Au3Track* track = agu::au3::DomAccessor::findTrack(*au3Project, agu::au3::Au3TrackId(trackId));
     if (track == nullptr) {
         return;
     }
 
     auto& cache = TrackRulerTypeAttachment::Get(track);
-    cache.SetRulerType(static_cast<au::trackedit::TrackRulerType>(rulerType));
+    cache.SetRulerType(static_cast<agu::trackedit::TrackRulerType>(rulerType));
 }
 }
 
@@ -193,7 +193,7 @@ void ProjectViewState::init(const std::shared_ptr<au3::IAu3Project>& project)
         saveProjectSnap(project, s);
     });
 
-    au::au3::Au3Project* au3Project = reinterpret_cast<au::au3::Au3Project*>(project->au3ProjectPtr());
+    agu::au3::Au3Project* au3Project = reinterpret_cast<agu::au3::Au3Project*>(project->au3ProjectPtr());
     IF_ASSERT_FAILED(au3Project) {
         return;
     }
@@ -237,8 +237,8 @@ void ProjectViewState::init(const std::shared_ptr<au3::IAu3Project>& project)
         for (const auto& trackId : prj->trackIdList()) {
             const auto prj = globalContext()->currentProject();
             const auto viewType = getTrackViewType(prj, trackId);
-            const auto hasSpectrogram = viewType == au::trackedit::TrackViewType::Spectrogram
-                                        || viewType == au::trackedit::TrackViewType::WaveformAndSpectrogram;
+            const auto hasSpectrogram = viewType == agu::trackedit::TrackViewType::Spectrogram
+                                        || viewType == agu::trackedit::TrackViewType::WaveformAndSpectrogram;
             frequencySelectionController()->setShowsSpectrogram(trackId, hasSpectrogram);
         }
 
@@ -314,7 +314,7 @@ int ProjectViewState::trackVerticalPosition(const trackedit::TrackId& trackId) c
 
 ProjectViewState::TrackData& ProjectViewState::makeTrackData(const trackedit::TrackId& trackId) const
 {
-    const project::IAudacityProjectPtr prj = globalContext()->currentProject();
+    const project::IAGuProjectPtr prj = globalContext()->currentProject();
 
     const std::pair<float, float> defaultBounds = getVerticalDisplayBounds(prj, trackId);
     const int defaultRulerType = getTrackRulerType(prj, trackId);
@@ -348,8 +348,8 @@ ProjectViewState::TrackData& ProjectViewState::makeTrackData(const trackedit::Tr
             int height = defaultHeight;
 
             if (prj) {
-                auto track = au::au3::DomAccessor::findTrack(
-                    *reinterpret_cast<au::au3::Au3Project*>(prj->au3ProjectPtr()), au::au3::Au3TrackId(trackId));
+                auto track = agu::au3::DomAccessor::findTrack(
+                    *reinterpret_cast<agu::au3::Au3Project*>(prj->au3ProjectPtr()), agu::au3::Au3TrackId(trackId));
                 int savedHeight = au3::TrackHeightAttachment::Get(track).GetHeight();
                 savedHeight = savedHeight <= 0 ? defaultHeight : savedHeight;
                 height = std::max(savedHeight, TRACK_MIN_HEIGHT);
@@ -391,18 +391,18 @@ bool ProjectViewState::doSetTrackViewType(const trackedit::TrackId& trackId, tra
         return false;
     }
 
-    au::au3::Au3Project* au3Project = reinterpret_cast<au::au3::Au3Project*>(project->au3ProjectPtr());
+    agu::au3::Au3Project* au3Project = reinterpret_cast<agu::au3::Au3Project*>(project->au3ProjectPtr());
 
-    au::au3::Au3WaveTrack* waveTrack = au::au3::DomAccessor::findWaveTrack(*au3Project, au::au3::Au3TrackId(trackId));
+    agu::au3::Au3WaveTrack* waveTrack = agu::au3::DomAccessor::findWaveTrack(*au3Project, agu::au3::Au3TrackId(trackId));
     if (waveTrack == nullptr) {
         return false;
     }
 
-    auto& cache = au::au3::TrackViewTypeAttachment::Get(waveTrack);
+    auto& cache = agu::au3::TrackViewTypeAttachment::Get(waveTrack);
     cache.SetTrackViewType(viewType);
 
-    const auto hasSpectrogram = viewType == au::trackedit::TrackViewType::Spectrogram
-                                || viewType == au::trackedit::TrackViewType::WaveformAndSpectrogram;
+    const auto hasSpectrogram = viewType == agu::trackedit::TrackViewType::Spectrogram
+                                || viewType == agu::trackedit::TrackViewType::WaveformAndSpectrogram;
     frequencySelectionController()->setShowsSpectrogram(trackId, hasSpectrogram);
 
     it->second.viewType.set(viewType);
@@ -475,11 +475,11 @@ void ProjectViewState::changeTrackHeight(const trackedit::TrackId& trackId, int 
 
     recomputeTotalTrackHeight();
 
-    const project::IAudacityProjectPtr prj = globalContext()->currentProject();
+    const project::IAGuProjectPtr prj = globalContext()->currentProject();
     if (prj) {
         au3::Au3Project* au3Project = reinterpret_cast<au3::Au3Project*>(prj->au3ProjectPtr());
         if (au3Project) {
-            auto track = au::au3::DomAccessor::findTrack(*au3Project, au::au3::Au3TrackId(trackId));
+            auto track = agu::au3::DomAccessor::findTrack(*au3Project, agu::au3::Au3TrackId(trackId));
             au3::TrackHeightAttachment::Get(track).SetHeight(newHeight);
         }
     }
@@ -501,17 +501,17 @@ void ProjectViewState::setTrackHeight(const trackedit::TrackId& trackId, int hei
 
     recomputeTotalTrackHeight();
 
-    const project::IAudacityProjectPtr prj = globalContext()->currentProject();
+    const project::IAGuProjectPtr prj = globalContext()->currentProject();
     if (prj) {
         au3::Au3Project* au3Project = reinterpret_cast<au3::Au3Project*>(prj->au3ProjectPtr());
         if (au3Project) {
-            auto track = au::au3::DomAccessor::findTrack(*au3Project, au::au3::Au3TrackId(trackId));
+            auto track = agu::au3::DomAccessor::findTrack(*au3Project, agu::au3::Au3TrackId(trackId));
             au3::TrackHeightAttachment::Get(track).SetHeight(newHeight);
         }
     }
 }
 
-au::trackedit::TrackId ProjectViewState::trackAtPosition(double y) const
+agu::trackedit::TrackId ProjectViewState::trackAtPosition(double y) const
 {
     trackedit::ITrackeditProjectPtr prj = globalContext()->currentTrackeditProject();
     if (!prj) {
@@ -536,7 +536,7 @@ au::trackedit::TrackId ProjectViewState::trackAtPosition(double y) const
     return trackedit::INVALID_TRACK;
 }
 
-au::trackedit::TrackIdList ProjectViewState::tracksInRange(double y1, double y2) const
+agu::trackedit::TrackIdList ProjectViewState::tracksInRange(double y1, double y2) const
 {
     trackedit::ITrackeditProjectPtr prj = globalContext()->currentTrackeditProject();
     if (!prj) {
@@ -720,14 +720,14 @@ float ProjectViewState::maxVerticalZoomLevel(const trackedit::TrackId& trackId) 
         return MIN_VERTICAL_RANGE;
     }
 
-    const au::au3::Au3Project* au3Project = reinterpret_cast<const au::au3::Au3Project*>(project->au3ProjectPtr());
+    const agu::au3::Au3Project* au3Project = reinterpret_cast<const agu::au3::Au3Project*>(project->au3ProjectPtr());
 
-    const au::au3::Au3WaveTrack* waveTrack = au::au3::DomAccessor::findWaveTrack(*au3Project, ::TrackId(trackId));
+    const agu::au3::Au3WaveTrack* waveTrack = agu::au3::DomAccessor::findWaveTrack(*au3Project, ::TrackId(trackId));
     if (waveTrack == nullptr) {
         return MIN_VERTICAL_RANGE;
     }
 
-    trackedit::Track track = au::au3::DomConverter::track(waveTrack);
+    trackedit::Track track = agu::au3::DomConverter::track(waveTrack);
 
     const auto rulerType = static_cast<trackedit::TrackRulerType>(::getTrackRulerType(project, trackId));
 
@@ -883,7 +883,7 @@ void ProjectViewState::toggleHalfWave(const trackedit::TrackId& trackId)
     }
 }
 
-muse::ValCh<au::trackedit::TrackViewType> ProjectViewState::trackViewType(const au::trackedit::TrackId& trackId) const
+muse::ValCh<agu::trackedit::TrackViewType> ProjectViewState::trackViewType(const agu::trackedit::TrackId& trackId) const
 {
     auto it = m_tracks.find(trackId);
     if (it != m_tracks.end()) {
@@ -1060,7 +1060,7 @@ void ProjectViewState::setLastEditedClip(const trackedit::ClipKey& clipKey)
     m_lastEditedClip = clipKey;
 }
 
-au::trackedit::ClipKey ProjectViewState::lastEditedClip() const
+agu::trackedit::ClipKey ProjectViewState::lastEditedClip() const
 {
     return m_lastEditedClip;
 }
@@ -1137,13 +1137,13 @@ void ProjectViewState::updateItemsBoundaries(bool excludeCurrentSelection, const
 
 void ProjectViewState::setZoomState(const ZoomState& state)
 {
-    au::au3::Au3Project* project = reinterpret_cast<au::au3::Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());
+    agu::au3::Au3Project* project = reinterpret_cast<agu::au3::Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());
     saveProjectZoomState(project, state);
 }
 
 ZoomState ProjectViewState::zoomState() const
 {
-    au::au3::Au3Project* project = reinterpret_cast<au::au3::Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());
+    agu::au3::Au3Project* project = reinterpret_cast<agu::au3::Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());
     return getProjectZoomState(project);
 }
 
@@ -1195,8 +1195,8 @@ int ProjectViewState::calculateVerticalRulerWidth() const
 
     float smallestBoundValue = 1;
     for (const auto& [trackId, trackData] : m_tracks) {
-        const auto rulerType = static_cast<au::trackedit::TrackRulerType>(::getTrackRulerType(project, trackId));
-        if (rulerType != au::trackedit::TrackRulerType::Linear) {
+        const auto rulerType = static_cast<agu::trackedit::TrackRulerType>(::getTrackRulerType(project, trackId));
+        if (rulerType != agu::trackedit::TrackRulerType::Linear) {
             continue;
         }
 

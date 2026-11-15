@@ -3,7 +3,7 @@
 #include "au3/WaveMetrics.h"
 #include "au3/wavepainterutils.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 void WavePainterProxy::paint(QPainter& painter, const trackedit::ClipKey& clipKey, const Params& params, std::optional<PlotType> plotType)
 {
     painter.setPen(Qt::NoPen);

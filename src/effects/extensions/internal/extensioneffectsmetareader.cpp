@@ -11,7 +11,7 @@
 #include "extensioneffectsrepository.h"
 #include "extensiontypes.h"
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 namespace {
 muse::audioplugins::PluginMeta makeMeta(
     const ExtensionEffectEntry& entry, const muse::audioplugins::IKnownAudioPluginsRegister& knownPlugins)
@@ -71,4 +71,4 @@ muse::RetVal<muse::audioplugins::PluginMetaList> ExtensionEffectsMetaReader::rea
     }
     return muse::RetVal<muse::audioplugins::PluginMetaList>::make_ok(std::move(result));
 }
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

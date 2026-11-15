@@ -1,7 +1,7 @@
 import QtQuick
 import Muse.Ui
 import Muse.UiComponents
-import Audacity.UiComponents
+import AGu.UiComponents
 
 GridPlot {
     id: root

@@ -41,8 +41,8 @@
 #include "log.h"
 #include "translation.h"
 
-using namespace au::trackedit;
-using namespace au::au3;
+using namespace agu::trackedit;
+using namespace agu::au3;
 
 namespace {
 const std::string mixingDownToMonoLabel = muse::trc("trackedit", "Mixing down to mono…");
@@ -54,13 +54,13 @@ Au3TracksInteraction::Au3TracksInteraction(const muse::modularity::ContextPtr& c
     m_progress.setMaxNumIncrements(200);
 }
 
-au::au3::Au3Project& Au3TracksInteraction::projectRef() const
+agu::au3::Au3Project& Au3TracksInteraction::projectRef() const
 {
     Au3Project* project = reinterpret_cast<Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());
     return *project;
 }
 
-au::context::IPlaybackStatePtr Au3TracksInteraction::playbackState() const
+agu::context::IPlaybackStatePtr Au3TracksInteraction::playbackState() const
 {
     return globalContext()->playbackState();
 }
@@ -174,7 +174,7 @@ bool Au3TracksInteraction::changeTracksColor(const TrackIdList& tracksIds, ClipC
 //         return false;
 //     }
 
-//     au::au3::TrackRulerTypeAttachment::Get(track).SetRulerType(rulerType);
+//     agu::au3::TrackRulerTypeAttachment::Get(track).SetRulerType(rulerType);
 //     adjustVerticalZoom(trackId);
 //     trackedit::ITrackeditProjectPtr prj = globalContext()->currentTrackeditProject();
 //     prj->notifyAboutTrackChanged(DomConverter::track(track));
@@ -208,7 +208,7 @@ muse::Ret Au3TracksInteraction::paste(const std::vector<ITrackDataPtr>& data, se
         }
     }
 
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     auto tracks = project->trackeditProject()->trackList();
 
     if (moveAllTracks) {
@@ -798,7 +798,7 @@ bool Au3TracksInteraction::newStereoTrack()
     return true;
 }
 
-muse::RetVal<au::trackedit::TrackId> Au3TracksInteraction::newLabelTrack(const muse::String& title)
+muse::RetVal<agu::trackedit::TrackId> Au3TracksInteraction::newLabelTrack(const muse::String& title)
 {
     auto& tracks = Au3TrackList::Get(projectRef());
     Au3LabelTrack* track = !title.empty() ? ::LabelTrack::Create(tracks, wxFromString(title)) : ::LabelTrack::Create(tracks);
@@ -1012,16 +1012,16 @@ bool Au3TracksInteraction::changeTracksFormat(const TrackIdList& tracksIds, trac
 
             sampleFormat newFormat;
             switch (format) {
-            case au::trackedit::TrackFormat::Int16:
+            case agu::trackedit::TrackFormat::Int16:
                 newFormat = sampleFormat::int16Sample;
                 break;
-            case au::trackedit::TrackFormat::Int24:
+            case agu::trackedit::TrackFormat::Int24:
                 newFormat = sampleFormat::int24Sample;
                 break;
-            case au::trackedit::TrackFormat::Float32:
+            case agu::trackedit::TrackFormat::Float32:
                 newFormat = sampleFormat::floatSample;
                 break;
-            case au::trackedit::TrackFormat::Undefined:
+            case agu::trackedit::TrackFormat::Undefined:
             default:
                 return false;
             }
@@ -1332,7 +1332,7 @@ bool Au3TracksInteraction::resampleTracks(const TrackIdList& tracksIds, int rate
     return true;
 }
 
-muse::RetVal<au::trackedit::TrackId> Au3TracksInteraction::mixAndRender(const TrackIdList& tracksIds)
+muse::RetVal<agu::trackedit::TrackId> Au3TracksInteraction::mixAndRender(const TrackIdList& tracksIds)
 {
     Au3TrackList& tracks = Au3TrackList::Get(projectRef());
 
@@ -1540,7 +1540,7 @@ TrackIdList Au3TracksInteraction::pasteIntoNewTracks(const std::vector<Au3TrackD
     return tracksIdsPastedInto;
 }
 
-std::shared_ptr<au::au3::Au3Track> Au3TracksInteraction::createNewTrackAndPaste(std::shared_ptr<Au3Track> track, Au3TrackList& list,
+std::shared_ptr<agu::au3::Au3Track> Au3TracksInteraction::createNewTrackAndPaste(std::shared_ptr<Au3Track> track, Au3TrackList& list,
                                                                                 secs_t begin)
 {
     // Handle wave track clips
@@ -2048,7 +2048,7 @@ void Au3TracksInteraction::moveTrackTo(const TrackId trackId, int to)
     trackEdit->notifyAboutTrackMoved(track, pos);
 }
 
-au::trackedit::TrackId Au3TracksInteraction::addWaveTrack(int numChannels)
+agu::trackedit::TrackId Au3TracksInteraction::addWaveTrack(int numChannels)
 {
     const auto track = utils::appendWaveTrack(Au3TrackList::Get(projectRef()), numChannels);
 

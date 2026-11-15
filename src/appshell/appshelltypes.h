@@ -25,7 +25,7 @@
 
 #include <QString>
 
-namespace au::appshell {
+namespace agu::appshell {
 using DockName = QString;
 
 // Panels:

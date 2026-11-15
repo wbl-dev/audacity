@@ -10,7 +10,7 @@
 
 #include "trackedit/trackedittypes.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class ITrackNavigationController : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(ITrackNavigationController);

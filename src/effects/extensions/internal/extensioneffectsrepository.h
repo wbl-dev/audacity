@@ -14,7 +14,7 @@
 
 #include "extensioneffecttypes.h"
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 struct ExtensionEffectEntry {
     EffectId id;
     EffectDescriptor descriptor;
@@ -44,4 +44,4 @@ private:
     std::vector<ExtensionEffectEntry> m_effects;
     muse::async::Notification m_changed;
 };
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

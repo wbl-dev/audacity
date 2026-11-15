@@ -7,7 +7,7 @@
 #include "framework/global/modularity/ioc.h"
 #include "framework/interactive/iplatforminteractive.h"
 
-namespace au::project {
+namespace agu::project {
 class RecentProjectContextMenuModel : public muse::uicomponents::AbstractMenuModel
 {
     Q_OBJECT

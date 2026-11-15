@@ -14,7 +14,7 @@
 
 using ProgressResult = BasicUI::ProgressResult;
 
-namespace au::au3 {
+namespace agu::au3 {
 class ProgressDialog : public BasicUI::ProgressDialog, public muse::async::Asyncable, public muse::Contextable
 {
     muse::ContextInject<muse::IInteractive> interactive { this };

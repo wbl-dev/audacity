@@ -35,7 +35,7 @@
 //! TODO AU4
 // #include "view/preferences/braillepreferencesmodel.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 class ApplicationUiActions : public muse::ui::IUiActionsModule, public muse::async::Asyncable, public muse::Contextable
 {
     muse::GlobalInject <IAppShellConfiguration> configuration;

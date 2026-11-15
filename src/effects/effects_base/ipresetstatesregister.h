@@ -10,7 +10,7 @@
 
 #include "effectstypes.h"
 
-namespace au::effects {
+namespace agu::effects {
 class IPresetStatesRegister : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IPresetStatesRegister)

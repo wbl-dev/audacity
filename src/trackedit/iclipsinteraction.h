@@ -15,7 +15,7 @@
 
 #include "modularity/imoduleinterface.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class IClipsInteraction : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IClipsInteraction)

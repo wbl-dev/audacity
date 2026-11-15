@@ -7,7 +7,7 @@
 #include "framework/global/realfn.h"
 #include "log.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 TimeSpan::TimeSpan(secs_t start, secs_t end)
     : m_start(std::move(start)), m_end(std::move(end))
 {

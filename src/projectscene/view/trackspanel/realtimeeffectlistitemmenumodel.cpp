@@ -9,9 +9,9 @@
 #include "log.h"
 
 using namespace muse;
-using namespace au::projectscene;
+using namespace agu::projectscene;
 using namespace muse::uicomponents;
-using namespace au::effects;
+using namespace agu::effects;
 
 static const QString REMOVE_ITEM_ID("realtimeeffect-remove");
 
@@ -86,10 +86,10 @@ void RealtimeEffectListItemMenuModel::prop_setEffectState(const QString& state)
 }
 
 namespace {
-bool updateCheckmarks(MenuItem& item, const au::effects::EffectId& selectedEffectId)
+bool updateCheckmarks(MenuItem& item, const agu::effects::EffectId& selectedEffectId)
 {
     if (item.subitems().empty()) {
-        const au::effects::EffectId itemEffectId = au::effects::EffectId::fromQString(item.id());
+        const agu::effects::EffectId itemEffectId = agu::effects::EffectId::fromQString(item.id());
         const auto checked = itemEffectId == selectedEffectId;
         item.setChecked(checked);
         return checked;
@@ -110,7 +110,7 @@ void RealtimeEffectListItemMenuModel::updateEffectCheckmarks()
         return;
     }
     const MenuItemList& itemList = items();
-    const auto myEffectId = au::au3::wxToString(m_effectState->GetID());
+    const auto myEffectId = agu::au3::wxToString(m_effectState->GetID());
     for (MenuItem* category : itemList) {
         updateCheckmarks(*category, myEffectId);
     }

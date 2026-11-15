@@ -3,7 +3,7 @@
  */
 #include "trackheightattachment.h"
 
-namespace au::au3 {
+namespace agu::au3 {
 static const AttachedTrackObjects::RegisteredFactory keyTrackHeight{
     [](Au3Track& track) -> std::shared_ptr<TrackHeightAttachment> { return std::make_shared<TrackHeightAttachment>(track); }
 };

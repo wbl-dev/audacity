@@ -8,7 +8,7 @@
 
 #include "dblinearstereoruler.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 namespace {
 constexpr int MIN_FULL_STEP_TO_INF_HEIGHT = 14;

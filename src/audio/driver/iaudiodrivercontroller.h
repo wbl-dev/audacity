@@ -12,7 +12,7 @@
 
 #include "audio/audioconfigurationtypes.h"
 
-namespace au::audio {
+namespace agu::audio {
 class IAudioDriverController : MODULE_GLOBAL_INTERFACE
 {
     INTERFACE_ID(IAudioDriverController)

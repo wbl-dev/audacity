@@ -11,7 +11,7 @@
 using namespace muse;
 using namespace muse::uicomponents;
 
-using namespace au::importexport;
+using namespace agu::importexport;
 
 ChannelMappingTableViewModel::ChannelMappingTableViewModel(QObject* parent)
     : AbstractTableViewModel(parent), muse::Contextable(muse::iocCtxForQmlObject(this))

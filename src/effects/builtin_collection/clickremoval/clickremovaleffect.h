@@ -19,7 +19,7 @@
 class Envelope;
 class WaveChannel;
 
-namespace au::effects {
+namespace agu::effects {
 class ClickRemovalEffect : public StatefulEffect
 {
 public:

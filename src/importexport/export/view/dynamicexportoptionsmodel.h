@@ -11,7 +11,7 @@
 #include "iexporter.h"
 #include "iexportconfiguration.h"
 
-using namespace au::importexport;
+using namespace agu::importexport;
 
 class DynamicExportOptionsModel : public QAbstractListModel, public muse::async::Asyncable, public muse::Contextable
 {

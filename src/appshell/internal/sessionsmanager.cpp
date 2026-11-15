@@ -25,7 +25,7 @@
 #include "appshell/appshelltypes.h"
 #include "project/projectcommands.h"
 
-using namespace au::appshell;
+using namespace agu::appshell;
 using namespace muse;
 
 void SessionsManager::init()

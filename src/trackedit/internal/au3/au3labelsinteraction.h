@@ -12,7 +12,7 @@
 
 #include "../../ilabelsinteraction.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class Au3LabelsInteraction : public ILabelsInteraction, public muse::Contextable
 {
     muse::ContextInject<context::IGlobalContext> globalContext{ this };

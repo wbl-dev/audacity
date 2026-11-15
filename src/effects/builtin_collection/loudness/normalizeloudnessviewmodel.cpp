@@ -7,7 +7,7 @@
 #include "global/log.h"
 #include "global/translation.h"
 
-namespace au::effects {
+namespace agu::effects {
 NormalizeLoudnessViewModel::NormalizeLoudnessViewModel(QObject* parent, int instanceId)
     : BuiltinEffectModel(parent, instanceId)
 {

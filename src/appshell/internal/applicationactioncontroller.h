@@ -54,7 +54,7 @@
 
 class QFileOpenEvent;
 
-namespace au::appshell {
+namespace agu::appshell {
 class ApplicationActionController : public QObject, public IApplicationActionController, public muse::actions::Actionable,
     public muse::rcommand::Commandable, public muse::async::Asyncable, public muse::Contextable
 {

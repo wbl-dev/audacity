@@ -5,7 +5,7 @@
 
 #include <QtGlobal>
 
-QColor au::projectscene::timeSelectionColor(const QColor& originalColor)
+QColor agu::projectscene::timeSelectionColor(const QColor& originalColor)
 {
     const int r = originalColor.red();
     const int g = originalColor.green();

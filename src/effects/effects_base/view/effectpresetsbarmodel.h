@@ -19,7 +19,7 @@
 #include "effectsavecontextmenu.h"
 #include "presetscontextmenumodel.h"
 
-namespace au::effects {
+namespace agu::effects {
 class EffectPresetsBarModel : public QObject, public muse::Contextable, public muse::async::Asyncable
 {
     Q_OBJECT

@@ -12,7 +12,7 @@
 #include "extensioneffectrunner.h"
 #include "trackedit/api/projectedit.h"
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 namespace {
 std::optional<ParameterType> parameterType(const QString& value)
 {
@@ -301,4 +301,4 @@ QVariantMap ExtensionEffectRuntime::settingsMap(const Settings& settings) const
     }
     return result;
 }
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

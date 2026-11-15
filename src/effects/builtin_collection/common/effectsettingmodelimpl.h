@@ -9,7 +9,7 @@
 #include <functional>
 #include <unordered_map>
 
-namespace au::effects {
+namespace agu::effects {
 template<typename EffectType>
 using ParamGetter = std::function<EffectParameter<typename EffectType::Settings, double, double, double>(const EffectType&)>;
 

@@ -20,7 +20,7 @@
     },
     {
       "name": "workbench-debug",
-      "displayName": "OnlyAudios [Debug]",
+      "displayName": "AGu [Debug]",
       "description": "Debug profile with debug symbols and no optimizations.",
       "inherits": "base",
       "cacheVariables": {
@@ -30,7 +30,7 @@
     },
     {
       "name": "workbench-asan",
-      "displayName": "OnlyAudios [ASan]",
+      "displayName": "AGu [ASan]",
       "description": "Debug profile with AddressSanitizer enabled.",
       "inherits": "workbench-debug",
       "cacheVariables": {
@@ -39,7 +39,7 @@
     },
     {
       "name": "workbench-release",
-      "displayName": "OnlyAudios [RelWithDebInfo]",
+      "displayName": "AGu [RelWithDebInfo]",
       "description": "Release profile with optimizations and debug information.",
       "inherits": "base",
       "cacheVariables": {

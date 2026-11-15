@@ -16,7 +16,7 @@
 
 #include "log.h"
 
-using namespace au::app;
+using namespace agu::app;
 using namespace muse;
 
 static QStringList prepareArguments(int argc, char** argv)
@@ -250,7 +250,7 @@ muse::IApplication::RunMode CommandLineParser::runMode() const
     return m_options->runMode;
 }
 
-std::shared_ptr<AudacityCmdOptions> CommandLineParser::options() const
+std::shared_ptr<AGuCmdOptions> CommandLineParser::options() const
 {
     return m_options;
 }

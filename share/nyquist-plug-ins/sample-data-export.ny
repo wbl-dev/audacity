@@ -409,11 +409,11 @@ ul {
   (format nil (strcat
 "</table>
 <p id=\"footer\">" (_ "Produced with <span>Sample Data Export</span> for
-<a href=\"~a\">Audacity</a> by Steve
+Audacity by Steve
 Daulton") " (<a href=
 \"https://audionyq.com\">audionyq.com</a>)</p>
 </body>
-</html>") "https://www.audacityteam.org/"))
+</html>")))
 
 
 ;;; html generator

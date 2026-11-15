@@ -8,7 +8,7 @@
 
 #include "macromanager/macromanagertypes.h"
 
-namespace au::macromanager {
+namespace agu::macromanager {
 muse::JsonObject toJson(const Macro& macro);
 muse::RetVal<Macro> macroFromJson(const muse::JsonObject& object);
 }

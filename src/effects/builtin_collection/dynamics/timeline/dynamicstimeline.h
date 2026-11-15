@@ -20,7 +20,7 @@
 #include "modularity/ioc.h"
 #include "ui/iuiconfiguration.h"
 
-namespace au::effects {
+namespace agu::effects {
 class DynamicsTimeline : public QQuickItem
 {
     Q_OBJECT
@@ -126,4 +126,4 @@ private:
     std::vector<double> m_pendingXValues;
     std::mutex m_sampleMutex; // TODO consider using a ring buffer
 };
-} // namespace au::effects
+} // namespace agu::effects

@@ -6,7 +6,7 @@
 #include "effects/effects_base/internal/au3/au3audiopluginmetareader.h"
 #include "au3-audio-unit/AudioUnitEffectsModule.h"
 
-namespace au::effects {
+namespace agu::effects {
 class AudioUnitPluginsMetaReader : public Au3AudioPluginMetaReader
 {
 public:

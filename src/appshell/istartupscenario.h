@@ -31,7 +31,7 @@
 
 #include "project/types/projecttypes.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 class IStartupScenario : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IStartupScenario)

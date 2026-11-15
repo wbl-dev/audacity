@@ -6,7 +6,7 @@
 #include "global/log.h"
 #include "global/translation.h"
 
-namespace au::effects {
+namespace agu::effects {
 SlidingStretchSettingModel::SlidingStretchSettingModel(QObject* parent, int instanceId)
     : EffectSettingModelImpl<SlidingStretchEffect>(parent, instanceId, {
         { "initialTempo", { muse::qtrc("effects", "Initial tempo change"), QString { "%" } } },

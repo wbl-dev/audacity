@@ -6,7 +6,7 @@
 
 #include "gridlines.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 GridLines::GridLines(QQuickItem* parent)
     : QQuickPaintedItem(parent), muse::Contextable(muse::iocCtxForQmlObject(this))

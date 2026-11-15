@@ -33,8 +33,8 @@
 
 using namespace muse;
 using namespace muse::async;
-using namespace au::record;
-using namespace au::au3;
+using namespace agu::record;
+using namespace agu::au3;
 
 constexpr int RATE_NOT_SELECTED = -1;
 using WritableSampleTrackArray = std::vector< std::shared_ptr< WritableSampleTrack > >;
@@ -650,7 +650,7 @@ muse::async::Channel<muse::secs_t> Au3Record::recordPositionChanged() const
     return m_recordPosition.ch;
 }
 
-const std::vector<au::trackedit::ClipKey>& Au3Record::recordingClipKeys() const
+const std::vector<agu::trackedit::ClipKey>& Au3Record::recordingClipKeys() const
 {
     return m_recordingClipKeys;
 }
@@ -944,7 +944,7 @@ Ret Au3Record::doRecord(Au3Project& project,
         pendingTracks.UpdatePendingTracks();
     }
 
-    au::audio::IAudioEngine::StartTransportOptions options;
+    agu::audio::IAudioEngine::StartTransportOptions options;
     options.isDefaultPolicy = false;
     options.sampleRate = audioStreamSampleRate;
     options.leadInTime = leadInTime;
@@ -984,7 +984,7 @@ bool Au3Record::canStopTransport() const
     return audioEngine()->canStopTransport(projectRef());
 }
 
-au::context::IPlaybackStatePtr Au3Record::playbackState() const
+agu::context::IPlaybackStatePtr Au3Record::playbackState() const
 {
     return globalContext()->playbackState();
 }

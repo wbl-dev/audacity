@@ -3,7 +3,7 @@
 */
 #pragma once
 
-namespace au::projectscene {
+namespace agu::projectscene {
 struct WaveMetrics
 {
     double top = 0.0;

@@ -8,7 +8,7 @@
 
 #include "trackedit/trackeditcommands.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 using namespace muse;
 using namespace muse::uicomponents;
 

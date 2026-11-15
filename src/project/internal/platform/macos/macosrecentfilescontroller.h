@@ -24,7 +24,7 @@
 
 #include "internal/recentfilescontroller.h"
 
-namespace au::project {
+namespace agu::project {
 class MacOSRecentFilesController : public RecentFilesController
 {
 public:

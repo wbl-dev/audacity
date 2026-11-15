@@ -11,7 +11,7 @@
 #include "projectscene/iprojectsceneconfiguration.h"
 #include "projectscene/types/projectscenetypes.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class ViewTrackItem : public QObject
 {
     Q_OBJECT

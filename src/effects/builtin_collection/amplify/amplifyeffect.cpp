@@ -11,8 +11,8 @@
 
 #include "au3wrap/au3types.h"
 
-using namespace au::effects;
-using namespace au::au3;
+using namespace agu::effects;
+using namespace agu::au3;
 
 const EffectParameterMethods& AmplifyEffect::Parameters() const
 {
@@ -86,7 +86,7 @@ ratio_t AmplifyEffect::ratio() const
     return mRatio;
 }
 
-Param<au::shared::Decibel> AmplifyEffect::amp() const
+Param<agu::shared::Decibel> AmplifyEffect::amp() const
 {
     using namespace shared;
     return { Decibel::fromLinear(mRatio), Decibel::fromLinear(Ratio.min), Decibel::fromLinear(Ratio.max) };
@@ -97,7 +97,7 @@ void AmplifyEffect::setAmp(shared::Decibel v)
     SetRatio(v.toLinear());
 }
 
-Param<au::shared::Decibel> AmplifyEffect::newPeak() const
+Param<agu::shared::Decibel> AmplifyEffect::newPeak() const
 {
     using namespace shared;
     if (muse::RealIsEqualOrLess(mInputPeak, 0.0)) {

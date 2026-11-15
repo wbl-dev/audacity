@@ -1,10 +1,10 @@
 #include "realtimeeffectpaneltrackselection.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 void RealtimeEffectPanelTrackSelection::init()
 {
-    trackNavigationController()->focusedTrackChanged().onReceive(this, [this](const au::trackedit::TrackId& trackId, bool) {
-        if (trackId != au::trackedit::INVALID_TRACK) {
+    trackNavigationController()->focusedTrackChanged().onReceive(this, [this](const agu::trackedit::TrackId& trackId, bool) {
+        if (trackId != agu::trackedit::INVALID_TRACK) {
             setTrackId(trackId);
         }
     });
@@ -68,7 +68,7 @@ void RealtimeEffectPanelTrackSelection::onTracksChanged(const std::vector<tracke
     }
 }
 
-std::optional<au::trackedit::TrackId> RealtimeEffectPanelTrackSelection::selectedTrackId() const
+std::optional<agu::trackedit::TrackId> RealtimeEffectPanelTrackSelection::selectedTrackId() const
 {
     return m_trackId;
 }
@@ -78,7 +78,7 @@ muse::async::Notification RealtimeEffectPanelTrackSelection::selectedTrackIdChan
     return m_selectedTrackIdChanged;
 }
 
-void RealtimeEffectPanelTrackSelection::setTrackId(std::optional<au::trackedit::TrackId> trackId)
+void RealtimeEffectPanelTrackSelection::setTrackId(std::optional<agu::trackedit::TrackId> trackId)
 {
     if (m_trackId == trackId) {
         return;

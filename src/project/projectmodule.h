@@ -28,7 +28,7 @@
 #include "modularity/imodulesetup.h"
 #include "types/uri.h"
 
-namespace au::project {
+namespace agu::project {
 struct ProjectPageRegistration
 {
     muse::Uri uri;
@@ -40,7 +40,7 @@ using ProjectPageManifest = std::vector<ProjectPageRegistration>;
 inline ProjectPageManifest projectPageManifest()
 {
     return {
-        { muse::Uri("audacity://project/new"), "Audacity/Project/NewProjectDialog.qml" },
+        { muse::Uri("agu://project/new"), "AGu/Project/NewProjectDialog.qml" },
     };
 }
 

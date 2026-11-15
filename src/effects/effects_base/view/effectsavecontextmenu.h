@@ -11,7 +11,7 @@
 
 #include "effects/effects_base/effectstypes.h"
 
-namespace au::effects {
+namespace agu::effects {
 class EffectSaveContextMenu : public muse::uicomponents::AbstractMenuModel
 {
     Q_OBJECT

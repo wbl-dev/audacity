@@ -11,7 +11,7 @@
 #include <algorithm>
 #include <cmath>
 
-namespace au {
+namespace agu {
 namespace {
 // Sorted by decreasing value.
 std::vector<double> getTicksValues(double maxVal, double minVal, double step, shared::AxisScale scale)

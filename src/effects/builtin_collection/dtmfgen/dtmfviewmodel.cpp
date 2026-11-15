@@ -4,7 +4,7 @@
 #include "dtmfviewmodel.h"
 #include "dtmfgenerator.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 DtmfViewModel::DtmfViewModel(QObject* parent, int instanceId)
     : GeneratorEffectModel(parent, instanceId)

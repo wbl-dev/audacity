@@ -1,6 +1,6 @@
 #include "trackeditinteraction.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 TrackeditInteraction::TrackeditInteraction(const muse::modularity::ContextPtr& ctx, std::unique_ptr<ITrackeditInteraction> interaction)
     : muse::Contextable(ctx), m_interaction(std::move(interaction))
 {

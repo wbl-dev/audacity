@@ -6,6 +6,6 @@
 #include "au3audiometer.h"
 #include <memory>
 
-namespace au::au3 {
+namespace agu::au3 {
 std::shared_ptr<Au3AudioMeter> createAudioMeter();
 }

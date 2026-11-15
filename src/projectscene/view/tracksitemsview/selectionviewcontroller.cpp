@@ -14,23 +14,23 @@
 #include "trackedit/trackeditutils.h"
 #include "framework/global/log.h"
 
-using namespace au::projectscene;
-using namespace au::project;
-using namespace au::trackedit;
+using namespace agu::projectscene;
+using namespace agu::project;
+using namespace agu::trackedit;
 
 constexpr double MIN_SELECTION_PX = 1.0;
 constexpr double SELECTION_DRAG_THRESHOLD_PX = 5.0;
 
 namespace {
-double clampToSpectrogram(const au::spectrogram::SpectrogramHit& hit, double y)
+double clampToSpectrogram(const agu::spectrogram::SpectrogramHit& hit, double y)
 {
     return std::clamp(y, hit.spectrogramY, hit.spectrogramY + hit.spectrogramHeight);
 }
 
-std::optional<au::trackedit::TrackItemKey> firstItemOnTopmostTrack(const TrackIdList& tracks, const ItemKeys& timeSortedItems)
+std::optional<agu::trackedit::TrackItemKey> firstItemOnTopmostTrack(const TrackIdList& tracks, const ItemKeys& timeSortedItems)
 {
     for (const TrackId& trackId : tracks) {
-        if (const std::optional<au::trackedit::TrackItemKey> item = au::trackedit::utils::firstItemOnTrack(timeSortedItems, trackId)) {
+        if (const std::optional<agu::trackedit::TrackItemKey> item = agu::trackedit::utils::firstItemOnTrack(timeSortedItems, trackId)) {
             return item;
         }
     }
@@ -588,7 +588,7 @@ void SelectionViewController::resetDataSelection()
 
 IProjectViewStatePtr SelectionViewController::viewState() const
 {
-    IAudacityProjectPtr prj = globalContext()->currentProject();
+    IAGuProjectPtr prj = globalContext()->currentProject();
     return prj ? prj->viewState() : nullptr;
 }
 

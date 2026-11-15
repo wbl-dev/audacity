@@ -13,7 +13,7 @@
 
 #include "macromanagertypes.h"
 
-namespace au::macromanager {
+namespace agu::macromanager {
 class IMacroRunner : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IMacroRunner)

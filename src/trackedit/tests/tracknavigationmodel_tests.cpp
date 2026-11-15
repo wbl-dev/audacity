@@ -30,7 +30,7 @@ using ::testing::ReturnRef;
 using ::testing::SaveArg;
 using ::testing::_;
 
-namespace au::trackedit {
+namespace agu::trackedit {
 static constexpr const char* SECTION_NAME = "TrackViewSection";
 static constexpr const char* FALLBACK_PANEL_NAME = "FallbackPanel";
 static constexpr const char* FALLBACK_CONTROL_NAME = "FallbackControl";

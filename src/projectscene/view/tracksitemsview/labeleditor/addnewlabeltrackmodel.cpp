@@ -3,15 +3,15 @@
 */
 #include "addnewlabeltrackmodel.h"
 
-using namespace au::projectscene;
-using namespace au::trackedit;
+using namespace agu::projectscene;
+using namespace agu::trackedit;
 
 AddNewLabelTrackModel::AddNewLabelTrackModel(QObject* parent)
     : QObject(parent), muse::Contextable(muse::iocCtxForQmlObject(this))
 {
 }
 
-au::trackedit::TrackId AddNewLabelTrackModel::createLabelTrack(const QString& trackName)
+agu::trackedit::TrackId AddNewLabelTrackModel::createLabelTrack(const QString& trackName)
 {
     muse::RetVal<TrackId> retVal = trackeditInteraction()->newLabelTrack(trackName);
     if (!retVal.ret) {

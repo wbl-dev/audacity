@@ -5,7 +5,7 @@
 #include "audio/audiotypes.h"
 
 //! NOTE Implemented in Au3Wrap
-namespace au::playback {
+namespace agu::playback {
 class IAudioOutput
 {
 public:

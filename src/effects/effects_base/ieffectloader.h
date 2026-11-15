@@ -7,7 +7,7 @@
 
 #include "effectstypes.h"
 
-namespace au::effects {
+namespace agu::effects {
 class IEffectLoader
 {
 public:
@@ -19,4 +19,4 @@ public:
 };
 
 using IEffectLoaderPtr = std::shared_ptr<IEffectLoader>;
-} // namespace au::effects
+} // namespace agu::effects

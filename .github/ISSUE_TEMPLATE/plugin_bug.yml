@@ -69,12 +69,12 @@ body:
   - type: dropdown
     id: version
     attributes:
-      label: Audacity Version
-      description: What version of Audacity are you running?
+      label: AGu Version
+      description: What version of AGu are you running?
       options:
         - current master / alpha / nightly build
         - latest beta
-        - latest stable version (from audacityteam.org/download)
+        - AGu 4.0.0
         - stable version (from a Linux repository)
         - other
     validations:
@@ -112,8 +112,3 @@ body:
       label: Additional context
       description: Further information which may be relevant to this bug
       placeholder: Sound card, commit ID, Screenshots, trial vs paid version, etc.
-  - type: markdown
-    attributes:
-      value: >
-        Please note that Audacity is currently undergoing major restructuring. See the [Roadmap](https://github.com/audacity/audacity/wiki/Roadmap)
-        for further info. Bug fixes may be delayed or postponed significantly. 

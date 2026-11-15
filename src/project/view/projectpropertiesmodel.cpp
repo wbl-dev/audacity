@@ -31,7 +31,7 @@
 
 using namespace muse;
 using namespace muse::modularity;
-using namespace au::project;
+using namespace agu::project;
 
 ProjectPropertiesModel::ProjectPropertiesModel(QObject* parent)
     : QAbstractListModel(parent), muse::Contextable(muse::iocCtxForQmlObject(this))

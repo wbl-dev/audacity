@@ -12,7 +12,7 @@
 #include "framework/global/types/datetime.h"
 #include "framework/rcommand/commandtypes.h"
 
-namespace au::macromanager {
+namespace agu::macromanager {
 class MacroId
 {
 public:

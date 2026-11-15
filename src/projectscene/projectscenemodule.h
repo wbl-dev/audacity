@@ -8,7 +8,7 @@
 
 #include "modularity/imodulesetup.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class ProjectSceneUiActions;
 class ProjectSceneActionsController;
 class ProjectSceneConfiguration;

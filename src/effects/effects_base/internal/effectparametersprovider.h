@@ -11,7 +11,7 @@
 #include "../ieffectsprovider.h"
 #include "../iparameterextractorregistry.h"
 
-namespace au::effects {
+namespace agu::effects {
 class EffectParametersProvider : public IEffectParametersProvider, public muse::async::Asyncable, public muse::Contextable
 {
     muse::GlobalInject<IParameterExtractorRegistry> parameterExtractorRegistry;

@@ -28,7 +28,7 @@
 #define MYLOG() LOGN()
 #endif
 
-using namespace au::trackedit;
+using namespace agu::trackedit;
 using namespace muse;
 using namespace muse::rcommand;
 
@@ -159,12 +159,12 @@ muse::async::Notification TrackNavigationController::isNavigationActiveChanged()
     return m_isNavigationActiveChannel;
 }
 
-au::trackedit::TrackId TrackNavigationController::focusedTrack() const
+agu::trackedit::TrackId TrackNavigationController::focusedTrack() const
 {
     return m_focus.trackId;
 }
 
-muse::async::Channel<au::trackedit::TrackId, bool> TrackNavigationController::focusedTrackChanged() const
+muse::async::Channel<agu::trackedit::TrackId, bool> TrackNavigationController::focusedTrackChanged() const
 {
     return m_focusedTrackChanged;
 }
@@ -210,7 +210,7 @@ muse::async::Channel<TrackItemKey> TrackNavigationController::openContextMenuReq
     return m_openContextMenuRequested;
 }
 
-muse::async::Channel<au::trackedit::TrackId> TrackNavigationController::openRulerContextMenuRequested() const
+muse::async::Channel<agu::trackedit::TrackId> TrackNavigationController::openRulerContextMenuRequested() const
 {
     return m_openRulerContextMenuRequested;
 }
@@ -759,7 +759,7 @@ muse::Ret TrackNavigationController::rangeSelection()
             std::swap(startIt, endIt);
         }
 
-        au::trackedit::TrackIdList newSelectedTracks;
+        agu::trackedit::TrackIdList newSelectedTracks;
         for (auto it = startIt; it <= endIt; ++it) {
             newSelectedTracks.push_back(*it);
         }
@@ -775,8 +775,8 @@ muse::Ret TrackNavigationController::multiSelectionUp()
 {
     updateSelectionStart(SelectionDirection::Up);
 
-    au::trackedit::TrackIdList selectedTracks = selectionController()->selectedTracks();
-    const au::trackedit::TrackId focusedTrackId = focusedTrack();
+    agu::trackedit::TrackIdList selectedTracks = selectionController()->selectedTracks();
+    const agu::trackedit::TrackId focusedTrackId = focusedTrack();
 
     navigateToPrevTrack();
     updateTrackSelection(selectedTracks, focusedTrackId);
@@ -787,8 +787,8 @@ muse::Ret TrackNavigationController::multiSelectionDown()
 {
     updateSelectionStart(SelectionDirection::Down);
 
-    const au::trackedit::TrackId focusedTrackId = focusedTrack();
-    au::trackedit::TrackIdList selectedTracks = selectionController()->selectedTracks();
+    const agu::trackedit::TrackId focusedTrackId = focusedTrack();
+    agu::trackedit::TrackIdList selectedTracks = selectionController()->selectedTracks();
 
     navigateToNextTrack();
     updateTrackSelection(selectedTracks, focusedTrackId);
@@ -797,7 +797,7 @@ muse::Ret TrackNavigationController::multiSelectionDown()
 
 void TrackNavigationController::updateSelectionStart(SelectionDirection direction)
 {
-    const au::trackedit::TrackId focusedTrackId = focusedTrack();
+    const agu::trackedit::TrackId focusedTrackId = focusedTrack();
 
     if (!m_selectionStart) {
         const auto orderedTracks = selectionController()->orderedTrackList();
@@ -882,7 +882,7 @@ muse::Ret TrackNavigationController::openContextMenuForFocusedRuler()
 void TrackNavigationController::au3SetTrackFocused(const TrackId& trackId)
 {
     if (auto project = globalContext()->currentProject()) {
-        auto au3Project = reinterpret_cast<au::au3::Au3Project*>(project->au3ProjectPtr());
+        auto au3Project = reinterpret_cast<agu::au3::Au3Project*>(project->au3ProjectPtr());
         au3::DomAccessor::clearAllTrackFocus(*au3Project);
         au3::DomAccessor::setTrackFocused(*au3Project, trackId, true);
     }

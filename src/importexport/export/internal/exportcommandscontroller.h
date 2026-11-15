@@ -15,7 +15,7 @@
 #include "../iexportconfiguration.h"
 #include "../iexporter.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class ExportCommandsController : public muse::rcommand::Commandable, public muse::Contextable
 {
     muse::GlobalInject<IExportConfiguration> exportConfiguration;

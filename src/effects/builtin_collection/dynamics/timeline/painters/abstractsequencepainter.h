@@ -7,7 +7,7 @@
 
 #include <atomic>
 
-namespace au::effects {
+namespace agu::effects {
 struct SequenceSample {
     SequenceSample(double x, double y)
         : x{x}, y{y} {}
@@ -30,4 +30,4 @@ protected:
     const std::atomic<double>& m_viewportX;
     QSGGeometry m_geometry;
 };
-} // namespace au::effects
+} // namespace agu::effects

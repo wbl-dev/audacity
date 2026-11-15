@@ -9,7 +9,7 @@
 #include "modularity/ioc.h"
 #include "async/asyncable.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class RealtimeEffectPanelTrackSelection : public IRealtimeEffectPanelTrackSelection, muse::async::Asyncable, public muse::Contextable
 {
     muse::ContextInject<trackedit::ITrackNavigationController> trackNavigationController{ this };
@@ -21,16 +21,16 @@ public:
 
     void init();
 
-    std::optional<au::trackedit::TrackId> selectedTrackId() const override;
+    std::optional<agu::trackedit::TrackId> selectedTrackId() const override;
     muse::async::Notification selectedTrackIdChanged() const override;
 
 private:
-    void setTrackId(std::optional<au::trackedit::TrackId>);
+    void setTrackId(std::optional<agu::trackedit::TrackId>);
     void setupCallbacks(trackedit::ITrackeditProject&);
     void onTrackAdded(const trackedit::Track&);
     void onTrackRemoved(const trackedit::TrackId&);
     void onTracksChanged(const std::vector<trackedit::Track>&);
-    std::optional<au::trackedit::TrackId> m_trackId;
+    std::optional<agu::trackedit::TrackId> m_trackId;
     muse::async::Notification m_selectedTrackIdChanged;
 };
 }

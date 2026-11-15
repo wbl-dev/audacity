@@ -11,7 +11,7 @@
 #include "playbacktypes.h"
 
 class TrackList;
-namespace au::playback {
+namespace agu::playback {
 class IPlayer
 {
 public:

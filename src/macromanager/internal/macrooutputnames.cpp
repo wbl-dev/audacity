@@ -10,7 +10,7 @@
 
 using namespace muse;
 
-std::vector<std::string> au::macromanager::uniqueOutputNames(const io::paths_t& files)
+std::vector<std::string> agu::macromanager::uniqueOutputNames(const io::paths_t& files)
 {
     importexport::utils::UniqueFileNames usedNames;
     std::vector<std::string> names;

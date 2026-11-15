@@ -10,7 +10,7 @@
 
 #include "playbacktypes.h"
 
-namespace au::playback {
+namespace agu::playback {
 VolumePressureMeterItemBase::VolumePressureMeterItemBase(QQuickItem* parent)
     : QQuickPaintedItem(parent)
 {

@@ -18,14 +18,14 @@
 #include "trackedit/tests/mocks/selectioncontrollermock.h"
 #include "trackedit/tests/mocks/projecthistorymock.h"
 #include "context/tests/mocks/globalcontextmock.h"
-#include "project/tests/mocks/audacityprojectmock.h"
+#include "project/tests/mocks/aguprojectmock.h"
 #include "playback/tests/mocks/playbackmock.h"
 #include "mocks/audiooutputmock.h"
 #include "snaptestaccess.h"
 
 using namespace ::testing;
 
-namespace au::projectscene {
+namespace agu::projectscene {
 namespace {
 class DragViewState : public ProjectViewState
 {
@@ -74,7 +74,7 @@ protected:
     void SetUp() override
     {
         m_globalContext = std::make_shared<NiceMock<context::GlobalContextMock> >();
-        m_project = std::make_shared<NiceMock<project::AudacityProjectMock> >();
+        m_project = std::make_shared<NiceMock<project::AGuProjectMock> >();
         m_trackeditProject = std::make_shared<NiceMock<trackedit::TrackeditProjectMock> >();
         m_selection = std::make_shared<NiceMock<trackedit::SelectionControllerMock> >();
         m_interaction = std::make_shared<StrictMock<trackedit::TrackeditInteractionMock> >();
@@ -208,7 +208,7 @@ protected:
     std::shared_ptr<NiceMock<trackedit::TrackNavigationControllerMock> > m_navigation;
     std::shared_ptr<trackedit::TracksViewRequestsService> m_requests;
     std::shared_ptr<NiceMock<context::GlobalContextMock> > m_globalContext;
-    std::shared_ptr<NiceMock<project::AudacityProjectMock> > m_project;
+    std::shared_ptr<NiceMock<project::AGuProjectMock> > m_project;
     std::shared_ptr<NiceMock<trackedit::TrackeditProjectMock> > m_trackeditProject;
     std::shared_ptr<NiceMock<trackedit::SelectionControllerMock> > m_selection;
     std::shared_ptr<StrictMock<trackedit::TrackeditInteractionMock> > m_interaction;

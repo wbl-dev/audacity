@@ -8,7 +8,7 @@
 #include "appshell/appshellcommands.h"
 #include "playback/playbackcommands.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 using namespace muse::uicomponents;
 using namespace muse::rcommand;
 

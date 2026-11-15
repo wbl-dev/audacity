@@ -3,7 +3,7 @@
  */
 #include "au3audiometer.h"
 
-namespace au::au3 {
+namespace agu::au3 {
 Au3AudioMeter::Au3AudioMeter(std::unique_ptr<audio::IAudioMeter> audioMeter)
     : m_audioMeter{std::move(audioMeter)}
 {

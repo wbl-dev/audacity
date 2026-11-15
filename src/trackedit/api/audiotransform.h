@@ -8,7 +8,7 @@
 #include <QObject>
 #include <QString>
 
-namespace au::trackedit::api {
+namespace agu::trackedit::api {
 class AudioTransformTask
 {
 public:
@@ -26,4 +26,4 @@ public:
 
     virtual bool apply(float* const channels[], uint32_t channelCount, uint64_t sampleCount) = 0;
 };
-} // namespace au::trackedit::api
+} // namespace agu::trackedit::api

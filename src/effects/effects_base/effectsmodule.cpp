@@ -45,7 +45,7 @@
 #include "view/dropdownoptionsmodel.h"
 #include "view/pluginmanagertableviewmodel.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 static const std::string mname("effects_base");
 
@@ -75,11 +75,11 @@ void EffectsModule::resolveImports()
 {
     auto ir = globalIoc()->resolve<muse::interactive::IInteractiveUriRegister>(mname);
     if (ir) {
-        ir->registerQmlUri(muse::Uri("audacity://effects/destructive_viewer"), "Audacity/Effects/DestructiveEffectsViewerDialog.qml");
-        ir->registerQmlUri(muse::Uri("audacity://effects/missing_plugins"), "Audacity/Effects/MissingPluginsDialog.qml");
-        ir->registerQmlUri(muse::Uri("audacity://effects/realtime_viewer"), "Audacity/Effects/RealtimeEffectViewerDialog.qml");
-        ir->registerQmlUri(muse::Uri("audacity://effects/presets/input_name"), "Audacity/Effects/PresetNameDialog.qml");
-        ir->registerQmlUri(muse::Uri("audacity://effects/plugin_manager"), "Audacity/Effects/PluginManagerDialog.qml");
+        ir->registerQmlUri(muse::Uri("agu://effects/destructive_viewer"), "AGu/Effects/DestructiveEffectsViewerDialog.qml");
+        ir->registerQmlUri(muse::Uri("agu://effects/missing_plugins"), "AGu/Effects/MissingPluginsDialog.qml");
+        ir->registerQmlUri(muse::Uri("agu://effects/realtime_viewer"), "AGu/Effects/RealtimeEffectViewerDialog.qml");
+        ir->registerQmlUri(muse::Uri("agu://effects/presets/input_name"), "AGu/Effects/PresetNameDialog.qml");
+        ir->registerQmlUri(muse::Uri("agu://effects/plugin_manager"), "AGu/Effects/PluginManagerDialog.qml");
     }
 
     // must run before the audioplugins cache loads in onInit
@@ -100,22 +100,22 @@ void EffectsModule::registerResources()
 
 void EffectsModule::registerUiTypes()
 {
-    qmlRegisterType<EffectPresetsBarModel>("Audacity.Effects", 1, 0, "EffectPresetsBarModel");
-    qmlRegisterType<DestructiveEffectViewerDialogModel>("Audacity.Effects", 1, 0, "DestructiveEffectViewerDialogModel");
-    qmlRegisterType<RealtimeEffectViewerDialogModel>("Audacity.Effects", 1, 0, "RealtimeEffectViewerDialogModel");
+    qmlRegisterType<EffectPresetsBarModel>("AGu.Effects", 1, 0, "EffectPresetsBarModel");
+    qmlRegisterType<DestructiveEffectViewerDialogModel>("AGu.Effects", 1, 0, "DestructiveEffectViewerDialogModel");
+    qmlRegisterType<RealtimeEffectViewerDialogModel>("AGu.Effects", 1, 0, "RealtimeEffectViewerDialogModel");
     REGISTER_AUDACITY_EFFECTS_SINGLETON_TYPE(GeneratedEffectViewerModelFactory);
-    qmlRegisterUncreatableType<EffectFamilies>("Audacity.Effects", 1, 0, "EffectFamily", "Not creatable from QML");
-    qmlRegisterUncreatableType<ViewerComponentTypes>("Audacity.Effects", 1, 0, "ViewerComponentType", "Not creatable from QML");
-    qmlRegisterType<DropdownOptionsModel>("Audacity.Effects", 1, 0, "DropdownOptionsModel");
-    qmlRegisterType<PluginManagerTableViewModel>("Audacity.Effects", 1, 0, "PluginManagerTableViewModel");
-    qmlRegisterUncreatableMetaObject(PluginManagerTableViewCellType::staticMetaObject, "Audacity.Effects", 1, 0,
+    qmlRegisterUncreatableType<EffectFamilies>("AGu.Effects", 1, 0, "EffectFamily", "Not creatable from QML");
+    qmlRegisterUncreatableType<ViewerComponentTypes>("AGu.Effects", 1, 0, "ViewerComponentType", "Not creatable from QML");
+    qmlRegisterType<DropdownOptionsModel>("AGu.Effects", 1, 0, "DropdownOptionsModel");
+    qmlRegisterType<PluginManagerTableViewModel>("AGu.Effects", 1, 0, "PluginManagerTableViewModel");
+    qmlRegisterUncreatableMetaObject(PluginManagerTableViewCellType::staticMetaObject, "AGu.Effects", 1, 0,
                                      "PluginManagerTableViewCellType", "Not creatable from QML");
 }
 
 void EffectsModule::onPreInit(const muse::IApplication::RunMode&)
 {
     auto configFactory = [](const FilePath& localFileName) -> std::unique_ptr<audacity::BasicSettings> {
-        return std::make_unique<au3::EffectConfigSettings>(au::au3::wxToStdString(localFileName));
+        return std::make_unique<au3::EffectConfigSettings>(agu::au3::wxToStdString(localFileName));
     };
 
     PluginManager::Get().Initialize(std::move(configFactory), std::make_unique<EffectIdResolver>());
@@ -128,7 +128,7 @@ void EffectsModule::onInit(const muse::IApplication::RunMode&)
     //! --- Diagnostics ---
     auto pr = globalIoc()->resolve<muse::diagnostics::IDiagnosticsPathsRegister>(mname);
     if (pr) {
-        pr->reg("pluginsettings", au::au3::wxToStdString(FileNames::PluginSettings()));
+        pr->reg("pluginsettings", agu::au3::wxToStdString(FileNames::PluginSettings()));
     }
 }
 

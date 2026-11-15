@@ -11,12 +11,12 @@
 #include "playback/iplaybackcontroller.h"
 #include "trackedit/iprojecthistory.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class TrackeditInteraction : public ITrackeditInteraction, public muse::Contextable
 {
-    muse::ContextInject<au::record::IRecordController> recordController { this };
-    muse::ContextInject<au::playback::IPlaybackController> playbackController { this };
-    muse::ContextInject<au::trackedit::IProjectHistory> projectHistory { this };
+    muse::ContextInject<agu::record::IRecordController> recordController { this };
+    muse::ContextInject<agu::playback::IPlaybackController> playbackController { this };
+    muse::ContextInject<agu::trackedit::IProjectHistory> projectHistory { this };
 
 public:
     TrackeditInteraction(const muse::modularity::ContextPtr& ctx, std::unique_ptr<ITrackeditInteraction> interaction);
@@ -191,4 +191,4 @@ private:
         return method(std::forward<Args>(args)...);
     }
 };
-} // namespace au::trackedit
+} // namespace agu::trackedit

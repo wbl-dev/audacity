@@ -10,7 +10,7 @@
 
 #include "playbacktypes.h"
 
-namespace au::playback {
+namespace agu::playback {
 HorizontalVolumePressureMeterItem::HorizontalVolumePressureMeterItem(QQuickItem* parent)
     : VolumePressureMeterItemBase(parent)
 {

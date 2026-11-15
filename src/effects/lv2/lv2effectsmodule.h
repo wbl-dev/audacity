@@ -8,7 +8,7 @@
 
 #include "modularity/imodulesetup.h"
 
-namespace au::effects {
+namespace agu::effects {
 class Lv2PluginMetaReader;
 class Lv2EffectLoader;
 class Lv2PluginsScanner;

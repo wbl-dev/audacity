@@ -20,7 +20,7 @@
 class WaveTrack;
 class WaveClip;
 
-namespace au::importexport {
+namespace agu::importexport {
 struct ImportedClipInfo {
     trackedit::TrackId dstTrackId;
     int64_t clipId;
@@ -41,7 +41,7 @@ class TempoDetection : public muse::Contextable
     muse::GlobalInject<IImporterConfiguration> configuration;
 
     muse::ContextInject<muse::IInteractive> interactive{ this };
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
     muse::ContextInject<trackedit::ITrackeditInteraction> trackeditInteraction{ this };
 
 public:

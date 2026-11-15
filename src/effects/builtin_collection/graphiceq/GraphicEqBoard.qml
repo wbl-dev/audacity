@@ -2,7 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import Muse.UiComponents
 
-import Audacity.UiComponents
+import AGu.UiComponents
 
 Item {
     id: root

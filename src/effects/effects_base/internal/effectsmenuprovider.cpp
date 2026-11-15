@@ -6,7 +6,7 @@
 
 #include "global/log.h"
 
-namespace au::effects {
+namespace agu::effects {
 void EffectsMenuProvider::init()
 {
     configuration()->effectMenuOrganizationChanged().onNotify(this, [this] {
@@ -43,14 +43,14 @@ muse::uicomponents::MenuItemList EffectsMenuProvider::destructiveEffectMenu(IEff
         return {};
     }
 
-    return au::effects::utils::destructiveEffectMenu(configuration()->effectMenuOrganization(),
+    return agu::effects::utils::destructiveEffectMenu(configuration()->effectMenuOrganization(),
                                                      effectsProvider()->effectMetaList(), std::move(filter), effectMenu);
 }
 
 muse::uicomponents::MenuItemList EffectsMenuProvider::realtimeEffectMenu(IEffectMenuItemFactory& effectMenu)
 {
     auto filter = [](const EffectMeta& meta) { return !(meta.type == EffectType::Processor && meta.isRealtimeCapable); };
-    return au::effects::utils::realtimeEffectMenu(configuration()->effectMenuOrganization(),
+    return agu::effects::utils::realtimeEffectMenu(configuration()->effectMenuOrganization(),
                                                   effectsProvider()->effectMetaList(), std::move(filter), effectMenu);
 }
 

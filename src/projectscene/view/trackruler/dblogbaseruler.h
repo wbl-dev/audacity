@@ -7,7 +7,7 @@
 
 #include "projectscene/view/trackruler/itrackruler.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 struct DbLogRulerUiSettings {
     int minAdjacentStepsHeight;
 };

@@ -10,7 +10,7 @@
 
 #include <QtQml/qqml.h>
 
-namespace au::effects {
+namespace agu::effects {
 void NyquistPromptLoader::preInit()
 {
     //! NOTE preInit() only creates static Registration objects (doesn't use `this`).
@@ -20,7 +20,7 @@ void NyquistPromptLoader::preInit()
 
 void NyquistPromptLoader::init()
 {
-    qmlRegisterSingletonType<NyquistPromptViewModelFactory>("Audacity.Nyquist", 1, 0, "NyquistPromptViewModelFactory",
+    qmlRegisterSingletonType<NyquistPromptViewModelFactory>("AGu.Nyquist", 1, 0, "NyquistPromptViewModelFactory",
                                                             [] (QQmlEngine*, QJSEngine*) -> QObject* {
         return new NyquistPromptViewModelFactory();
     });

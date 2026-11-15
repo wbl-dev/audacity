@@ -7,7 +7,7 @@
 
 #include "trackedit/iclipsinteraction.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class ClipsInteractionMock : public IClipsInteraction
 {
 public:

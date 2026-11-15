@@ -13,7 +13,7 @@
 #include "extensioneffectruntime.h"
 #include "extensioneffecttypes.h"
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 class ExtensionEffect;
 class ExtensionEffectRun;
 
@@ -81,4 +81,4 @@ private:
 
     EffectDescriptor m_descriptor;
 };
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

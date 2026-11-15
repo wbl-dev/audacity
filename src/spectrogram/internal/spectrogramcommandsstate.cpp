@@ -5,7 +5,7 @@
 
 #include "framework/global/log.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 using muse::rcommand::Command;
 using muse::rcommand::CommandState;
 

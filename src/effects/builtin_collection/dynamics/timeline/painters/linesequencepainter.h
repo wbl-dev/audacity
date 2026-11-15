@@ -5,7 +5,7 @@
 
 #include "abstractsequencepainter.h"
 
-namespace au::effects {
+namespace agu::effects {
 class LineSequencePainter : public AbstractSequencePainter
 {
 public:
@@ -18,4 +18,4 @@ private:
 
     std::vector<QSGGeometry::Point2D> m_buffer;
 };
-} // namespace au::effects
+} // namespace agu::effects

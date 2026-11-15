@@ -143,7 +143,7 @@ jobs:
         run: |
           case "${{ matrix.os }}" in
             linux)
-              APP_BIN=$(find "$(pwd)/build.release/src/app/" -type f -name "audacity4portable*" -print -quit)
+              APP_BIN=$(find "$(pwd)/build.release/src/app/" -type f -name "agu*" -print -quit)
               cmake -DAPP_BIN="$APP_BIN" -P muse/buildscripts/ci/crashdumps/ci_generate_dumpsyms.cmake
               ;;
             macos)
@@ -155,13 +155,13 @@ jobs:
               # rpaths, which only the build tree satisfies pre-packaging (the
               # production sentry path runs post-Package, where Frameworks/ is
               # populated)
-              cmake -DAPP_BIN="$(pwd)/build.release/src/app/audacity.app/Contents/MacOS/audacity" \
+              cmake -DAPP_BIN="$(pwd)/build.release/src/app/AGu.app/Contents/MacOS/AGu" \
                     -DGENERATE_ARCHS="$ARCHS" \
                     -DBUILD_DIR="$(pwd)/build.release" \
                     -P muse/buildscripts/ci/crashdumps/ci_generate_dumpsyms.cmake
               ;;
             windows)
-              cmake -DAPP_BIN="$(pwd)/build.release/Audacity4.pdb" -P muse/buildscripts/ci/crashdumps/ci_generate_dumpsyms.cmake
+              cmake -DAPP_BIN="$(pwd)/build.release/AGu.pdb" -P muse/buildscripts/ci/crashdumps/ci_generate_dumpsyms.cmake
               ;;
           esac
           test -n "$(find build.artifacts/symbols -name '*.sym' -print -quit)" || { echo "no .sym files generated"; exit 1; }
@@ -173,7 +173,7 @@ jobs:
         if: matrix.os == 'linux' && matrix.mode != 'system'
         shell: bash
         run: |
-          APP=$(find build.install -type f -name 'audacity4*' -path '*bin*' -print -quit)
+          APP=$(find build.install -type f -name 'agu*' -path '*bin*' -print -quit)
           bash ${CI_DIR}/linux/check_self_contained.sh "$APP"
 
       # The crashpad handler is now produced by ExtDeps (source recipe / lock

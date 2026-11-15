@@ -12,7 +12,7 @@
 
 #include "effectstypes.h"
 
-namespace au::effects {
+namespace agu::effects {
 inline static const muse::rcommand::Command EFFECTS_REPEAT_LAST_EFFECT_COMMAND("command://effects/repeat-last-effect");
 inline static const muse::rcommand::Command EFFECTS_PLUGIN_MANAGER_COMMAND("command://effects/plugin-manager");
 inline static const muse::rcommand::Command EFFECTS_TOGGLE_VENDOR_UI_COMMAND("command://effects/toggle-vendor-ui");

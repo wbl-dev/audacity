@@ -12,8 +12,8 @@
 #include "../playbacktypes.h"
 
 using namespace muse;
-using namespace au::audio;
-using namespace au::playback;
+using namespace agu::audio;
+using namespace agu::playback;
 using namespace muse::async;
 using namespace muse::actions;
 using namespace muse::rcommand;
@@ -284,7 +284,7 @@ bool PlaybackController::isStopped() const
 
 bool PlaybackController::isLoopRegionActive() const
 {
-    au::project::IAudacityProjectPtr prj = globalContext()->currentProject();
+    agu::project::IAGuProjectPtr prj = globalContext()->currentProject();
 
     return prj ? player()->isLoopRegionActive() : false;
 }
@@ -354,12 +354,12 @@ Channel<uint32_t> PlaybackController::midiTickPlayed() const
     return m_tickPlayed;
 }
 
-muse::async::Channel<au::playback::TrackId> PlaybackController::trackAdded() const
+muse::async::Channel<agu::playback::TrackId> PlaybackController::trackAdded() const
 {
     return m_trackAdded;
 }
 
-muse::async::Channel<au::playback::TrackId> PlaybackController::trackRemoved() const
+muse::async::Channel<agu::playback::TrackId> PlaybackController::trackRemoved() const
 {
     return m_trackRemoved;
 }
@@ -375,7 +375,7 @@ muse::async::Channel<au::playback::TrackId> PlaybackController::trackRemoved() c
 
 void PlaybackController::onProjectChanged()
 {
-    au::project::IAudacityProjectPtr prj = globalContext()->currentProject();
+    agu::project::IAGuProjectPtr prj = globalContext()->currentProject();
     if (prj) {
         prj->aboutCloseBegin().onNotify(this, [this]() {
             stopAndSeekToLastSeekTime();
@@ -1029,7 +1029,7 @@ muse::Ret PlaybackController::setLoopRegionInOut()
 {
     PlaybackRegion region = player()->loopRegion();
 
-    muse::UriQuery loopRegionInOutUri("audacity://playback/loop_region_in_out");
+    muse::UriQuery loopRegionInOutUri("agu://playback/loop_region_in_out");
     loopRegionInOutUri.addParam("title", muse::Val(muse::trc("trackedit", "Set looping region in/out")));
     loopRegionInOutUri.addParam("start", muse::Val(static_cast<double>(region.start)));
     loopRegionInOutUri.addParam("end", muse::Val(static_cast<double>(region.end)));
@@ -1248,7 +1248,7 @@ Channel<ActionCode> PlaybackController::actionCheckedChanged() const
 
 muse::secs_t PlaybackController::totalPlayTime() const
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     if (!project) {
         return 0;
     }

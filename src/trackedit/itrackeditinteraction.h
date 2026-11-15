@@ -12,7 +12,7 @@
 #include "trackedittypes.h"
 #include "types/ret.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 //! NOTE Interface for interacting with the project
 //! When it gets big, maybe we’ll divide it into several
 //! Currently implemented in the au3wrap module

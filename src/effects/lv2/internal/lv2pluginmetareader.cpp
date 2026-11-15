@@ -7,7 +7,7 @@
 
 #include "lv2types.h"
 
-namespace au::effects {
+namespace agu::effects {
 Lv2PluginMetaReader::Lv2PluginMetaReader()
     : Au3AudioPluginMetaReader{m_module} {}
 

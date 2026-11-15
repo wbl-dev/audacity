@@ -2,5 +2,5 @@
 
 int main(int argc, char** argv)
 {
-    return au::importexport::runLabelScriptWorker(argc, argv);
+    return agu::importexport::runLabelScriptWorker(argc, argv);
 }

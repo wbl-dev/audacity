@@ -12,7 +12,7 @@
 #include "trackedit/dom/track.h"
 #include "trackedit/trackeditcommands.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 using namespace muse;
 using namespace muse::uicomponents;
 using namespace muse::rcommand;
@@ -25,19 +25,19 @@ const QString TRACK_FORMAT_MENU_ID("trackFormatMenu");
 const QString TRACK_RATE_MENU_ID("trackRateMenu");
 
 const std::vector<Command> TRACK_VIEW_TYPE_COMMANDS = {
-    au::trackedit::TRACKEDIT_TRACK_VIEW_WAVEFORM_COMMAND,
-    au::trackedit::TRACKEDIT_TRACK_VIEW_SPECTROGRAM_COMMAND,
-    au::trackedit::TRACKEDIT_TRACK_VIEW_MULTI_COMMAND,
+    agu::trackedit::TRACKEDIT_TRACK_VIEW_WAVEFORM_COMMAND,
+    agu::trackedit::TRACKEDIT_TRACK_VIEW_SPECTROGRAM_COMMAND,
+    agu::trackedit::TRACKEDIT_TRACK_VIEW_MULTI_COMMAND,
 };
 
-Command trackViewTypeCommand(au::trackedit::TrackViewType viewType)
+Command trackViewTypeCommand(agu::trackedit::TrackViewType viewType)
 {
     switch (viewType) {
-    case au::trackedit::TrackViewType::Waveform: return au::trackedit::TRACKEDIT_TRACK_VIEW_WAVEFORM_COMMAND;
-    case au::trackedit::TrackViewType::Spectrogram: return au::trackedit::TRACKEDIT_TRACK_VIEW_SPECTROGRAM_COMMAND;
-    case au::trackedit::TrackViewType::WaveformAndSpectrogram: return au::trackedit::TRACKEDIT_TRACK_VIEW_MULTI_COMMAND;
+    case agu::trackedit::TrackViewType::Waveform: return agu::trackedit::TRACKEDIT_TRACK_VIEW_WAVEFORM_COMMAND;
+    case agu::trackedit::TrackViewType::Spectrogram: return agu::trackedit::TRACKEDIT_TRACK_VIEW_SPECTROGRAM_COMMAND;
+    case agu::trackedit::TrackViewType::WaveformAndSpectrogram: return agu::trackedit::TRACKEDIT_TRACK_VIEW_MULTI_COMMAND;
     default:
-        assert(viewType == au::trackedit::TrackViewType::Undefined);
+        assert(viewType == agu::trackedit::TrackViewType::Undefined);
         return Command();
     }
 }
@@ -189,7 +189,7 @@ void TrackContextMenuModel::load()
     }
 }
 
-au::trackedit::TrackId TrackContextMenuModel::trackId() const
+agu::trackedit::TrackId TrackContextMenuModel::trackId() const
 {
     return m_trackId;
 }
@@ -256,7 +256,7 @@ void TrackContextMenuModel::onCommandStateChanged(const Command& command, const 
 
 void TrackContextMenuModel::updateColorCheckedState()
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     if (!project) {
         return;
     }
@@ -308,7 +308,7 @@ void TrackContextMenuModel::updateTrackHalfWaveCheckedState()
 
 void TrackContextMenuModel::updateTrackFormatState()
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     if (!project) {
         return;
     }
@@ -336,7 +336,7 @@ void TrackContextMenuModel::updateTrackFormatState()
 
 void TrackContextMenuModel::updateTrackRateState()
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     if (!project) {
         return;
     }
@@ -368,18 +368,18 @@ void TrackContextMenuModel::updateTrackRateState()
 
 void TrackContextMenuModel::updateTrackMonoState()
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     if (!project) {
         return;
     }
 
-    au::trackedit::ITrackeditProjectPtr trackeditProject = project->trackeditProject();
+    agu::trackedit::ITrackeditProjectPtr trackeditProject = project->trackeditProject();
     if (!trackeditProject) {
         return;
     }
 
-    const au::trackedit::TrackList trackList = trackeditProject->trackList();
-    const auto it = std::find_if(trackList.begin(), trackList.end(), [this](const au::trackedit::Track& t) {
+    const agu::trackedit::TrackList trackList = trackeditProject->trackList();
+    const auto it = std::find_if(trackList.begin(), trackList.end(), [this](const agu::trackedit::Track& t) {
         return t.id == m_trackId;
     });
 
@@ -395,8 +395,8 @@ void TrackContextMenuModel::updateTrackMonoState()
     const auto selectedTracks = selectionController()->selectedTracks();
     bool canMakeStereo = (selectedTracks.size() == 1)
                          && (it + 1 != trackList.end())
-                         && (it->type == au::trackedit::TrackType::Mono)
-                         && (it + 1)->type == au::trackedit::TrackType::Mono;
+                         && (it->type == agu::trackedit::TrackType::Mono)
+                         && (it + 1)->type == agu::trackedit::TrackType::Mono;
 
     makeStereoItem.setEnabled(canMakeStereo);
 }

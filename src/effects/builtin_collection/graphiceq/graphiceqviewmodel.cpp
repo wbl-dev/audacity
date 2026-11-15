@@ -8,7 +8,7 @@
 
 #include "log.h"
 
-namespace au::effects {
+namespace agu::effects {
 GraphicEqViewModel::GraphicEqViewModel(QObject* parent, int instanceId)
     : BuiltinEffectModel{parent, instanceId}, mBandsModel(new GraphicEqBandsModel(this, effect<GraphicEq>()))
 {

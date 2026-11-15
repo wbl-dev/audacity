@@ -7,8 +7,8 @@
 
 class AudacityProject;
 
-namespace au::au3 {
+namespace agu::au3 {
 void setProjectIocContext(AudacityProject& project, const muse::modularity::ContextPtr& context);
 
 muse::modularity::ContextPtr projectIocContext(AudacityProject& project);
-} // namespace au::au3
+} // namespace agu::au3

@@ -16,7 +16,7 @@
 
 class QPainter;
 
-namespace au::projectscene {
+namespace agu::projectscene {
 struct TickInfo {
     double x = 0.0;
     QString tickLabel;

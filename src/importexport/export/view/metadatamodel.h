@@ -18,7 +18,7 @@
 
 #include "project/types/projectmeta.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class MetadataModel : public QAbstractListModel, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT
@@ -59,7 +59,7 @@ public:
     QString buildXml() const;
     project::ProjectMeta parseXml(const QString& xml) const;
 
-    bool isMetadataEmpty(const au::project::ProjectMeta& meta) const;
+    bool isMetadataEmpty(const agu::project::ProjectMeta& meta) const;
 
 private:
     inline static const std::array<std::string, 7> kStdTags =

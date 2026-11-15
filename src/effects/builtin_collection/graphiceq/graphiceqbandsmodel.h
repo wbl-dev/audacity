@@ -7,7 +7,7 @@
 
 #include <QAbstractListModel>
 
-namespace au::effects {
+namespace agu::effects {
 class GraphicEq;
 
 class GraphicEqBandsModel : public QAbstractListModel

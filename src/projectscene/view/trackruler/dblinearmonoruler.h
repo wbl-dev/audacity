@@ -6,7 +6,7 @@
 #include "projectscene/view/trackruler/dblinearbaseruler.h"
 #include "view/trackruler/itrackruler.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class DbLinearMonoRuler : public DbLinearBaseRuler
 {
 public:

@@ -7,7 +7,7 @@
 
 #include "projectscene/iprojectviewstate.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class ProjectViewStateMock : public IProjectViewState
 {
 public:

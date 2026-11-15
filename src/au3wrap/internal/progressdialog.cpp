@@ -6,7 +6,7 @@
 
 #include "progressdialog.h"
 
-namespace au::au3 {
+namespace agu::au3 {
 ProgressDialog::ProgressDialog(const muse::modularity::ContextPtr& ctx, const std::string& title)
     : muse::Contextable(ctx), m_progressTitle{title}
 {

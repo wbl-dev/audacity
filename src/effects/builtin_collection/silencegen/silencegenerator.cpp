@@ -1,6 +1,6 @@
 #include "silencegenerator.h"
 
-namespace au::effects {
+namespace agu::effects {
 SilenceGenerator::SilenceGenerator()
     : GeneratorEffect(mT0, mT1)
 {

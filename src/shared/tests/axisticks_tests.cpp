@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-using namespace au::shared;
+using namespace agu::shared;
 
 TEST(axisTicks, real_world_cases)
 {

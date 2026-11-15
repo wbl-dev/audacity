@@ -3,7 +3,7 @@
 */
 #include "nyquistviewlauncher.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 muse::Ret NyquistViewLauncher::showEffect(const EffectInstanceId& instanceId) const
 {

@@ -8,12 +8,12 @@
 
 #include "playback/iplaybackconfiguration.h"
 
-namespace au::playback {
+namespace agu::playback {
 class PlaybackConfigurationMock : public IPlaybackConfiguration
 {
 public:
-    MOCK_METHOD(au::uicomponents::TimecodeFormatType, playbackTimeItemFormat, (), (const, override));
-    MOCK_METHOD(void, setPlaybackTimeItemFormat, (au::uicomponents::TimecodeFormatType format), (override));
+    MOCK_METHOD(agu::uicomponents::TimecodeFormatType, playbackTimeItemFormat, (), (const, override));
+    MOCK_METHOD(void, setPlaybackTimeItemFormat, (agu::uicomponents::TimecodeFormatType format), (override));
     MOCK_METHOD(muse::async::Notification, playbackTimeItemFormatChanged, (), (const, override));
 
     MOCK_METHOD(PlaybackMeterStyle::MeterStyle, playbackMeterStyle, (), (const, override));

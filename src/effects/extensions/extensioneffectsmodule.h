@@ -8,7 +8,7 @@
 #include "framework/global/async/asyncable.h"
 #include "framework/global/modularity/imodulesetup.h"
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 class ExtensionEffectLoader;
 class ExtensionEffectsScanner;
 class ExtensionEffectsRepository;
@@ -44,4 +44,4 @@ private:
 
     std::shared_ptr<ExtensionEffectsScanner> m_scanner;
 };
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

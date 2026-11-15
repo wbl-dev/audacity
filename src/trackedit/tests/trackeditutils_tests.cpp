@@ -5,7 +5,7 @@
 
 #include "trackedit/trackeditutils.h"
 
-using namespace au::trackedit;
+using namespace agu::trackedit;
 
 TEST(TrackeditUtilsTests, ItemTrackIdsListsEachTrackOnceInItemOrder)
 {

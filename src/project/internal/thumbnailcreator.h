@@ -10,7 +10,7 @@
 
 #include "ithumbnailcreator.h"
 
-namespace au::project {
+namespace agu::project {
 class ThumbnailCreator final : public IThumbnailCreator, public muse::async::Asyncable
 {
 public:

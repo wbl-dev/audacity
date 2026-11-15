@@ -47,20 +47,20 @@
 #include "internal/iappmenumodelhook.h"
 #endif
 
-using namespace au::appshell;
+using namespace agu::appshell;
 
 static const std::string mname("appshell");
 
-AppShellPageManifest au::appshell::appShellPageManifest()
+AppShellPageManifest agu::appshell::appShellPageManifest()
 {
     AppShellPageManifest manifest {
         {
-            muse::Uri("audacity://home"),
-            muse::Uri("audacity://project"),
+            muse::Uri("agu://home"),
+            muse::Uri("agu://project"),
         },
         {
-            muse::Uri("audacity://about/audacity"),
-            muse::Uri("audacity://firstLaunchSetup"),
+            muse::Uri("agu://about/agu"),
+            muse::Uri("agu://firstLaunchSetup"),
         },
     };
 
@@ -99,10 +99,10 @@ void AppShellModule::resolveImports()
         }
 
         for (const muse::Uri& dialog : manifest.dialogs) {
-            if (dialog == muse::Uri("audacity://about/audacity")) {
-                ir->registerQmlUri(dialog, "Audacity.AppShell", "AboutDialog");
-            } else if (dialog == muse::Uri("audacity://firstLaunchSetup")) {
-                ir->registerQmlUri(dialog, "Audacity.AppShell", "FirstLaunchSetupDialog");
+            if (dialog == muse::Uri("agu://about/agu")) {
+                ir->registerQmlUri(dialog, "AGu.AppShell", "AboutDialog");
+            } else if (dialog == muse::Uri("agu://firstLaunchSetup")) {
+                ir->registerQmlUri(dialog, "AGu.AppShell", "FirstLaunchSetupDialog");
             }
         }
     }

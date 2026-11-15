@@ -11,7 +11,7 @@
 #include "au3-dynamic-range-processor/DynamicRangeProcessorUtils.h"
 #include "au3-strings/TranslatableString.h"
 
-namespace au::effects {
+namespace agu::effects {
 const ComponentInterfaceSymbol CompressorEffect::Symbol { TranslatableString("effects-dynamics", "Compressor") };
 
 const EffectParameterMethods& CompressorEffect::Parameters() const

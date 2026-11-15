@@ -13,7 +13,7 @@
 
 class ClipInterface;
 
-namespace au::importexport {
+namespace agu::importexport {
 class LteAudioReaderBridge : public LTE::LteAudioReader
 {
 public:

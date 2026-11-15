@@ -5,7 +5,7 @@
 
 #if defined(_WIN32) && defined(_DEBUG)
 
-namespace au::app::winleaktracker {
+namespace agu::app::winleaktracker {
 // Enables the CRT leak check, redirects the CRT report sink to a file,
 // installs an allocation hook that captures a call stack per allocation,
 // and registers an at-exit dump of leaks aggregated by top call-stack
@@ -18,7 +18,7 @@ void install();
 
 #else
 
-namespace au::app::winleaktracker {
+namespace agu::app::winleaktracker {
 inline void install() {}
 }
 

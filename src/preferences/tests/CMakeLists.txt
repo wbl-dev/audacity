@@ -6,16 +6,14 @@ set(MODULE_TEST preferences_tests)
 
 set(MODULE_TEST_SRC
     ${CMAKE_CURRENT_LIST_DIR}/commonaudioapiconfigurationmodel_tests.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/../qml/Audacity/Preferences/commonaudioapiconfigurationmodel.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/../qml/Audacity/Preferences/commonaudioapiconfigurationmodel.h
+    ${CMAKE_CURRENT_LIST_DIR}/../qml/AGu/Preferences/commonaudioapiconfigurationmodel.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/../qml/AGu/Preferences/commonaudioapiconfigurationmodel.h
     )
 
     list(APPEND MODULE_TEST_SRC
         ${CMAKE_CURRENT_LIST_DIR}/workbench_general_preferences_tests.cpp
-        ${CMAKE_CURRENT_LIST_DIR}/../qml/Audacity/Preferences/generalpreferencesmodel.cpp
-        ${CMAKE_CURRENT_LIST_DIR}/../qml/Audacity/Preferences/generalpreferencesmodel.h
-        ${CMAKE_CURRENT_LIST_DIR}/../qml/Audacity/Preferences/crashreportspreferencesmodel.cpp
-        ${CMAKE_CURRENT_LIST_DIR}/../qml/Audacity/Preferences/crashreportspreferencesmodel.h
+        ${CMAKE_CURRENT_LIST_DIR}/../qml/AGu/Preferences/generalpreferencesmodel.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/../qml/AGu/Preferences/generalpreferencesmodel.h
     )
 
 set(MODULE_TEST_LINK

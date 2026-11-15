@@ -6,7 +6,7 @@
 
 #include "modularity/imodulesetup.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class Au3Exporter;
 class Au3FFmpegOptionsAccessor;
 class ExportConfiguration;

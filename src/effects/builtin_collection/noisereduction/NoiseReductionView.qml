@@ -3,9 +3,9 @@ import QtQuick.Layouts
 
 import Muse.UiComponents
 
-import Audacity.Effects
-import Audacity.BuiltinEffects
-import Audacity.BuiltinEffectsCollection
+import AGu.Effects
+import AGu.BuiltinEffects
+import AGu.BuiltinEffectsCollection
 
 BuiltinEffectBase {
     id: root
@@ -75,7 +75,7 @@ BuiltinEffectBase {
                         Layout.leftMargin: 16
                         Layout.rightMargin: 16
 
-                        text: qsTrc("effects/noisereduction", "Select a few seconds of isolated noise so Audacity knows what to filter out, then click Get noise profile.")
+                        text: qsTrc("effects/noisereduction", "Select a few seconds of isolated noise so AGu knows what to filter out, then click Get noise profile.")
                         wrapMode: Text.Wrap
                         horizontalAlignment: Text.AlignLeft
                     }

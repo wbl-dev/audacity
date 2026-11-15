@@ -5,7 +5,7 @@
 
 #include "framework/rcommand/commandtypes.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 inline static const muse::rcommand::Command PROJECTSCENE_MINUTES_SECONDS_RULER_COMMAND("command://projectscene/minutes-seconds-ruler");
 inline static const muse::rcommand::Command PROJECTSCENE_BEATS_MEASURES_RULER_COMMAND("command://projectscene/beats-measures-ruler");
 inline static const muse::rcommand::Command PROJECTSCENE_TOGGLE_VERTICAL_RULERS_COMMAND("command://projectscene/toggle-vertical-rulers");

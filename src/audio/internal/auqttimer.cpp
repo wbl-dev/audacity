@@ -3,7 +3,7 @@
  */
 #include "auqttimer.h"
 
-namespace au {
+namespace agu {
 AuQtTimer::AuQtTimer(std::optional<Qt::TimerType> timerType)
 {
     if (timerType.has_value()) {

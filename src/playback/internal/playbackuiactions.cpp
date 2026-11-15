@@ -9,8 +9,8 @@
 #include "context/uicontext.h"
 #include "context/shortcutcontext.h"
 
-using namespace au::playback;
-using namespace au::audio;
+using namespace agu::playback;
+using namespace agu::audio;
 using namespace muse;
 using namespace muse::ui;
 using namespace muse::actions;
@@ -34,8 +34,8 @@ static const ActionQuery PLAYBACK_LEVEL_QUERY("action://playback/level");
 
 const UiActionList PlaybackUiActions::m_mainActions = {
     UiAction(PLAYBACK_TOGGLE_PLAY_PAUSE_QUERY.toString(),
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_OPENED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_OPENED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Play/Pause"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -43,8 +43,8 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              IconCode::Code::PLAY_FILL
              ),
     UiAction(PLAYBACK_TOGGLE_PLAY_STOP_QUERY.toString(),
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_OPENED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_OPENED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Play/Stop"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -52,23 +52,23 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              IconCode::Code::PLAY_FILL
              ),
     UiAction(PLAYBACK_TOGGLE_PLAY_STOP_AND_SET_CURSOR_QUERY.toString(),
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_OPENED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_OPENED,
              TranslatableString("action", "Play/Stop and set cursor"),
              TranslatableString("action", "Play/Stop and set cursor"),
              IconCode::Code::PLAY_FILL
              ),
     UiAction(PLAYBACK_PLAY_SELECTION_QUERY.toString(),
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_OPENED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_OPENED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Play selection"),
              TranslatableString("action", "Play selection"),
              IconCode::Code::PLAY_FILL
              ),
     UiAction(PLAYBACK_PAUSE_QUERY.toString(),
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_OPENED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_OPENED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Pause"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -76,8 +76,8 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              IconCode::Code::PAUSE_FILL
              ),
     UiAction(PLAYBACK_STOP_QUERY.toString(),
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_OPENED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_OPENED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Stop"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -85,8 +85,8 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              IconCode::Code::STOP_FILL
              ),
     UiAction(PLAYBACK_REWIND_START_QUERY.toString(),
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_FOCUSED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_FOCUSED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Rewind to start"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -94,8 +94,8 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              IconCode::Code::REWIND_START_FILL
              ),
     UiAction(PLAYBACK_REWIND_END_QUERY.toString(),
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_FOCUSED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_FOCUSED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Rewind to end"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -103,8 +103,8 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              IconCode::Code::REWIND_END_FILL
              ),
     UiAction("toggle-loop-region",
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_FOCUSED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_FOCUSED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Loop playback"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -113,8 +113,8 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              Checkable::Yes
              ),
     UiAction("audio-setup",
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_DISABLED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_DISABLED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Audio setup"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -122,24 +122,24 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              IconCode::Code::CONFIGURE
              ),
     UiAction("audio-settings",
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_FOCUSED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_FOCUSED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Audio settings"),
              //: Action description: shown as a tooltip; can be a full sentence
              TranslatableString("action_description", "Open audio setup dialog")
              ),
     UiAction("rescan-devices",
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_FOCUSED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_FOCUSED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Rescan audio devices"),
              //: Action description: shown as a tooltip; can be a full sentence
              TranslatableString("action_description", "Rescan audio devices")
              ),
     UiAction("metronome",
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_FOCUSED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_FOCUSED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Metronome"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -148,8 +148,8 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              Checkable::Yes
              ),
     UiAction("playback-time",
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_FOCUSED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_FOCUSED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Timecode"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -157,8 +157,8 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              IconCode::Code::CLOCK
              ),
     UiAction("playback-bpm",
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_FOCUSED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_FOCUSED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Tempo"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -166,8 +166,8 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              IconCode::Code::BPM
              ),
     UiAction("playback-time-signature",
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_FOCUSED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_FOCUSED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Time signature"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -175,8 +175,8 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              IconCode::Code::TIME_SIGNATURE
              ),
     UiAction(PLAYBACK_LEVEL_QUERY.toString(),
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_FOCUSED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_FOCUSED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Playback level"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -184,8 +184,8 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              IconCode::Code::AUDIO
              ),
     UiAction(PLAYBACK_CHANGE_AUDIO_API_QUERY.toString(),
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_FOCUSED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_FOCUSED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Change audio host"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -193,8 +193,8 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              Checkable::Yes
              ),
     UiAction(PLAYBACK_CHANGE_PLAYBACK_DEVICE_QUERY.toString(),
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_DISABLED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_DISABLED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Change playback device"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -202,8 +202,8 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              Checkable::Yes
              ),
     UiAction(PLAYBACK_CHANGE_RECORDING_DEVICE_QUERY.toString(),
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_DISABLED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_DISABLED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Change recording device"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -211,8 +211,8 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              Checkable::Yes
              ),
     UiAction(PLAYBACK_CHANGE_INPUT_CHANNELS_QUERY.toString(),
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_DISABLED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_DISABLED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Change input channels"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -220,8 +220,8 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              Checkable::Yes
              ),
     UiAction("toggle-loop-region",
-             au::context::UiCtxAny,
-             au::context::CTX_ANY,
+             agu::context::UiCtxAny,
+             agu::context::CTX_ANY,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Toggle loop region"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -229,40 +229,40 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              IconCode::Code::LOOP
              ),
     UiAction("clear-loop-region",
-             au::context::UiCtxAny,
-             au::context::CTX_ANY,
+             agu::context::UiCtxAny,
+             agu::context::CTX_ANY,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Clear loop region"),
              //: Action description: shown as a tooltip; can be a full sentence
              TranslatableString("action_description", "Clear loop region")
              ),
     UiAction("set-loop-region-to-selection",
-             au::context::UiCtxAny,
-             au::context::CTX_ANY,
+             agu::context::UiCtxAny,
+             agu::context::CTX_ANY,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Set loop region to selection"),
              //: Action description: shown as a tooltip; can be a full sentence
              TranslatableString("action_description", "Set loop region to selection")
              ),
     UiAction("set-selection-to-loop",
-             au::context::UiCtxAny,
-             au::context::CTX_ANY,
+             agu::context::UiCtxAny,
+             agu::context::CTX_ANY,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Set selection to loop"),
              //: Action description: shown as a tooltip; can be a full sentence
              TranslatableString("action_description", "Set selection to loop")
              ),
     UiAction("set-loop-region-in-out",
-             au::context::UiCtxAny,
-             au::context::CTX_ANY,
+             agu::context::UiCtxAny,
+             agu::context::CTX_ANY,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Set loop region in out"),
              //: Action description: shown as a tooltip; can be a full sentence
              TranslatableString("action_description", "Set loop region in out")
              ),
     UiAction("toggle-selection-follows-loop-region",
-             au::context::UiCtxAny,
-             au::context::CTX_ANY,
+             agu::context::UiCtxAny,
+             agu::context::CTX_ANY,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Creating a loop also selects audio"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -270,43 +270,43 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              Checkable::Yes
              ),
     UiAction("track-mute",
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_OPENED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_OPENED,
              TranslatableString("action", "Mute/unmute focused track"),
              TranslatableString("action", "Mute/unmute focused track"),
              IconCode::Code::MUTE
              ),
     UiAction("track-solo",
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_OPENED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_OPENED,
              TranslatableString("action", "Solo/unsolo focused track"),
              TranslatableString("action", "Solo/unsolo focused track"),
              IconCode::Code::SOLO
              ),
     UiAction("mute-all-tracks",
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_OPENED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_OPENED,
              TranslatableString("action", "Mute all tracks"),
              TranslatableString("action", "Mute all tracks"),
              IconCode::Code::MUTE
              ),
     UiAction("unmute-all-tracks",
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_OPENED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_OPENED,
              TranslatableString("action", "Unmute all tracks"),
              TranslatableString("action", "Unmute all tracks"),
              IconCode::Code::MUTE
              ),
     UiAction("mute-tracks",
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_OPENED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_OPENED,
              TranslatableString("action", "Mute selected tracks"),
              TranslatableString("action", "Mute selected tracks"),
              IconCode::Code::MUTE
              ),
     UiAction("unmute-tracks",
-             au::context::UiCtxProjectOpened,
-             au::context::CTX_PROJECT_OPENED,
+             agu::context::UiCtxProjectOpened,
+             agu::context::CTX_PROJECT_OPENED,
              TranslatableString("action", "Unmute selected tracks"),
              TranslatableString("action", "Unmute selected tracks"),
              IconCode::Code::MUTE
@@ -315,8 +315,8 @@ const UiActionList PlaybackUiActions::m_mainActions = {
 
 const UiActionList PlaybackUiActions::m_settingsActions = {
     UiAction("repeat",
-             au::context::UiCtxAny,
-             au::context::CTX_DISABLED,
+             agu::context::UiCtxAny,
+             agu::context::CTX_DISABLED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Play repeats"),
              //: Action description: shown as a tooltip; can be a full sentence
@@ -325,8 +325,8 @@ const UiActionList PlaybackUiActions::m_settingsActions = {
              Checkable::Yes
              ),
     UiAction("pan",
-             au::context::UiCtxAny,
-             au::context::CTX_DISABLED,
+             agu::context::UiCtxAny,
+             agu::context::CTX_DISABLED,
              //: Action title: shown as a menu item or a button label; keep it short
              TranslatableString("action", "Pan automatically"),
              //: Action description: shown as a tooltip; can be a full sentence

@@ -17,11 +17,11 @@
 #include <functional>
 #include <unordered_set>
 
-namespace au::uicomponents {
+namespace agu::uicomponents {
 class TableSortFilterProxyModel;
 }
 
-namespace au::effects {
+namespace agu::effects {
 class PluginManagerSortFilterProxy;
 
 namespace PluginManagerTableViewCellType {
@@ -65,7 +65,7 @@ class PluginManagerTableViewModel : public muse::uicomponents::AbstractTableView
     Q_PROPERTY(
         bool alsoRescanBrokenPlugins READ alsoRescanBrokenPlugins WRITE setAlsoRescanBrokenPlugins NOTIFY alsoRescanBrokenPluginsChanged)
 
-    Q_PROPERTY(au::uicomponents::TableSortFilterProxyModel * sortFilterProxy READ sortFilterProxy CONSTANT)
+    Q_PROPERTY(agu::uicomponents::TableSortFilterProxyModel * sortFilterProxy READ sortFilterProxy CONSTANT)
 
     muse::GlobalInject<IEffectsProvider> effectsProvider;
     muse::GlobalInject<muse::audioplugins::IKnownAudioPluginsRegister> knownPlugins;
@@ -98,7 +98,7 @@ public:
     bool alsoRescanBrokenPlugins() const { return m_alsoRescanBrokenPlugins; }
     void setAlsoRescanBrokenPlugins(bool alsoRescanBrokenPlugins);
 
-    au::uicomponents::TableSortFilterProxyModel* sortFilterProxy() const;
+    agu::uicomponents::TableSortFilterProxyModel* sortFilterProxy() const;
 
     Q_INVOKABLE void handleEdit(int proxyRow, int column);
     Q_INVOKABLE void setSearchText(const QString& searchText);

@@ -6,13 +6,13 @@
 
 #include "audio/tests/mocks/audiodrivercontrollermock.h"
 
-#include "../qml/Audacity/Preferences/commonaudioapiconfigurationmodel.h"
+#include "../qml/AGu/Preferences/commonaudioapiconfigurationmodel.h"
 
 using ::testing::_;
 using ::testing::NiceMock;
 using ::testing::Return;
 
-namespace au::appshell {
+namespace agu::appshell {
 constexpr const char* SYSTEM_DEFAULT = "System default";
 
 class CommonAudioApiConfigurationModelTests : public ::testing::Test

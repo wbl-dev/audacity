@@ -7,7 +7,7 @@
 
 #include "log.h"
 
-using namespace au::au3;
+using namespace agu::au3;
 
 class EffectsBase_ConfigTests : public ::testing::Test
 {

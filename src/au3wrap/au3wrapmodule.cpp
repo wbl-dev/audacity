@@ -14,7 +14,7 @@
 #include "au3-module-manager/ModuleManager.h"
 
 #include "context/iglobalcontext.h"
-#include "project/iaudacityproject.h"
+#include "project/iaguproject.h"
 
 #include "modularity/ioc.h"
 
@@ -29,7 +29,7 @@
 
 #include "log.h"
 
-using namespace au::au3;
+using namespace agu::au3;
 using namespace muse::modularity;
 
 static const std::string mname("au3wrap");
@@ -76,7 +76,7 @@ void Au3WrapModule::onInit(const muse::IApplication::RunMode&)
         [app](AudacityProject& project) -> std::unique_ptr<const BasicUI::WindowPlacement> {
             auto projectAddr = reinterpret_cast<uintptr_t>(&project);
             for (const auto& ctx : app->contexts()) {
-                auto gc = muse::modularity::ioc(ctx)->resolve<au::context::IGlobalContext>("au3wrap");
+                auto gc = muse::modularity::ioc(ctx)->resolve<agu::context::IGlobalContext>("au3wrap");
                 if (!gc) {
                     continue;
                 }

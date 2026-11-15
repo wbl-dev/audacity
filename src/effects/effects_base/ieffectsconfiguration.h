@@ -8,7 +8,7 @@
 #include "framework/global/io/path.h"
 #include "framework/global/modularity/imoduleinterface.h"
 
-namespace au::effects {
+namespace agu::effects {
 class IEffectsConfiguration : MODULE_GLOBAL_INTERFACE
 {
     INTERFACE_ID(IEffectsConfiguration)

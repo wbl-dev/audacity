@@ -9,7 +9,7 @@
 #include "../ilabelsconfiguration.h"
 #include "modularity/ioc.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class LabelParserRegistry
 {
     muse::GlobalInject<ILabelsConfiguration> configuration;

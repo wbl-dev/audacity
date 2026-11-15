@@ -14,8 +14,8 @@
 
 #include "projectedit.h"
 
-using namespace au::trackedit;
-using namespace au::trackedit::api;
+using namespace agu::trackedit;
+using namespace agu::trackedit::api;
 
 namespace {
 constexpr double INVALID_TIME = std::numeric_limits<double>::quiet_NaN();

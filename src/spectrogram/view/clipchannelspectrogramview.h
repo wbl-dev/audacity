@@ -13,7 +13,7 @@
 
 #include <QQuickPaintedItem>
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class ClipChannelSpectrogramView : public QQuickPaintedItem, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT
@@ -34,7 +34,7 @@ class ClipChannelSpectrogramView : public QQuickPaintedItem, public muse::async:
 
     muse::ContextInject<ISpectrogramService> spectrogramService{ this };
     muse::ContextInject<ISpectrogramPainter> spectrogramPainter { this };
-    muse::ContextInject<au::context::IGlobalContext> globalContext { this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext { this };
 
 public:
     ClipChannelSpectrogramView(QQuickItem* parent = nullptr);

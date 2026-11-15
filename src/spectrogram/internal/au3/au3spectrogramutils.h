@@ -8,7 +8,7 @@
 
 #include "au3-fft/FFT.h" // eWindowFunctions
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 constexpr auto toAu3WindowType(spectrogram::SpectrogramWindowType windowType)
 {
     switch (windowType) {
@@ -66,4 +66,4 @@ constexpr int fromAu3WindowType(eWindowFunctions windowType)
         return 0;
     }
 }
-} // namespace au::trackedit
+} // namespace agu::trackedit

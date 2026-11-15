@@ -33,7 +33,7 @@
 #include "framework/global/io/ifilesystem.h"
 #include "framework/multiwindows/imultiwindowsprovider.h"
 
-namespace au::project {
+namespace agu::project {
 class RecentFilesController : public IRecentFilesController, public muse::async::Asyncable
 {
     muse::GlobalInject<IProjectConfiguration> configuration;

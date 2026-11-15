@@ -12,7 +12,7 @@
 #include "au3-label-track/LabelTrack.h"
 #include "au3wrap/internal/domaccessor.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class Au3SelectionControllerTests : public Au3InteractionTestBase
 {
 public:
@@ -20,7 +20,7 @@ public:
     {
         m_selectionController = std::make_shared<Au3SelectionController>(muse::modularity::globalCtx());
         m_globalContext = std::make_shared<NiceMock<context::GlobalContextMock> >();
-        m_currentProject = std::make_shared<NiceMock<project::AudacityProjectMock> >();
+        m_currentProject = std::make_shared<NiceMock<project::AGuProjectMock> >();
         m_trackEditProject = std::make_shared<NiceMock<TrackeditProjectMock> >();
         m_playbackState = std::make_shared<NiceMock<context::PlaybackStateMock> >();
         m_projectHistory = std::make_shared<NiceMock<ProjectHistoryMock> >();

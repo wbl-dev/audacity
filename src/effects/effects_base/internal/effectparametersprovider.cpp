@@ -7,7 +7,7 @@
 
 #include "../effectstypes.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 using namespace muse;
 
 EffectParametersProvider::EffectParametersProvider(const kors::modularity::ContextPtr& ctx)

@@ -23,7 +23,7 @@
 
 #include "macosrecentfilescontroller.h"
 
-using namespace au::project;
+using namespace agu::project;
 
 void MacOSRecentFilesController::prependPlatformRecentFile(const muse::io::path_t& path)
 {

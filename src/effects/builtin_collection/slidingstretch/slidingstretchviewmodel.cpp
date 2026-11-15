@@ -5,7 +5,7 @@
 
 #include "slidingstretcheffect.h"
 
-namespace au::effects {
+namespace agu::effects {
 SlidingStretchViewModel::SlidingStretchViewModel(QObject* parent, int instanceId)
     : BuiltinEffectModel(parent, instanceId)
 {

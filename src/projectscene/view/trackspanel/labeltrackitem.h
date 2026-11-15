@@ -5,7 +5,7 @@
 
 #include "trackitem.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class LabelTrackItem : public TrackItem
 {
     Q_OBJECT

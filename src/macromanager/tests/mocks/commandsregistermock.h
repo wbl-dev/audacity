@@ -7,7 +7,7 @@
 
 #include "framework/rcommand/icommandsregister.h"
 
-namespace au::macromanager {
+namespace agu::macromanager {
 class CommandsRegisterMock : public muse::rcommand::ICommandsRegister
 {
 public:

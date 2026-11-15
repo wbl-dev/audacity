@@ -10,8 +10,8 @@
 
 #include "au3wrap/internal/wxtypes_convert.h"
 
-namespace au::au3 {
-TrackTemplateFactory::TrackTemplateFactory(au::au3::Au3Project& project, double sampleRate)
+namespace agu::au3 {
+TrackTemplateFactory::TrackTemplateFactory(agu::au3::Au3Project& project, double sampleRate)
     : m_project(project)
     , m_sampleRate(sampleRate)
 {}
@@ -41,14 +41,14 @@ std::shared_ptr<WaveTrack> TrackTemplateFactory::createTrackFromTemplate(const s
     return track;
 }
 
-au::au3::Au3TrackId TrackTemplateFactory::addTrackToProject(std::shared_ptr<WaveTrack> track)
+agu::au3::Au3TrackId TrackTemplateFactory::addTrackToProject(std::shared_ptr<WaveTrack> track)
 {
     auto& trackList = Au3TrackList::Get(m_project);
     trackList.Add(track, ::TrackList::DoAssignId::Yes, ::TrackList::EventPublicationSynchrony::Synchronous);
     return track->GetId();
 }
 
-au::au3::Au3TrackId TrackTemplateFactory::addTrackFromTemplate(const std::string& name, const std::vector<ClipTemplate>& clipTemplates)
+agu::au3::Au3TrackId TrackTemplateFactory::addTrackFromTemplate(const std::string& name, const std::vector<ClipTemplate>& clipTemplates)
 {
     auto track = createTrackFromTemplate(name, clipTemplates);
     return addTrackToProject(track);
@@ -72,7 +72,7 @@ std::vector<float> TrackTemplateFactory::createSilence(double duration, double s
     return std::vector<float>(static_cast<size_t>(duration * sampleRate), 0.0f);
 }
 
-au::au3::Au3TrackId TrackTemplateFactory::addLabelTrackFromTemplate(const std::string& name,
+agu::au3::Au3TrackId TrackTemplateFactory::addLabelTrackFromTemplate(const std::string& name,
                                                                     const std::vector<LabelTemplate>& labelTemplates)
 {
     auto& trackList = Au3TrackList::Get(m_project);

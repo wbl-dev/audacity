@@ -5,7 +5,7 @@
 
 #include "au3-strings/TranslatableString.h"
 
-namespace au::effects {
+namespace agu::effects {
 const ComponentInterfaceSymbol FilterCurveEq::Symbol{ wxT("Filter Curve"), TranslatableString("effects-filtercurveeq", "Filter Curve EQ") };
 
 FilterCurveEq::FilterCurveEq()

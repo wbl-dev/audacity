@@ -3,7 +3,7 @@
  */
 #include "effectloadersregister.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 void EffectLoadersRegister::registerLoader(IEffectLoaderPtr loader)
 {

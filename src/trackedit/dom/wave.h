@@ -6,7 +6,7 @@
 #include <memory>
 #include <vector>
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class Wave
 {
 public:

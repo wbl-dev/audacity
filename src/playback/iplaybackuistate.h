@@ -8,7 +8,7 @@
 
 #include "playbacktypes.h"
 
-namespace au::playback {
+namespace agu::playback {
 class IPlaybackUiState : MODULE_CONTEXT_INTERFACE
 {
     INTERFACE_ID(IPlaybackUiState)

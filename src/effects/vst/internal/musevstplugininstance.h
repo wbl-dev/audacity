@@ -9,7 +9,7 @@
 #include "effects/effects_base/effectstypes.h"
 
 class VST3Instance;
-namespace au::effects {
+namespace agu::effects {
 class MuseVstPluginInstance : public muse::vst::IVstPluginInstance
 {
 public:

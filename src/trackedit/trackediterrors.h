@@ -7,7 +7,7 @@
 #include "types/ret.h"
 #include "translation.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 static constexpr int TRACKEDIT_FIRST = 6000; // TODO This has to go in framework's ret.h
 
 enum class Err {

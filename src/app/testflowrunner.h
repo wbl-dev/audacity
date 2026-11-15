@@ -9,7 +9,7 @@
 
 #include "cmdoptions.h"
 
-namespace au::app {
+namespace agu::app {
 //! NOTE Runs one test case, then ends the process with its result
 class TestflowRunner : public muse::async::Asyncable
 {
@@ -17,18 +17,18 @@ class TestflowRunner : public muse::async::Asyncable
 
 public:
     //! NOTE Call before the startup scenario is resolved
-    static void prepare(const muse::modularity::ContextPtr& ctx, const AudacityCmdOptions::Testflow& options);
-    static void runIfRequested(const muse::modularity::ContextPtr& ctx, const AudacityCmdOptions::Testflow& options);
+    static void prepare(const muse::modularity::ContextPtr& ctx, const AGuCmdOptions::Testflow& options);
+    static void runIfRequested(const muse::modularity::ContextPtr& ctx, const AGuCmdOptions::Testflow& options);
 
 private:
-    TestflowRunner(const muse::modularity::ContextPtr& ctx, const AudacityCmdOptions::Testflow& options);
+    TestflowRunner(const muse::modularity::ContextPtr& ctx, const AGuCmdOptions::Testflow& options);
 
     void run();
     void execAndReport(const muse::io::path_t& scriptPath);
     muse::io::path_t resolveScriptPath() const;
 
     muse::modularity::ContextPtr m_ctx;
-    AudacityCmdOptions::Testflow m_options;
+    AGuCmdOptions::Testflow m_options;
     int m_startedSteps = 0;
 };
 }

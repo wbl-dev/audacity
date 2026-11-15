@@ -32,7 +32,7 @@
 
 #include "../itrackeditactionscontroller.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class TrackeditActionsController : public ITrackeditActionsController, public muse::actions::Actionable, public muse::rcommand::Commandable,
     public muse::async::Asyncable, public muse::Contextable
 {
@@ -41,7 +41,7 @@ class TrackeditActionsController : public ITrackeditActionsController, public mu
     muse::GlobalInject<spectrogram::ISpectralEffectsRegister> spectralEffectsRegister;
     muse::GlobalInject<audio::IAudioDriverController> audioDriverController;
 
-    muse::ContextInject<au::context::IGlobalContext> globalContext { this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext { this };
     muse::ContextInject<muse::actions::IActionsDispatcher> dispatcher { this };
     muse::ContextInject<muse::rcommand::ICommandDispatcher> commandDispatcher { this };
     muse::ContextInject<muse::IInteractive> interactive { this };

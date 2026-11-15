@@ -9,7 +9,7 @@
 #include "shared/axis/axislabel.h"
 #include "shared/axis/axisticks.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 SpectrogramChannelRulerModel::SpectrogramChannelRulerModel(QObject* parent)
     : QObject(parent), muse::Contextable(muse::iocCtxForQmlObject(this))
 {
@@ -49,7 +49,7 @@ void SpectrogramChannelRulerModel::updateTicks()
     IF_ASSERT_FAILED(config) {
         return;
     }
-    m_ticks = au::shared::axisTicks(config->minFreq(), config->maxFreq(), config->scale());
+    m_ticks = agu::shared::axisTicks(config->minFreq(), config->maxFreq(), config->scale());
 }
 
 int SpectrogramChannelRulerModel::trackId() const
@@ -283,9 +283,9 @@ QVariantList SpectrogramChannelRulerModel::minorTicks() const
     return tickListToVariants(m_ticks.minor);
 }
 
-QVariantList SpectrogramChannelRulerModel::tickListToVariants(const std::vector<au::shared::AxisTick>& ticks) const
+QVariantList SpectrogramChannelRulerModel::tickListToVariants(const std::vector<agu::shared::AxisTick>& ticks) const
 {
-    const std::vector<std::string> labels = au::shared::labelsForTicks(ticks, m_labelHeight, m_channelHeight);
+    const std::vector<std::string> labels = agu::shared::labelsForTicks(ticks, m_labelHeight, m_channelHeight);
     QVariantList list;
     list.reserve(ticks.size());
     for (auto i = 0; i < static_cast<int>(ticks.size()); ++i) {

@@ -10,7 +10,7 @@
 #include "timespan.h"
 #include "framework/global/logstream.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 using msecs_t = int64_t;
 using secs_t = muse::number_t<double>;
 using samples_t = uint64_t;
@@ -173,20 +173,20 @@ static constexpr ClipColorIndex CLIP_COLOR_INDEX_NONE = 0;
 static constexpr int CLIP_COLOR_COUNT = 9;
 }
 
-inline muse::logger::Stream& operator<<(muse::logger::Stream& s, const au::trackedit::TrackItemKey& k)
+inline muse::logger::Stream& operator<<(muse::logger::Stream& s, const agu::trackedit::TrackItemKey& k)
 {
     s << "{trackId: " << k.trackId << ", itemId: " << k.itemId << "}";
     return s;
 }
 
-inline muse::logger::Stream& operator<<(muse::logger::Stream& s, au::trackedit::UndoPushType t)
+inline muse::logger::Stream& operator<<(muse::logger::Stream& s, agu::trackedit::UndoPushType t)
 {
     switch (t) {
-    case au::trackedit::UndoPushType::NONE: s << "UndoPushType::NONE";
+    case agu::trackedit::UndoPushType::NONE: s << "UndoPushType::NONE";
         break;
-    case au::trackedit::UndoPushType::CONSOLIDATE: s << "UndoPushType::CONSOLIDATE";
+    case agu::trackedit::UndoPushType::CONSOLIDATE: s << "UndoPushType::CONSOLIDATE";
         break;
-    case au::trackedit::UndoPushType::NOAUTOSAVE: s << "UndoPushType::NOAUTOSAVE";
+    case agu::trackedit::UndoPushType::NOAUTOSAVE: s << "UndoPushType::NOAUTOSAVE";
         break;
     }
     return s;

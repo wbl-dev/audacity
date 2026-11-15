@@ -7,10 +7,8 @@ endif()
 include(InstallRequiredSystemLibraries)
 
 set(CPACK_PACKAGE_NAME ${MUSE_APP_NAME})
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Audacity is a digital audio editor")
-set(CPACK_PACKAGE_VENDOR "Audacity")
-set(CPACK_PACKAGE_CONTACT "https://audacityteam.org")
-set(CPACK_PACKAGE_HOMEPAGE_URL "https://audacityteam.org")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "AGu is a digital audio editor")
+set(CPACK_PACKAGE_VENDOR "AGu")
 
 set(CPACK_PACKAGE_VERSION_MAJOR "${MUSE_APP_VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${MUSE_APP_VERSION_MINOR}")
@@ -41,7 +39,7 @@ endif(MUSE_APP_UNSTABLE)
 set(CPACK_PACKAGE_FILE_NAME "${MUSE_APP_NAME}-${MUSE_APP_VERSION}${git_date_string}")
 set(CPACK_PACKAGE_INSTALL_DIRECTORY ${MUSE_APP_NAME_VERSION})
 
-set(MUSE_EXECUTABLE_NAME ${MUSE_APP_NAME}${MUSE_APP_VERSION_MAJOR})
+set(MUSE_EXECUTABLE_NAME ${MUSE_APP_NAME})
 
 # Wix-specific options
 set(CPACK_GENERATOR "WIX")
@@ -53,22 +51,22 @@ set(CPACK_WIX_ROOT "${PROGRAMFILES}/WiX Toolset v3.11")
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/buildscripts/packaging/Windows/Installer" ${CMAKE_MODULE_PATH})
 
 if(NOT CPACK_WIX_PRODUCT_GUID)
-    set(CPACK_WIX_PRODUCT_GUID "00000000-0000-0000-0000-000000000000")
+    set(CPACK_WIX_PRODUCT_GUID "*")
 endif()
 
 message(STATUS "[SetupWindowsPackaging.cmake] CPACK_WIX_PRODUCT_GUID: ${CPACK_WIX_PRODUCT_GUID}")
 
 if(NOT CPACK_WIX_UPGRADE_GUID)
-    set(CPACK_WIX_UPGRADE_GUID "11111111-1111-1111-1111-111111111111")
+    set(CPACK_WIX_UPGRADE_GUID "C7D6616A-E362-4611-93F0-B0C7ED1CB8D6")
 endif()
 
 message(STATUS "[SetupWindowsPackaging.cmake] CPACK_WIX_UPGRADE_GUID: ${CPACK_WIX_UPGRADE_GUID}")
 
 set(CPACK_WIX_LICENSE_RTF "${PROJECT_SOURCE_DIR}/buildscripts/packaging/Windows/Installer/LICENSE.rtf")
-set(CPACK_WIX_PRODUCT_ICON "${PROJECT_SOURCE_DIR}/share/icons/AppIcon/AU4_AppIcon.ico")
+set(CPACK_WIX_PRODUCT_ICON "${PROJECT_SOURCE_DIR}/share/icons/AppIcon/AGu_AppIcon.ico")
 set(CPACK_WIX_UI_BANNER "${PROJECT_SOURCE_DIR}/buildscripts/packaging/Windows/Installer/installer_banner_wix.png")
 set(CPACK_WIX_UI_DIALOG "${PROJECT_SOURCE_DIR}/buildscripts/packaging/Windows/Installer/installer_background_wix.png")
-set(CPACK_WIX_PROGRAM_MENU_FOLDER "${MUSE_APP_TITLE_VERSION}")
+set(CPACK_WIX_PROGRAM_MENU_FOLDER "${MUSE_APP_TITLE}")
 set(CPACK_WIX_EXTENSIONS "WixUtilExtension")
 
 # Extra CPack variables
@@ -85,7 +83,7 @@ if (MUSE_APP_IS_PRERELEASE)
     list(APPEND CPACK_WIX_CANDLE_EXTRA_FLAGS "-dMUSE_APP_IS_PRERELEASE=ON")
 endif()
 
-message(STATUS "========== Audacity Packaging Variables ==========")
+message(STATUS "========== AGu Packaging Variables ==========")
   message(STATUS "MUSE_APP_TITLE='${MUSE_APP_TITLE}'")
   message(STATUS "MUSE_APP_TITLE_VERSION='${MUSE_APP_TITLE_VERSION}'")
   message(STATUS "MUSE_APP_RELEASE_CHANNEL='${MUSE_APP_RELEASE_CHANNEL}'")

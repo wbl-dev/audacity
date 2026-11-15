@@ -12,7 +12,7 @@
 
 #include <QObject>
 
-namespace au::effects {
+namespace agu::effects {
 class AbstractEffectViewModel : public QObject, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT
@@ -20,7 +20,7 @@ class AbstractEffectViewModel : public QObject, public muse::async::Asyncable, p
     Q_PROPERTY(bool isPreviewing READ isPreviewing NOTIFY isPreviewingChanged FINAL)
 
 protected:
-    muse::ContextInject<au::playback::IPlayback> playback{ this };
+    muse::ContextInject<agu::playback::IPlayback> playback{ this };
 
 public:
     AbstractEffectViewModel(QObject* parent, int instanceId);

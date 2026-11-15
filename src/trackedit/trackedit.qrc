@@ -1,15 +1,15 @@
 <RCC>
     <qresource prefix="/">
-        <file>qml/Audacity/TrackEdit/qmldir</file>
-        <file>qml/Audacity/TrackEdit/CustomRateDialog.qml</file>
-        <file>qml/Audacity/TrackEdit/CustomTimeDialog.qml</file>
-        <file>qml/Audacity/TrackEdit/ClipImageButton.qml</file>
-        <file>qml/Audacity/TrackEdit/BehaviorChoice.qml</file>
-        <file>qml/Audacity/TrackEdit/DeleteBehaviorOnboardingDialog.qml</file>
-        <file>qml/Audacity/TrackEdit/DeleteBehaviorOnboardingFollowupDialog.qml</file>
-        <file>qml/Audacity/TrackEdit/DeleteBehaviorPanel.qml</file>
-        <file>qml/Audacity/TrackEdit/PasteBehaviorPanel.qml</file>
-        <file>qml/Audacity/TrackEdit/StyledTextLabelWithCustomLinkActivatedSignal.qml</file>
+        <file>qml/AGu/TrackEdit/qmldir</file>
+        <file>qml/AGu/TrackEdit/CustomRateDialog.qml</file>
+        <file>qml/AGu/TrackEdit/CustomTimeDialog.qml</file>
+        <file>qml/AGu/TrackEdit/ClipImageButton.qml</file>
+        <file>qml/AGu/TrackEdit/BehaviorChoice.qml</file>
+        <file>qml/AGu/TrackEdit/DeleteBehaviorOnboardingDialog.qml</file>
+        <file>qml/AGu/TrackEdit/DeleteBehaviorOnboardingFollowupDialog.qml</file>
+        <file>qml/AGu/TrackEdit/DeleteBehaviorPanel.qml</file>
+        <file>qml/AGu/TrackEdit/PasteBehaviorPanel.qml</file>
+        <file>qml/AGu/TrackEdit/StyledTextLabelWithCustomLinkActivatedSignal.qml</file>
         <file>resources/LightMode_RippleDelete.gif</file>
         <file>resources/LightMode_DeleteAndLeaveGap.gif</file>
         <file>resources/LightMode_PasteOverlap.gif</file>

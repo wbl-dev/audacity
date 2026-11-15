@@ -4,7 +4,7 @@
 
 #include "playbacktypes.h"
 
-namespace au::playback {
+namespace agu::playback {
 class IPlayer;
 class IAudioOutput;
 class IPlayback : MODULE_EXPORT_INTERFACE

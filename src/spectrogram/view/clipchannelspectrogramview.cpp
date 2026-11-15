@@ -4,7 +4,7 @@
 #include "./clipchannelspectrogramview.h"
 #include "framework/global/types/number.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 ClipChannelSpectrogramView::ClipChannelSpectrogramView(QQuickItem* parent)
     : QQuickPaintedItem(parent), muse::Contextable(muse::iocCtxForQmlObject(this))
 {

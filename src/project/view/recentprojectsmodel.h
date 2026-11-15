@@ -30,7 +30,7 @@
 #include "irecentfilescontroller.h"
 #include "io/ifilesystem.h"
 
-namespace au::project {
+namespace agu::project {
 class RecentProjectsModel : public AbstractItemModel, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT

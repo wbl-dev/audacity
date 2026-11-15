@@ -9,7 +9,7 @@
 
 #include <QPainter>
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class ISpectrogramPainter : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(ISpectrogramPainter)

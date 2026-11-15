@@ -10,7 +10,7 @@
 #include "log.h"
 
 using namespace muse;
-using namespace au::au3;
+using namespace agu::au3;
 
 static const std::string GENERAL("General");
 
@@ -64,7 +64,7 @@ void EffectConfigSettings::Load()
         } else if (type == "double") {
             m_vals.insert({ key, val.toDouble() });
         } else if (type == "string") {
-            m_vals.insert({ key, au::au3::wxFromStdString(val.toStdString()) });
+            m_vals.insert({ key, agu::au3::wxFromStdString(val.toStdString()) });
         }
     }
 }
@@ -102,7 +102,7 @@ bool EffectConfigSettings::Save()
                 obj["type"] = "double";
             } else if constexpr (std::is_same_v<T, wxString>) {
                 obj["key"] = key;
-                obj["val"] = au::au3::wxToStdString(v);
+                obj["val"] = agu::au3::wxToStdString(v);
                 obj["type"] = "string";
             }
         }, p.second);

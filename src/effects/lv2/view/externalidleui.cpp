@@ -4,7 +4,7 @@
 #include "externalidleui.h"
 #include "log.h"
 
-namespace au::effects {
+namespace agu::effects {
 ExternalIdleUi::ExternalIdleUi(SuilInstance& suilInstance)
     : m_externalUiWidget(static_cast<LV2_External_UI_Widget*>(suil_instance_get_widget(&suilInstance)))
 {
@@ -32,4 +32,4 @@ bool ExternalIdleUi::updateExternalUi()
     LV2_EXTERNAL_UI_RUN(m_externalUiWidget);
     return true;
 }
-} // namespace au::effects
+} // namespace agu::effects

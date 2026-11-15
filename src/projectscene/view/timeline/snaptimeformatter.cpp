@@ -7,7 +7,7 @@
 
 #include "playback/iaudiooutput.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 static bool isBarSnap(SnapType type)
 {

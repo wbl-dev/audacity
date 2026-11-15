@@ -20,7 +20,7 @@
 
 #include "trackedit/internal/itracknavigationcontroller.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 enum class SelectionDirection {
     Up,
     Down
@@ -32,11 +32,11 @@ class TrackNavigationController : public ITrackNavigationController, public muse
     muse::ContextInject<muse::actions::IActionsDispatcher> dispatcher{ this };
     muse::ContextInject<muse::rcommand::ICommandDispatcher> commandDispatcher{ this };
     muse::ContextInject<muse::ui::INavigationController> navigationController{ this };
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
-    muse::ContextInject<au::playback::IPlaybackController> playbackController{ this };
-    muse::ContextInject<au::trackedit::ISelectionController> selectionController{ this };
-    muse::ContextInject<au::trackedit::ITrackeditInteraction> trackeditInteraction{ this };
-    muse::ContextInject<au::trackedit::IProjectHistory> projectHistory{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::playback::IPlaybackController> playbackController{ this };
+    muse::ContextInject<agu::trackedit::ISelectionController> selectionController{ this };
+    muse::ContextInject<agu::trackedit::ITrackeditInteraction> trackeditInteraction{ this };
+    muse::ContextInject<agu::trackedit::IProjectHistory> projectHistory{ this };
 
 public:
     TrackNavigationController(const muse::modularity::ContextPtr& ctx)

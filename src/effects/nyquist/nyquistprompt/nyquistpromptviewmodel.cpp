@@ -12,7 +12,7 @@
 
 #include <QDir>
 
-using namespace au::effects;
+using namespace agu::effects;
 using namespace muse;
 
 NyquistPromptViewModel::NyquistPromptViewModel(QObject* parent, int instanceId)

@@ -23,7 +23,7 @@
   The structure was largely stolen from Domonic Mazzoni's NoiseRemoval
   module, and reworked for the NEW effect.
 
-  This file is intended to become part of Audacity.  You may modify
+  This file is intended to become part of AGu.  You may modify
   and/or distribute it under the same terms as Audacity itself.
 
 *//*******************************************************************/
@@ -37,7 +37,7 @@
 #include "au3-strings/TranslatableString.h"
 #include "au3-wave-track/WaveTrack.h"
 
-namespace au::effects {
+namespace agu::effects {
 namespace {
 constexpr size_t windowSize = 8192;
 }

@@ -5,7 +5,7 @@
 
 #include "../ieffectloadersregister.h"
 
-namespace au::effects {
+namespace agu::effects {
 class EffectLoadersRegister : public IEffectLoadersRegister
 {
 public:
@@ -15,4 +15,4 @@ public:
 private:
     std::vector<IEffectLoaderPtr> m_loaders;
 };
-} // namespace au::effects
+} // namespace agu::effects

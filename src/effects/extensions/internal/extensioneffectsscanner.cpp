@@ -12,7 +12,7 @@
 #include "extensioneffectsrepository.h"
 #include "extensiontypes.h"
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 ExtensionEffectsScanner::ExtensionEffectsScanner(std::shared_ptr<ExtensionEffectsRepository> repository)
     : m_repository(std::move(repository))
 {
@@ -56,4 +56,4 @@ void ExtensionEffectsScanner::refreshPlugins(
         LOGE() << "failed to reload the audio plugin registry: " << result.toString();
     }
 }
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

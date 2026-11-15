@@ -9,7 +9,7 @@
 #include "framework/rcommand/icommandsregister.h"
 #include "framework/rcommand/imodulecommandsstate.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class SpectrogramCommandsState : public muse::rcommand::IModuleCommandsState, public muse::Contextable
 {
     muse::GlobalInject<muse::rcommand::ICommandsRegister> commandsRegister;

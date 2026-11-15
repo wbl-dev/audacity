@@ -3,8 +3,8 @@
 #include "framework/global/containers.h"
 #include "framework/global/log.h"
 
-using namespace au::au3;
-using namespace au::trackedit;
+using namespace agu::au3;
+using namespace agu::trackedit;
 using namespace muse;
 
 Au3Track* DomAccessor::findTrack(Au3Project& prj, const Au3TrackId& au3trackId)
@@ -117,7 +117,7 @@ size_t DomAccessor::findClipIndexById(const Au3WaveTrack* track, const trackedit
     return muse::nidx;
 }
 
-au::trackedit::ClipId DomAccessor::findClipIdByIndex(const Au3WaveTrack* track, size_t clipIndex)
+agu::trackedit::ClipId DomAccessor::findClipIdByIndex(const Au3WaveTrack* track, size_t clipIndex)
 {
     auto it = std::next(track->Intervals().begin(), clipIndex);
     if (it != track->Intervals().end()) {
@@ -126,7 +126,7 @@ au::trackedit::ClipId DomAccessor::findClipIdByIndex(const Au3WaveTrack* track, 
     return -1;
 }
 
-au::trackedit::ClipId DomAccessor::findMatchedClip(const Au3WaveTrack* track, const Au3WaveTrack* originTrack,
+agu::trackedit::ClipId DomAccessor::findMatchedClip(const Au3WaveTrack* track, const Au3WaveTrack* originTrack,
                                                    const trackedit::ClipId& originClipId)
 {
     size_t idx = findClipIndexById(originTrack, originClipId);
@@ -192,7 +192,7 @@ TrackIdList DomAccessor::findSelectedTracks(const Au3Project& prj)
     return tracks;
 }
 
-au::trackedit::TrackId DomAccessor::findFocusedTrack(const Au3Project& prj)
+agu::trackedit::TrackId DomAccessor::findFocusedTrack(const Au3Project& prj)
 {
     const Au3TrackList& tracks = Au3TrackList::Get(prj);
     for (const Au3Track* track : tracks) {
@@ -203,7 +203,7 @@ au::trackedit::TrackId DomAccessor::findFocusedTrack(const Au3Project& prj)
     return INVALID_TRACK;
 }
 
-void DomAccessor::setTrackFocused(Au3Project& prj, const au::trackedit::TrackId trackId, bool focused)
+void DomAccessor::setTrackFocused(Au3Project& prj, const agu::trackedit::TrackId trackId, bool focused)
 {
     auto track = findTrack(prj, ::TrackId { trackId });
     if (track) {

@@ -10,14 +10,14 @@
 
 #include "context/tests/mocks/globalcontextmock.h"
 #include "context/tests/mocks/playbackstatemock.h"
-#include "project/tests/mocks/audacityprojectmock.h"
+#include "project/tests/mocks/aguprojectmock.h"
 #include "trackedit/tests/mocks/selectioncontrollermock.h"
 #include "trackedit/tests/mocks/trackeditprojectmock.h"
 #include "trackedit/dom/label.h"
 
 using namespace ::testing;
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class TimelineContextLabelZoomTests : public ::testing::Test
 {
 protected:
@@ -47,7 +47,7 @@ protected:
 
     const trackedit::LabelKey m_pointKey { 1, 1 };
     std::shared_ptr<NiceMock<context::GlobalContextMock> > m_globalContext = std::make_shared<NiceMock<context::GlobalContextMock> >();
-    std::shared_ptr<NiceMock<project::AudacityProjectMock> > m_audacityProject = std::make_shared<NiceMock<project::AudacityProjectMock> >();
+    std::shared_ptr<NiceMock<project::AGuProjectMock> > m_audacityProject = std::make_shared<NiceMock<project::AGuProjectMock> >();
     std::shared_ptr<NiceMock<context::PlaybackStateMock> > m_playbackState = std::make_shared<NiceMock<context::PlaybackStateMock> >();
     std::shared_ptr<NiceMock<trackedit::SelectionControllerMock> > m_selection = std::make_shared<NiceMock<trackedit::SelectionControllerMock> >();
     std::shared_ptr<NiceMock<trackedit::TrackeditProjectMock> > m_project = std::make_shared<NiceMock<trackedit::TrackeditProjectMock> >();

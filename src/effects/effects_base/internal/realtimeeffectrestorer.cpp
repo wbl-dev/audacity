@@ -11,7 +11,7 @@
 #include "au3-realtime-effects/RealtimeEffectState.h"
 #include "au3-wave-track/WaveTrack.h"
 
-namespace au::effects {
+namespace agu::effects {
 namespace {
 bool operator!=(const RealtimeEffectList& a, const RealtimeEffectList& b)
 {
@@ -119,7 +119,7 @@ Signals& Signals::Get(au3::Au3Project& project)
 }
 }
 
-void au::effects::setRealtimeEffectRestorerSignals(au::au3::Au3Project& project, RealtimeEffectRestorerSignals sigs)
+void agu::effects::setRealtimeEffectRestorerSignals(agu::au3::Au3Project& project, RealtimeEffectRestorerSignals sigs)
 {
     auto& restorerSignals = Signals::Get(project);
     restorerSignals.settingsChanged = std::move(sigs.settingsChanged);

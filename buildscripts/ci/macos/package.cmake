@@ -66,14 +66,14 @@ else()
 endif()
 
 if (BUILD_MODE STREQUAL "nightly")
-    set(LONG_NAME "OnlyAudiosNightly")
+    set(LONG_NAME "AGuNightly")
 else()
-    set(LONG_NAME "OnlyAudios")
+    set(LONG_NAME "AGu")
 endif()
 set(DMG_NAME ${LONG_NAME}-${BUILD_VERSION}.dmg)
 
-include(${CMAKE_CURRENT_LIST_DIR}/../common/audacity_package_name.cmake)
-audacity_package_name(ARTIFACT_NAME macOS ${PACKARCH} dmg)
+include(${CMAKE_CURRENT_LIST_DIR}/../common/agu_package_name.cmake)
+agu_package_name(ARTIFACT_NAME macOS ${PACKARCH} dmg)
 
 execute_process(
     COMMAND bash ${PACKAGING_DIR}/make_dmg.sh --long_name "${LONG_NAME}" --version ${BUILD_VERSION}

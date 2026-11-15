@@ -6,7 +6,7 @@
 #include "au3-time-frequency-selection/ViewInfo.h"
 #include "au3wrap/internal/domaccessor.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 void FrequencySelectionRestorer::storeFrequencySelectionState(const FrequencySelection& selection) const
 {
     const auto project = au3Project();

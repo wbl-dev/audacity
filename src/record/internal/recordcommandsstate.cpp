@@ -7,7 +7,7 @@
 
 #include "../recordcommands.h"
 
-using namespace au::record;
+using namespace agu::record;
 using namespace muse;
 using namespace muse::rcommand;
 

@@ -8,7 +8,7 @@
 #include "modularity/ioc.h"
 #include "trackedit/itrackeditinteraction.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class AddNewLabelTrackModel : public QObject, public muse::Contextable
 {
     Q_OBJECT

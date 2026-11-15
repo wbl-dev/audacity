@@ -14,7 +14,7 @@
 #include "au3-wave-track/WaveTrack.h"
 #include "log.h"
 
-namespace au::trackedit::api::detail {
+namespace agu::trackedit::api::detail {
 ProjectSelectionObject::ProjectSelectionObject(std::shared_ptr<EditState> state, QObject* parent)
     : QObject(parent), m_state(std::move(state))
 {
@@ -289,4 +289,4 @@ QObject* makeProjectEdit(std::shared_ptr<EditState> state, QObject* parent)
 {
     return new ProjectEditObject(std::move(state), parent);
 }
-} // namespace au::trackedit::api::detail
+} // namespace agu::trackedit::api::detail

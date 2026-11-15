@@ -10,7 +10,7 @@
 #include "draw/types/color.h"
 #include "record/timedrecordingtypes.h"
 
-namespace au::record {
+namespace agu::record {
 //! Naming scheme for newly recorded tracks
 struct RecordingTrackNameOptions {
     bool useCustomName = false;

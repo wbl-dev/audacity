@@ -8,7 +8,7 @@
 #include "framework/global/settings.h"
 #include "framework/global/log.h"
 
-using namespace au::au3;
+using namespace agu::au3;
 
 static muse::Settings::Key make_key(const wxString& key)
 {

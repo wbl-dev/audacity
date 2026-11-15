@@ -9,7 +9,7 @@
 #include "effectsutils.h"
 #include "../effectscommands.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 using namespace muse;
 using namespace muse::rcommand;
 using namespace muse::ui;

@@ -34,7 +34,7 @@ namespace BasicUI {
 class ProgressDialog;
 }
 
-namespace au::effects {
+namespace agu::effects {
 class EffectExecutionScenario : public IEffectExecutionScenario, public muse::Contextable, public muse::async::Asyncable
 {
     muse::GlobalInject<IEffectsConfiguration> effectsConfiguration;

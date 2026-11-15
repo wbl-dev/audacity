@@ -12,7 +12,7 @@
 #include "au3-lv2/LoadLV2.h"
 #include "au3-module-manager/PluginManager.h"
 
-namespace au::effects {
+namespace agu::effects {
 class Lv2PluginsScanner : public Au3AudioPluginScanner
 {
     muse::GlobalInject<effects::IEffectsConfiguration> effectsConfiguration;

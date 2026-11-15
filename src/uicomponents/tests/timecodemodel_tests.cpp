@@ -3,9 +3,9 @@
  */
 #include <gtest/gtest.h>
 
-#include "uicomponents/qml/Audacity/UiComponents/timecodemodel.h"
+#include "uicomponents/qml/AGu/UiComponents/timecodemodel.h"
 
-namespace au::uicomponents {
+namespace agu::uicomponents {
 constexpr double SAMPLE_RATE = 44100.0;
 constexpr double TEMPO = 120.0;
 constexpr int UPPER_TIME_SIGNATURE = 3;

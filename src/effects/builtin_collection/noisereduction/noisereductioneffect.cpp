@@ -58,7 +58,7 @@
 // Bill].
 #undef SPECTRAL_EDIT_NOISE_REDUCTION
 
-namespace au::effects {
+namespace agu::effects {
 typedef std::vector<float> FloatVector;
 
 namespace {

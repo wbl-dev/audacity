@@ -13,7 +13,7 @@
 
 #include "au3-effects/StatefulPerTrackEffect.h"
 
-namespace au::effects {
+namespace agu::effects {
 class InvertEffect : public StatefulPerTrackEffect
 {
 public:

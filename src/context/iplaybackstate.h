@@ -8,7 +8,7 @@
 #include "framework/global/async/channel.h"
 #include "playback/playbacktypes.h"
 
-namespace au::context {
+namespace agu::context {
 //! NOTE The current player is in the global context.
 //! We need to get the current state from it (playing position, status)
 //! But direct manage (play, seek..) is bad idea, need send actions (to playback controller)

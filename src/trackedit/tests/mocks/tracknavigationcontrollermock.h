@@ -7,7 +7,7 @@
 
 #include "trackedit/internal/itracknavigationcontroller.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class TrackNavigationControllerMock : public ITrackNavigationController
 {
 public:

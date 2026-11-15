@@ -23,7 +23,7 @@
 using namespace muse;
 using namespace muse::actions;
 using namespace muse::rcommand;
-using namespace au::effects;
+using namespace agu::effects;
 
 static const ActionCode REPEAT_LAST_EFFECT_CODE("repeat-last-effect");
 static const ActionCode PLUGIN_MANAGER_CODE("plugin-manager");
@@ -37,7 +37,7 @@ static const ActionQuery PRESET_DELETE_QUERY("action://effects/presets/delete");
 static const ActionQuery PRESET_IMPORT_QUERY("action://effects/presets/import");
 static const ActionQuery PRESET_EXPORT_QUERY("action://effects/presets/export");
 
-static const muse::Uri PLUGIN_MANAGER_URI("audacity://effects/plugin_manager");
+static const muse::Uri PLUGIN_MANAGER_URI("agu://effects/plugin_manager");
 
 namespace {
 CommandQuery queryParamsConv(const Command& command, const ActionData& args)
@@ -265,7 +265,7 @@ muse::Ret EffectsActionsController::applyPreset(const Params& params)
     }
 
     EffectInstanceId effectInstanceId = params.at(EFFECTS_INSTANCE_ID_PARAM).toInt();
-    PresetId presetId = au::au3::wxFromStdString(params.at(EFFECTS_PRESET_ID_PARAM).toString());
+    PresetId presetId = agu::au3::wxFromStdString(params.at(EFFECTS_PRESET_ID_PARAM).toString());
     presetsScenario()->loadPreset(effectInstanceId, presetId);
     return make_ok();
 }
@@ -288,7 +288,7 @@ muse::Ret EffectsActionsController::savePreset(const Params& params)
     }
 
     const EffectInstanceId effectInstanceId = params.at(EFFECTS_INSTANCE_ID_PARAM).toInt();
-    const PresetId presetId = au::au3::wxFromStdString(params.at(EFFECTS_PRESET_ID_PARAM).toString());
+    const PresetId presetId = agu::au3::wxFromStdString(params.at(EFFECTS_PRESET_ID_PARAM).toString());
     presetsScenario()->savePreset(effectInstanceId, presetId);
     return make_ok();
 }
@@ -300,7 +300,7 @@ muse::Ret EffectsActionsController::deletePreset(const Params& params)
     }
 
     EffectId effectId = EffectId::fromStdString(params.at(EFFECTS_EFFECT_ID_PARAM).toString());
-    PresetId presetId = au::au3::wxFromStdString(params.at(EFFECTS_PRESET_ID_PARAM).toString());
+    PresetId presetId = agu::au3::wxFromStdString(params.at(EFFECTS_PRESET_ID_PARAM).toString());
     presetsScenario()->deletePreset(effectId, presetId);
     return make_ok();
 }

@@ -5,7 +5,7 @@
 
 #include "importexport/export/exportutils.h"
 
-using namespace au::importexport;
+using namespace agu::importexport;
 
 TEST(ExportUtilsTests, FormatFileNameUsesTrackNameAlone)
 {

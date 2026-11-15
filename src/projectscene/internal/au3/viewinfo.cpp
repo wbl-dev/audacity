@@ -5,7 +5,7 @@
 #include "au3-preferences/Prefs.h"
 #include "au3-project-history/UndoManager.h"
 
-using namespace au::au3;
+using namespace agu::au3;
 
 static const AttachedProjectObjects::RegisteredFactory key
 {
@@ -107,7 +107,7 @@ RestorerNotification& RestorerNotification::Get(AudacityProject& project)
 }
 }
 
-namespace au::au3 {
+namespace agu::au3 {
 struct ViewStateRestorer final : UndoStateExtension {
     ViewStateRestorer(AudacityProject& project)
     {
@@ -131,7 +131,7 @@ UndoRedoExtensionRegistry::Entry<ViewStateRestorer> sEntry { [](AudacityProject&
 };
 }
 
-void au::au3::setViewStateRestorerNotification(AudacityProject& project, muse::async::Notification notification)
+void agu::au3::setViewStateRestorerNotification(AudacityProject& project, muse::async::Notification notification)
 {
     RestorerNotification::Get(project).notification = notification;
 }

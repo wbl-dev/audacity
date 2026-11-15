@@ -3,7 +3,7 @@
  */
 #include "vsteffectsstubmodule.h"
 
-namespace au::effects {
+namespace agu::effects {
 std::string VstEffectsModule::moduleName() const
 {
     return "effects_vst_stub";

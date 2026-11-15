@@ -26,7 +26,7 @@
 #include "au3-wave-track/WaveTrack.h"
 #include "au3-wave-track/WaveTrackUtilities.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 const ComponentInterfaceSymbol PaulstretchEffect::Symbol { TranslatableString("effects-paulstretch", "Paulstretch") };
 

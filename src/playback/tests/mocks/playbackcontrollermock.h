@@ -7,7 +7,7 @@
 
 #include "playback/iplaybackcontroller.h"
 
-namespace au::playback {
+namespace agu::playback {
 class PlaybackControllerMock : public IPlaybackController
 {
 public:

@@ -5,7 +5,7 @@
 
 #include "modularity/imodulesetup.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class TrackeditConfiguration;
 class TrackeditActionsController;
 class TrackeditUiActions;

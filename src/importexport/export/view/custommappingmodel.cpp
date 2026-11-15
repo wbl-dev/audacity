@@ -4,7 +4,7 @@
 
 #include "custommappingmodel.h"
 
-using namespace au::importexport;
+using namespace agu::importexport;
 
 CustomMappingModel::CustomMappingModel(QObject* parent)
     : QObject(parent)

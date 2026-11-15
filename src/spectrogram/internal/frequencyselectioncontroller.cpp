@@ -10,7 +10,7 @@
 #include "framework/global/defer.h"
 #include "framework/global/types/number.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 FrequencySelectionController::FrequencySelectionController(const muse::modularity::ContextPtr& ctx,
                                                            std::unique_ptr<IFrequencySelectionRestorer> frequencySelectionRestorer)
     : muse::Contextable(ctx), m_frequencySelectionRestorer(std::move(frequencySelectionRestorer))

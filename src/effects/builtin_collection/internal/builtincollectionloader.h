@@ -6,7 +6,7 @@
 #include "effects/builtin/ibuiltineffectsviewregister.h"
 #include "framework/global/modularity/ioc.h"
 
-namespace au::effects {
+namespace agu::effects {
 class BuiltinCollectionLoader : public muse::Contextable
 {
     muse::GlobalInject<IBuiltinEffectsViewRegister> builtinEffectsViewRegister;

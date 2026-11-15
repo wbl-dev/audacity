@@ -8,7 +8,7 @@
 
 #include "dblogstereoruler.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 namespace {
 constexpr int MIN_ADJACENT_FULL_STEPS_HEIGHT = 17;

@@ -12,7 +12,7 @@
 
 #include <limits>
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 namespace {
 const Table<SpectrogramAlgorithm> algorithmTable {
     { 0, SpectrogramAlgorithm::Frequencies, muse::qtrc("spectrogram/preferences", "Frequencies") },

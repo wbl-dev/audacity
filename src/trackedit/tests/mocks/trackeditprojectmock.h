@@ -7,7 +7,7 @@
 
 #include "trackedit/itrackeditproject.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class TrackeditProjectMock : public ITrackeditProject
 {
 public:
@@ -49,7 +49,7 @@ public:
     MOCK_METHOD(void, setTimeSignature, (const TimeSignature& timeSignature, bool noStretch), (override));
     MOCK_METHOD(muse::async::Channel<TimeSignature>, timeSignatureChanged, (), (const, override));
 
-    MOCK_METHOD(muse::async::Channel<std::vector<au::trackedit::Track> >, tracksChanged, (), (const, override));
+    MOCK_METHOD(muse::async::Channel<std::vector<agu::trackedit::Track> >, tracksChanged, (), (const, override));
     MOCK_METHOD(muse::async::Channel<trackedit::Track>, trackAdded, (), (const, override));
     MOCK_METHOD(muse::async::Channel<trackedit::Track>, trackChanged, (), (const, override));
     MOCK_METHOD(muse::async::Channel<trackedit::Track>, trackClipListChanged, (), (const, override));

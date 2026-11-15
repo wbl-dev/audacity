@@ -7,7 +7,7 @@
 
 #include "../../iplayback.h"
 
-namespace au::playback {
+namespace agu::playback {
 class Au3Player;
 class Au3AudioOutput;
 class Au3Playback : public IPlayback, public muse::Contextable

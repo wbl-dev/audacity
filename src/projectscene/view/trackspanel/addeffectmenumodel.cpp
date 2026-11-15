@@ -6,7 +6,7 @@
 #include "log.h"
 
 using namespace muse;
-using namespace au::projectscene;
+using namespace agu::projectscene;
 using namespace muse::uicomponents;
 
 AddEffectMenuModel::AddEffectMenuModel(QObject* parent)

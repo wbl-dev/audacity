@@ -30,7 +30,7 @@
 
 class QUrl;
 
-namespace au::project {
+namespace agu::project {
 class IProjectFilesController : MODULE_CONTEXT_INTERFACE
 {
     INTERFACE_ID(IProjectFilesController)

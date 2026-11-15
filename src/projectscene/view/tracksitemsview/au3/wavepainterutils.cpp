@@ -7,16 +7,16 @@
 static constexpr auto PIXELS_PER_SAMPLE_WHEN_CONNECTING_POINTS = 0.5;
 static constexpr auto PIXELS_PER_SAMPLE_WHEN_INDIVIDUAL_POINTS = 4;
 
-namespace au::projectscene::wavepainterutils {
-IWavePainter::PlotType getPlotType(std::shared_ptr<au::project::IAudacityProject> project, const trackedit::ClipKey& clipKey, double zoom)
+namespace agu::projectscene::wavepainterutils {
+IWavePainter::PlotType getPlotType(std::shared_ptr<agu::project::IAGuProject> project, const trackedit::ClipKey& clipKey, double zoom)
 {
-    au::au3::Au3Project* au3Project = reinterpret_cast<au::au3::Au3Project*>(project->au3ProjectPtr());
-    WaveTrack* track = au::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
+    agu::au3::Au3Project* au3Project = reinterpret_cast<agu::au3::Au3Project*>(project->au3ProjectPtr());
+    WaveTrack* track = agu::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
     if (!track) {
         return IWavePainter::PlotType::MinMaxRMS;
     }
 
-    std::shared_ptr<WaveClip> waveClip = au::au3::DomAccessor::findWaveClip(track, clipKey.itemId);
+    std::shared_ptr<WaveClip> waveClip = agu::au3::DomAccessor::findWaveClip(track, clipKey.itemId);
     if (!waveClip) {
         return IWavePainter::PlotType::MinMaxRMS;
     }
@@ -39,18 +39,18 @@ IWavePainter::PlotType getPlotType(std::shared_ptr<au::project::IAudacityProject
     return IWavePainter::PlotType::Stem;
 }
 
-WaveMetrics getWaveMetrics(std::shared_ptr<au::project::IAudacityProject> project, const trackedit::ClipKey& clipKey,
+WaveMetrics getWaveMetrics(std::shared_ptr<agu::project::IAGuProject> project, const trackedit::ClipKey& clipKey,
                            const IWavePainter::Params& params, bool snapToSamples)
 {
     WaveMetrics wm;
 
-    au::au3::Au3Project* au3Project = reinterpret_cast<au::au3::Au3Project*>(project->au3ProjectPtr());
-    WaveTrack* track = au::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
+    agu::au3::Au3Project* au3Project = reinterpret_cast<agu::au3::Au3Project*>(project->au3ProjectPtr());
+    WaveTrack* track = agu::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
     IF_ASSERT_FAILED(track) {
         return wm;
     }
 
-    std::shared_ptr<WaveClip> waveClip = au::au3::DomAccessor::findWaveClip(track, clipKey.itemId);
+    std::shared_ptr<WaveClip> waveClip = agu::au3::DomAccessor::findWaveClip(track, clipKey.itemId);
     IF_ASSERT_FAILED(waveClip) {
         return wm;
     }

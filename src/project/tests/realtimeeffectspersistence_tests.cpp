@@ -17,7 +17,7 @@
 #include "global/io/fileinfo.h"
 #include "global/types/ret.h"
 
-#include "project/internal/audacityproject.h"
+#include "project/internal/aguproject.h"
 
 #include "project/tests/mocks/trackeditprojectcreatormock.h"
 #include "project/tests/mocks/projectviewstatecreatormock.h"
@@ -33,20 +33,20 @@
 #include "au3-realtime-effects/RealtimeEffectList.h"
 #include "au3-realtime-effects/RealtimeEffectState.h"
 
-namespace au::project {
+namespace agu::project {
 class Project_RealtimeEffectsPersistenceTests : public ::testing::Test
 {
 protected:
     muse::modularity::ContextPtr m_testCtx;
-    std::unique_ptr<Audacity4Project> m_currentProject;
-    std::shared_ptr<au::project::TrackeditProjectCreatorMock> m_trackeditProjectCreator;
-    std::shared_ptr<au::projectscene::ProjectViewStateCreatorMock> m_projectViewStateCreator;
-    std::shared_ptr<au::trackedit::ClipboardMock> m_clipboard;
+    std::unique_ptr<AGuProject> m_currentProject;
+    std::shared_ptr<agu::project::TrackeditProjectCreatorMock> m_trackeditProjectCreator;
+    std::shared_ptr<agu::projectscene::ProjectViewStateCreatorMock> m_projectViewStateCreator;
+    std::shared_ptr<agu::trackedit::ClipboardMock> m_clipboard;
 
     void SetUp() override
     {
-        m_testCtx = au::testutils::makeTestContext();
-        m_clipboard = std::make_shared<::testing::NiceMock<au::trackedit::ClipboardMock> >();
+        m_testCtx = agu::testutils::makeTestContext();
+        m_clipboard = std::make_shared<::testing::NiceMock<agu::trackedit::ClipboardMock> >();
         m_currentProject = makeProject();
     }
 
@@ -57,16 +57,16 @@ protected:
         }
     }
 
-    std::unique_ptr<Audacity4Project> makeProject()
+    std::unique_ptr<AGuProject> makeProject()
     {
-        auto project = std::make_unique<Audacity4Project>(m_testCtx);
+        auto project = std::make_unique<AGuProject>(m_testCtx);
         project->trackeditProjectCreator.set(m_trackeditProjectCreator);
         project->viewStateCreator.set(m_projectViewStateCreator);
         project->clipboard.set(m_clipboard);
         return project;
     }
 
-    static ::AudacityProject& au3Project(const std::unique_ptr<Audacity4Project>& project)
+    static ::AudacityProject& au3Project(const std::unique_ptr<AGuProject>& project)
     {
         return *reinterpret_cast<::AudacityProject*>(project->m_au3Project->au3ProjectPtr());
     }
@@ -74,7 +74,7 @@ protected:
     // Save through Au3ProjectAccessor::save() directly (the method under test),
     // bypassing the facade's thumbnail creation. Friendship is granted to this
     // fixture, not to the TEST_F-generated subclass, so the access must live here.
-    static bool saveDirect(const std::unique_ptr<Audacity4Project>& project, const muse::io::path_t& path)
+    static bool saveDirect(const std::unique_ptr<AGuProject>& project, const muse::io::path_t& path)
     {
         return project->m_au3Project->save(path);
     }

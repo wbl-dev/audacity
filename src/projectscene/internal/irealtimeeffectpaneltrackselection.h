@@ -8,7 +8,7 @@
 #include "trackedit/trackedittypes.h"
 #include <optional>
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class IRealtimeEffectPanelTrackSelection : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IRealtimeEffectPanelTrackSelection);
@@ -16,7 +16,7 @@ class IRealtimeEffectPanelTrackSelection : MODULE_EXPORT_INTERFACE
 public:
     virtual ~IRealtimeEffectPanelTrackSelection() = default;
 
-    virtual std::optional<au::trackedit::TrackId> selectedTrackId() const = 0;
+    virtual std::optional<agu::trackedit::TrackId> selectedTrackId() const = 0;
     virtual muse::async::Notification selectedTrackIdChanged() const = 0;
 };
 }

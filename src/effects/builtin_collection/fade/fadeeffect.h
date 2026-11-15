@@ -2,7 +2,7 @@
 
 #include "au3-effects/StatefulPerTrackEffect.h"
 
-namespace au::effects {
+namespace agu::effects {
 class FadeEffectBase : public StatefulPerTrackEffect
 {
 public:

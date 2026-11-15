@@ -5,7 +5,7 @@
 
 #include "framework/rcommand/imodulecommandsregister.h"
 
-namespace au::record {
+namespace agu::record {
 class RecordCommandsRegister : public muse::rcommand::IModuleCommandsRegister
 {
 public:

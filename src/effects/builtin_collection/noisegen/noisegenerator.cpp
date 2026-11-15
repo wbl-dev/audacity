@@ -6,7 +6,7 @@
 #include "au3-strings/TranslatableString.h"
 
 #include "log.h"
-using namespace au::effects;
+using namespace agu::effects;
 
 const ComponentInterfaceSymbol NoiseGenerator::Symbol { TranslatableString("effects-noisegen", "Noise") };
 

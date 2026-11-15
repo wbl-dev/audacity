@@ -5,7 +5,7 @@
 
 #include "spectrogramtypes.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class IFrequencySelectionRestorer
 {
 public:

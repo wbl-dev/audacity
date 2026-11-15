@@ -24,7 +24,7 @@
 
 using namespace ::testing;
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class TrackeditOperationMoveTests : public Au3InteractionTestBase, public WithParamInterface<bool>
 {
 public:
@@ -33,7 +33,7 @@ public:
         m_testCtx = std::make_shared<muse::modularity::Context>(1001);
         const auto ctx = m_testCtx;
         m_globalContext = std::make_shared<NiceMock<context::GlobalContextMock> >();
-        m_currentProject = std::make_shared<NiceMock<project::AudacityProjectMock> >();
+        m_currentProject = std::make_shared<NiceMock<project::AGuProjectMock> >();
         m_trackEditProject = std::make_shared<NiceMock<TrackeditProjectMock> >();
         ON_CALL(*m_globalContext, currentProject()).WillByDefault(Return(m_currentProject));
         ON_CALL(*m_globalContext, currentTrackeditProject()).WillByDefault(Return(m_trackEditProject));

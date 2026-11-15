@@ -19,7 +19,7 @@
 #include "internal/timedrecordingscenario.h"
 #include "internal/au3/au3record.h"
 
-using namespace au::record;
+using namespace agu::record;
 using namespace muse;
 using namespace muse::modularity;
 using namespace muse::ui;
@@ -45,8 +45,8 @@ void RecordModule::resolveImports()
 {
     auto ir = globalIoc()->resolve<muse::interactive::IInteractiveUriRegister>(mname);
     if (ir) {
-        ir->registerQmlUri(muse::Uri("audacity://record/timedrecording"), "Audacity.Record", "TimedRecordingDialog");
-        ir->registerQmlUri(muse::Uri("audacity://record/timedrecording/progress"), "Audacity.Record", "TimedRecordingProgressDialog");
+        ir->registerQmlUri(muse::Uri("agu://record/timedrecording"), "AGu.Record", "TimedRecordingDialog");
+        ir->registerQmlUri(muse::Uri("agu://record/timedrecording/progress"), "AGu.Record", "TimedRecordingProgressDialog");
     }
 
     auto cr = globalIoc()->resolve<muse::rcommand::ICommandsRegister>(mname);

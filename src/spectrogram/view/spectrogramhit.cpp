@@ -3,9 +3,9 @@
  */
 #include "spectrogramhit.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 SpectrogramHit SpectrogramHitFactory::createSpectrogramHit(int trackId, int channel, double spectrogramY, double spectrogramHeight)
 {
     return SpectrogramHit{ trackId, channel, spectrogramY, spectrogramHeight };
 }
-} // namespace au::spectrogram
+} // namespace agu::spectrogram

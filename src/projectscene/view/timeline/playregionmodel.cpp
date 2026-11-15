@@ -6,7 +6,7 @@
 
 #include "playback/iplayer.h"
 
-namespace au {
+namespace agu {
 PlayRegionModel::PlayRegionModel(QObject* parent)
     : QObject{parent}, muse::Contextable(muse::iocCtxForQmlObject(this))
 {

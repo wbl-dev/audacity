@@ -5,10 +5,10 @@
 #include "context/iglobalcontext.h"
 #include "project/types/projecttypes.h"
 
-namespace au::project {
+namespace agu::project {
 class ProjectProvider : public muse::mi::IProjectProvider, public muse::Contextable
 {
-    muse::ContextInject<au::context::IGlobalContext> globalContext { this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext { this };
 
 public:
     ProjectProvider(const muse::modularity::ContextPtr& ctx)

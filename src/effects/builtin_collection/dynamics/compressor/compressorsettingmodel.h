@@ -6,7 +6,7 @@
 #include "../../common/effectsettingmodelimpl.h"
 #include "compressoreffect.h"
 
-namespace au::effects {
+namespace agu::effects {
 class CompressorSettingModel : public EffectSettingModelImpl<CompressorEffect>
 {
 public:

@@ -6,7 +6,7 @@
 #include "global/settings.h"
 
 using namespace muse;
-using namespace au::record;
+using namespace agu::record;
 
 namespace {
 const muse::Settings::Key MIC_METERING_KEY("record", "record/micMetering");
@@ -17,7 +17,7 @@ const muse::Settings::Key CROSSFADE_DURATION_KEY("record", "record/crossfadeDura
 const muse::Settings::Key TIMED_RECORDING_DURATION_KEY("record", "record/timedRecording/durationSeconds");
 const muse::Settings::Key TIMED_RECORDING_SAVE_PROJECT_KEY("record", "record/timedRecording/saveProject");
 const muse::Settings::Key TIMED_RECORDING_EXPORT_AUDIO_KEY("record", "record/timedRecording/exportAudio");
-const muse::Settings::Key TIMED_RECORDING_QUIT_AUDACITY_KEY("record", "record/timedRecording/quitAudacity");
+const muse::Settings::Key TIMED_RECORDING_QUIT_AGU_KEY("record", "record/timedRecording/quitAGu");
 
 //! NOTE: these keys deliberately match the au3 preference paths (bridged to the
 //! same settings storage), so values recorded by au3 code stay readable;
@@ -55,7 +55,7 @@ void RecordConfiguration::init()
     muse::settings()->setDefaultValue(TIMED_RECORDING_DURATION_KEY, muse::Val(timedRecordingDefaults.durationSeconds));
     muse::settings()->setDefaultValue(TIMED_RECORDING_SAVE_PROJECT_KEY, muse::Val(timedRecordingDefaults.saveProject));
     muse::settings()->setDefaultValue(TIMED_RECORDING_EXPORT_AUDIO_KEY, muse::Val(timedRecordingDefaults.exportAudio));
-    muse::settings()->setDefaultValue(TIMED_RECORDING_QUIT_AUDACITY_KEY, muse::Val(timedRecordingDefaults.quitAudacity));
+    muse::settings()->setDefaultValue(TIMED_RECORDING_QUIT_AGU_KEY, muse::Val(timedRecordingDefaults.quitAGu));
 }
 
 bool RecordConfiguration::isMicMeteringOn() const
@@ -135,7 +135,7 @@ TimedRecordingOptions RecordConfiguration::timedRecordingOptions() const
     options.durationSeconds = muse::settings()->value(TIMED_RECORDING_DURATION_KEY).toInt64();
     options.saveProject = muse::settings()->value(TIMED_RECORDING_SAVE_PROJECT_KEY).toBool();
     options.exportAudio = muse::settings()->value(TIMED_RECORDING_EXPORT_AUDIO_KEY).toBool();
-    options.quitAudacity = muse::settings()->value(TIMED_RECORDING_QUIT_AUDACITY_KEY).toBool();
+    options.quitAGu = muse::settings()->value(TIMED_RECORDING_QUIT_AGU_KEY).toBool();
     return options;
 }
 
@@ -144,5 +144,5 @@ void RecordConfiguration::setTimedRecordingOptions(const TimedRecordingOptions& 
     muse::settings()->setSharedValue(TIMED_RECORDING_DURATION_KEY, muse::Val(options.durationSeconds));
     muse::settings()->setSharedValue(TIMED_RECORDING_SAVE_PROJECT_KEY, muse::Val(options.saveProject));
     muse::settings()->setSharedValue(TIMED_RECORDING_EXPORT_AUDIO_KEY, muse::Val(options.exportAudio));
-    muse::settings()->setSharedValue(TIMED_RECORDING_QUIT_AUDACITY_KEY, muse::Val(options.quitAudacity));
+    muse::settings()->setSharedValue(TIMED_RECORDING_QUIT_AGU_KEY, muse::Val(options.quitAGu));
 }

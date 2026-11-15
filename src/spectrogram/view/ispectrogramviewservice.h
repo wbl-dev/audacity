@@ -6,7 +6,7 @@
 #include "framework/global/async/channel.h"
 #include "framework/global/modularity/imoduleinterface.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class ISpectrogramViewService : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(ISpectrogramViewService)

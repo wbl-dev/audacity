@@ -26,7 +26,7 @@
 
 #include "modularity/imodulesetup.h"
 
-namespace au::context {
+namespace agu::context {
 class GlobalContext;
 class UiContextResolver;
 

@@ -10,7 +10,7 @@
 #include "context/iuicontextresolver.h"
 #include "projectscene/iprojectsceneactionscontroller.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class ProjectToolBarModel : public muse::uicomponents::AbstractToolBarModel
 {
     Q_OBJECT

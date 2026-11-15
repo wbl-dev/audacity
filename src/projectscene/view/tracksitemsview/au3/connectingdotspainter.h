@@ -8,10 +8,10 @@
 #include "au3wrap/au3types.h"
 #include "WaveMetrics.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class ConnectingDotsPainter : public IConnectingDotsPainter, public muse::Contextable
 {
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
 
 public:
     ConnectingDotsPainter(const muse::modularity::ContextPtr& ctx)

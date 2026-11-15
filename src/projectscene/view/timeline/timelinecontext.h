@@ -26,7 +26,7 @@
 //! or we notice that its "controller" methods are being called in unexpected places,
 //! then we should split it into two separate classes.
 
-namespace au::projectscene {
+namespace agu::projectscene {
 using Direction = DirectionType::Direction;
 
 class SnapTimeFormatter;

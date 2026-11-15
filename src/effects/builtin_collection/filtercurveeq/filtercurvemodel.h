@@ -9,7 +9,7 @@
 
 #include <optional>
 
-namespace au::effects {
+namespace agu::effects {
 class FilterCurveEq;
 
 class FilterCurveModel : public QObject

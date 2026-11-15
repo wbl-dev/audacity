@@ -12,7 +12,7 @@
 #include "effects/effects_base/effectstypes.h"
 #include <QObject>
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class RealtimeEffectMenuModelBase : public muse::uicomponents::AbstractMenuModel, public effects::IEffectMenuItemFactory
 {
     Q_OBJECT
@@ -28,7 +28,7 @@ public:
     Q_INVOKABLE void load() final override;
 
 protected:
-    std::optional<au::trackedit::TrackId> trackId() const;
+    std::optional<agu::trackedit::TrackId> trackId() const;
     bool isMasterTrack() const { return m_isMasterTrack; }
     muse::uicomponents::MenuItemList effectMenus();
     muse::uicomponents::MenuItem* makeEffectItem(const effects::EffectId& effectId);

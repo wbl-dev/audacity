@@ -40,7 +40,7 @@
 
 #include "../effecterrors.h"
 using namespace muse;
-using namespace au::effects;
+using namespace agu::effects;
 
 static const int UNDEFINED_FREQUENCY = -1;
 
@@ -171,7 +171,7 @@ muse::RetVal<std::string> EffectExecutionScenario::configureEffect(const EffectI
     return RetVal<std::string>::make_ok(serialized.ToStdString(wxConvUTF8));
 }
 
-au::au3::Au3Project& EffectExecutionScenario::projectRef()
+agu::au3::Au3Project& EffectExecutionScenario::projectRef()
 {
     return *reinterpret_cast<au3::Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());
 }
@@ -217,7 +217,7 @@ muse::Ret EffectExecutionScenario::doPerformEffect(au3::Au3Project& project, con
     //! ============================================================================
 
     // common things used below
-    PluginID ID = au::au3::wxFromString(effectId);
+    PluginID ID = agu::au3::wxFromString(effectId);
     EffectManager& em = EffectManager::Get();
     Effect* effect = nullptr;
 
@@ -531,10 +531,10 @@ muse::Ret EffectExecutionScenario::doPerformEffect(au3::Au3Project& project, con
 }
 
 namespace {
-auto getAllClips(const au::trackedit::ITrackeditProject& prj)
+auto getAllClips(const agu::trackedit::ITrackeditProject& prj)
 {
     const auto tracks = prj.trackIdList();
-    au::trackedit::Clips clips;
+    agu::trackedit::Clips clips;
     for (const auto& trackId : tracks) {
         const auto trackClips = prj.clipList(trackId);
         clips.insert(clips.end(), trackClips.begin(), trackClips.end());
@@ -554,7 +554,7 @@ muse::Ret EffectExecutionScenario::performGenerator(au3::Au3Project& project, Ef
 
     if (ret) {
         const auto clipsAfter = getAllClips(*prj);
-        const std::vector<const au::trackedit::Clip*> newClips = trackedit::utils::clipSetDifference(clipsAfter, clipsBefore);
+        const std::vector<const agu::trackedit::Clip*> newClips = trackedit::utils::clipSetDifference(clipsAfter, clipsBefore);
         if (!newClips.empty()) {
             for (const auto* clip : newClips) {
                 prj->notifyAboutClipAdded(*clip);
@@ -573,7 +573,7 @@ muse::Ret EffectExecutionScenario::performGenerator(au3::Au3Project& project, Ef
     return ret;
 }
 
-std::optional<au::trackedit::ClipId> EffectExecutionScenario::performEffectOnSingleClip(au3::Au3Project& project, Effect& effect,
+std::optional<agu::trackedit::ClipId> EffectExecutionScenario::performEffectOnSingleClip(au3::Au3Project& project, Effect& effect,
                                                                                         const std::shared_ptr<EffectInstanceEx>& instance,
                                                                                         EffectSettings& settings,
                                                                                         trackedit::TrackId trackId,
@@ -681,30 +681,30 @@ muse::Ret EffectExecutionScenario::previewEffect(const EffectInstanceId& effectI
 }
 
 namespace {
-std::vector<au::trackedit::Track> trackListDifference(const std::vector<au::trackedit::Track>& a,
-                                                      const std::vector<au::trackedit::Track>& b)
+std::vector<agu::trackedit::Track> trackListDifference(const std::vector<agu::trackedit::Track>& a,
+                                                      const std::vector<agu::trackedit::Track>& b)
 {
-    std::vector<au::trackedit::Track> result;
-    for (const au::trackedit::Track& item : a) {
-        if (std::find_if(b.begin(), b.end(), [&item](const au::trackedit::Track& other) { return item.id == other.id; }) == b.end()) {
+    std::vector<agu::trackedit::Track> result;
+    for (const agu::trackedit::Track& item : a) {
+        if (std::find_if(b.begin(), b.end(), [&item](const agu::trackedit::Track& other) { return item.id == other.id; }) == b.end()) {
             result.push_back(item);
         }
     }
     return result;
 }
 
-void notifyIfTracksWereAdded(au::au3::Au3Project& au3Prj, const std::vector<au::trackedit::Track>& before,
-                             au::trackedit::ITrackeditProject& trackeditPrj)
+void notifyIfTracksWereAdded(agu::au3::Au3Project& au3Prj, const std::vector<agu::trackedit::Track>& before,
+                             agu::trackedit::ITrackeditProject& trackeditPrj)
 {
     const auto& trackList = ::TrackList::Get(au3Prj);
-    std::vector<au::trackedit::Track> tracksAfter;
+    std::vector<agu::trackedit::Track> tracksAfter;
     auto it = trackList.begin();
     while (it != trackList.end()) {
-        tracksAfter.push_back(au::au3::DomConverter::track(*it));
+        tracksAfter.push_back(agu::au3::DomConverter::track(*it));
         ++it;
     }
 
-    const std::vector<au::trackedit::Track> addedTracks = trackListDifference(tracksAfter, before);
+    const std::vector<agu::trackedit::Track> addedTracks = trackListDifference(tracksAfter, before);
     for (const auto& track : addedTracks) {
         trackeditPrj.notifyAboutTrackAdded(track);
     }
@@ -909,14 +909,14 @@ muse::Ret EffectExecutionScenario::doPreviewEffect(const EffectId& effectId, Eff
         // Build NEW tracklist from rendering tracks
         // Set the same owning project, so FindProject() can see it within Process()
         const auto pProject = effect.mTracks->GetOwner();
-        newCtx.tracks = au::au3::Au3TrackList::Create(pProject);
+        newCtx.tracks = agu::au3::Au3TrackList::Create(pProject);
 
         // Linear Effect preview optimised by pre-mixing to one track.
         // Generators need to generate per track.
         const bool isLinearEffect = effect.IsLinearEffect();
         if (isLinearEffect && !isGenerator) {
             auto newTrack = MixAndRender(
-                originCtx.tracks->Selected<const au::au3::Au3WaveTrack>(),
+                originCtx.tracks->Selected<const agu::au3::Au3WaveTrack>(),
                 Mixer::WarpOptions { pProject },
                 wxString {}, // Don't care about the name of the temporary tracks
                 effect.mFactory, effect.mProjectRate, floatSample, effect.mT0, newCtx.t1);
@@ -932,7 +932,7 @@ muse::Ret EffectExecutionScenario::doPreviewEffect(const EffectId& effectId, Eff
             std::static_pointer_cast<WaveTrack>(newTrack)->SetMute(false);
         } else {
             if (effect.mNumTracks > 0) {
-                for (const WaveTrack* src : originCtx.tracks->Selected<const au::au3::Au3WaveTrack>()) {
+                for (const WaveTrack* src : originCtx.tracks->Selected<const agu::au3::Au3WaveTrack>()) {
                     const auto dest = std::static_pointer_cast<WaveTrack>(src->Copy(effect.mT0, newCtx.t1));
                     dest->ShiftBy(0, effect.mT0); // Not MoveTo: it could be that the first `Copy`d clip starts later than effect.mT0.
                     dest->SetSelected(true);

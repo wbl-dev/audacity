@@ -22,7 +22,7 @@
 #include "../trackeditutils.h"
 
 using namespace muse;
-using namespace au::trackedit;
+using namespace agu::trackedit;
 using namespace muse::async;
 using namespace muse::actions;
 using namespace muse::rcommand;
@@ -30,7 +30,7 @@ using namespace muse::rcommand;
 namespace {
 muse::UriQuery makePlaybackPosUri()
 {
-    muse::UriQuery uri("audacity://trackedit/custom_time");
+    muse::UriQuery uri("agu://trackedit/custom_time");
     uri.addParam("title", muse::Val(muse::trc("trackedit", "Playback position")));
     return uri;
 }
@@ -883,7 +883,7 @@ muse::Ret TrackeditActionsController::doGlobalCutPerTrackRipple()
 
 muse::Ret TrackeditActionsController::doGlobalCutAllTracksRipple()
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     auto tracks = project->trackeditProject()->trackIdList();
 
     if (!selectionController()->timeSelectionIsEmpty()) {
@@ -1175,7 +1175,7 @@ muse::Ret TrackeditActionsController::doGlobalDeletePerTrackRipple()
 
 muse::Ret TrackeditActionsController::doGlobalDeleteAllTracksRipple()
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     auto tracks = project->trackeditProject()->trackIdList();
 
     if (!selectionController()->timeSelectionIsEmpty()) {
@@ -1420,7 +1420,7 @@ muse::Ret TrackeditActionsController::multiClipCut(bool moveClips)
 
 muse::Ret TrackeditActionsController::rangeSelectionCut(bool moveClips)
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     auto selectedTracks = selectionController()->selectedTracks();
     secs_t selectedStartTime = selectionController()->dataSelectedStartTime();
     secs_t selectedEndTime = selectionController()->dataSelectedEndTime();
@@ -1443,7 +1443,7 @@ muse::Ret TrackeditActionsController::multiClipCopy()
 
 muse::Ret TrackeditActionsController::rangeSelectionCopy()
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     auto selectedTracks = selectionController()->selectedTracks();
     secs_t selectedStartTime = selectionController()->dataSelectedStartTime();
     secs_t selectedEndTime = selectionController()->dataSelectedEndTime();
@@ -1465,7 +1465,7 @@ muse::Ret TrackeditActionsController::rangeSelectionCopy()
 
 muse::Ret TrackeditActionsController::rangeSelectionDelete(bool moveClips)
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     auto selectedTracks = selectionController()->selectedTracks();
     auto selectedStartTime = selectionController()->dataSelectedStartTime();
     auto selectedEndTime = selectionController()->dataSelectedEndTime();
@@ -1503,7 +1503,7 @@ muse::Ret TrackeditActionsController::pasteDefault()
 
 muse::Ret TrackeditActionsController::pasteOverlap()
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     auto tracks = project->trackeditProject()->trackList();
     const double selectedStartTime = playbackState()->playbackPosition();
 
@@ -1520,7 +1520,7 @@ muse::Ret TrackeditActionsController::pasteOverlap()
 
 muse::Ret TrackeditActionsController::pasteInsert()
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     auto tracks = project->trackeditProject()->trackList();
     const double selectedStartTime = playbackState()->playbackPosition();
 
@@ -1537,7 +1537,7 @@ muse::Ret TrackeditActionsController::pasteInsert()
 
 muse::Ret TrackeditActionsController::pasteInsertRipple()
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     auto tracks = project->trackeditProject()->trackList();
     const double selectedStartTime = playbackState()->playbackPosition();
 
@@ -1803,7 +1803,7 @@ muse::Ret TrackeditActionsController::splitStereoToCenter()
 
 muse::Ret TrackeditActionsController::trimAudioOutsideSelection()
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     auto selectedTracks = selectionController()->selectedTracks();
     auto selectedStartTime = selectionController()->dataSelectedStartTime();
     auto selectedEndTime = selectionController()->dataSelectedEndTime();
@@ -1845,7 +1845,7 @@ muse::Ret TrackeditActionsController::doGlobalSilence()
 
 muse::Ret TrackeditActionsController::silenceAudioSelection()
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     auto selectedTracks = selectionController()->selectedTracks();
     auto selectedStartTime = selectionController()->dataSelectedStartTime();
     auto selectedEndTime = selectionController()->dataSelectedEndTime();
@@ -1953,7 +1953,7 @@ muse::Ret TrackeditActionsController::selectRightOfPlaybackPos()
     }
 
     //! NOTE: clamp to 2x size of project
-    project::IAudacityProjectPtr prj = globalContext()->currentProject();
+    project::IAGuProjectPtr prj = globalContext()->currentProject();
     if (!prj) {
         return make_ret(Ret::Code::NotSupported);
     }
@@ -2115,7 +2115,7 @@ muse::Ret TrackeditActionsController::setTrackFormat(const Params& params)
 
 muse::Ret TrackeditActionsController::setCustomTrackRate()
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     if (!project) {
         return make_ret(Ret::Code::NotSupported);
     }
@@ -2131,7 +2131,7 @@ muse::Ret TrackeditActionsController::setCustomTrackRate()
         return make_ret(Ret::Code::NotSupported);
     }
 
-    muse::UriQuery customRateUri("audacity://trackedit/custom_rate");
+    muse::UriQuery customRateUri("agu://trackedit/custom_rate");
     customRateUri.addParam("title", muse::Val(muse::trc("trackedit", "Set rate")));
     customRateUri.addParam("rate", muse::Val(static_cast<int>(focused.value().rate)));
 
@@ -2245,7 +2245,7 @@ muse::Ret TrackeditActionsController::renameSelectedItem()
 
 muse::Ret TrackeditActionsController::makeStereoTrack()
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     if (!project) {
         return make_ret(Ret::Code::NotSupported);
     }
@@ -2278,7 +2278,7 @@ muse::Ret TrackeditActionsController::makeStereoTrack()
 
 muse::Ret TrackeditActionsController::resampleTracks()
 {
-    project::IAudacityProjectPtr project = globalContext()->currentProject();
+    project::IAGuProjectPtr project = globalContext()->currentProject();
     if (!project) {
         return make_ret(Ret::Code::NotSupported);
     }
@@ -2294,7 +2294,7 @@ muse::Ret TrackeditActionsController::resampleTracks()
         return make_ret(Ret::Code::NotSupported);
     }
 
-    muse::UriQuery resampleUri("audacity://trackedit/custom_rate");
+    muse::UriQuery resampleUri("agu://trackedit/custom_rate");
 
     muse::ValList availableSampleRates;
     for (const auto& rate : audioDriverController()->sampleRates()) {
@@ -2485,7 +2485,7 @@ double TrackeditActionsController::calculateStepSize() const
     return 10.0 / zoom;
 }
 
-au::trackedit::TrackId TrackeditActionsController::resolvePreviousTrackIdForMove(const TrackId& trackId) const
+agu::trackedit::TrackId TrackeditActionsController::resolvePreviousTrackIdForMove(const TrackId& trackId) const
 {
     const ITrackeditProjectPtr prj = globalContext()->currentTrackeditProject();
     if (!prj) {
@@ -2513,7 +2513,7 @@ au::trackedit::TrackId TrackeditActionsController::resolvePreviousTrackIdForMove
     return INVALID_TRACK;
 }
 
-au::trackedit::TrackId TrackeditActionsController::resolveNextTrackIdForMove(const TrackId& trackId) const
+agu::trackedit::TrackId TrackeditActionsController::resolveNextTrackIdForMove(const TrackId& trackId) const
 {
     const ITrackeditProjectPtr prj = globalContext()->currentTrackeditProject();
     if (!prj) {
@@ -2544,7 +2544,7 @@ au::trackedit::TrackId TrackeditActionsController::resolveNextTrackIdForMove(con
     return INVALID_TRACK;
 }
 
-au::context::IPlaybackStatePtr TrackeditActionsController::playbackState() const
+agu::context::IPlaybackStatePtr TrackeditActionsController::playbackState() const
 {
     return globalContext()->playbackState();
 }

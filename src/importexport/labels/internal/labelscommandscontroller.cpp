@@ -6,7 +6,7 @@
 
 #include <QStringList>
 
-using namespace au::importexport;
+using namespace agu::importexport;
 
 void LabelsCommandsController::init()
 {

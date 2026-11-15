@@ -13,7 +13,7 @@
 
 #include <set>
 
-namespace au::effects {
+namespace agu::effects {
 void MissingEffectChecker::warnIfEffectsMissing()
 {
     const auto project = globalContext()->currentTrackeditProject();
@@ -31,7 +31,7 @@ void MissingEffectChecker::warnIfEffectsMissing()
         }
         for (const auto& state : *effectStack) {
             if (!realtimeEffectService()->isAvailable(state)) {
-                missingEffectIds.insert(au::au3::wxToString(state->GetID()));
+                missingEffectIds.insert(agu::au3::wxToString(state->GetID()));
             }
         }
     }
@@ -64,7 +64,7 @@ void MissingEffectChecker::warnIfEffectsMissing()
                                                  } });
     }
 
-    muse::UriQuery query("audacity://effects/missing_plugins");
+    muse::UriQuery query("agu://effects/missing_plugins");
     query.addParam("missingPlugins", muse::Val(missingPluginInfos));
     interactive()->openSync(query);
 }

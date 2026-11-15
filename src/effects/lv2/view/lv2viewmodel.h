@@ -25,7 +25,7 @@ class LV2PortUIStates;
 struct LV2EffectOutputs;
 typedef unsigned long XID;
 
-namespace au::effects {
+namespace agu::effects {
 class ILv2IdleUi;
 class Lv2ViewModel : public AbstractEffectViewModel
 {

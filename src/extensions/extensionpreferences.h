@@ -15,9 +15,9 @@ namespace muse::extensions {
 struct Manifest;
 }
 
-namespace au::extensions {
+namespace agu::extensions {
 muse::Settings::Key extensionPreferenceKey(const muse::Uri& uri, const std::string& key);
 
 QVariant extensionPreferenceDefault(const muse::ValMap& preference);
 void registerExtensionPreferenceDefaults(const muse::extensions::Manifest& manifest);
-} // namespace au::extensions
+} // namespace agu::extensions

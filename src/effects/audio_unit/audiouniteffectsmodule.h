@@ -8,7 +8,7 @@
 
 #include "modularity/imodulesetup.h"
 
-namespace au::effects {
+namespace agu::effects {
 class AudioUnitPluginsMetaReader;
 class AudioUnitEffectLoader;
 class AudioUnitPluginsScanner;

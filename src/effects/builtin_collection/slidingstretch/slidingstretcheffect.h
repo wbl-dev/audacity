@@ -16,7 +16,7 @@
 #include "au3-command-parameters/ShuttleAutomation.h"
 #include "au3-effects/Effect.h"
 
-namespace au::effects {
+namespace agu::effects {
 struct SlidingStretchEffectParams
 {
     double m_RatePercentChangeStart = 0.;

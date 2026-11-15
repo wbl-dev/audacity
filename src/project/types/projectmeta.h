@@ -11,7 +11,7 @@
 #include "io/path.h"
 #include "translation.h"
 
-namespace au::project {
+namespace agu::project {
 struct ProjectMeta
 {
     muse::io::path_t filePath;

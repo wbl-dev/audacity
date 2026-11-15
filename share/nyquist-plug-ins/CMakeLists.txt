@@ -47,9 +47,9 @@ if(OS_IS_MAC)
    set(PLUGINS_INSTALL_DEST "${AU4_SHARE_NAME}Contents/nyquist-plug-ins")
    set(PLUGINS_BUILD_DEST "${CMAKE_BINARY_DIR}/src/app/${AU4_SHARE_NAME}Contents/nyquist-plug-ins")
 elseif(OS_IS_LIN)
-   # On Linux, files go in share/audacity/nyquist-plug-ins which PathList.cpp expects
-   set(PLUGINS_INSTALL_DEST "${CMAKE_INSTALL_PREFIX}/share/audacity/nyquist-plug-ins")
-   set(PLUGINS_BUILD_DEST "${CMAKE_BINARY_DIR}/share/audacity/nyquist-plug-ins")
+   # On Linux, files go in share/agu/nyquist-plug-ins which PathList.cpp expects
+   set(PLUGINS_INSTALL_DEST "${CMAKE_INSTALL_PREFIX}/share/agu/nyquist-plug-ins")
+   set(PLUGINS_BUILD_DEST "${CMAKE_BINARY_DIR}/share/agu/nyquist-plug-ins")
 else()
    set(PLUGINS_INSTALL_DEST "${AU4_SHARE_NAME}${AU4_INSTALL_NAME}bin/nyquist-plug-ins")
    set(PLUGINS_BUILD_DEST "${CMAKE_BINARY_DIR}/${AU4_SHARE_NAME}${AU4_INSTALL_NAME}nyquist-plug-ins")

@@ -6,7 +6,7 @@
 #include "au3-wave-track/WaveClip.h"
 #include "au3-math/SampleCount.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 Au3ConcurrentClipChannelReader::Au3ConcurrentClipChannelReader(const WaveChannelInterval& waveChannelInterval)
     : m_waveChannelInterval(waveChannelInterval)
 {

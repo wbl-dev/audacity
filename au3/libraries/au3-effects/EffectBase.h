@@ -27,7 +27,7 @@ namespace BasicUI {
 class ProgressDialog;
 }
 
-namespace au::effects {
+namespace agu::effects {
 class EffectsProvider;
 class EffectExecutionScenario;
 }
@@ -65,8 +65,8 @@ public:
 
 protected:
     //! NOTE Temporary solution
-    friend class au::effects::EffectsProvider;
-    friend class au::effects::EffectExecutionScenario;
+    friend class agu::effects::EffectsProvider;
+    friend class agu::effects::EffectExecutionScenario;
 
     //! After Init(), tell whether Process() should be skipped
     /*

@@ -5,7 +5,7 @@
 
 #include "../common/generatoreffectmodel.h"
 
-namespace au::effects {
+namespace agu::effects {
 class NoiseGenerator;
 
 class NoiseViewModel : public GeneratorEffectModel

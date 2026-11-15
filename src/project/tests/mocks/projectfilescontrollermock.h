@@ -7,7 +7,7 @@
 
 #include "project/iprojectfilescontroller.h"
 
-namespace au::project {
+namespace agu::project {
 class ProjectFilesControllerMock : public IProjectFilesController
 {
 public:

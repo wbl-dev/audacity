@@ -8,17 +8,17 @@
 #include <cmath>
 #include <cassert>
 
-int au::spectrogram::viewportWidth(const ViewInfo& viewInfo)
+int agu::spectrogram::viewportWidth(const ViewInfo& viewInfo)
 {
     return static_cast<int>(std::round((viewInfo.viewportEndTime - viewInfo.viewportStartTime) * viewInfo.pixelsPerSecond));
 }
 
-double au::spectrogram::positionToTime(const ViewInfo& viewInfo, int position)
+double agu::spectrogram::positionToTime(const ViewInfo& viewInfo, int position)
 {
     return viewInfo.viewportStartTime + position / viewInfo.pixelsPerSecond;
 }
 
-long long au::spectrogram::timeToPosition(const ViewInfo& viewInfo, double projectTime)
+long long agu::spectrogram::timeToPosition(const ViewInfo& viewInfo, double projectTime)
 {
     double t = 0.5 + viewInfo.pixelsPerSecond * (projectTime - viewInfo.viewportStartTime);
     if (t < INT64_MIN) {
@@ -31,7 +31,7 @@ long long au::spectrogram::timeToPosition(const ViewInfo& viewInfo, double proje
     return t;
 }
 
-void au::spectrogram::findCorrection(
+void agu::spectrogram::findCorrection(
     const std::vector<long long>& oldWhere, size_t oldLen, size_t newLen,
     double t0, double sampleRate, double stretchRatio, double samplesPerPixel,
     int& oldX0, double& correction)
@@ -71,7 +71,7 @@ void au::spectrogram::findCorrection(
     }
 }
 
-void au::spectrogram::fillWhere(
+void agu::spectrogram::fillWhere(
     std::vector<long long>& where, size_t len, bool addBias, double correction,
     double t0, double sampleRate, double stretchRatio, double samplesPerPixel)
 {
@@ -84,12 +84,12 @@ void au::spectrogram::fillWhere(
     }
 }
 
-int au::spectrogram::fftLength(ISpectrogramConfiguration& config)
+int agu::spectrogram::fftLength(ISpectrogramConfiguration& config)
 {
     return (1 << config.winSizeLog2()) * ((config.algorithm() != SpectrogramAlgorithm::Pitch) ? config.zeroPaddingFactor() : 1);
 }
 
-std::pair<float, float> au::spectrogram::spectrogramBounds(ISpectrogramConfiguration& config, double sampleRate)
+std::pair<float, float> agu::spectrogram::spectrogramBounds(ISpectrogramConfiguration& config, double sampleRate)
 {
     const auto type = config.scale();
 

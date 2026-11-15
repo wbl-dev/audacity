@@ -15,12 +15,12 @@
 
 #include <memory>
 
-namespace au::importexport {
+namespace agu::importexport {
 class TempoDetection;
 
 class Au3Importer : public IImporter, public muse::Contextable
 {
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
     muse::ContextInject<trackedit::ITracksInteraction> tracksInteraction{ this };
     muse::ContextInject<trackedit::ISelectionController> selectionController{ this };
     muse::ContextInject<ILabelsImporter> labelsImporter{ this };

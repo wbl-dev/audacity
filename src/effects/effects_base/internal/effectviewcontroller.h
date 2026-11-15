@@ -15,7 +15,7 @@ class EffectBase;
 class EffectSettingsAccess;
 class TrackList;
 
-namespace au::effects {
+namespace agu::effects {
 class EffectViewController : public IEffectViewController, public muse::Contextable
 {
     muse::GlobalInject<IEffectsProvider> effectsProvider;

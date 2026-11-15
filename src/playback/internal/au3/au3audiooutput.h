@@ -16,12 +16,12 @@
 #include "au3wrap/au3types.h"
 #include "au3wrap/internal/au3audiometer.h"
 
-namespace au::playback {
+namespace agu::playback {
 class Au3AudioOutput : public IAudioOutput, public muse::async::Asyncable, public muse::Contextable
 {
-    muse::GlobalInject<au::audio::IAudioEngine> audioEngine;
+    muse::GlobalInject<agu::audio::IAudioEngine> audioEngine;
 
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
 
 public:
     Au3AudioOutput(const muse::modularity::ContextPtr& ctx);
@@ -34,7 +34,7 @@ public:
     muse::async::Channel<audio::sample_rate_t> sampleRateChanged() const override;
 
     muse::async::Channel<audio::audioch_t, audio::MeterSignal> playbackSignalChanges() const override;
-    muse::async::Channel<audio::audioch_t, au::audio::MeterSignal> playbackTrackSignalChanges(int64_t key) const override;
+    muse::async::Channel<audio::audioch_t, agu::audio::MeterSignal> playbackTrackSignalChanges(int64_t key) const override;
 
 private:
     au3::Au3Project* projectRef() const;
@@ -46,6 +46,6 @@ private:
     muse::async::Channel<float> m_playbackVolumeChanged;
     muse::async::Channel<audio::sample_rate_t> m_sampleRateChanged;
 
-    const std::shared_ptr<au::au3::Au3AudioMeter> m_outputMeter;
+    const std::shared_ptr<agu::au3::Au3AudioMeter> m_outputMeter;
 };
 }

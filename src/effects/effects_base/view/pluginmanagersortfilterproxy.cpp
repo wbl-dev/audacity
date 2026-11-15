@@ -8,9 +8,9 @@
  #include "internal/effectsutils.h"
  #include "framework/global/stringutils.h"
 
-namespace au::effects {
+namespace agu::effects {
 PluginManagerSortFilterProxy::PluginManagerSortFilterProxy(PluginManagerTableViewModel* view)
-    : au::uicomponents::TableSortFilterProxyModel(view), m_view(view)
+    : agu::uicomponents::TableSortFilterProxyModel(view), m_view(view)
 {
     setMaxSortKeys(PluginManagerTableViewModel::s_columnCount);
 }

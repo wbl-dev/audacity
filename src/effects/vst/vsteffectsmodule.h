@@ -8,7 +8,7 @@
 
 #include "modularity/imodulesetup.h"
 
-namespace au::effects {
+namespace agu::effects {
 class MuseVstModulesRepository;
 class Vst3PluginsMetaReader;
 class Vst3EffectLoader;

@@ -5,7 +5,7 @@
 
 #include "framework/global/log.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 void ParameterExtractorRegistry::registerExtractor(IParameterExtractorServicePtr extractor)
 {

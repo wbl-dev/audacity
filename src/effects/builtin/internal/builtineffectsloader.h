@@ -6,7 +6,7 @@
 #include "effects/effects_base/internal/au3effectloader.h"
 #include "au3-effects/LoadEffects.h"
 
-namespace au::effects {
+namespace agu::effects {
 class BuiltinEffectsLoader final : public Au3EffectLoader
 {
 public:
@@ -16,4 +16,4 @@ public:
 private:
     ::BuiltinEffectsModule m_module;
 };
-} // namespace au::effects
+} // namespace agu::effects

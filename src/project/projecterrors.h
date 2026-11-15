@@ -28,7 +28,7 @@ namespace muse::io {
 struct path_t;
 }
 
-namespace au::project {
+namespace agu::project {
 enum class Err {
     Undefined       = int(muse::Ret::Code::Undefined),
     NoError         = int(muse::Ret::Code::Ok),

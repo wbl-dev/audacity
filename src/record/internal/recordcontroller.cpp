@@ -9,7 +9,7 @@
 #include "../recordcommands.h"
 
 using namespace muse;
-using namespace au::record;
+using namespace agu::record;
 using namespace muse::async;
 using namespace muse::actions;
 using namespace muse::rcommand;
@@ -95,7 +95,7 @@ bool RecordController::isRecording() const
            || m_currentRecordStatus == RecordStatus::LeadIn;
 }
 
-const std::vector<au::trackedit::ClipKey>& RecordController::recordingClipKeys() const
+const std::vector<agu::trackedit::ClipKey>& RecordController::recordingClipKeys() const
 {
     return record()->recordingClipKeys();
 }
@@ -156,7 +156,7 @@ Ret RecordController::startWithNewTrack()
 
     const int recordingChannels = std::max(1, audioDriverController()->configuration().inputChannels);
 
-    au::trackedit::TrackIdList newTracks;
+    agu::trackedit::TrackIdList newTracks;
     if (recordingChannels == 2) {
         newTracks.push_back(tracksInteraction()->addWaveTrack(2));
     } else {
@@ -312,7 +312,7 @@ muse::secs_t RecordController::leadInRecordingStartTime() const
     return m_leadInRecordingStartTime;
 }
 
-std::vector<au::trackedit::TrackId> RecordController::leadInRecordingTrackIds() const
+std::vector<agu::trackedit::TrackId> RecordController::leadInRecordingTrackIds() const
 {
     return m_leadInRecordingTrackIds;
 }
@@ -357,7 +357,7 @@ bool RecordController::canReceiveAction(const ActionCode& code) const
 
 void RecordController::onProjectChanged()
 {
-    au::project::IAudacityProjectPtr prj = globalContext()->currentProject();
+    agu::project::IAGuProjectPtr prj = globalContext()->currentProject();
     if (prj) {
         prj->aboutCloseBegin().onNotify(this, [this]() {
             stop();

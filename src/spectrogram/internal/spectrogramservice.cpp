@@ -13,7 +13,7 @@
 
 #include "au3-project/Project.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 void SpectrogramService::init()
 {
     Au3SpectrogramSettings::setGlobalSpectrogramConfiguration(globalSpectrogramConfiguration());

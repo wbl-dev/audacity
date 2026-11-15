@@ -30,7 +30,7 @@
 
 #include "appshelltypes.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 class IAppShellConfiguration : MODULE_GLOBAL_INTERFACE
 {
     INTERFACE_ID(IAppshellConfiguration)
@@ -59,13 +59,7 @@ public:
 
     virtual muse::io::path_t userDataPath() const = 0;
 
-    virtual std::string handbookUrl() const = 0;
-    virtual std::string askForHelpUrl() const = 0;
-    virtual std::string appUrl() const = 0;
-    virtual std::string forumUrl() const = 0;
-    virtual std::string contributionUrl() const = 0;
-
-    virtual std::string audacityVersion() const = 0;
+    virtual std::string aguVersion() const = 0;
     virtual std::string appRevision() const = 0;
 
     virtual bool needShowSplashScreen() const = 0;

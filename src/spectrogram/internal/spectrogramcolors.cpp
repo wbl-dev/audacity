@@ -6,7 +6,7 @@
 #include "internal/spectrogramcolordefinitions.h"
 #include "internal/spectrogramcolorregister.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 unsigned char SpectrogramColors::gradient_pre[ColorGradientTotal][colorSchemes][gradientSteps][3];
 
 bool SpectrogramColors::gradient_inited = 0;

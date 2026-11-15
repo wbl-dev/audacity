@@ -3,7 +3,7 @@
  */
 #pragma once
 
-namespace au::effects {
+namespace agu::effects {
 struct DynamicsSample
 {
     double time = 0;

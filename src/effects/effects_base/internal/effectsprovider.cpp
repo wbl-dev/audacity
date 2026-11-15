@@ -21,7 +21,7 @@
 #include <set>
 
 using namespace muse;
-using namespace au::effects;
+using namespace agu::effects;
 
 void EffectsProvider::initOnce(const muse::modularity::ContextPtr& ctx, muse::IInteractive& interactive,
                                muse::audioplugins::IRegisterAudioPluginsScenario& registerAudioPluginsScenario,
@@ -35,7 +35,7 @@ void EffectsProvider::initOnce(const muse::modularity::ContextPtr& ctx, muse::II
         auto ret = interactive.questionSync(muse::trc("appshell", "Validate audio plugins"),
                                             muse::trc(
                                                 "appshell",
-                                                "Audacity has found plugins that need to be validated before use. Would you like to validate them now or skip?"),
+                                                "AGu has found plugins that need to be validated before use. Would you like to validate them now or skip?"),
                                             { muse::IInteractive::ButtonData(
                                                   muse::IInteractive::Button::Cancel,
                                                   muse::trc("appshell", "Skip this time"),
@@ -240,7 +240,7 @@ std::string EffectsProvider::effectName(const std::string& effectId) const
 
 std::string EffectsProvider::effectName(const effects::RealtimeEffectState& state) const
 {
-    return effectName(au::au3::wxToStdString(state.GetID()));
+    return effectName(agu::au3::wxToStdString(state.GetID()));
 }
 
 bool EffectsProvider::paramsAreInputAgnostic(const EffectId& effectId) const

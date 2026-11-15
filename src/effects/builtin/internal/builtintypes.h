@@ -5,6 +5,6 @@
 
 #include <string_view>
 
-namespace au::effects::builtin {
+namespace agu::effects::builtin {
 inline constexpr std::string_view AUDIO_RESOURCE_TYPE_NAME = "BuiltIn";
 }

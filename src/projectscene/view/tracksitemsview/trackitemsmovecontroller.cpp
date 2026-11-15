@@ -8,8 +8,8 @@
 
 #include "global/realfn.h"
 
-using namespace au::projectscene;
-using namespace au::trackedit;
+using namespace agu::projectscene;
+using namespace agu::trackedit;
 
 namespace {
 int indexOf(const TrackIdList& tracks, TrackId id)
@@ -413,7 +413,7 @@ TrackItemKeyList TrackItemsMoveController::itemsOnTrack(TrackId trackId) const
     return keys;
 }
 
-au::projectscene::TrackItemKey TrackItemsMoveController::finish()
+agu::projectscene::TrackItemKey TrackItemsMoveController::finish()
 {
     if (!active() || m_updating) {
         return {};

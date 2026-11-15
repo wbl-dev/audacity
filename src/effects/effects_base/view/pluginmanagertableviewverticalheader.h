@@ -9,7 +9,7 @@
 
 #include <QObject>
 
-namespace au::effects {
+namespace agu::effects {
 class PluginManagerTableViewVerticalHeader : public muse::uicomponents::TableViewHeader
 {
     Q_OBJECT

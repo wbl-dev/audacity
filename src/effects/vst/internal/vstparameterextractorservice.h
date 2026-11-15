@@ -10,7 +10,7 @@
 #include <unordered_map>
 #include <cstdint>
 
-namespace au::effects {
+namespace agu::effects {
 //! Implementation of parameter extraction for VST3 plugins.
 //! Registered with IParameterExtractorRegistry for EffectFamily::VST3.
 //! Maintains a parameter cache for O(1) lookups after initial extraction.

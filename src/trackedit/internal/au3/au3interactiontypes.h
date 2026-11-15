@@ -3,7 +3,7 @@
  */
 #pragma once
 
-namespace au::trackedit {
+namespace agu::trackedit {
 enum class NeedsDownmixing {
     Yes,
     No,

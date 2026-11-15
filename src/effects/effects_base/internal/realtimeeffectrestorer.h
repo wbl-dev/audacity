@@ -8,7 +8,7 @@
 #include "async/channel.h"
 #include "async/notification.h"
 
-namespace au::effects {
+namespace agu::effects {
 class IRealtimeEffectService;
 
 struct RealtimeEffectRestorerSignals {

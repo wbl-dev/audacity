@@ -13,11 +13,11 @@
 #include "context/iglobalcontext.h"
 #include "record/irecordcontroller.h"
 
-namespace au::project {
+namespace agu::project {
 class ProjectCommandsState : public muse::rcommand::IModuleCommandsState, public muse::Contextable, public muse::async::Asyncable
 {
     muse::GlobalInject<muse::rcommand::ICommandsRegister> commandsRegister;
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
     muse::ContextInject<record::IRecordController> recordController{ this };
 
 public:

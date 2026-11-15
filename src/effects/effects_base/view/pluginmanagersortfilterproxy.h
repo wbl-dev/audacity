@@ -3,12 +3,12 @@
  */
 #pragma once
 
-#include "uicomponents/qml/Audacity/UiComponents/tablesortfilterproxymodel.h"
+#include "uicomponents/qml/AGu/UiComponents/tablesortfilterproxymodel.h"
 
-namespace au::effects {
+namespace agu::effects {
 class PluginManagerTableViewModel;
 
-class PluginManagerSortFilterProxy : public au::uicomponents::TableSortFilterProxyModel
+class PluginManagerSortFilterProxy : public agu::uicomponents::TableSortFilterProxyModel
 {
     Q_OBJECT
 

@@ -11,7 +11,7 @@
 
 #include <QObject>
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class RealtimeEffectListItemModel : public QObject, public muse::Contextable, public muse::async::Asyncable
 {
     Q_OBJECT

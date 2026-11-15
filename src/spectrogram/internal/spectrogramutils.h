@@ -8,7 +8,7 @@
 
 #include <vector>
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 int viewportWidth(const ViewInfo&);
 
 double positionToTime(const ViewInfo&, int position);

@@ -13,9 +13,9 @@
 #include "log.h"
 
 using namespace muse;
-using namespace au::app;
+using namespace agu::app;
 
-PluginRegistrationApp::PluginRegistrationApp(const std::shared_ptr<AudacityCmdOptions>& options)
+PluginRegistrationApp::PluginRegistrationApp(const std::shared_ptr<AGuCmdOptions>& options)
     : muse::BaseApplication(options)
 {
     makeProcessBackground();
@@ -27,7 +27,7 @@ void PluginRegistrationApp::applyCommandLineOptions(const std::shared_ptr<muse::
 
     diagnosticsConfiguration()->setSystemCrashReporterForwardingEnabled(false);
 
-    const auto audacityOptions = std::dynamic_pointer_cast<AudacityCmdOptions>(options);
+    const auto audacityOptions = std::dynamic_pointer_cast<AGuCmdOptions>(options);
     IF_ASSERT_FAILED(audacityOptions) {
         return;
     }
@@ -47,7 +47,7 @@ void PluginRegistrationApp::applyCommandLineOptions(const std::shared_ptr<muse::
 
 void PluginRegistrationApp::startupScenario(const muse::modularity::ContextPtr& ctxId)
 {
-    std::shared_ptr<AudacityCmdOptions> options = std::dynamic_pointer_cast<AudacityCmdOptions>(m_appOptions);
+    std::shared_ptr<AGuCmdOptions> options = std::dynamic_pointer_cast<AGuCmdOptions>(m_appOptions);
     IF_ASSERT_FAILED(options) {
         qApp->exit(1);
         return;
@@ -80,7 +80,7 @@ int PluginRegistrationApp::runSelfTest(const muse::modularity::ContextPtr& ctxId
 
 int PluginRegistrationApp::processAudioPluginRegistration(const muse::modularity::ContextPtr& ctxId)
 {
-    std::shared_ptr<AudacityCmdOptions> options = std::dynamic_pointer_cast<AudacityCmdOptions>(m_appOptions);
+    std::shared_ptr<AGuCmdOptions> options = std::dynamic_pointer_cast<AGuCmdOptions>(m_appOptions);
     IF_ASSERT_FAILED(options) {
         return 1;
     }

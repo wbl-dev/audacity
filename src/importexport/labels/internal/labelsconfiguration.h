@@ -9,7 +9,7 @@
 #include "../ilabelsconfiguration.h"
 #include <QString>
 
-namespace au::importexport {
+namespace agu::importexport {
 class LabelsConfiguration : public ILabelsConfiguration
 {
     muse::GlobalInject<muse::IGlobalConfiguration> globalConfiguration;

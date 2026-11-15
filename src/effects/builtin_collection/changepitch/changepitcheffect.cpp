@@ -6,7 +6,7 @@
 #include "au3-strings/TranslatableString.h"
 #include "au3-effects/LoadEffects.h"
 
-namespace au::effects {
+namespace agu::effects {
 const ComponentInterfaceSymbol ChangePitchEffect::Symbol { TranslatableString("effects-changepitch", "Change pitch") };
 
 ChangePitchEffect::ChangePitchEffect()

@@ -12,7 +12,7 @@
 #include "../exportcommands.h"
 #include "../types/exporttypes.h"
 
-using namespace au::importexport;
+using namespace agu::importexport;
 using namespace muse;
 
 namespace {
@@ -76,7 +76,7 @@ std::optional<std::string> ExportCommandsController::formatForExtension(const st
 
 std::string ExportCommandsController::outputBaseName() const
 {
-    const project::IAudacityProjectPtr project = globalContext()->currentProject();
+    const project::IAGuProjectPtr project = globalContext()->currentProject();
 
     const io::path_t path = project->path();
     if (!path.empty()) {

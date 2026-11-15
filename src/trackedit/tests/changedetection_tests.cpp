@@ -12,7 +12,7 @@ using ::testing::Return;
 using ::testing::Truly;
 using ::testing::_;
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class ChangeDetectionTests : public ::testing::Test
 {
 protected:

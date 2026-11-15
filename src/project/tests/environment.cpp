@@ -15,11 +15,11 @@
 #include "project/tests/mocks/projectviewstatecreatormock.h"
 #include "trackedit/tests/mocks/clipboardmock.h"
 
-namespace au::project {
-static auto s_testCtx = au::testutils::makeTestContext();
-static muse::testing::SuiteEnvironment audacityproject_se
+namespace agu::project {
+static auto s_testCtx = agu::testutils::makeTestContext();
+static muse::testing::SuiteEnvironment aguproject_se
     = muse::testing::SuiteEnvironment()
-      .setDependencyModules({ new au::au3::Au3WrapModule()
+      .setDependencyModules({ new agu::au3::Au3WrapModule()
                             })
       .setPreInit([](){
     std::shared_ptr<ProjectConfigurationMock> projectConfigurator(new ProjectConfigurationMock(), [](ProjectConfigurationMock*){});
@@ -35,34 +35,34 @@ static muse::testing::SuiteEnvironment audacityproject_se
         );
 
     ON_CALL(*trackeditProjectCreatorMock, create(::testing::_))
-    .WillByDefault(::testing::Return(au::trackedit::ITrackeditProjectPtr {}));
+    .WillByDefault(::testing::Return(agu::trackedit::ITrackeditProjectPtr {}));
 
-    muse::modularity::globalIoc()->registerExport<au::trackedit::ITrackeditProjectCreator>(
+    muse::modularity::globalIoc()->registerExport<agu::trackedit::ITrackeditProjectCreator>(
         "utests",
         trackeditProjectCreatorMock
         );
 
-    std::shared_ptr<au::projectscene::ProjectViewStateCreatorMock> projectViewStateCreatorMock(
-        new au::projectscene::ProjectViewStateCreatorMock(),
-        [](au::projectscene::ProjectViewStateCreatorMock*) {}
+    std::shared_ptr<agu::projectscene::ProjectViewStateCreatorMock> projectViewStateCreatorMock(
+        new agu::projectscene::ProjectViewStateCreatorMock(),
+        [](agu::projectscene::ProjectViewStateCreatorMock*) {}
         );
 
     ON_CALL(*projectViewStateCreatorMock, createViewState(::testing::_))
-    .WillByDefault(::testing::Return(au::projectscene::IProjectViewStatePtr {}));
+    .WillByDefault(::testing::Return(agu::projectscene::IProjectViewStatePtr {}));
 
-    muse::modularity::globalIoc()->registerExport<au::projectscene::IProjectViewStateCreator>(
+    muse::modularity::globalIoc()->registerExport<agu::projectscene::IProjectViewStateCreator>(
         "utests",
         projectViewStateCreatorMock
         );
 
-    std::shared_ptr<::testing::NiceMock<au::projectscene::ProjectSceneConfigurationMock> > projectSceneConfigurator(new ::testing::NiceMock<au::projectscene::ProjectSceneConfigurationMock>(),
-                                                                                                                    [](au::projectscene::
+    std::shared_ptr<::testing::NiceMock<agu::projectscene::ProjectSceneConfigurationMock> > projectSceneConfigurator(new ::testing::NiceMock<agu::projectscene::ProjectSceneConfigurationMock>(),
+                                                                                                                    [](agu::projectscene::
                                                                                                                        ProjectSceneConfigurationMock
                                                                                                                        *)
     {
     });
 
-    static std::vector<au::projectscene::ClipColorInfo> colorInfos = {
+    static std::vector<agu::projectscene::ClipColorInfo> colorInfos = {
         { muse::TranslatableString::untranslatable("blue"), 1 },
         { muse::TranslatableString::untranslatable("red"), 2 },
     };
@@ -78,15 +78,15 @@ static muse::testing::SuiteEnvironment audacityproject_se
     ON_CALL(*projectSceneConfigurator, clipSelectedColor(2))
     .WillByDefault(::testing::Return(muse::Color(0xFF, 0x80, 0x80)));
 
-    muse::modularity::globalIoc()->unregister<au::projectscene::IProjectSceneConfiguration>("utests");
-    muse::modularity::globalIoc()->registerExport<au::projectscene::IProjectSceneConfiguration>("utests", projectSceneConfigurator);
+    muse::modularity::globalIoc()->unregister<agu::projectscene::IProjectSceneConfiguration>("utests");
+    muse::modularity::globalIoc()->registerExport<agu::projectscene::IProjectSceneConfiguration>("utests", projectSceneConfigurator);
 
-    std::shared_ptr<au::trackedit::ClipboardMock> clipboardMock(
-        new au::trackedit::ClipboardMock(),
-        [](au::trackedit::ClipboardMock*) {}
+    std::shared_ptr<agu::trackedit::ClipboardMock> clipboardMock(
+        new agu::trackedit::ClipboardMock(),
+        [](agu::trackedit::ClipboardMock*) {}
         );
 
-    muse::modularity::ioc(s_testCtx)->registerExport<au::trackedit::ITrackeditClipboard>(
+    muse::modularity::ioc(s_testCtx)->registerExport<agu::trackedit::ITrackeditClipboard>(
         "utests",
         clipboardMock
         );
@@ -106,9 +106,9 @@ static muse::testing::SuiteEnvironment audacityproject_se
 
     // Unregister and delete TrackeditProjectCreator
     {
-        std::shared_ptr<au::trackedit::ITrackeditProjectCreator> trackeditProjectCreatorPtr
-            =muse::modularity::globalIoc()->resolve<au::trackedit::ITrackeditProjectCreator>("utests");
-        muse::modularity::globalIoc()->unregister<au::trackedit::ITrackeditProjectCreator>("utests");
+        std::shared_ptr<agu::trackedit::ITrackeditProjectCreator> trackeditProjectCreatorPtr
+            =muse::modularity::globalIoc()->resolve<agu::trackedit::ITrackeditProjectCreator>("utests");
+        muse::modularity::globalIoc()->unregister<agu::trackedit::ITrackeditProjectCreator>("utests");
 
         if (trackeditProjectCreatorPtr) {
             delete static_cast<TrackeditProjectCreatorMock*>(trackeditProjectCreatorPtr.get());
@@ -117,37 +117,37 @@ static muse::testing::SuiteEnvironment audacityproject_se
 
     // Unregister and delete ProjectViewStateCreator
     {
-        std::shared_ptr<au::projectscene::IProjectViewStateCreator> projectViewStateCreatorPtr
-            =muse::modularity::globalIoc()->resolve<au::projectscene::IProjectViewStateCreator>("utests");
-        muse::modularity::globalIoc()->unregister<au::projectscene::IProjectViewStateCreator>("utests");
+        std::shared_ptr<agu::projectscene::IProjectViewStateCreator> projectViewStateCreatorPtr
+            =muse::modularity::globalIoc()->resolve<agu::projectscene::IProjectViewStateCreator>("utests");
+        muse::modularity::globalIoc()->unregister<agu::projectscene::IProjectViewStateCreator>("utests");
 
         if (projectViewStateCreatorPtr) {
-            delete static_cast<au::projectscene::ProjectViewStateCreatorMock*>(projectViewStateCreatorPtr.get());
+            delete static_cast<agu::projectscene::ProjectViewStateCreatorMock*>(projectViewStateCreatorPtr.get());
         }
     }
 
     // Unregister and delete ProjectSceneConfiguration
     {
-        std::shared_ptr<au::projectscene::IProjectSceneConfiguration> projectSceneConfigPtr
-            =muse::modularity::globalIoc()->resolve<au::projectscene::IProjectSceneConfiguration>("utests");
-        muse::modularity::globalIoc()->unregister<au::projectscene::IProjectSceneConfiguration>("utests");
+        std::shared_ptr<agu::projectscene::IProjectSceneConfiguration> projectSceneConfigPtr
+            =muse::modularity::globalIoc()->resolve<agu::projectscene::IProjectSceneConfiguration>("utests");
+        muse::modularity::globalIoc()->unregister<agu::projectscene::IProjectSceneConfiguration>("utests");
 
         if (projectSceneConfigPtr) {
-            delete static_cast<au::projectscene::ProjectSceneConfigurationMock*>(projectSceneConfigPtr.get());
+            delete static_cast<agu::projectscene::ProjectSceneConfigurationMock*>(projectSceneConfigPtr.get());
         }
     }
 
     // Unregister and delete ClipboardMock
     {
-        std::shared_ptr<au::trackedit::ITrackeditClipboard> clipboardPtr
-            =muse::modularity::ioc(s_testCtx)->resolve<au::trackedit::ITrackeditClipboard>("utests");
+        std::shared_ptr<agu::trackedit::ITrackeditClipboard> clipboardPtr
+            =muse::modularity::ioc(s_testCtx)->resolve<agu::trackedit::ITrackeditClipboard>("utests");
 
-        muse::modularity::ioc(s_testCtx)->unregister<au::trackedit::ITrackeditClipboard>("utests");
+        muse::modularity::ioc(s_testCtx)->unregister<agu::trackedit::ITrackeditClipboard>("utests");
 
         if (clipboardPtr) {
-            delete static_cast<au::trackedit::ClipboardMock*>(clipboardPtr.get());
+            delete static_cast<agu::trackedit::ClipboardMock*>(clipboardPtr.get());
         }
     }
     muse::modularity::removeIoC(s_testCtx);
 });
-} // namespace au::project
+} // namespace agu::project

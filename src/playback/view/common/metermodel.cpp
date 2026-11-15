@@ -8,7 +8,7 @@
 
 #include "translation.h"
 
-using namespace au::playback;
+using namespace agu::playback;
 
 namespace {
 constexpr float LINEAR_METER_MIN_VOLUME = -60.0f;

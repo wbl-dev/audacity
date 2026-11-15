@@ -29,8 +29,8 @@
 
 #include "translation.h"
 
-using namespace au::au3;
-using namespace au::importexport;
+using namespace agu::au3;
+using namespace agu::importexport;
 
 namespace {
 ExportPlugin* formatPlugin(const std::string& format)
@@ -381,7 +381,7 @@ muse::Ret Au3Exporter::prepareMix(Au3Project& project, const Options& options)
 }
 
 muse::Ret Au3Exporter::exportData(const muse::io::path_t& path, const Options& options, muse::ProgressPtr progress,
-                                  au::project::IAudacityProjectPtr project)
+                                  agu::project::IAGuProjectPtr project)
 {
     auto exportProject = project ? project : globalContext()->currentProject();
     IF_ASSERT_FAILED(exportProject) {
@@ -808,7 +808,7 @@ int Au3Exporter::optionsCount() const
     return editor->GetOptionsCount();
 }
 
-std::optional<au::importexport::ExportOption> Au3Exporter::option(int i) const
+std::optional<agu::importexport::ExportOption> Au3Exporter::option(int i) const
 {
     OptionsEditorUPtr editor = optionsEditor();
     if (!editor) {
@@ -834,7 +834,7 @@ std::optional<au::importexport::ExportOption> Au3Exporter::option(int i) const
     return std::nullopt;
 }
 
-std::optional<au::importexport::OptionValue> Au3Exporter::value(int id) const
+std::optional<agu::importexport::OptionValue> Au3Exporter::value(int id) const
 {
     OptionsEditorUPtr editor = optionsEditor();
     if (!editor) {

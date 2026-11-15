@@ -26,7 +26,7 @@
 
 #include "extensioneffectrunner.h"
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 namespace {
 constexpr const wxChar* STATE_KEY = wxT("State");
 
@@ -434,7 +434,7 @@ std::shared_ptr<::EffectInstance> ExtensionEffect::MakeInstance() const
 {
     auto* project = mTracks ? mTracks->GetOwner() : nullptr;
     return std::make_shared<ExtensionEffectInstance>(const_cast<ExtensionEffect&>(*this), std::abs(
-                                                         mT1 - mT0), project ? au::au3::projectIocContext(*project) : nullptr);
+                                                         mT1 - mT0), project ? agu::au3::projectIocContext(*project) : nullptr);
 }
 
 bool ExtensionEffect::Process(::EffectInstance& instance, ::EffectSettings& settings)
@@ -477,4 +477,4 @@ bool ExtensionEffect::Process(::EffectInstance& instance, ::EffectSettings& sett
     loop.exec();
     return success;
 }
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

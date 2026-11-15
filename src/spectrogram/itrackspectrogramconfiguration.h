@@ -7,7 +7,7 @@
 
 #include <memory>
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class ITrackSpectrogramConfiguration : public ISpectrogramConfiguration
 {
 public:
@@ -18,4 +18,4 @@ public:
 };
 
 using ITrackSpectrogramConfigurationPtr = std::shared_ptr<ITrackSpectrogramConfiguration>;
-} // namespace au::spectrogram
+} // namespace agu::spectrogram

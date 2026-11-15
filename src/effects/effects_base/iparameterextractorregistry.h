@@ -7,7 +7,7 @@
 
 #include "framework/global/modularity/imoduleinterface.h"
 
-namespace au::effects {
+namespace agu::effects {
 //! Registry for parameter extractor services.
 //! Plugin modules (VST, LV2, AudioUnit) register their extractors here.
 //! EffectParametersProvider uses this to lookup the appropriate extractor.

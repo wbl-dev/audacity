@@ -7,7 +7,7 @@
 
 #include <unordered_map>
 
-namespace au::effects {
+namespace agu::effects {
 CompressorSettingModel::CompressorSettingModel(QObject* parent, int instanceId)
     : EffectSettingModelImpl<CompressorEffect>(parent, instanceId, {
         { "thresholdDb", { muse::qtrc("effects", "Threshold"),

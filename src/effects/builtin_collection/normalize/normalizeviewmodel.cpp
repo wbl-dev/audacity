@@ -7,7 +7,7 @@
 
 #include "log.h"
 
-namespace au::effects {
+namespace agu::effects {
 NormalizeViewModel::NormalizeViewModel(QObject* parent, int instanceId)
     : BuiltinEffectModel(parent, instanceId)
 {

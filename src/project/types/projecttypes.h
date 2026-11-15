@@ -35,7 +35,7 @@
 #include "projectmeta.h"
 
 
-namespace au::project {
+namespace agu::project {
 struct ProjectCreateOptions
 {
     QString title;

@@ -173,7 +173,7 @@ std::unique_ptr<BasicUI::ProgressDialog> Au3BasicUI::DoMakeProgress(const ::Tran
 {
     Q_UNUSED(flags);
     Q_UNUSED(remainingLabelText);
-    auto dialog = std::make_unique<au::au3::ProgressDialog>(activeContext());
+    auto dialog = std::make_unique<agu::au3::ProgressDialog>(activeContext());
     dialog->SetDialogTitle(title);
     dialog->SetMessage(message);
     return dialog;

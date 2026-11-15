@@ -24,9 +24,9 @@
 #include <unordered_set>
 
 namespace {
-std::vector<size_t> getEmptyWaveTrackIndices(const au::au3::Au3TrackList& tracks)
+std::vector<size_t> getEmptyWaveTrackIndices(const agu::au3::Au3TrackList& tracks)
 {
-    using namespace au::au3;
+    using namespace agu::au3;
     std::vector<size_t> indices;
     auto i = 0;
     for (const Au3Track* track : tracks) {
@@ -39,11 +39,11 @@ std::vector<size_t> getEmptyWaveTrackIndices(const au::au3::Au3TrackList& tracks
     return indices;
 }
 
-au::trackedit::NeedsDownmixing addClipToTrack(const std::shared_ptr<au::au3::Au3WaveClip>& clip,
-                                              au::au3::Au3WaveTrack& dstWaveTrack,
-                                              au::au3::Au3TrackList& copy)
+agu::trackedit::NeedsDownmixing addClipToTrack(const std::shared_ptr<agu::au3::Au3WaveClip>& clip,
+                                              agu::au3::Au3WaveTrack& dstWaveTrack,
+                                              agu::au3::Au3TrackList& copy)
 {
-    using namespace au::trackedit::utils;
+    using namespace agu::trackedit::utils;
 
     const size_t dstTrackIndex = getTrackIndex(copy, dstWaveTrack);
     auto ptr = &dstWaveTrack;
@@ -63,24 +63,24 @@ au::trackedit::NeedsDownmixing addClipToTrack(const std::shared_ptr<au::au3::Au3
     ptr->InsertInterval(clip, false);
 
     if (clip->NChannels() == 2 && ptr->NChannels() == 1) {
-        return au::trackedit::NeedsDownmixing::Yes;
+        return agu::trackedit::NeedsDownmixing::Yes;
     } else {
-        return au::trackedit::NeedsDownmixing::No;
+        return agu::trackedit::NeedsDownmixing::No;
     }
 }
 }
 
-au::au3::Au3WaveTrack* au::trackedit::utils::getWaveTrack(au3::Au3TrackList& tracks, const au3::Au3TrackId& trackId)
+agu::au3::Au3WaveTrack* agu::trackedit::utils::getWaveTrack(au3::Au3TrackList& tracks, const au3::Au3TrackId& trackId)
 {
     return dynamic_cast<au3::Au3WaveTrack*>(tracks.FindById(trackId));
 }
 
-au::au3::Au3WaveTrack* au::trackedit::utils::getWaveTrack(au3::Au3TrackList& tracks, const ClipKey& clip)
+agu::au3::Au3WaveTrack* agu::trackedit::utils::getWaveTrack(au3::Au3TrackList& tracks, const ClipKey& clip)
 {
     return getWaveTrack(tracks, au3::Au3TrackId { clip.trackId });
 }
 
-const au::au3::Au3WaveTrack* au::trackedit::utils::getWaveTrack(const au3::Au3TrackList& tracks, TrackIndex index)
+const agu::au3::Au3WaveTrack* agu::trackedit::utils::getWaveTrack(const au3::Au3TrackList& tracks, TrackIndex index)
 {
     auto it = tracks.begin();
     std::advance(it, index.value);
@@ -90,30 +90,30 @@ const au::au3::Au3WaveTrack* au::trackedit::utils::getWaveTrack(const au3::Au3Tr
     return dynamic_cast<const au3::Au3WaveTrack*>(*it);
 }
 
-au::au3::Au3WaveTrack* au::trackedit::utils::getWaveTrack(au3::Au3TrackList& tracks, TrackIndex index)
+agu::au3::Au3WaveTrack* agu::trackedit::utils::getWaveTrack(au3::Au3TrackList& tracks, TrackIndex index)
 {
     return const_cast<au3::Au3WaveTrack*>(getWaveTrack(const_cast<const au3::Au3TrackList&>(tracks), index));
 }
 
-size_t au::trackedit::utils::getTrackIndex(const au3::Au3TrackList& tracks, const au3::Au3Track& track)
+size_t agu::trackedit::utils::getTrackIndex(const au3::Au3TrackList& tracks, const au3::Au3Track& track)
 {
     return std::distance(tracks.begin(), tracks.Find(&track));
 }
 
-size_t au::trackedit::utils::getTrackIndex(const au3::Au3TrackList& tracks, const trackedit::TrackId& id)
+size_t agu::trackedit::utils::getTrackIndex(const au3::Au3TrackList& tracks, const trackedit::TrackId& id)
 {
     return std::distance(tracks.begin(), tracks.Find(tracks.FindById(au3::Au3TrackId { id })));
 }
 
-void au::trackedit::utils::exchangeTrack(au3::Au3TrackList& tracks, au3::Au3WaveTrack& oldOne, au3::Au3WaveTrack& newOne)
+void agu::trackedit::utils::exchangeTrack(au3::Au3TrackList& tracks, au3::Au3WaveTrack& oldOne, au3::Au3WaveTrack& newOne)
 {
     auto tmp = au3::Au3TrackList::Temporary(nullptr, newOne.shared_from_this());
     tracks.ReplaceOne(oldOne, std::move(*tmp));
 }
 
-au::au3::Au3WaveTrack* au::trackedit::utils::toggleStereo(au3::Au3TrackList& tracks, size_t trackIndex)
+agu::au3::Au3WaveTrack* agu::trackedit::utils::toggleStereo(au3::Au3TrackList& tracks, size_t trackIndex)
 {
-    au::au3::Au3WaveTrack* const track = getWaveTrack(tracks, TrackIndex { trackIndex });
+    agu::au3::Au3WaveTrack* const track = getWaveTrack(tracks, TrackIndex { trackIndex });
     IF_ASSERT_FAILED(track) {
         return nullptr;
     }
@@ -121,7 +121,7 @@ au::au3::Au3WaveTrack* au::trackedit::utils::toggleStereo(au3::Au3TrackList& tra
     return toggleStereo(tracks, *track);
 }
 
-au::au3::Au3WaveTrack* au::trackedit::utils::toggleStereo(au3::Au3TrackList& tracks, au3::Au3WaveTrack& track)
+agu::au3::Au3WaveTrack* agu::trackedit::utils::toggleStereo(au3::Au3TrackList& tracks, au3::Au3WaveTrack& track)
 {
     IF_ASSERT_FAILED(track.IsEmpty()) {
         return &track;
@@ -143,7 +143,7 @@ au::au3::Au3WaveTrack* au::trackedit::utils::toggleStereo(au3::Au3TrackList& tra
 /*!
  * @pre (trackFactory != nullptr && projectRate > 0) || tracks.GetOwner() != nullptr
  */
-au::au3::Au3WaveTrack* au::trackedit::utils::appendWaveTrack(au3::Au3TrackList& tracks, size_t nChannels,
+agu::au3::Au3WaveTrack* agu::trackedit::utils::appendWaveTrack(au3::Au3TrackList& tracks, size_t nChannels,
                                                              const ::WaveTrackFactory* trackFactory,
                                                              double projectRate)
 {
@@ -162,7 +162,7 @@ au::au3::Au3WaveTrack* au::trackedit::utils::appendWaveTrack(au3::Au3TrackList& 
     return track.get();
 }
 
-au::trackedit::NeedsDownmixing au::trackedit::utils::moveClipsVertically(int offset, const au3::Au3TrackList& orig,
+agu::trackedit::NeedsDownmixing agu::trackedit::utils::moveClipsVertically(int offset, const au3::Au3TrackList& orig,
                                                                          au3::Au3TrackList& copy,
                                                                          const trackedit::ClipKeyList& selectedClips)
 {
@@ -255,7 +255,7 @@ au::trackedit::NeedsDownmixing au::trackedit::utils::moveClipsVertically(int off
     return needsDownmixing;
 }
 
-bool au::trackedit::utils::clipIdSetsAreEqual(const au3::Au3WaveTrack& track1, const au3::Au3WaveTrack& track2)
+bool agu::trackedit::utils::clipIdSetsAreEqual(const au3::Au3WaveTrack& track1, const au3::Au3WaveTrack& track2)
 {
     const auto numClips = track1.GetNumClips();
     if (numClips != track2.GetNumClips()) {
@@ -276,7 +276,7 @@ bool au::trackedit::utils::clipIdSetsAreEqual(const au3::Au3WaveTrack& track1, c
 using ProgressCb = std::function<void (double)>;
 using CancelCb = std::function<bool ()>;
 
-muse::Ret au::trackedit::utils::withProgress(muse::IInteractive& interactive, const std::string& title, const std::function<bool(ProgressCb,
+muse::Ret agu::trackedit::utils::withProgress(muse::IInteractive& interactive, const std::string& title, const std::function<bool(ProgressCb,
                                                                                                                                  CancelCb)>& action)
 {
     muse::Progress progress;
@@ -305,7 +305,7 @@ muse::Ret au::trackedit::utils::withProgress(muse::IInteractive& interactive, co
     return result;
 }
 
-muse::Ret au::trackedit::utils::resampleClips(muse::IInteractive& interactive,
+muse::Ret agu::trackedit::utils::resampleClips(muse::IInteractive& interactive,
                                               const std::vector<std::pair<std::shared_ptr<au3::Au3WaveClip>, int> >& clips)
 {
     if (clips.empty()) {
@@ -353,7 +353,7 @@ muse::Ret au::trackedit::utils::resampleClips(muse::IInteractive& interactive,
 namespace {
 //! NOTE A trim lands on the trimmed clip's own sample grid, which can be coarser than the
 //! neighbour's, so it is rounded up to the next sample to never end inside the neighbour
-double trimCovering(const au::au3::Au3WaveClip& clip, double overlap)
+double trimCovering(const agu::au3::Au3WaveClip& clip, double overlap)
 {
     //! NOTE Grid boundary differences can land one representable value above a whole sample
     //! count, and rounding that up would open a one-sample gap
@@ -363,15 +363,15 @@ double trimCovering(const au::au3::Au3WaveClip& clip, double overlap)
 }
 }
 
-void au::trackedit::utils::trimOrDeleteOverlapping(const ITrackeditProjectPtr& project, au3::Au3WaveTrack* waveTrack,
+void agu::trackedit::utils::trimOrDeleteOverlapping(const ITrackeditProjectPtr& project, au3::Au3WaveTrack* waveTrack,
                                                    secs_t begin, secs_t end, std::shared_ptr<au3::Au3WaveClip> otherClip)
 {
     if (muse::RealIsEqualOrLess(begin, otherClip->GetPlayStartTime())
         && muse::RealIsEqualOrMore(end, otherClip->GetPlayEndTime())) {
-        auto clipInfo = au::au3::DomConverter::clip(waveTrack, otherClip.get());
+        auto clipInfo = agu::au3::DomConverter::clip(waveTrack, otherClip.get());
         waveTrack->RemoveInterval(otherClip);
         project->notifyAboutClipRemoved(clipInfo);
-        project->notifyAboutTrackChanged(au::au3::DomConverter::track(waveTrack));
+        project->notifyAboutTrackChanged(agu::au3::DomConverter::track(waveTrack));
         return;
     }
 
@@ -384,13 +384,13 @@ void au::trackedit::utils::trimOrDeleteOverlapping(const ITrackeditProjectPtr& p
         waveTrack->InsertInterval(std::move(leftClip), false);
 
         otherClip->TrimLeft(trimCovering(*otherClip, end - otherClip->GetPlayStartTime()));
-        project->notifyAboutClipChanged(au::au3::DomConverter::clip(waveTrack, otherClip.get()));
+        project->notifyAboutClipChanged(agu::au3::DomConverter::clip(waveTrack, otherClip.get()));
 
         leftClip->SetPlayStartTime(otherClipStartTime);
         leftClip->TrimRight(trimCovering(*leftClip, otherClipEndTime - begin));
-        project->notifyAboutClipAdded(au::au3::DomConverter::clip(waveTrack, leftClip.get()));
+        project->notifyAboutClipAdded(agu::au3::DomConverter::clip(waveTrack, leftClip.get()));
 
-        project->notifyAboutTrackChanged(au::au3::DomConverter::track(waveTrack));
+        project->notifyAboutTrackChanged(agu::au3::DomConverter::track(waveTrack));
         return;
     }
 
@@ -398,7 +398,7 @@ void au::trackedit::utils::trimOrDeleteOverlapping(const ITrackeditProjectPtr& p
         && !muse::RealIsEqualOrMore(end, otherClip->GetPlayEndTime())
         && muse::RealIsEqualOrMore(end, otherClip->GetPlayStartTime())) {
         otherClip->TrimLeft(trimCovering(*otherClip, end - otherClip->GetPlayStartTime()));
-        project->notifyAboutClipChanged(au::au3::DomConverter::clip(waveTrack, otherClip.get()));
+        project->notifyAboutClipChanged(agu::au3::DomConverter::clip(waveTrack, otherClip.get()));
         return;
     }
 
@@ -406,27 +406,27 @@ void au::trackedit::utils::trimOrDeleteOverlapping(const ITrackeditProjectPtr& p
         && muse::RealIsEqualOrLess(begin, otherClip->GetPlayEndTime())
         && muse::RealIsEqualOrMore(end, otherClip->GetPlayEndTime())) {
         otherClip->TrimRight(trimCovering(*otherClip, otherClip->GetPlayEndTime() - begin));
-        project->notifyAboutClipChanged(au::au3::DomConverter::clip(waveTrack, otherClip.get()));
+        project->notifyAboutClipChanged(agu::au3::DomConverter::clip(waveTrack, otherClip.get()));
         return;
     }
 }
 
 namespace {
 template<typename Fn>
-void forEachGroupedItem(au::au3::Au3Track* track, Fn&& fn)
+void forEachGroupedItem(agu::au3::Au3Track* track, Fn&& fn)
 {
-    if (auto waveTrack = dynamic_cast<au::au3::Au3WaveTrack*>(track)) {
+    if (auto waveTrack = dynamic_cast<agu::au3::Au3WaveTrack*>(track)) {
         for (const auto& clip : waveTrack->Intervals()) {
             if (clip->GetGroupId() != -1) {
                 fn(clip->GetGroupId(), [&clip](int64_t id) { clip->SetGroupId(id); });
             }
         }
-    } else if (auto labelTrack = dynamic_cast<au::au3::Au3LabelTrack*>(track)) {
+    } else if (auto labelTrack = dynamic_cast<agu::au3::Au3LabelTrack*>(track)) {
         const LabelArray& labels = labelTrack->GetLabels();
         for (size_t i = 0; i < labels.size(); ++i) {
             if (labels[i].GetGroupId() != -1) {
                 fn(labels[i].GetGroupId(), [labelTrack, i](int64_t id) {
-                    au::au3::Au3Label label = labelTrack->GetLabels()[i];
+                    agu::au3::Au3Label label = labelTrack->GetLabels()[i];
                     label.SetGroupId(id);
                     labelTrack->SetLabel(i, label);
                 });
@@ -436,7 +436,7 @@ void forEachGroupedItem(au::au3::Au3Track* track, Fn&& fn)
 }
 }
 
-void au::trackedit::utils::remapCopiedItemGroups(const ITrackeditProject& prj, const au3::Au3TrackList& projectTracks,
+void agu::trackedit::utils::remapCopiedItemGroups(const ITrackeditProject& prj, const au3::Au3TrackList& projectTracks,
                                                  const std::vector<au3::Au3Track*>& copies)
 {
     std::map<int64_t, size_t> copiedItemCounts;

@@ -32,7 +32,7 @@
 // #include "multiwindows/resourcelockguard.h"
 
 using namespace muse;
-using namespace au::appshell;
+using namespace agu::appshell;
 
 static const std::string module_name("appshell");
 
@@ -44,12 +44,6 @@ static const Settings::Key WELCOME_DIALOG_LAST_SHOWN_INDEX(module_name, "applica
 
 static const Settings::Key STARTUP_MODE_TYPE(module_name, "application/startup/modeStart");
 static const Settings::Key STARTUP_SCORE_PATH(module_name, "application/startup/startScore");
-
-static const std::string AUDACITY_URL("https://www.audacityteam.org/");
-static const std::string AUDACITY_MANUAL_URL("https://manual.audacityteam.org/");
-static const std::string AUDACITY_SUPPORT_URL("https://support.audacityteam.org/");
-static const std::string AUDACITY_FORUM_URL("https://forum.audacityteam.org/");
-static const std::string AUDACITY_CONTRIBUTE_URL("https://support.audacityteam.org/community/contributing");
 
 static const Settings::Key SPLASH_SCREEN_VISIBLE_KEY(module_name, "ui/application/startup/showSplashScreen");
 
@@ -144,32 +138,7 @@ muse::io::path_t AppShellConfiguration::userDataPath() const
     return globalConfiguration()->userDataPath();
 }
 
-std::string AppShellConfiguration::handbookUrl() const
-{
-    return AUDACITY_MANUAL_URL;
-}
-
-std::string AppShellConfiguration::askForHelpUrl() const
-{
-    return AUDACITY_SUPPORT_URL;
-}
-
-std::string AppShellConfiguration::appUrl() const
-{
-    return AUDACITY_URL;
-}
-
-std::string AppShellConfiguration::forumUrl() const
-{
-    return AUDACITY_FORUM_URL;
-}
-
-std::string AppShellConfiguration::contributionUrl() const
-{
-    return AUDACITY_CONTRIBUTE_URL;
-}
-
-std::string AppShellConfiguration::audacityVersion() const
+std::string AppShellConfiguration::aguVersion() const
 {
     return String(application()->version().toString() + u"." + application()->build()).toStdString();
 }

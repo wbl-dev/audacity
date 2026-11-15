@@ -7,7 +7,7 @@
 
 class QPainter;
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class GridLines : public QQuickPaintedItem, public muse::Contextable
 {
     Q_OBJECT

@@ -10,11 +10,11 @@
 #include "framework/uicomponents/qml/Muse/UiComponents/menuitem.h"
 
 #define REGISTER_AUDACITY_EFFECTS_SINGLETON_TYPE(Factory) \
-    qmlRegisterSingletonType<Factory>("Audacity.Effects", 1, 0, #Factory, \
+    qmlRegisterSingletonType<Factory>("AGu.Effects", 1, 0, #Factory, \
                                       [] (QQmlEngine*, QJSEngine*) -> QObject* { \
         return new Factory(); \
     });
 
-namespace au::effects::utils {
+namespace agu::effects::utils {
 muse::uicomponents::MenuItemList toMenuItemList(const std::vector<DropdownOption>&, int selectedIndex, QObject* parent = nullptr);
 }

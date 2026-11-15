@@ -35,7 +35,7 @@
 #include "appshell/internal/isessionsmanager.h"
 #include "effects/effects_base/ieffectsproviderinitializer.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 struct StartupPolicy
 {
     bool showFirstLaunchSetup;
@@ -54,7 +54,7 @@ constexpr StartupPolicy startupPolicy() noexcept
     };
 }
 
-class StartupScenario : public au::appshell::IStartupScenario, public muse::async::Asyncable, public muse::Contextable
+class StartupScenario : public agu::appshell::IStartupScenario, public muse::async::Asyncable, public muse::Contextable
 {
     muse::GlobalInject<IAppShellConfiguration> configuration;
     muse::GlobalInject<muse::mi::IMultiWindowsProvider> multiwindowsProvider;
@@ -73,8 +73,8 @@ public:
 
     bool isStartWithNewFileAsSecondaryInstance() const override;
 
-    const au::project::ProjectFile& startupProjectFile() const override;
-    void setStartupProjectFile(const std::optional<au::project::ProjectFile>& file) override;
+    const agu::project::ProjectFile& startupProjectFile() const override;
+    void setStartupProjectFile(const std::optional<agu::project::ProjectFile>& file) override;
     const muse::io::paths_t& startupMediaFiles() const override;
     void setStartupMediaFiles(const muse::io::paths_t& files) override;
     bool removeMediaFilesAfterImport() const override;
@@ -97,12 +97,12 @@ private:
 
     muse::Uri startupPageUri(StartupModeType modeType) const;
 
-    void openProject(const au::project::ProjectFile& file);
+    void openProject(const agu::project::ProjectFile& file);
 
     void restoreLastSession();
 
     std::string m_startupTypeStr;
-    au::project::ProjectFile m_startupProjectFile;
+    agu::project::ProjectFile m_startupProjectFile;
     muse::io::paths_t m_startupMediaFiles;
     bool m_removeMediaFilesAfterImport = false;
     bool m_startupCompleted = false;

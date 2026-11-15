@@ -10,7 +10,7 @@
 
 #include "trackedittypes.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class ITracksViewRequestsService : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(ITracksViewRequestsService)

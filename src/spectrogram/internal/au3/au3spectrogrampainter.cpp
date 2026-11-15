@@ -17,7 +17,7 @@
 #include "au3-project/Project.h"
 #include "au3-wave-track/WaveTrack.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 void Au3SpectrogramPainter::init()
 {
     globalContext()->currentProjectChanged().onNotify(this, [this]{

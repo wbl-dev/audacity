@@ -7,7 +7,7 @@
 
 #include "../spectrogramcommands.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 namespace {
 using muse::rcommand::Arg;
 using muse::rcommand::CommandInfo;

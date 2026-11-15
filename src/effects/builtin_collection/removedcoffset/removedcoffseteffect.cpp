@@ -20,7 +20,7 @@
 #include "au3-wave-track/WaveChannelUtilities.h"
 #include "au3-wave-track/WaveTrack.h"
 
-namespace au::effects {
+namespace agu::effects {
 const EffectParameterMethods& RemoveDCOffsetEffect::Parameters() const
 {
     static CapturedParameters<RemoveDCOffsetEffect> parameters;

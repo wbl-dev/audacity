@@ -17,7 +17,7 @@
 
 #include "log.h"
 
-using namespace au::importexport;
+using namespace agu::importexport;
 using namespace muse;
 
 static constexpr double MAX_LOOP_DURATION_SECS = 60.0; // loops longer than this are skipped
@@ -236,7 +236,7 @@ void TempoDetection::makeRoomAndCloseGaps(const std::vector<ImportedClipInfo>& i
     for (const auto& info : importedClips) {
         // Find the adjacent right neighbour (split/trimmed during import)
         // *before* makeRoomForClip may shift things around.
-        WaveTrack* dstTrack = au::au3::DomAccessor::findWaveTrack(
+        WaveTrack* dstTrack = agu::au3::DomAccessor::findWaveTrack(
             *au3Project, ::TrackId(info.dstTrackId));
         std::shared_ptr<WaveClip> rightNeighbour;
         if (dstTrack) {

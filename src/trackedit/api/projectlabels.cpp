@@ -8,7 +8,7 @@
 
 #include "internal/projecteditstate.h"
 
-namespace au::trackedit::api::detail {
+namespace agu::trackedit::api::detail {
 LabelObject::LabelObject(std::shared_ptr<EditState> state, size_t trackIndex, size_t labelIndex, QObject* parent)
     : QObject(parent), m_state(std::move(state)), m_trackIndex(trackIndex), m_labelIndex(labelIndex)
 {
@@ -183,4 +183,4 @@ QObject* makeAddedLabelTrack(std::shared_ptr<EditState> state, size_t index, QOb
 {
     return new AddedLabelTrackObject(std::move(state), index, parent);
 }
-} // namespace au::trackedit::api::detail
+} // namespace agu::trackedit::api::detail

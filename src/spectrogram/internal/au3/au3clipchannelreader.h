@@ -8,7 +8,7 @@
 #include "au3-stretching-sequence/AudioSegmentSampleView.h"
 #include "au3-wave-track/WaveTrack.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class Au3ClipChannelReader final : public IClipChannelReader
 {
 public:

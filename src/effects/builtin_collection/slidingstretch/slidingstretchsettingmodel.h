@@ -6,7 +6,7 @@
 #include "../common/effectsettingmodelimpl.h"
 #include "slidingstretcheffect.h"
 
-namespace au::effects {
+namespace agu::effects {
 class SlidingStretchSettingModel : public EffectSettingModelImpl<SlidingStretchEffect>
 {
 public:

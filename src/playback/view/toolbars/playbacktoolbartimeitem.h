@@ -13,7 +13,7 @@
 
 #include "uicomponents/qml/Muse/UiComponents/toolbaritem.h"
 
-namespace au::playback {
+namespace agu::playback {
 class PlaybackToolBarTimeItem : public muse::uicomponents::ToolBarItem
 {
     Q_OBJECT

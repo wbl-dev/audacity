@@ -12,7 +12,7 @@
 
 class QTemporaryDir;
 
-namespace au::importexport {
+namespace agu::importexport {
 class LegacyAupImporter
 {
 public:

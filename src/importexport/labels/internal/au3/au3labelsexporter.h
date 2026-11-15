@@ -8,7 +8,7 @@
 
 #include "../../ilabelsexporter.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class Au3LabelsExporter : public ILabelsExporter, public muse::Contextable
 {
     muse::ContextInject<context::IGlobalContext> globalContext = { this };

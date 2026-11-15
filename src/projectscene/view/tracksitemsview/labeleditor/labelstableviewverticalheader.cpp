@@ -3,7 +3,7 @@
 */
 #include "labelstableviewverticalheader.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 LabelsTableViewVerticalHeader::LabelsTableViewVerticalHeader(QObject* parent)
     : muse::uicomponents::TableViewHeader(parent)

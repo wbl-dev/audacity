@@ -10,7 +10,7 @@
 
 #include "trackedit/trackedittypes.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class ILabelsExporter : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(ILabelsExporter)

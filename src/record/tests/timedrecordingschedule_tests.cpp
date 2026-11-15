@@ -5,7 +5,7 @@
 
 #include "record/timedrecordingtypes.h"
 
-namespace au::record {
+namespace agu::record {
 namespace {
 using namespace std::chrono_literals;
 using TimePoint = TimedRecordingSchedule::TimePoint;

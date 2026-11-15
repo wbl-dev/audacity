@@ -7,10 +7,10 @@
 #include "framework/global/modularity/imoduleinterface.h"
 #include "framework/global/async/notification.h"
 
-namespace au::project {
+namespace agu::project {
 class IThumbnailCreator : MODULE_EXPORT_INTERFACE
 {
-    INTERFACE_ID(au::project::ithumbnailcreator)
+    INTERFACE_ID(agu::project::ithumbnailcreator)
 
 public:
     virtual ~IThumbnailCreator() = default;

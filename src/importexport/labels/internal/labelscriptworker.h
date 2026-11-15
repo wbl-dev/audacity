@@ -3,6 +3,6 @@
  */
 #pragma once
 
-namespace au::importexport {
+namespace agu::importexport {
 int runLabelScriptWorker(int argc, char** argv);
 }

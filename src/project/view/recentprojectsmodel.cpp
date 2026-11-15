@@ -28,7 +28,7 @@
 #include "view/recentprojectcontextmenumodel.h"
 
 using namespace muse;
-using namespace au::project;
+using namespace agu::project;
 
 RecentProjectsModel::RecentProjectsModel(QObject* parent)
     : AbstractItemModel(parent), muse::Contextable(muse::iocCtxForQmlObject(this))

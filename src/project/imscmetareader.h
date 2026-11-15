@@ -30,7 +30,7 @@
 
 #include "types/projectmeta.h"
 
-namespace au::project {
+namespace agu::project {
 class IMscMetaReader : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IMscMetaReader)

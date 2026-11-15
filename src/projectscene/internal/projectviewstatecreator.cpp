@@ -5,9 +5,9 @@
 
 #include "projectviewstate.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
-std::shared_ptr<IProjectViewState> ProjectViewStateCreator::createViewState(std::shared_ptr<au::au3::IAu3Project> project) const
+std::shared_ptr<IProjectViewState> ProjectViewStateCreator::createViewState(std::shared_ptr<agu::au3::IAu3Project> project) const
 {
     auto viewState = std::make_shared<ProjectViewState>(project->iocContext());
     viewState->init(project);

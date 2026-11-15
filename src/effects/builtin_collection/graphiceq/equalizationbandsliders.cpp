@@ -19,7 +19,7 @@
 #include "au3-math/SampleFormat.h"
 #include "../equalization_common/equalizationenvelopeutils.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 #include "log.h"
 

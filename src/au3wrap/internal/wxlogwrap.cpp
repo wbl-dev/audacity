@@ -6,7 +6,7 @@
 
 #include "framework/global/log.h"
 
-using namespace au::au3;
+using namespace agu::au3;
 
 WxLogWrap::WxLogWrap()
 {

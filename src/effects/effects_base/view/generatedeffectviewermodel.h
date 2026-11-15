@@ -10,7 +10,7 @@
 #include "../iparameterextractorregistry.h"
 #include "context/iglobalcontext.h"
 
-namespace au::effects {
+namespace agu::effects {
 class EffectParametersListModel;
 
 //! ViewModel for auto-generated effect UI (fallback when no custom UI is available)
@@ -32,7 +32,7 @@ class GeneratedEffectViewerModel : public AbstractEffectViewModel
     muse::GlobalInject<IEffectsProvider> effectsProvider;
     muse::GlobalInject<IParameterExtractorRegistry> parameterExtractorRegistry;
 
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
     muse::ContextInject<IEffectExecutionScenario> executionScenario{ this };
 
 public:

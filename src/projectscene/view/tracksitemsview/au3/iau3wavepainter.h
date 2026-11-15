@@ -4,7 +4,7 @@
 
 #include "../iwavepainter.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class IAu3WavePainter
 {
 public:

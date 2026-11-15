@@ -29,7 +29,7 @@
 
 #include "translation.h"
 
-using namespace au::appshell;
+using namespace agu::appshell;
 using namespace muse;
 
 static const QString imagePath(":/resources/LoadingScreen.svg");
@@ -39,10 +39,8 @@ static constexpr QSize loadingScreenSize(800, 380);
 static const QColor messageColor("#99FFFFFF");
 static constexpr QRectF messageRect(loadingScreenSize.width() / 2, 269, 0, 0);
 
-static const QString website("www.audacityteam.org");
 static constexpr QRectF versionRect(38, 322, 0, 0);
 
-static constexpr qreal versionNumberSpacing = 4.0;
 
 LoadingScreenView::LoadingScreenView(const muse::modularity::ContextPtr& ctx, QWidget* parent)
     : QWidget(parent), muse::Contextable(ctx),
@@ -92,15 +90,7 @@ void LoadingScreenView::draw(QPainter* painter)
     pen.setColor(uiConfiguration()->currentTheme().extra["logo_main_color"].value<QColor>());
     painter->setPen(pen);
 
-    QRectF versionBoundingRect;
     painter->drawText(versionRect, Qt::AlignBottom | alignment | Qt::TextDontClip,
-                      qtrc("appshell", "Version %1").arg(application()->version().major()),
-                      &versionBoundingRect);
+                      qtrc("appshell", "Version %1").arg(application()->version().major()));
 
-    // Draw website URL
-    pen.setColor(messageColor);
-    painter->setPen(pen);
-
-    painter->drawText(versionRect.translated(0.0, versionBoundingRect.height() + versionNumberSpacing),
-                      Qt::AlignBottom | alignment | Qt::TextDontClip, website);
 }

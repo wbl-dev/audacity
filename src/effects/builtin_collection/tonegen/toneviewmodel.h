@@ -5,7 +5,7 @@
 
 #include "../common/generatoreffectmodel.h"
 
-namespace au::effects {
+namespace agu::effects {
 class ToneEffect;
 class ToneViewModel : public GeneratorEffectModel
 {

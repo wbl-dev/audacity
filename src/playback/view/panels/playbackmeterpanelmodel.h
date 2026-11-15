@@ -14,7 +14,7 @@
 #include "playback/iaudiooutput.h"
 #include "playback/iplaybackcontroller.h"
 
-namespace au::playback {
+namespace agu::playback {
 class PlaybackMeterPanelModel : public QObject, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT

@@ -9,7 +9,7 @@
 #include "au3-dynamic-range-processor/DynamicRangeProcessorUtils.h"
 #include "au3-strings/TranslatableString.h"
 
-namespace au::effects {
+namespace agu::effects {
 const ComponentInterfaceSymbol LimiterEffect::Symbol { TranslatableString("effects-dynamics", "Limiter") };
 
 const EffectParameterMethods& LimiterEffect::Parameters() const

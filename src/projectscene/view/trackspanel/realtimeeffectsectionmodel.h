@@ -11,7 +11,7 @@
 #include <QObject>
 #include <map>
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class RealtimeEffectSectionModel : public QObject, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT

@@ -22,7 +22,7 @@
 #include "types/projectscenetypes.h"
 #include "../timeline/timelinecontext.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class SelectionViewController : public QObject, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT

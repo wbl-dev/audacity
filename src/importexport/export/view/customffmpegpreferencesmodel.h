@@ -14,7 +14,7 @@
 #include "iffmpegoptionsaccessor.h"
 #include "iglobalconfiguration.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class CustomFFmpegPreferencesModel : public QObject, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT

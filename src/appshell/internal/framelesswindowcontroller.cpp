@@ -22,7 +22,7 @@
 
 #include "framelesswindowcontroller.h"
 
-using namespace au::appshell;
+using namespace agu::appshell;
 
 void FramelessWindowController::init()
 {

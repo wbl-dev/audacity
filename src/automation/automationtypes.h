@@ -5,7 +5,7 @@
 
 #include "trackedit/trackedittypes.h"
 
-namespace au::automation {
+namespace agu::automation {
 struct AutomationPoint
 {
     double xValue = 0.0;
@@ -25,7 +25,7 @@ using AutomationPoints = std::vector<AutomationPoint>;
 
 struct AutomationDragSession
 {
-    au::trackedit::ClipKey clip;
+    agu::trackedit::ClipKey clip;
     int originalIndex = -1;
     double originalXValue = 0.0;
     double originalYValue = 0.0;

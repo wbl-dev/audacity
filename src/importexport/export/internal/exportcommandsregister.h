@@ -5,7 +5,7 @@
 
 #include "framework/rcommand/imodulecommandsregister.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class ExportCommandsRegister : public muse::rcommand::IModuleCommandsRegister
 {
 public:

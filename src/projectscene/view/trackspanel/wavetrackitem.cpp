@@ -10,9 +10,9 @@
 #include "playback/playbacktypes.h"
 #include "playback/iaudiooutput.h"
 
-using namespace au::projectscene;
-using namespace au::trackedit;
-using namespace au::audio;
+using namespace agu::projectscene;
+using namespace agu::trackedit;
+using namespace agu::audio;
 
 static constexpr float PAN_SCALING_FACTOR = 100.f;
 static constexpr float MIN_ALLOWED_PRESSURE = -145.f;
@@ -41,13 +41,13 @@ void WaveTrackItem::init(const trackedit::Track& track)
     emit channelCountChanged();
 
     playback()->audioOutput()->playbackTrackSignalChanges(trackId())
-    .onReceive(this, [this](audio::audioch_t channel, const au::audio::MeterSignal& meterSignal) {
+    .onReceive(this, [this](audio::audioch_t channel, const agu::audio::MeterSignal& meterSignal) {
         setAudioChannelVolumePressure(channel, meterSignal.peak.pressure);
         setAudioChannelRMS(channel, meterSignal.rms.pressure);
     }, muse::async::Asyncable::Mode::SetReplace);
 
     record()->audioInput()->recordTrackSignalChanges(trackId())
-    .onReceive(this, [this](audio::audioch_t channel, const au::audio::MeterSignal& meterSignal) {
+    .onReceive(this, [this](audio::audioch_t channel, const agu::audio::MeterSignal& meterSignal) {
         setAudioChannelVolumePressure(channel, meterSignal.peak.pressure);
         setAudioChannelRMS(channel, meterSignal.rms.pressure);
     }, muse::async::Asyncable::Mode::SetReplace);

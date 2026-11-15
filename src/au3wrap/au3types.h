@@ -20,7 +20,7 @@ class LabelTrack;
 class LabelStruct;
 using LabelTrackList = std::vector<LabelTrack*>;
 
-namespace au::au3 {
+namespace agu::au3 {
 using Au3Project = ::AudacityProject;
 
 using Au3TrackId = ::TrackId;

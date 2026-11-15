@@ -7,7 +7,7 @@
 #include "modularity/imoduleinterface.h"
 #include "trackedit/trackedittypes.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class IWavePainter : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IWavePainter)

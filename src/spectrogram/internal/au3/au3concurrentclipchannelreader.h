@@ -13,7 +13,7 @@
 
 class WaveClipChannel;
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class Au3ConcurrentClipChannelReader final : public IClipChannelReader
 {
 public:

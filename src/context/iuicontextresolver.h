@@ -25,7 +25,7 @@
 #include "framework/ui/iuicontextresolver.h"
 #include "uicontext.h" // IWYU pragma: export
 
-namespace au::context {
+namespace agu::context {
 //! NOTE only for convenience
 using IUiContextResolver = muse::ui::IUiContextResolver;
 }

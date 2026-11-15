@@ -21,7 +21,7 @@ class wxTextCtrl;
 
 class EffectOutputTracks;
 
-namespace au::effects {
+namespace agu::effects {
 class NyquistParameterExtractorService;
 }
 
@@ -306,5 +306,5 @@ protected:
     int mMergeClips;
 
     friend class NyquistEffectsModule;
-    friend class au::effects::NyquistParameterExtractorService;
+    friend class agu::effects::NyquistParameterExtractorService;
 };

@@ -12,12 +12,12 @@ set -euo pipefail
 
 cd "$(dirname "$0")/../.."
 
-BUILD_DIR=${BUILD_DIR:-build/audacity-release}
+BUILD_DIR=${BUILD_DIR:-build/workbench-debug}
 SCRIPTS_DIR="$PWD/share/testflowscripts"
 
 case "$(uname)" in
-    Darwin) APP="$BUILD_DIR/src/app/OnlyAudios.app/Contents/MacOS/OnlyAudios" ;;
-    *)      APP="$BUILD_DIR/src/app/audacity" ;;
+    Darwin) APP="$BUILD_DIR/src/app/AGu.app/Contents/MacOS/AGu" ;;
+    *)      APP="$BUILD_DIR/src/app/agu" ;;
 esac
 test -x "$APP" || { echo "no build at $APP, set BUILD_DIR"; exit 1; }
 

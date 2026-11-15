@@ -5,7 +5,7 @@
 
 #include "spectrogramtypes.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class ISpectrogramConfiguration
 {
 public:
@@ -47,4 +47,4 @@ public:
     virtual int zeroPaddingFactor() = 0;
     virtual void setZeroPaddingFactor(int value) = 0;
 };
-} // namespace au::spectrogram
+} // namespace agu::spectrogram

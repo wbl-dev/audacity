@@ -34,7 +34,7 @@ static void spectrogram_init_qrc()
     Q_INIT_RESOURCE(spectrogram);
 }
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 static const std::string mname("spectrogram");
 
 std::string SpectrogramModule::moduleName() const
@@ -59,7 +59,7 @@ void SpectrogramModule::resolveImports()
 {
     auto ir = globalIoc()->resolve<muse::interactive::IInteractiveUriRegister>(mname);
     if (ir) {
-        ir->registerQmlUri(TRACK_SPECTROGRAM_SETTINGS_URI, "Audacity/Spectrogram/TrackSpectrogramSettingsDialog.qml");
+        ir->registerQmlUri(TRACK_SPECTROGRAM_SETTINGS_URI, "AGu/Spectrogram/TrackSpectrogramSettingsDialog.qml");
     }
 
     auto cr = globalIoc()->resolve<muse::rcommand::ICommandsRegister>(mname);
@@ -70,19 +70,19 @@ void SpectrogramModule::resolveImports()
 
 void SpectrogramModule::registerUiTypes()
 {
-    qmlRegisterUncreatableType<AbstractSpectrogramSettingsModel>("Audacity.Spectrogram", 1, 0, "AbstractSpectrogramSettingsModel",
+    qmlRegisterUncreatableType<AbstractSpectrogramSettingsModel>("AGu.Spectrogram", 1, 0, "AbstractSpectrogramSettingsModel",
                                                                  "Abstract base class");
-    qmlRegisterType<GlobalSpectrogramSettingsModel>("Audacity.Spectrogram", 1, 0, "GlobalSpectrogramSettingsModel");
-    qmlRegisterType<AlgorithmSectionParameterListModel>("Audacity.Spectrogram", 1, 0, "AlgorithmSectionParameterListModel");
-    qmlRegisterType<ColorSectionParameterListModel>("Audacity.Spectrogram", 1, 0, "ColorSectionParameterListModel");
-    qmlRegisterType<ScaleSectionParameterListModel>("Audacity.Spectrogram", 1, 0, "ScaleSectionParameterListModel");
-    qmlRegisterType<ClipChannelSpectrogramView>("Audacity.Spectrogram", 1, 0, "ClipChannelSpectrogramView");
-    qmlRegisterType<ChannelSpectralSelectionModel>("Audacity.Spectrogram", 1, 0, "ChannelSpectralSelectionModel");
-    qmlRegisterType<SpectrogramHit>("Audacity.Spectrogram", 1, 0, "SpectrogramHit");
-    qmlRegisterType<SpectrogramChannelRulerModel>("Audacity.Spectrogram", 1, 0, "SpectrogramChannelRulerModel");
-    qmlRegisterType<TrackSpectrogramContextMenuModel>("Audacity.Spectrogram", 1, 0, "TrackSpectrogramContextMenuModel");
-    qmlRegisterType<TrackSpectrogramSettingsModel>("Audacity.Spectrogram", 1, 0, "TrackSpectrogramSettingsModel");
-    qmlRegisterSingletonType<SpectrogramHitFactory>("Audacity.Spectrogram", 1, 0, "SpectrogramHitFactory",
+    qmlRegisterType<GlobalSpectrogramSettingsModel>("AGu.Spectrogram", 1, 0, "GlobalSpectrogramSettingsModel");
+    qmlRegisterType<AlgorithmSectionParameterListModel>("AGu.Spectrogram", 1, 0, "AlgorithmSectionParameterListModel");
+    qmlRegisterType<ColorSectionParameterListModel>("AGu.Spectrogram", 1, 0, "ColorSectionParameterListModel");
+    qmlRegisterType<ScaleSectionParameterListModel>("AGu.Spectrogram", 1, 0, "ScaleSectionParameterListModel");
+    qmlRegisterType<ClipChannelSpectrogramView>("AGu.Spectrogram", 1, 0, "ClipChannelSpectrogramView");
+    qmlRegisterType<ChannelSpectralSelectionModel>("AGu.Spectrogram", 1, 0, "ChannelSpectralSelectionModel");
+    qmlRegisterType<SpectrogramHit>("AGu.Spectrogram", 1, 0, "SpectrogramHit");
+    qmlRegisterType<SpectrogramChannelRulerModel>("AGu.Spectrogram", 1, 0, "SpectrogramChannelRulerModel");
+    qmlRegisterType<TrackSpectrogramContextMenuModel>("AGu.Spectrogram", 1, 0, "TrackSpectrogramContextMenuModel");
+    qmlRegisterType<TrackSpectrogramSettingsModel>("AGu.Spectrogram", 1, 0, "TrackSpectrogramSettingsModel");
+    qmlRegisterSingletonType<SpectrogramHitFactory>("AGu.Spectrogram", 1, 0, "SpectrogramHitFactory",
                                                     [](QQmlEngine*, QJSEngine*) -> QObject* {
         return new SpectrogramHitFactory();
     });

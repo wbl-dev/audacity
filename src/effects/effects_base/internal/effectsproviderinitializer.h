@@ -9,7 +9,7 @@
 #include "framework/global/modularity/ioc.h"
 #include "framework/audioplugins/iregisteraudiopluginsscenario.h"
 
-namespace au::effects {
+namespace agu::effects {
 class EffectsProviderInitializer : public IEffectsProviderInitializer, public muse::Contextable
 {
     muse::GlobalInject<IEffectsProvider> effectsProvider;

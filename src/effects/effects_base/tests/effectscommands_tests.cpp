@@ -5,7 +5,7 @@
 
 #include "../effectscommands.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 using namespace muse::rcommand;
 
 TEST(EffectsBase_EffectsCommandsTests, EffectIdWithUriDelimiters_SurvivesCommandStringRoundTrip)

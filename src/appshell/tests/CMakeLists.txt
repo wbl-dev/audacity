@@ -12,10 +12,10 @@ set(MODULE_TEST_SRC
 )
 
     list(APPEND MODULE_TEST_SRC
-        ${CMAKE_CURRENT_LIST_DIR}/../qml/Audacity/AppShell/aboutmodel.cpp
-        ${CMAKE_CURRENT_LIST_DIR}/../qml/Audacity/AppShell/aboutmodel.h
-        ${CMAKE_CURRENT_LIST_DIR}/../qml/Audacity/AppShell/FirstLaunchSetup/firstlaunchsetupmodel.cpp
-        ${CMAKE_CURRENT_LIST_DIR}/../qml/Audacity/AppShell/FirstLaunchSetup/firstlaunchsetupmodel.h
+        ${CMAKE_CURRENT_LIST_DIR}/../qml/AGu/AppShell/aboutmodel.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/../qml/AGu/AppShell/aboutmodel.h
+        ${CMAKE_CURRENT_LIST_DIR}/../qml/AGu/AppShell/FirstLaunchSetup/firstlaunchsetupmodel.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/../qml/AGu/AppShell/FirstLaunchSetup/firstlaunchsetupmodel.h
         ${CMAKE_CURRENT_LIST_DIR}/workbench_menu_tests.cpp
         ${CMAKE_CURRENT_LIST_DIR}/workbench_startup_tests.cpp
     )

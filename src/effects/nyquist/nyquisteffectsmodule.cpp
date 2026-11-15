@@ -29,28 +29,28 @@ static void nyquist_init_qrc()
     Q_INIT_RESOURCE(nyquist);
 }
 
-au::effects::NyquistEffectsModule::NyquistEffectsModule()
+agu::effects::NyquistEffectsModule::NyquistEffectsModule()
     : m_nyquistEffectsRepository(std::make_unique<NyquistEffectsRepository>())
 {
 }
 
-au::effects::NyquistEffectsModule::~NyquistEffectsModule() = default;
+agu::effects::NyquistEffectsModule::~NyquistEffectsModule() = default;
 
-std::string au::effects::NyquistEffectsModule::moduleName() const
+std::string agu::effects::NyquistEffectsModule::moduleName() const
 {
     return mname;
 }
 
-void au::effects::NyquistEffectsModule::registerExports()
+void agu::effects::NyquistEffectsModule::registerExports()
 {
 }
 
-void au::effects::NyquistEffectsModule::registerResources()
+void agu::effects::NyquistEffectsModule::registerResources()
 {
     nyquist_init_qrc();
 }
 
-void au::effects::NyquistEffectsModule::resolveImports()
+void agu::effects::NyquistEffectsModule::resolveImports()
 {
     m_pluginsScanner = std::make_shared<NyquistPluginsScanner>();
     auto scannerRegister = globalIoc()->resolve<muse::audioplugins::IAudioPluginsScannerRegister>(mname);
@@ -71,7 +71,7 @@ void au::effects::NyquistEffectsModule::resolveImports()
     }
 }
 
-void au::effects::NyquistEffectsModule::onPreInit(const muse::IApplication::RunMode& runMode)
+void agu::effects::NyquistEffectsModule::onPreInit(const muse::IApplication::RunMode& runMode)
 {
     if (runMode != muse::IApplication::RunMode::AudioPluginRegistration) {
         m_nyquistPromptLoader = std::make_unique<NyquistPromptLoader>();
@@ -79,7 +79,7 @@ void au::effects::NyquistEffectsModule::onPreInit(const muse::IApplication::RunM
     }
 }
 
-void au::effects::NyquistEffectsModule::onInit(const muse::IApplication::RunMode& mode)
+void agu::effects::NyquistEffectsModule::onInit(const muse::IApplication::RunMode& mode)
 {
     m_nyquistMetaReader->init();
     m_effectLoader->init();
@@ -87,7 +87,7 @@ void au::effects::NyquistEffectsModule::onInit(const muse::IApplication::RunMode
     m_nyquistEffectsRepository->init();
 }
 
-void au::effects::NyquistEffectsModule::onAllInited(const muse::IApplication::RunMode&)
+void agu::effects::NyquistEffectsModule::onAllInited(const muse::IApplication::RunMode&)
 {
     // onAllInited, because it depends on Au3Wrap and BuiltinEffects modules
     if (m_nyquistPromptLoader) {
@@ -95,24 +95,24 @@ void au::effects::NyquistEffectsModule::onAllInited(const muse::IApplication::Ru
     }
 }
 
-void au::effects::NyquistEffectsModule::onDeinit()
+void agu::effects::NyquistEffectsModule::onDeinit()
 {
     m_nyquistMetaReader->deinit();
     m_effectLoader->deinit();
     m_pluginsScanner->deinit();
 }
 
-muse::modularity::IContextSetup* au::effects::NyquistEffectsModule::newContext(const muse::modularity::ContextPtr& ctx) const
+muse::modularity::IContextSetup* agu::effects::NyquistEffectsModule::newContext(const muse::modularity::ContextPtr& ctx) const
 {
     return new NyquistEffectsContext(ctx);
 }
 
-au::effects::NyquistEffectsContext::NyquistEffectsContext(const muse::modularity::ContextPtr& ctx)
+agu::effects::NyquistEffectsContext::NyquistEffectsContext(const muse::modularity::ContextPtr& ctx)
     : muse::modularity::IContextSetup(ctx)
 {
 }
 
-void au::effects::NyquistEffectsContext::resolveImports()
+void agu::effects::NyquistEffectsContext::resolveImports()
 {
     auto paramExtractorRegistry = muse::modularity::globalIoc()->resolve<IParameterExtractorRegistry>(mname);
     if (paramExtractorRegistry) {
@@ -125,14 +125,14 @@ void au::effects::NyquistEffectsContext::resolveImports()
     }
 }
 
-void au::effects::NyquistEffectsContext::onPreInit(const muse::IApplication::RunMode&)
+void agu::effects::NyquistEffectsContext::onPreInit(const muse::IApplication::RunMode&)
 {
 }
 
-void au::effects::NyquistEffectsContext::onInit(const muse::IApplication::RunMode&)
+void agu::effects::NyquistEffectsContext::onInit(const muse::IApplication::RunMode&)
 {
 }
 
-void au::effects::NyquistEffectsContext::onDeinit()
+void agu::effects::NyquistEffectsContext::onDeinit()
 {
 }

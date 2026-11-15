@@ -5,7 +5,7 @@
 
 #include <cstdlib>
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class IUndoManager
 {
 public:

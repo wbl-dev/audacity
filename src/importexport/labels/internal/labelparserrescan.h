@@ -4,7 +4,7 @@
 
 #include "../ilabelsconfiguration.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 struct LabelParserRescanResult {
     muse::Ret ret;
     QStringList supported;

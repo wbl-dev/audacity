@@ -3,7 +3,7 @@
  */
 #include "tracksviewrequestsservice.h"
 
-using namespace au::trackedit;
+using namespace agu::trackedit;
 
 void TracksViewRequestsService::requestItemMove(secs_t timeOffset, int trackOffset)
 {

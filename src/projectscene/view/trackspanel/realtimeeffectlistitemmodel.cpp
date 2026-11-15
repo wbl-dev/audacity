@@ -9,7 +9,7 @@
 #include "framework/global/log.h"
 #include "framework/global/translation.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 RealtimeEffectListItemModel::RealtimeEffectListItemModel(QObject* parent, effects::RealtimeEffectStatePtr effectState)
     : QObject{parent}, muse::Contextable(muse::iocCtxForQmlObject(this)), m_effectState{effectState}
 {
@@ -56,7 +56,7 @@ QString RealtimeEffectListItemModel::effectName() const
         return QString();
     }
 
-    const auto effectId = au::au3::wxToStdString(state->GetID());
+    const auto effectId = agu::au3::wxToStdString(state->GetID());
     const auto name = effectsProvider()->effectName(effectId);
     const auto isValid = effectsProvider()->meta(muse::String::fromStdString(effectId)).isValid();
 

@@ -1,7 +1,7 @@
 #include "pastebehaviorpanelmodel.h"
 #include "global/translation.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 PasteBehaviorPanelModel::PasteBehaviorPanelModel(QObject* parent)
     : QObject(parent)
 {

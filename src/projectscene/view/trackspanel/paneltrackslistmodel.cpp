@@ -16,9 +16,9 @@
 
 #include "log.h"
 
-using namespace au::projectscene;
-using namespace au::project;
-using namespace au::trackedit;
+using namespace agu::projectscene;
+using namespace agu::project;
+using namespace agu::trackedit;
 
 PanelTracksListModel::PanelTracksListModel(QObject* parent)
     : QAbstractListModel(parent), muse::Contextable(muse::iocCtxForQmlObject(this))
@@ -79,7 +79,7 @@ void PanelTracksListModel::load()
         return;
     }
 
-    prj->tracksChanged().onReceive(this, [this](std::vector<au::trackedit::Track> tracks) {
+    prj->tracksChanged().onReceive(this, [this](std::vector<agu::trackedit::Track> tracks) {
         onTracksChanged(tracks);
     }, muse::async::Asyncable::Mode::SetReplace);
 
@@ -656,7 +656,7 @@ void PanelTracksListModel::onFocusedTrack(const trackedit::TrackId& trackId)
     }
 }
 
-void PanelTracksListModel::onTracksChanged(const std::vector<au::trackedit::Track>& tracks)
+void PanelTracksListModel::onTracksChanged(const std::vector<agu::trackedit::Track>& tracks)
 {
     Q_UNUSED(tracks);
     muse::async::Async::call(this, [this]() {

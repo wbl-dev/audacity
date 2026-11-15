@@ -8,7 +8,7 @@
 #include "au3-wave-track/WaveTrack.h"
 #include "au3-fft/SpectrumAnalyst.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class Au3PeakFinder : public IPeakFinder
 {
 public:

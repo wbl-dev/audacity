@@ -4,7 +4,7 @@
 #include "au3-xml/XMLWriter.h"
 #include "au3-preferences/Prefs.h"
 
-using namespace au::au3;
+using namespace agu::au3;
 
 static const AttachedProjectObjects::RegisteredFactory key
 {

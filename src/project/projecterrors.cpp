@@ -24,7 +24,7 @@
 #include "global/translation.h"
 #include "global/io/path.h"
 
-namespace au::project {
+namespace agu::project {
 muse::Ret make_ret(Err err, const muse::io::path_t& filePath)
 {
     auto ret = muse::Ret(static_cast<int>(err));
@@ -37,8 +37,8 @@ muse::Ret make_ret(Err err, const muse::io::path_t& filePath)
     case Err::NoError:
         return muse::make_ok();
     case Err::AudacityExceptionError:
-        title = muse::mtrc("project", "Audacity exception occurred");
-        body = muse::mtrc("project", "An Audacity exception occurred while trying to open the project file:\n“%1”").arg(muse::io::toNativeSeparators(
+        title = muse::mtrc("project", "Audio project error");
+        body = muse::mtrc("project", "An Audio project error while trying to open the project file:\n“%1”").arg(muse::io::toNativeSeparators(
                                                                                                                             filePath).toString());
         break;
     case Err::DatabaseError:
@@ -56,14 +56,14 @@ muse::Ret make_ret(Err err, const muse::io::path_t& filePath)
     case Err::ProjectFileIsReadProtected:
         title = muse::mtrc("project", "This file cannot be opened due to access restrictions");
         body = muse::mtrc("project",
-                          "To open this file:\n“%1”\nPlease check the file’s properties and permissions, ensure it is not stored on a drive or folder with restricted access, or try running Audacity as an administrator.")
+                          "To open this file:\n“%1”\nPlease check the file’s properties and permissions, ensure it is not stored on a drive or folder with restricted access, or try running AGu as an administrator.")
                .arg(muse::io::toNativeSeparators(filePath).toString());
         break;
     case Err::ProjectFileIsWriteProtected:
         title = muse::mtrc("project",
                            "This file is write-protected and cannot be opened");
         body = muse::mtrc("project",
-                          "To open this file:\n“%1”\nPlease remove the write protection by checking the file’s properties, ensuring it is not stored on a write-protected drive or folder, or by running Audacity as an administrator.")
+                          "To open this file:\n“%1”\nPlease remove the write protection by checking the file’s properties, ensuring it is not stored on a write-protected drive or folder, or by running AGu as an administrator.")
                .arg(muse::io::toNativeSeparators(filePath).toString());
         break;
     case Err::UnknownError:
@@ -78,4 +78,4 @@ muse::Ret make_ret(Err err, const muse::io::path_t& filePath)
 
     return ret;
 }
-} // namespace au::project
+} // namespace agu::project

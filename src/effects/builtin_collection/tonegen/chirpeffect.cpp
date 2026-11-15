@@ -5,7 +5,7 @@
 
 #include "au3-strings/TranslatableString.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 
 const ComponentInterfaceSymbol ChirpEffect::Symbol{ TranslatableString("effects-tonegen", "Chirp") };
 

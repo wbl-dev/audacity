@@ -7,7 +7,7 @@
 
 #include "trackedittypes.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class ITrackData
 {
 public:

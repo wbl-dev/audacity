@@ -27,7 +27,7 @@
 #include "audiotransform.h"
 #include "extensions/native/bytebuffer.h"
 
-namespace au::trackedit::api::detail {
+namespace agu::trackedit::api::detail {
 std::optional<AudioFormat> audioFormat(const QVariantMap& value)
 {
     AudioFormat result{
@@ -634,4 +634,4 @@ bool transformAudio(const std::shared_ptr<EditState>& state, QObject* object, co
     }
     return false;
 }
-} // namespace au::trackedit::api::detail
+} // namespace agu::trackedit::api::detail

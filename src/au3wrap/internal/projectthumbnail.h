@@ -6,7 +6,7 @@
 #include "au3-project/Project.h"
 #include "au3-xml/XMLTagHandler.h"
 
-namespace au::au3 {
+namespace agu::au3 {
 class ProjectThumbnail final : public ClientData::Base, public XMLTagHandler
 {
 public:

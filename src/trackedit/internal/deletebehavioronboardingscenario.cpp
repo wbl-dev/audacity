@@ -3,10 +3,10 @@
  */
 #include "deletebehavioronboardingscenario.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 bool DeleteBehaviorOnboardingScenario::showOnboardingDialog() const
 {
-    muse::UriQuery uri("audacity://trackedit/delete_behavior");
+    muse::UriQuery uri("agu://trackedit/delete_behavior");
     uri.addParam("deleteBehavior", muse::Val(static_cast<int>(DeleteBehavior::LeaveGap)));
     uri.addParam("closeGapBehavior", muse::Val(static_cast<int>(configuration()->closeGapBehavior())));
     const muse::RetVal<muse::Val> rv = interactive()->openSync(uri);
@@ -30,7 +30,7 @@ bool DeleteBehaviorOnboardingScenario::showOnboardingDialog() const
 
 void DeleteBehaviorOnboardingScenario::showFollowupDialog() const
 {
-    const muse::UriQuery followupUri("audacity://trackedit/delete_behavior_followup");
+    const muse::UriQuery followupUri("agu://trackedit/delete_behavior_followup");
     const muse::RetVal<muse::Val> rv = interactive()->openSync(followupUri);
     const std::string value = rv.val.toString();
     if (!value.empty()) {

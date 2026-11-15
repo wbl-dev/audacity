@@ -7,7 +7,7 @@
 
 #include "automation/iclipgaininteraction.h"
 
-namespace au::automation {
+namespace agu::automation {
 class ClipGainInteractionMock : public IClipGainInteraction
 {
 public:

@@ -8,7 +8,7 @@
 #include "framework/global/modularity/ioc.h"
 #include "framework/interactive/iinteractive.h"
 
-namespace au::effects {
+namespace agu::effects {
 class AbstractViewLauncher : public IEffectViewLauncher, public muse::Contextable
 {
 protected:

@@ -5,7 +5,7 @@
 
 #include "modularity/imodulesetup.h"
 
-namespace au::effects {
+namespace agu::effects {
 class VstEffectsModule : public muse::modularity::IModuleSetup
 {
 public:

@@ -8,7 +8,7 @@
 #include "au3-components/SettingsVisitor.h"
 #include "dynamics/dynamicseffectsmacros.h"
 
-namespace au::effects {
+namespace agu::effects {
 using LimiterParameter = EffectParameter<LimiterSettings, double, double, double>;
 
 class LimiterEffect : public EffectWithSettings<LimiterSettings, PerTrackEffect>

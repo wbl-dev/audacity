@@ -11,7 +11,7 @@
 
 #include "labelsutils.h"
 
-using namespace au::importexport;
+using namespace agu::importexport;
 
 ExportLabelsModel::ExportLabelsModel(QObject* parent)
     : QObject(parent), muse::Contextable(muse::iocCtxForQmlObject(this))

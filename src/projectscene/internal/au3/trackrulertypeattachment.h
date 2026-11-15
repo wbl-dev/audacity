@@ -10,19 +10,19 @@
 class TrackRulerTypeAttachment : public TrackAttachment
 {
 public:
-    static TrackRulerTypeAttachment& Get(const au::au3::Au3Track* track);
-    static TrackRulerTypeAttachment& Get(au::au3::Au3Track* track);
+    static TrackRulerTypeAttachment& Get(const agu::au3::Au3Track* track);
+    static TrackRulerTypeAttachment& Get(agu::au3::Au3Track* track);
 
-    TrackRulerTypeAttachment(au::au3::Au3Track& track);
-    void Reparent(const std::shared_ptr<au::au3::Au3Track>& parent) override;
-    void CopyTo(au::au3::Au3Track& track) const override;
+    TrackRulerTypeAttachment(agu::au3::Au3Track& track);
+    void Reparent(const std::shared_ptr<agu::au3::Au3Track>& parent) override;
+    void CopyTo(agu::au3::Au3Track& track) const override;
     void WriteXMLAttributes(XMLWriter& writer) const override;
     bool HandleXMLAttribute(const std::string_view& attr, const XMLAttributeValueView& valueView) override;
 
-    au::trackedit::TrackRulerType GetRulerType() const;
-    void SetRulerType(const au::trackedit::TrackRulerType& rulerType);
+    agu::trackedit::TrackRulerType GetRulerType() const;
+    void SetRulerType(const agu::trackedit::TrackRulerType& rulerType);
 
 private:
-    std::weak_ptr<au::au3::Au3Track> mTrack;
-    au::trackedit::TrackRulerType mRulerType;
+    std::weak_ptr<agu::au3::Au3Track> mTrack;
+    agu::trackedit::TrackRulerType mRulerType;
 };

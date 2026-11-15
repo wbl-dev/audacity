@@ -13,13 +13,13 @@
 #include "trackedit/dom/label.h"
 #include "testing/testcontext.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class TrackLabelsLayoutManagerTests : public ::testing::Test
 {
 protected:
     void SetUp() override
     {
-        m_testCtx = au::testutils::makeTestContext();
+        m_testCtx = agu::testutils::makeTestContext();
 
         m_layoutManager = new TrackLabelsLayoutManager();
 
@@ -49,7 +49,7 @@ protected:
     void addItem(trackedit::TrackItemId itemId, const muse::String& title, double startTime, double endTime, int visualWidth = -1)
     {
         trackedit::TrackItemKey key(1, itemId);
-        au::trackedit::Label label { key, title, 1, startTime, endTime };
+        agu::trackedit::Label label { key, title, 1, startTime, endTime };
         label.kind = startTime == endTime ? trackedit::LabelKind::Point : trackedit::LabelKind::Range;
         m_labelsModel->m_allLabelList.push_back(label);
 

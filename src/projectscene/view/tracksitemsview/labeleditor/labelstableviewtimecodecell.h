@@ -11,7 +11,7 @@
 
 #include "uicomponents/qml/Muse/UiComponents/internal/tableviewcell.h" // todo: public?
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class LabelsTableViewTimecodeCell : public muse::uicomponents::TableViewCell, public muse::Contextable
 {
     Q_OBJECT

@@ -8,7 +8,7 @@
 
 #include "project/iprojectconfiguration.h"
 
-namespace au::project {
+namespace agu::project {
 class ProjectConfigurationMock : public project::IProjectConfiguration
 {
 public:
@@ -27,7 +27,7 @@ public:
     MOCK_METHOD(muse::io::path_t, lastSavedProjectsPath, (), (const, override));
     MOCK_METHOD(void, setLastSavedProjectsPath, (const muse::io::path_t& path), (override));
 
-    MOCK_METHOD(muse::io::path_t, defaultSavingFilePath, (IAudacityProjectPtr project, const std::string& filenameAddition,
+    MOCK_METHOD(muse::io::path_t, defaultSavingFilePath, (IAGuProjectPtr project, const std::string& filenameAddition,
                                                           const std::string& suffix), (const, override));
 
 

@@ -2,7 +2,7 @@
 #include "au3-wave-track/WaveTrack.h"
 #include "au3-channel/Channel.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 static const ChannelGroup::Attachments::RegisteredFactory
     key1{ [](auto&) {
         return std::make_unique<WaveformSettings>(WaveformSettings::defaults());

@@ -28,7 +28,7 @@
 #include "viewtrackitem.h"
 #include "trackitemsmovecontroller.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class TrackItemsListModel : public QAbstractListModel, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT

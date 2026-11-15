@@ -17,11 +17,11 @@
 #include "dom/track.h"
 #include "dom/label.h"
 
-namespace au::au3 {
+namespace agu::au3 {
 class IAu3Project;
 }
 
-namespace au::trackedit {
+namespace agu::trackedit {
 struct TracksAndItems
 {
     trackedit::TrackList tracks;
@@ -71,7 +71,7 @@ public:
     virtual void setTimeSignature(const TimeSignature& timeSignature, bool noStretch = false) = 0;
     virtual muse::async::Channel<TimeSignature> timeSignatureChanged() const = 0;
 
-    virtual muse::async::Channel<std::vector<au::trackedit::Track> > tracksChanged() const = 0;
+    virtual muse::async::Channel<std::vector<agu::trackedit::Track> > tracksChanged() const = 0;
     virtual muse::async::Channel<trackedit::Track> trackAdded() const = 0;
     virtual muse::async::Channel<trackedit::Track> trackChanged() const = 0;
     virtual muse::async::Channel<trackedit::Track> trackClipListChanged() const = 0;
@@ -94,6 +94,6 @@ class ITrackeditProjectCreator : MODULE_GLOBAL_INTERFACE
 public:
     ~ITrackeditProjectCreator() override = default;
 
-    virtual ITrackeditProjectPtr create(const std::shared_ptr<au::au3::IAu3Project>& au3project) const = 0;
+    virtual ITrackeditProjectPtr create(const std::shared_ptr<agu::au3::IAu3Project>& au3project) const = 0;
 };
 }

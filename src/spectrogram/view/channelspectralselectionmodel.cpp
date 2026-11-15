@@ -8,7 +8,7 @@
 #include "framework/global/types/number.h"
 #include "framework/global/log.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 ChannelSpectralSelectionModel::ChannelSpectralSelectionModel(QObject* parent)
     : QObject(parent), muse::Contextable(muse::iocCtxForQmlObject(this))
 {

@@ -11,7 +11,7 @@
 
 #include <QQmlParserStatus>
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class AbstractSpectrogramSettingsModel;
 
 class ScaleSectionParameterListModel : public AbstractSectionParametersListModel, public QQmlParserStatus, public muse::Contextable,

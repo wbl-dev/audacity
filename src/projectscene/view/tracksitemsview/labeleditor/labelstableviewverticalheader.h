@@ -11,7 +11,7 @@
 
 #include "types/projectscenetypes.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class LabelsTableViewVerticalHeader : public muse::uicomponents::TableViewHeader
 {
     Q_OBJECT

@@ -8,7 +8,7 @@
 
 #include "modularity/imodulesetup.h"
 
-namespace au::playback {
+namespace agu::playback {
 class PlaybackConfiguration;
 class PlaybackController;
 class PlaybackUiActions;

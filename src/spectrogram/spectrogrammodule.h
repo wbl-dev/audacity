@@ -5,7 +5,7 @@
 
 #include "framework/global/modularity/imodulesetup.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class Au3SpectrogramPainter;
 class FrequencySelectionController;
 class GlobalSpectrogramConfiguration;

@@ -16,8 +16,8 @@
 
 #include <algorithm>
 
-using namespace au::automation;
-using namespace au::au3;
+using namespace agu::automation;
+using namespace agu::au3;
 
 namespace {
 // NOTE: newly recorded clips doesn't have offset/sequenceLength synced with envelope.
@@ -359,12 +359,12 @@ bool Au3ClipGainInteraction::endClipGainPointDrag(const trackedit::ClipKey& clip
     return true;
 }
 
-muse::async::Channel<au::trackedit::ClipKey, bool> Au3ClipGainInteraction::clipGainChanged() const
+muse::async::Channel<agu::trackedit::ClipKey, bool> Au3ClipGainInteraction::clipGainChanged() const
 {
     return m_clipEnvelopeChanged;
 }
 
-au::au3::Au3Project& Au3ClipGainInteraction::projectRef() const
+agu::au3::Au3Project& Au3ClipGainInteraction::projectRef() const
 {
     Au3Project* project = reinterpret_cast<Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());
     return *project;

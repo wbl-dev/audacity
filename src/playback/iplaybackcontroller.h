@@ -12,7 +12,7 @@
 
 #include "playbacktypes.h"
 
-namespace au::playback {
+namespace agu::playback {
 class IPlaybackController : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IPlaybackController)

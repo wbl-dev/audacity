@@ -7,7 +7,7 @@
 
 #include "types/projectmeta.h"
 
-namespace au::project {
+namespace agu::project {
 class IMetadata : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IMetadata)

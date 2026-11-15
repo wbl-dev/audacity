@@ -10,7 +10,7 @@
 
 #include "playback/iplayback.h"
 
-namespace au::playback {
+namespace agu::playback {
 class PlaybackMeterModel : public MeterModel
 {
     Q_OBJECT

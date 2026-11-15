@@ -15,7 +15,7 @@
 
 #include <QObject>
 
-namespace au::effects {
+namespace agu::effects {
 class DestructiveEffectViewerDialogModel : public QObject, public muse::Contextable, public muse::async::Asyncable
 {
     Q_OBJECT

@@ -8,7 +8,7 @@
 
 #include <QString>
 
-namespace au::importexport {
+namespace agu::importexport {
 enum class ScriptLabelKind {
     Point, Range
 };

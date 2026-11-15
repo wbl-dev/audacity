@@ -10,7 +10,7 @@
 
 #include "au3wrap/internal/wxtypes_convert.h"
 
-using namespace au::importexport;
+using namespace agu::importexport;
 
 void Au3FFmpegOptionsAccessor::init()
 {
@@ -65,12 +65,12 @@ std::string Au3FFmpegOptionsAccessor::ffmpegLibraryPath() const
     if (!ffmpeg) {
         return {};
     }
-    return au::au3::wxToStdString(ffmpeg->GetLoadedAVFormatPath());
+    return agu::au3::wxToStdString(ffmpeg->GetLoadedAVFormatPath());
 }
 
 bool Au3FFmpegOptionsAccessor::setFFmpegLibraryPath(const muse::io::path_t& path)
 {
-    return SetFFmpegPath(au::au3::wxFromPath(path));
+    return SetFFmpegPath(agu::au3::wxFromPath(path));
 }
 
 std::vector<std::string> Au3FFmpegOptionsAccessor::profileList() const

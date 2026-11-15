@@ -5,7 +5,7 @@
 
 #include "ispectraleffectsregister.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class SpectralEffectsRegister : public ISpectralEffectsRegister
 {
 public:

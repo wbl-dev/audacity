@@ -7,7 +7,7 @@
 
 #include "spectrogram/iglobalspectrogramconfiguration.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class GlobalSpectrogramConfigurationMock : public IGlobalSpectrogramConfiguration
 {
 public:

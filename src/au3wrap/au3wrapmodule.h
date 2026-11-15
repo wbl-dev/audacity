@@ -9,7 +9,7 @@
 
 class Au3BasicUI;
 
-namespace au::au3 {
+namespace agu::au3 {
 class WxLogWrap;
 class Au3Playback;
 class Au3Record;

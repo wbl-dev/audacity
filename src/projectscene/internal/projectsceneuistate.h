@@ -9,7 +9,7 @@
 #include "framework/global/modularity/ioc.h"
 #include "framework/ui/iuistate.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class ProjectSceneUiState : public IProjectSceneUiState, public muse::Contextable, public muse::async::Asyncable
 {
     muse::ContextInject<muse::ui::IUiState> uiState { this };

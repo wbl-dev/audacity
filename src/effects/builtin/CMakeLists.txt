@@ -31,4 +31,4 @@ target_link_libraries(effects_builtin PUBLIC
         au3-components # exposed by this module's public headers
 )
 
-add_subdirectory(qml/Audacity/BuiltinEffects)
+add_subdirectory(qml/AGu/BuiltinEffects)

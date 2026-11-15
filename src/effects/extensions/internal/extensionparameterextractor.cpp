@@ -8,7 +8,7 @@
 
 #include "extensioneffect.h"
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 namespace {
 const muse::String& durationId()
 {
@@ -60,7 +60,7 @@ ParameterInfo parameterInfo(const ExtensionEffectInstance& instance, size_t inde
 
     switch (descriptor.type) {
     case ParameterType::Boolean:
-        info.type = au::effects::ParameterType::Toggle;
+        info.type = agu::effects::ParameterType::Toggle;
         info.minValue = 0.0;
         info.maxValue = 1.0;
         info.defaultValue = std::get<bool>(descriptor.defaultValue) ? 1.0 : 0.0;
@@ -70,11 +70,11 @@ ParameterInfo parameterInfo(const ExtensionEffectInstance& instance, size_t inde
         info.isInteger = true;
         break;
     case ParameterType::Int64:
-        info.type = au::effects::ParameterType::Text;
+        info.type = agu::effects::ParameterType::Text;
         info.isInteger = true;
         break;
     case ParameterType::Double:
-        info.type = descriptor.minimum && descriptor.maximum ? au::effects::ParameterType::Slider : au::effects::ParameterType::Numeric;
+        info.type = descriptor.minimum && descriptor.maximum ? agu::effects::ParameterType::Slider : agu::effects::ParameterType::Numeric;
         info.minValue = descriptor.minimum ? std::get<double>(*descriptor.minimum) : -std::numeric_limits<double>::max();
         info.maxValue = descriptor.maximum ? std::get<double>(*descriptor.maximum) : std::numeric_limits<double>::max();
         info.defaultValue = std::get<double>(descriptor.defaultValue);
@@ -84,7 +84,7 @@ ParameterInfo parameterInfo(const ExtensionEffectInstance& instance, size_t inde
         }
         break;
     case ParameterType::Enumeration: {
-        info.type = au::effects::ParameterType::Dropdown;
+        info.type = agu::effects::ParameterType::Dropdown;
         info.minValue = 0.0;
         info.maxValue = descriptor.choices.empty() ? 0.0 : static_cast<double>(descriptor.choices.size() - 1);
         info.stepSize = 1.0;
@@ -104,14 +104,14 @@ ParameterInfo parameterInfo(const ExtensionEffectInstance& instance, size_t inde
         break;
     }
     case ParameterType::File:
-        info.type = au::effects::ParameterType::File;
+        info.type = agu::effects::ParameterType::File;
         break;
     case ParameterType::Directory:
-        info.type = au::effects::ParameterType::File;
+        info.type = agu::effects::ParameterType::File;
         info.isDirectory = true;
         break;
     case ParameterType::String:
-        info.type = au::effects::ParameterType::Text;
+        info.type = agu::effects::ParameterType::Text;
         break;
     }
     return info;
@@ -123,7 +123,7 @@ ParameterInfo durationInfo(const ExtensionEffectInstance& instance)
     info.id = durationId();
     info.name = muse::qtrc("effects", "Duration");
     info.description = muse::qtrc("effects", "Generated audio duration");
-    info.type = au::effects::ParameterType::Time;
+    info.type = agu::effects::ParameterType::Time;
     info.minValue = 0.001;
     info.maxValue = std::numeric_limits<double>::max();
     info.defaultValue = 30.0;
@@ -291,4 +291,4 @@ muse::String ExtensionParameterExtractor::getParameterValueString(EffectInstance
     }
     return valueString(instance->value(*index));
 }
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

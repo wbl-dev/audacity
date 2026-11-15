@@ -32,7 +32,7 @@
 
 #include "appshelltypes.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 class IApplicationActionController : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IApplicationActionController)

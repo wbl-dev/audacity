@@ -21,7 +21,7 @@
 
 #include "trackedit/dom/track.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class ViewTracksListModel : public QAbstractListModel, public muse::async::Asyncable, public muse::actions::Actionable,
     public muse::Contextable
 {
@@ -34,7 +34,7 @@ class ViewTracksListModel : public QAbstractListModel, public muse::async::Async
     muse::GlobalInject<projectscene::IProjectSceneConfiguration> projectSceneConfiguration;
     muse::GlobalInject<playback::IPlaybackConfiguration> playbackConfiguration;
 
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
     muse::ContextInject<trackedit::ISelectionController> selectionController{ this };
     muse::ContextInject<trackedit::ITrackeditInteraction> trackeditInteraction{ this };
     muse::ContextInject<playback::ITrackPlaybackControl> trackPlaybackControl{ this };

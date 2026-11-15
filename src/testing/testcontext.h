@@ -5,7 +5,7 @@
 
 #include "modularity/ioc.h"
 
-namespace au::testutils {
+namespace agu::testutils {
 static constexpr muse::modularity::IoCID testContextId = 999;
 
 inline muse::modularity::ContextPtr makeTestContext()

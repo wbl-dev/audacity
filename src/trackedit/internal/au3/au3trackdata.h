@@ -6,7 +6,7 @@
 #include "trackedit/itrackdata.h"
 #include "au3wrap/au3types.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class Au3TrackData : public ITrackData
 {
 public:

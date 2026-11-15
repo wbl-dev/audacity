@@ -28,13 +28,13 @@
 #include "appshell/appshelltypes.h"
 #include "project/projectcommands.h"
 
-using namespace au::appshell;
+using namespace agu::appshell;
 using namespace muse;
-using namespace au::project;
+using namespace agu::project;
 
-static const muse::UriQuery FIRST_LAUNCH_SETUP_URI("audacity://firstLaunchSetup?floating=true");
-static const muse::Uri HOME_URI("audacity://home");
-static const muse::Uri PROJECT_URI("audacity://project");
+static const muse::UriQuery FIRST_LAUNCH_SETUP_URI("agu://firstLaunchSetup?floating=true");
+static const muse::Uri HOME_URI("agu://home");
+static const muse::Uri PROJECT_URI("agu://project");
 
 static StartupModeType modeTypeFromString(const std::string& str)
 {

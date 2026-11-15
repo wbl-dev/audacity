@@ -12,7 +12,7 @@
 #include "iprojecthistory.h"
 
 struct TrackListEvent;
-namespace au::trackedit {
+namespace agu::trackedit {
 class Au3TrackeditProject : public ITrackeditProject, public muse::Contextable
 {
     muse::GlobalInject<muse::IGlobalConfiguration> globalConfiguration;
@@ -20,7 +20,7 @@ class Au3TrackeditProject : public ITrackeditProject, public muse::Contextable
     muse::ContextInject<trackedit::IProjectHistory> projectHistory { this };
 
 public:
-    explicit Au3TrackeditProject(const muse::modularity::ContextPtr& ctx, const std::shared_ptr<au::au3::IAu3Project>& au3project);
+    explicit Au3TrackeditProject(const muse::modularity::ContextPtr& ctx, const std::shared_ptr<agu::au3::IAu3Project>& au3project);
     ~Au3TrackeditProject() override;
 
     TrackIdList trackIdList() const override;
@@ -60,7 +60,7 @@ public:
     void setTimeSignature(const TimeSignature& timeSignature, bool noStretch) override;
     muse::async::Channel<TimeSignature> timeSignatureChanged() const override;
 
-    muse::async::Channel<std::vector<au::trackedit::Track> > tracksChanged() const override;
+    muse::async::Channel<std::vector<agu::trackedit::Track> > tracksChanged() const override;
     muse::async::Channel<Track> trackAdded() const override;
     muse::async::Channel<Track> trackChanged() const override;
     muse::async::Channel<Track> trackClipListChanged() const override;
@@ -79,8 +79,8 @@ private:
     void onTrackDataChanged(const TrackId& trackId);
     void onProjectTempoChange(double newTempo);
 
-    au::trackedit::Clips getClips(const TrackId& trackId) const;
-    au::trackedit::Labels getLabels(const TrackId& trackId) const;
+    agu::trackedit::Clips getClips(const TrackId& trackId) const;
+    agu::trackedit::Labels getLabels(const TrackId& trackId) const;
     void updateHasAudioContent();
     void setHasAudioContent(bool has);
     void updateHasLabels();
@@ -91,7 +91,7 @@ private:
 
     mutable std::map<TrackId, muse::async::ChangedNotifier<Clip> > m_clipsChanged;
     mutable std::map<TrackId, muse::async::ChangedNotifier<Label> > m_labelsChanged;
-    mutable muse::async::Channel<au::trackedit::TimeSignature> m_timeSignatureChanged;
+    mutable muse::async::Channel<agu::trackedit::TimeSignature> m_timeSignatureChanged;
 
     mutable muse::async::Channel<trackedit::TrackList> m_tracksChanged;
     mutable muse::async::Channel<trackedit::Track> m_trackAdded;
@@ -108,7 +108,7 @@ private:
 class Au3TrackeditProjectCreator : public ITrackeditProjectCreator
 {
 public:
-    ITrackeditProjectPtr create(const std::shared_ptr<au::au3::IAu3Project>& au3project) const override;
+    ITrackeditProjectPtr create(const std::shared_ptr<agu::au3::IAu3Project>& au3project) const override;
 };
 }
 

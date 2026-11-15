@@ -5,7 +5,7 @@
 
 #include "global/log.h"
 
-namespace au::effects {
+namespace agu::effects {
 namespace {
 constexpr auto getNumVertices(int numSamples) { return 2 * numSamples; }
 constexpr auto getNumSamples(int numVertices) { return numVertices / 2; }
@@ -70,4 +70,4 @@ int AreaSequencePainter::numSamplesToDiscard() const
     }
     return numSamples;
 }
-} // namespace au::effects
+} // namespace agu::effects

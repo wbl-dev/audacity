@@ -5,7 +5,7 @@
 
 #include "effects/effects_base/iparameterextractorservice.h"
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 class ExtensionParameterExtractor final : public IParameterExtractorService
 {
 public:
@@ -19,4 +19,4 @@ public:
                                  EffectSettingsAccessPtr settingsAccess) override;
     muse::String getParameterValueString(EffectInstance* instance, const muse::String& parameterId, double value) const override;
 };
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

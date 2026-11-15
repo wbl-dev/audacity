@@ -4,10 +4,10 @@
 #include "au3-effects/Effect.h"
 #include "au3wrap/internal/wxtypes_convert.h"
 
-namespace au::effects {
+namespace agu::effects {
 namespace {
 constexpr const char16_t* REALTIME_VIEWER_URI
-    = u"audacity://effects/realtime_viewer?instanceId=%1&effectState=%2&sync=false&modal=false&floating=true";
+    = u"agu://effects/realtime_viewer?instanceId=%1&effectState=%2&sync=false&modal=false&floating=true";
 }
 
 muse::Ret AbstractViewLauncher::doShowEffect(int instanceId, EffectFamily family) const
@@ -29,7 +29,7 @@ void AbstractViewLauncher::doShowRealtimeEffect(const RealtimeEffectStatePtr& st
     }
     const auto instance = std::dynamic_pointer_cast<effects::EffectInstance>(state->GetInstance());
     if (!instance) {
-        LOGW() << "Could not get instance for " << au::au3::wxToStdString(state->GetID());
+        LOGW() << "Could not get instance for " << agu::au3::wxToStdString(state->GetID());
         return;
     }
 

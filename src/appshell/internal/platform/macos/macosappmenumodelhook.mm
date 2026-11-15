@@ -87,7 +87,7 @@
 // Retained owner for per-menu delegate instances (NSMenu.delegate is weak/assign).
 static NSMutableArray* s_filters = nil;
 
-using namespace au::appshell;
+using namespace agu::appshell;
 
 void MacOSAppMenuModelHook::onAppMenuInited()
 {

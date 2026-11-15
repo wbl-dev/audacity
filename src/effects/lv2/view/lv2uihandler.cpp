@@ -5,7 +5,7 @@
 #include "lv2uihandler.h"
 #include "lv2viewmodel.h"
 
-namespace au::effects {
+namespace agu::effects {
 Lv2UiHandler::Lv2UiHandler(Lv2ViewModel& viewModel)
     : m_viewModel(viewModel)
 {}

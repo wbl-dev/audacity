@@ -14,12 +14,12 @@
 #include "ui/inavigationcontroller.h"
 #include "trackedit/internal/itracknavigationcontroller.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class TrackNavigationModel : public QObject, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT
 
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
     muse::ContextInject<muse::actions::IActionsDispatcher> dispatcher{ this };
     muse::ContextInject<muse::ui::INavigationController> navigationController{ this };
     muse::ContextInject<ITrackNavigationController> tracksNavigationController{ this };

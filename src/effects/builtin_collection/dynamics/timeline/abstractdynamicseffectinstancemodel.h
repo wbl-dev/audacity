@@ -10,7 +10,7 @@
 
 class CompressorInstance;
 
-namespace au::effects {
+namespace agu::effects {
 class AbstractDynamicsEffectInstanceModel : public QObject, public muse::Contextable
 {
     Q_OBJECT
@@ -38,4 +38,4 @@ private:
 
     int m_instanceId = -1;
 };
-} // namespace au::effects
+} // namespace agu::effects

@@ -8,7 +8,7 @@
 
 #include "../itracksviewrequestsservice.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class TracksViewRequestsService : public ITracksViewRequestsService, public muse::async::Asyncable, public muse::Contextable
 {
 public:

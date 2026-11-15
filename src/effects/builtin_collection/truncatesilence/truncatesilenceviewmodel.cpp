@@ -9,7 +9,7 @@
 #include "framework/global/log.h"
 #include "framework/global/translation.h"
 
-namespace au::effects {
+namespace agu::effects {
 TruncateSilenceViewModel::TruncateSilenceViewModel(QObject* parent, int instanceId)
     : BuiltinEffectModel(parent, instanceId)
 {

@@ -27,7 +27,7 @@
 #include "framework/shortcuts/shortcutcontext.h"
 #include "framework/global/containers.h"
 
-namespace au::context {
+namespace agu::context {
 // common shortcuts (re declared for convenience)
 static const std::string CTX_DISABLED = muse::shortcuts::CTX_DISABLED;
 static const std::string CTX_ANY = muse::shortcuts::CTX_ANY;

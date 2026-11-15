@@ -10,21 +10,21 @@
 #include "au3wrap/au3types.h"
 #include "WaveMetrics.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class WaveformPainter final : public WaveClipListener
 {
 public:
 
-    static WaveformPainter& Get(const au::au3::Au3WaveClip& cache);
+    static WaveformPainter& Get(const agu::au3::Au3WaveClip& cache);
 
-    WaveformPainter& EnsureClip(const au::au3::Au3WaveClip& clip);
-    void Draw(size_t channelIndex, QPainter& painter, const WavePaintParameters& params, const au::projectscene::WaveMetrics& metrics);
+    WaveformPainter& EnsureClip(const agu::au3::Au3WaveClip& clip);
+    void Draw(size_t channelIndex, QPainter& painter, const WavePaintParameters& params, const agu::projectscene::WaveMetrics& metrics);
     void MarkChanged() noexcept override;
     void Invalidate() override;
     std::unique_ptr<WaveClipListener> Clone() const override;
 
 private:
-    const au::au3::Au3WaveClip* mWaveClip {};
+    const agu::au3::Au3WaveClip* mWaveClip {};
 
     struct ChannelCaches final
     {

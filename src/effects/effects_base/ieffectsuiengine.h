@@ -6,7 +6,7 @@
 #include "modularity/imoduleinterface.h"
 
 class QQmlEngine;
-namespace au::effects {
+namespace agu::effects {
 class IEffectsUiEngine : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IEffectsUiEngine)

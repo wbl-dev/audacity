@@ -8,7 +8,7 @@
 
 #include "effectstypes.h"
 
-namespace au::effects {
+namespace agu::effects {
 //! Data sent when a parameter value changes
 struct ParameterChangedData {
     EffectInstanceId instanceId = -1;

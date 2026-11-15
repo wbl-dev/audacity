@@ -9,7 +9,7 @@
 #include "framework/global/translation.h"
 #include "framework/global/log.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 ScaleSectionParameterListModel::ScaleSectionParameterListModel(QObject* parent)
     : AbstractSectionParametersListModel(parent), muse::Contextable(muse::iocCtxForQmlObject(this)) {}
 

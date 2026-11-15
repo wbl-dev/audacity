@@ -14,7 +14,7 @@ namespace muse::audioplugins {
 class IRegisterAudioPluginsScenario;
 }
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 class ExtensionEffectsRepository;
 
 class ExtensionEffectsScanner final : public muse::audioplugins::IAudioPluginsScanner
@@ -33,4 +33,4 @@ private:
 
     std::shared_ptr<ExtensionEffectsRepository> m_repository;
 };
-} // namespace au::effects::extensions
+} // namespace agu::effects::extensions

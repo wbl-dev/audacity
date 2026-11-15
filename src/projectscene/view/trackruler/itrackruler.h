@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace au::projectscene {
+namespace agu::projectscene {
 enum class IsFullWidthTick : bool {
     NO = false,
     YES = true,

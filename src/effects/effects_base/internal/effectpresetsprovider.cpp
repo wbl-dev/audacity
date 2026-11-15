@@ -17,7 +17,7 @@
 #include "log.h"
 
 using namespace muse;
-using namespace au::effects;
+using namespace agu::effects;
 
 static const PresetId DEFAULT_PRESET(wxT("default"));
 

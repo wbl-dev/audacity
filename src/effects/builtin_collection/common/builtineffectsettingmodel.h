@@ -3,7 +3,7 @@
  */
 #pragma once
 
-#include "effects/builtin/qml/Audacity/BuiltinEffects/builtineffectinstanceaccess.h"
+#include "effects/builtin/qml/AGu/BuiltinEffects/builtineffectinstanceaccess.h"
 #include "effects/effects_base/irealtimeeffectservice.h"
 #include "framework/global/async/asyncable.h"
 #include "framework/global/modularity/ioc.h"
@@ -11,7 +11,7 @@
 
 #include <QObject>
 
-namespace au::effects {
+namespace agu::effects {
 class BuiltinEffectSettingModel : public QObject, public muse::async::Asyncable, public muse::Contextable,
     public BuiltinEffectInstanceAccess
 {

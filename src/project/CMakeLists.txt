@@ -52,7 +52,7 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/projecterrors.h
     ${CMAKE_CURRENT_LIST_DIR}/projecterrors.cpp
     ${CMAKE_CURRENT_LIST_DIR}/projectcommands.h
-    ${CMAKE_CURRENT_LIST_DIR}/iaudacityproject.h
+    ${CMAKE_CURRENT_LIST_DIR}/iaguproject.h
     ${CMAKE_CURRENT_LIST_DIR}/iprojectconfiguration.h
     ${CMAKE_CURRENT_LIST_DIR}/iprojectcreator.h
     ${CMAKE_CURRENT_LIST_DIR}/iprojectfilescontroller.h
@@ -64,8 +64,8 @@ set(MODULE_SRC
     ${CMAKE_CURRENT_LIST_DIR}/types/projecttypes.h
     ${CMAKE_CURRENT_LIST_DIR}/types/projectmeta.h
 
-    ${CMAKE_CURRENT_LIST_DIR}/internal/audacityproject.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/internal/audacityproject.h
+    ${CMAKE_CURRENT_LIST_DIR}/internal/aguproject.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/internal/aguproject.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/projectconfiguration.cpp
     ${CMAKE_CURRENT_LIST_DIR}/internal/projectconfiguration.h
     ${CMAKE_CURRENT_LIST_DIR}/internal/projectcreator.cpp

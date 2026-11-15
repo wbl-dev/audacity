@@ -8,7 +8,7 @@
 
 #include "framework/audioplugins/iknownaudiopluginsmigrationregister.h"
 
-namespace au::effects {
+namespace agu::effects {
 // One-shot setup invoked from EffectsModule::resolveImports(), before the
 // audioplugins context loads the cache in onInit.
 class KnownAudioPluginsConfigurator

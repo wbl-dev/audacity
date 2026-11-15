@@ -10,7 +10,7 @@
 
 #include "framework/global/log.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 PlayRegionController::PlayRegionController(QObject* parent)
     : QObject(parent), muse::Contextable(muse::iocCtxForQmlObject(this))
 {
@@ -122,7 +122,7 @@ void PlayRegionController::updatePosition(double pos)
     m_lastPos = pos;
 }
 
-void au::projectscene::PlayRegionController::handleDrag(double pos)
+void agu::projectscene::PlayRegionController::handleDrag(double pos)
 {
     if (!m_isActive) {
         return;

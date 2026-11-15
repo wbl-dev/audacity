@@ -8,7 +8,7 @@
 
 #include "modularity/imodulesetup.h"
 
-namespace au::record {
+namespace agu::record {
 class RecordConfiguration;
 class RecordController;
 class RecordMeterController;

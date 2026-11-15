@@ -12,7 +12,7 @@
 #include "framework/global/async/asyncable.h"
 #include "framework/global/modularity/ioc.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class TrackSpectrogramSettingsModel : public AbstractSpectrogramSettingsModel,  public QQmlParserStatus, public muse::Contextable,
     public muse::async::Asyncable
 {

@@ -17,11 +17,11 @@
 #include "../itrackeditinteraction.h"
 #include "itracknavigationcontroller.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class TrackeditCommandsState : public muse::rcommand::IModuleCommandsState, public muse::Contextable, public muse::async::Asyncable
 {
     muse::GlobalInject<muse::rcommand::ICommandsRegister> commandsRegister;
-    muse::ContextInject<au::context::IGlobalContext> globalContext{ this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
     muse::ContextInject<IProjectHistory> projectHistory{ this };
     muse::ContextInject<ISelectionController> selectionController{ this };
     muse::ContextInject<ITrackeditInteraction> trackeditInteraction{ this };

@@ -14,8 +14,8 @@
 #include "global/internal/cmdoptions.h"
 #include "diagnostics/idiagnosticsconfiguration.h"
 
-namespace au::app {
-struct AudacityCmdOptions : public muse::CmdOptions {
+namespace agu::app {
+struct AGuCmdOptions : public muse::CmdOptions {
     struct {
         std::optional<bool> revertToFactorySettings;
         bool memoryLeakReport = false;

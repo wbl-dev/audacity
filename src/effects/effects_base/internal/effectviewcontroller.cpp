@@ -13,7 +13,7 @@
 
 #include "framework/global/log.h"
 
-namespace au::effects {
+namespace agu::effects {
 namespace {
 IEffectViewLauncherPtr getLauncher(const EffectId& effectId, const IEffectsProvider& effectsProvider,
                                    const IEffectViewLaunchRegister& launchRegister)
@@ -34,7 +34,7 @@ void callOnLauncher(const RealtimeEffectStatePtr& state, const IEffectsProvider&
     IF_ASSERT_FAILED(state) {
         return;
     }
-    if (const auto launcher = getLauncher(au::au3::wxToString(state->GetID()), effectsProvider, launchRegister)) {
+    if (const auto launcher = getLauncher(agu::au3::wxToString(state->GetID()), effectsProvider, launchRegister)) {
         func(*launcher, state);
     }
 }

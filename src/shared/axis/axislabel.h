@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-namespace au::shared {
+namespace agu::shared {
 /**
  * @brief Builds labels for the given ticks using the smallest number of
  *        decimal digits that keeps adjacent labels distinct.

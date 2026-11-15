@@ -7,17 +7,17 @@
 #include <QMetaType>
 #include <QString>
 
-using namespace au::projectscene;
-using namespace au::trackedit;
+using namespace agu::projectscene;
+using namespace agu::trackedit;
 
-static muse::ui::IconCode::Code iconFromTrackType(au::trackedit::TrackType type)
+static muse::ui::IconCode::Code iconFromTrackType(agu::trackedit::TrackType type)
 {
     switch (type) {
-    case au::trackedit::TrackType::Label:
+    case agu::trackedit::TrackType::Label:
         return muse::ui::IconCode::Code::LOOP_IN;
-    case au::trackedit::TrackType::Mono:
+    case agu::trackedit::TrackType::Mono:
         return muse::ui::IconCode::Code::CIRCLE;
-    case au::trackedit::TrackType::Stereo:
+    case agu::trackedit::TrackType::Stereo:
         return muse::ui::IconCode::Code::TWO_CIRCLES;
     default:
         return muse::ui::IconCode::Code::MICROPHONE;
@@ -27,7 +27,7 @@ static muse::ui::IconCode::Code iconFromTrackType(au::trackedit::TrackType type)
 TrackItem::TrackItem(QObject* parent)
     : QObject(parent), muse::Contextable(muse::iocCtxForQmlObject(this))
 {
-    qRegisterMetaType<au::trackedit::TrackType>("au::trackedit::TrackType");
+    qRegisterMetaType<agu::trackedit::TrackType>("agu::trackedit::TrackType");
 }
 
 TrackItem::~TrackItem()
@@ -58,7 +58,7 @@ void TrackItem::init(const trackedit::Track& track)
     emit isFocusedChanged();
 }
 
-au::trackedit::TrackId TrackItem::trackId() const
+agu::trackedit::TrackId TrackItem::trackId() const
 {
     return m_trackId;
 }
@@ -78,7 +78,7 @@ int TrackItem::icon() const
     return static_cast<int>(m_icon);
 }
 
-au::trackedit::TrackType TrackItem::trackType() const
+agu::trackedit::TrackType TrackItem::trackType() const
 {
     return m_trackType;
 }

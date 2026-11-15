@@ -3,7 +3,7 @@
 #include "au3-effects/PerTrackEffect.h"
 #include "au3-components/SettingsVisitor.h"
 
-namespace au::effects {
+namespace agu::effects {
 struct ReverbSettings
 {
     static constexpr double roomSizeDefault = 75.0;
@@ -197,4 +197,4 @@ public:
         true,
         1 };
 };
-} // namespace au::effects
+} // namespace agu::effects

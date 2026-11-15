@@ -17,7 +17,7 @@
 
 using namespace muse;
 using namespace muse::audioplugins;
-using namespace au::effects;
+using namespace agu::effects;
 
 using ::testing::NiceMock;
 using ::testing::Return;

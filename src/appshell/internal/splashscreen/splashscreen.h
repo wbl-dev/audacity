@@ -28,7 +28,7 @@
 
 class QSvgRenderer;
 
-namespace au::appshell {
+namespace agu::appshell {
 class SplashScreen : public QWidget, public muse::Contextable
 {
 public:

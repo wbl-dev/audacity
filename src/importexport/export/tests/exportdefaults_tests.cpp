@@ -9,7 +9,7 @@
 #include "importexport/export/internal/exportconfiguration.h"
 #include "importexport/export/types/exporttypes.h"
 
-using namespace au::importexport;
+using namespace agu::importexport;
 
 TEST(ExportDefaultsTests, DefaultFormatIsRegistered)
 {

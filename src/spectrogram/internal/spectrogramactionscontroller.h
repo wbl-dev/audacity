@@ -10,12 +10,12 @@
 #include "framework/rcommand/icommanddispatcher.h"
 #include "context/iglobalcontext.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class SpectrogramActionsController : public muse::rcommand::Commandable, public muse::Contextable
 {
     muse::ContextInject<muse::rcommand::ICommandDispatcher> commandDispatcher { this };
     muse::ContextInject<muse::IInteractive> interactive { this };
-    muse::ContextInject<au::context::IGlobalContext> globalContext { this };
+    muse::ContextInject<agu::context::IGlobalContext> globalContext { this };
 
 public:
     SpectrogramActionsController(const muse::modularity::ContextPtr& ctx)

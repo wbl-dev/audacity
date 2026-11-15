@@ -11,7 +11,7 @@
 
 #include <typeindex>
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class IProjectHistory : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(IProjectHistory)

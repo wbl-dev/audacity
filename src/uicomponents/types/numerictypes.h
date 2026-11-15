@@ -7,7 +7,7 @@
 
 #include "containers.h"
 
-namespace au::uicomponents {
+namespace agu::uicomponents {
 enum class NumericViewFormatType {
     Undefined = -1,
     UserType = 0

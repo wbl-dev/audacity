@@ -5,8 +5,8 @@
 
 #include <QVariantMap>
 
-using namespace au::projectscene;
-using namespace au::project;
+using namespace agu::projectscene;
+using namespace agu::project;
 using namespace muse::uicomponents;
 
 static const QString ENABLE_TRIPLETS_ID = "enable-triplets";
@@ -102,7 +102,7 @@ void SnapToolBarItem::setIsSnapEnabled(bool newIsSnapEnabled)
 
 IProjectViewStatePtr SnapToolBarItem::viewState() const
 {
-    IAudacityProjectPtr prj = globalContext()->currentProject();
+    IAGuProjectPtr prj = globalContext()->currentProject();
     return prj ? prj->viewState() : nullptr;
 }
 

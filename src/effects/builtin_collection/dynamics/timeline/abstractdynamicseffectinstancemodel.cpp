@@ -7,7 +7,7 @@
 
 #include "global/log.h"
 
-namespace au::effects {
+namespace agu::effects {
 AbstractDynamicsEffectInstanceModel::AbstractDynamicsEffectInstanceModel(QObject* parent)
     : QObject{parent}, muse::Contextable(muse::iocCtxForQmlObject(this))
 {
@@ -33,4 +33,4 @@ void AbstractDynamicsEffectInstanceModel::setInstanceId(int id)
     m_instanceId = id;
     emit instanceIdChanged();
 }
-} // namespace au::effects
+} // namespace agu::effects

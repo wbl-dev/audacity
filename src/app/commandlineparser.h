@@ -15,7 +15,7 @@
 
 class QCoreApplication;
 
-namespace au::app {
+namespace agu::app {
 class CommandLineParser
 {
     //! NOTE: This parser is created at the earliest stage of the application initialization
@@ -29,13 +29,13 @@ public:
 
     muse::IApplication::RunMode runMode() const;
 
-    std::shared_ptr<AudacityCmdOptions> options() const;
+    std::shared_ptr<AGuCmdOptions> options() const;
 
     void printVersion() const;
     void printLongVersion() const;
 
 private:
     QCommandLineParser m_parser;
-    const std::shared_ptr<AudacityCmdOptions> m_options = std::make_shared<AudacityCmdOptions>();
+    const std::shared_ptr<AGuCmdOptions> m_options = std::make_shared<AGuCmdOptions>();
 };
 }

@@ -8,10 +8,10 @@
 
 #include "appshellmodule.h"
 #include "internal/startupscenario.h"
-#include "qml/Audacity/AppShell/FirstLaunchSetup/firstlaunchsetupmodel.h"
-#include "qml/Audacity/AppShell/maintoolbarmodel.h"
+#include "qml/AGu/AppShell/FirstLaunchSetup/firstlaunchsetupmodel.h"
+#include "qml/AGu/AppShell/maintoolbarmodel.h"
 
-namespace au::appshell {
+namespace agu::appshell {
 namespace {
 
 class TestableStartupScenario : public StartupScenario
@@ -33,15 +33,15 @@ TEST(workbench_page_manifest, contains_only_local_product_destinations)
 
     const AppShellPageManifest manifest = appShellPageManifest();
 
-    EXPECT_TRUE(contains(manifest.pages, "audacity://home"));
-    EXPECT_TRUE(contains(manifest.pages, "audacity://project"));
-    EXPECT_TRUE(contains(manifest.dialogs, "audacity://about/audacity"));
-    EXPECT_TRUE(contains(manifest.dialogs, "audacity://firstLaunchSetup"));
+    EXPECT_TRUE(contains(manifest.pages, "agu://home"));
+    EXPECT_TRUE(contains(manifest.pages, "agu://project"));
+    EXPECT_TRUE(contains(manifest.dialogs, "agu://about/agu"));
+    EXPECT_TRUE(contains(manifest.dialogs, "agu://firstLaunchSetup"));
 
-    EXPECT_FALSE(contains(manifest.pages, "audacity://publish"));
-    EXPECT_FALSE(contains(manifest.pages, "audacity://devtools"));
-    EXPECT_FALSE(contains(manifest.dialogs, "audacity://signin/audiocom"));
-    EXPECT_FALSE(contains(manifest.dialogs, "audacity://welcomedialog"));
+    EXPECT_FALSE(contains(manifest.pages, "agu://publish"));
+    EXPECT_FALSE(contains(manifest.pages, "agu://devtools"));
+    EXPECT_FALSE(contains(manifest.dialogs, "agu://signin/audiocom"));
+    EXPECT_FALSE(contains(manifest.dialogs, "agu://welcomedialog"));
 }
 
 TEST(workbench_startup, preserves_local_startup_and_disables_online_flows)
@@ -73,4 +73,4 @@ TEST(workbench_startup, first_launch_setup_contains_only_local_configuration_pag
 }
 
 } // namespace
-} // namespace au::appshell
+} // namespace agu::appshell

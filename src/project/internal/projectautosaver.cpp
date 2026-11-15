@@ -27,7 +27,7 @@
 #include "log.h"
 
 using namespace muse;
-using namespace au::project;
+using namespace agu::project;
 
 void ProjectAutoSaver::init()
 {
@@ -84,7 +84,7 @@ void ProjectAutoSaver::init()
     });
 }
 
-IAudacityProjectPtr ProjectAutoSaver::currentProject() const
+IAGuProjectPtr ProjectAutoSaver::currentProject() const
 {
     return globalContext()->currentProject();
 }
@@ -118,7 +118,7 @@ void ProjectAutoSaver::onTrySave()
         }
     };
 
-    IAudacityProjectPtr project = globalContext()->currentProject();
+    IAGuProjectPtr project = globalContext()->currentProject();
     if (!project) {
         LOGD() << "[autosave] no project";
         return;

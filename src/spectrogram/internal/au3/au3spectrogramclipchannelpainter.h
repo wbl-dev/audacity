@@ -10,6 +10,6 @@
 
 #include <QImage>
 
-namespace au::spectrogram::Au3SpectrogramClipChannelPainter {
+namespace agu::spectrogram::Au3SpectrogramClipChannelPainter {
 void fillImage(QImage&, const ViewInfo&, const SelectionInfo&, const SpectrogramTrackContext&, WaveClipChannel&);
 }

@@ -31,7 +31,7 @@
 #include <dlfcn.h>
 #include <X11/Xlib.h>
 
-namespace au::effects {
+namespace agu::effects {
 namespace {
 class LV2Effect : public LV2EffectBase
 {

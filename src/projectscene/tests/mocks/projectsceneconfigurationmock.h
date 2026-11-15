@@ -8,7 +8,7 @@
 
 #include "projectscene/iprojectsceneconfiguration.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class ProjectSceneConfigurationMock : public projectscene::IProjectSceneConfiguration
 {
 public:

@@ -11,7 +11,7 @@
 
 #include "modularity/imoduleinterface.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class ILabelsImporter : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(ILabelsImporter)

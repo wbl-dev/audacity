@@ -27,9 +27,9 @@
 #include "au3-project-rate/QualitySettings.h"
 
 using namespace muse;
-using namespace au::audio;
-using namespace au::au3;
-using namespace au::au3audio;
+using namespace agu::audio;
+using namespace agu::au3;
+using namespace agu::au3audio;
 
 namespace {
 const muse::Settings::Key AUDIO_HOST("au3audio", "AudioIO/Host");
@@ -501,7 +501,7 @@ muse::modularity::ContextPtr Au3AudioDriverController::contextForProject(const A
         return {};
     }
     for (const auto& context : application()->contexts()) {
-        const auto globalContext = muse::modularity::ioc(context)->resolve<au::context::IGlobalContext>("au3audio");
+        const auto globalContext = muse::modularity::ioc(context)->resolve<agu::context::IGlobalContext>("au3audio");
         const auto candidate = globalContext ? globalContext->currentProject() : nullptr;
         if (candidate && reinterpret_cast<AudacityProject*>(candidate->au3ProjectPtr()) == project) {
             return context;
@@ -517,7 +517,7 @@ AudacityProject* Au3AudioDriverController::projectForContext(
         return nullptr;
     }
     const auto globalContext
-        = muse::modularity::ioc(context)->resolve<au::context::IGlobalContext>(
+        = muse::modularity::ioc(context)->resolve<agu::context::IGlobalContext>(
               "au3audio");
     const auto project
         = globalContext ? globalContext->currentProject() : nullptr;

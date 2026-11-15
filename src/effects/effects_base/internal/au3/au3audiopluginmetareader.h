@@ -5,7 +5,7 @@
 
 class PluginProvider;
 
-namespace au::effects {
+namespace agu::effects {
 class Au3AudioPluginMetaReader : public muse::audioplugins::IAudioPluginMetaReader
 {
 public:

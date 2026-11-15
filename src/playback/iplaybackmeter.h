@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-namespace au::playback {
+namespace agu::playback {
 class IPlaybackMeter
 {
 public:

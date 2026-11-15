@@ -3,7 +3,7 @@
  */
 #pragma once
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class IPeakFinder
 {
 public:

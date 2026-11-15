@@ -5,6 +5,6 @@
 
 #include <string_view>
 
-namespace au::effects::extensions {
+namespace agu::effects::extensions {
 inline constexpr std::string_view AUDIO_RESOURCE_TYPE_NAME = "audacity-extension";
 }

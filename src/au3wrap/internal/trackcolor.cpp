@@ -2,8 +2,8 @@
 
 #include "trackedit/trackedittypes.h"
 
-using namespace au::au3;
-using namespace au::trackedit;
+using namespace agu::au3;
+using namespace agu::trackedit;
 
 static const AttachedTrackObjects::RegisteredFactory keyTrackColor{
     [](Track& track) -> std::shared_ptr<TrackColor> { return std::make_shared<TrackColor>(track); }

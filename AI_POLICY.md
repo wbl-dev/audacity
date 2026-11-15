@@ -1,7 +1,7 @@
 # AI / LLM Usage Policy for Contributors
 
 This policy applies to any use of AI tools (LLMs, coding assistants, autonomous agents) in
-contributions to Audacity. It includes code, tests, issues, bug reports, pull request descriptions,
+contributions to AGu. It includes code, tests, issues, bug reports, pull request descriptions,
 review comments, documentation, translations, and other project contributions.
 
 Coding agents have become powerful enough to carry out complex tasks, promising large gains in
@@ -18,7 +18,7 @@ maintainers.
 ## 1. AI-assisted contributions are allowed
 
 You may use LLMs and AI coding tools to help write code, tests, documentation, translations, and
-other contributions to Audacity.
+other contributions to AGu.
 
 The same standards for correctness, maintainability, licensing, testing, and review apply regardless
 of how the contribution was produced.
@@ -40,7 +40,7 @@ need to engage with your understanding and reasoning, not with an automated inte
 
 Exercise caution when allowing AI tools to act on your behalf. It is still expected for a human to
 review, understand and approve any agent task to open pull requests, create issues, post review
-comments, push changes, or take other actions in Audacity repositories, issue trackers, or community
+comments, push changes, or take other actions in AGu repositories, issue trackers, or community
 spaces.
 
 Maintainers may close, postpone, or decline to review contributions that do not meet the project's
@@ -64,14 +64,14 @@ For issues or other contributions that do not involve commits, disclose the assi
 relevant issue, template field, or accompanying description.
 
 Use `Assisted-by:`, not `Co-authored-by:`. An AI tool cannot take responsibility for a contribution
-or sign Audacity's CLA.
+or accept responsibility for a contribution.
 
 Disclosure is intended to give reviewers useful context. It is not necessary to identify exactly
 which individual lines were generated.
 
 When in doubt, disclose.
 
-## 4. Copyright, licensing, and the CLA
+## 4. Copyright and licensing
 
 By submitting a contribution, you are responsible for making sure that you have the necessary rights
 to contribute everything it contains.
@@ -81,15 +81,12 @@ relicense.
 
 If generated output appears to reproduce code, text, artwork, or other material from an identifiable
 source, you must verify that you have the right to use it and that its license is compatible with
-Audacity before including it.
+AGu before including it.
 
 Do not use AI tools to disguise, rewrite, or regenerate material in order to avoid the requirements
 of its original license.
 
-Where Audacity's Contributor License Agreement applies, you must sign it as usual.
-
-AI assistance does not change the representations you make under the CLA or your responsibility for
-having the necessary rights to submit the contribution.
+AI assistance does not change your responsibility for having the necessary rights to submit the contribution.
 
 ## References
 

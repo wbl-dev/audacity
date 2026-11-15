@@ -4,7 +4,7 @@
 
 #include "historypanelmodel.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 using namespace muse;
 
 HistoryPanelModel::HistoryPanelModel(QObject* parent)

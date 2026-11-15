@@ -4,7 +4,7 @@
 import QtQuick
 import QtQuick.Controls
 import Muse.UiComponents
-import Audacity.BuiltinEffectsCollection
+import AGu.BuiltinEffectsCollection
 
 import "./meters"
 

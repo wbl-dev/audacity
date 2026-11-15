@@ -22,7 +22,7 @@ class EffectBase;
 class EffectSettingsAccess;
 class TrackList;
 
-namespace au::effects {
+namespace agu::effects {
 class EffectsProvider : public IEffectsProvider, public muse::async::Asyncable
 {
     muse::GlobalInject<IEffectsConfiguration> configuration;

@@ -5,7 +5,7 @@
 
 #include "au3-module-manager/IEffectIdResolver.h"
 
-namespace au::effects {
+namespace agu::effects {
 class EffectIdResolver : public IEffectIdResolver
 {
 public:

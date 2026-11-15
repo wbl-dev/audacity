@@ -10,7 +10,7 @@
 #include "context/iglobalcontext.h"
 #include "internal/exportconfiguration.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 namespace ChannelMappingTableViewCellType {
 Q_NAMESPACE;
 QML_ELEMENT;

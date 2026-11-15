@@ -4,7 +4,7 @@
 #include "undomanager.h"
 #include "changedetection.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 bool UndoManager::undo()
 {
     if (!canUndo()) {

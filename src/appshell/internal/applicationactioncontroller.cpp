@@ -44,7 +44,7 @@
 
 #include "../appshellcommands.h"
 
-using namespace au::appshell;
+using namespace agu::appshell;
 using namespace muse;
 using namespace muse::actions;
 using namespace muse::rcommand;
@@ -119,7 +119,7 @@ void ApplicationActionController::init()
         { "toggle-statusbar", APP_TOGGLE_STATUSBAR_COMMAND, {} },
         { "restart", APP_RESTART_COMMAND, {} },
         { "fullscreen", APP_TOGGLE_FULLSCREEN_COMMAND, {} },
-        { "about-audacity", APP_ABOUT_COMMAND, {} },
+        { "about-agu", APP_ABOUT_COMMAND, {} },
         { "about-qt", APP_ABOUT_QT_COMMAND, {} },
         { "preference-dialog", APP_PREFERENCES_COMMAND, {} },
         { "revert-factory", APP_REVERT_FACTORY_COMMAND, {} },
@@ -220,7 +220,7 @@ void ApplicationActionController::onDropEvent(QDropEvent* event)
             continue;
         }
 
-        if (au::project::isAudacityFile(muse::io::path_t(url))) {
+        if (agu::project::isAudacityFile(muse::io::path_t(url))) {
             projectUrls << url;
         } else {
             mediaFiles << url.toLocalFile();
@@ -404,7 +404,7 @@ muse::Ret ApplicationActionController::toggleFullScreen()
 
 muse::Ret ApplicationActionController::openAboutDialog()
 {
-    interactive()->open("audacity://about/audacity");
+    interactive()->open("agu://about/agu");
     return make_ok();
 }
 
@@ -422,13 +422,13 @@ muse::Ret ApplicationActionController::openPreferencesDialog()
     //     return;
     // }
 
-    interactive()->open("audacity://preferences");
+    interactive()->open("agu://preferences");
     return make_ok();
 }
 
 muse::Ret ApplicationActionController::openAudioSettingsDialog()
 {
-    muse::UriQuery preferencesUri("audacity://preferences");
+    muse::UriQuery preferencesUri("agu://preferences");
     preferencesUri.addParam("currentPageId", muse::Val("audio-settings"));
 
     interactive()->open(preferencesUri);
@@ -437,7 +437,7 @@ muse::Ret ApplicationActionController::openAudioSettingsDialog()
 
 muse::Ret ApplicationActionController::openShortcutsPreferencesDialog()
 {
-    muse::UriQuery preferencesUri("audacity://preferences");
+    muse::UriQuery preferencesUri("agu://preferences");
     preferencesUri.addParam("currentPageId", muse::Val("shortcuts"));
 
     interactive()->open(preferencesUri);
@@ -446,7 +446,7 @@ muse::Ret ApplicationActionController::openShortcutsPreferencesDialog()
 
 muse::Ret ApplicationActionController::openEditingPreferencesDialog()
 {
-    muse::UriQuery preferencesUri("audacity://preferences");
+    muse::UriQuery preferencesUri("agu://preferences");
     preferencesUri.addParam("currentPageId", muse::Val("editing"));
 
     interactive()->open(preferencesUri);
@@ -455,7 +455,7 @@ muse::Ret ApplicationActionController::openEditingPreferencesDialog()
 
 muse::Ret ApplicationActionController::openSpectrogramPreferencesDialog()
 {
-    muse::UriQuery preferencesUri("audacity://preferences");
+    muse::UriQuery preferencesUri("agu://preferences");
     preferencesUri.addParam("currentPageId", muse::Val("spectrogram"));
 
     interactive()->open(preferencesUri);
@@ -491,8 +491,8 @@ muse::Ret ApplicationActionController::revertToFactorySettings()
         static constexpr bool NOTIFY_OTHER_INSTANCES = false;
         configuration()->revertToFactorySettings(KEEP_DEFAULT_SETTINGS, NOTIFY_ABOUT_CHANGES, NOTIFY_OTHER_INSTANCES);
 
-        std::string title = muse::trc("appshell", "Would you like to restart Audacity now?");
-        std::string question = muse::trc("appshell", "Audacity needs to be restarted for these changes to take effect.");
+        std::string title = muse::trc("appshell", "Would you like to restart AGu now?");
+        std::string question = muse::trc("appshell", "AGu needs to be restarted for these changes to take effect.");
 
         int restartBtn = int(muse::IInteractive::Button::Apply);
         auto promise = interactive()->question(title, question,
@@ -500,7 +500,7 @@ muse::Ret ApplicationActionController::revertToFactorySettings()
                                                  muse::IInteractive::ButtonData(restartBtn,
                                                                                 muse::trc("appshell", "Restart"), true) },
                                                restartBtn, {},
-                                               muse::trc("appshell", "Restart Audacity"));
+                                               muse::trc("appshell", "Restart AGu"));
 
         promise.onResolve(this, [this](const muse::IInteractive::Result& res) {
             if (!res.isButton(muse::IInteractive::Button::Cancel)) {

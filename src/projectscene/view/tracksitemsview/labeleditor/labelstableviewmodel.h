@@ -21,7 +21,7 @@
 
 #include "trackedit/trackedittypes.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 namespace LabelsTableViewCellType {
 Q_NAMESPACE;
 QML_ELEMENT;

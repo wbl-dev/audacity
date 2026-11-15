@@ -14,7 +14,7 @@
 #include "ilabelsexporter.h"
 #include "ilabelsconfiguration.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class ExportLabelsModel : public QObject, public muse::async::Asyncable, public muse::Contextable
 {
     Q_OBJECT

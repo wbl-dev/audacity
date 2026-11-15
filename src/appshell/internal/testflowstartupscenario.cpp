@@ -5,9 +5,9 @@
 
 #include "appshell/testflowstartup.h"
 
-using namespace au::appshell;
+using namespace agu::appshell;
 
-void au::appshell::installTestflowStartupScenario(const muse::modularity::ContextPtr& ctx)
+void agu::appshell::installTestflowStartupScenario(const muse::modularity::ContextPtr& ctx)
 {
     muse::modularity::ModulesContextIoC* ioc = muse::modularity::ioc(ctx);
     ioc->unregister<IStartupScenario>("appshell");

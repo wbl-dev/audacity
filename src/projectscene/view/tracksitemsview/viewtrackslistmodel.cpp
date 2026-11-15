@@ -9,7 +9,7 @@
 #include "playback/playbacktypes.h"
 #include "trackedit/dom/track.h"
 
-using namespace au::projectscene;
+using namespace agu::projectscene;
 
 namespace {
 constexpr int numDecimals(float value)
@@ -52,7 +52,7 @@ void ViewTracksListModel::load()
         load();
     }, muse::async::Asyncable::Mode::SetReplace);
 
-    au::trackedit::ITrackeditProjectPtr prj = globalContext()->currentTrackeditProject();
+    agu::trackedit::ITrackeditProjectPtr prj = globalContext()->currentTrackeditProject();
     if (!prj) {
         return;
     }
@@ -163,7 +163,7 @@ void ViewTracksListModel::load()
         emit dataChanged(index(0), index(lastIndex), { FrequencySelectionRole });
     }, muse::async::Asyncable::Mode::SetReplace);
 
-    prj->tracksChanged().onReceive(this, [this](const std::vector<au::trackedit::Track> tracks) {
+    prj->tracksChanged().onReceive(this, [this](const std::vector<agu::trackedit::Track> tracks) {
         Q_UNUSED(tracks);
         muse::async::Async::call(this, [this]() {
             load();
@@ -267,10 +267,10 @@ int ViewTracksListModel::rowCount(const QModelIndex&) const
 }
 
 namespace {
-au::trackedit::TrackViewType getTrackViewType(const au::project::IAudacityProjectPtr& prj, const au::trackedit::TrackId& trackId)
+agu::trackedit::TrackViewType getTrackViewType(const agu::project::IAGuProjectPtr& prj, const agu::trackedit::TrackId& trackId)
 {
     if (!prj) {
-        return au::trackedit::TrackViewType::Undefined;
+        return agu::trackedit::TrackViewType::Undefined;
     }
     const auto viewState = prj->viewState();
     return viewState->trackViewType(trackId).val;
@@ -283,7 +283,7 @@ QVariant ViewTracksListModel::data(const QModelIndex& index, int role) const
         return {};
     }
 
-    const au::trackedit::Track& track = m_trackList.at(index.row());
+    const agu::trackedit::Track& track = m_trackList.at(index.row());
     switch (role) {
     case TrackIdRole:
         return QVariant::fromValue(track.id);
@@ -305,7 +305,7 @@ QVariant ViewTracksListModel::data(const QModelIndex& index, int role) const
         return selectionController()->selectedClips().size() + selectionController()->selectedLabels().size() > 1;
     }
     case IsTrackAudibleRole: {
-        if (track.type == au::trackedit::TrackType::Label) {
+        if (track.type == agu::trackedit::TrackType::Label) {
             return false;
         }
 
@@ -314,7 +314,7 @@ QVariant ViewTracksListModel::data(const QModelIndex& index, int role) const
         } else if (trackPlaybackControl()->muted(track.id)) {
             return false;
         } else {
-            return std::none_of(m_trackList.begin(), m_trackList.end(), [this](const au::trackedit::Track& t) {
+            return std::none_of(m_trackList.begin(), m_trackList.end(), [this](const agu::trackedit::Track& t) {
                     return trackPlaybackControl()->solo(t.id);
                 });
         }
@@ -323,10 +323,10 @@ QVariant ViewTracksListModel::data(const QModelIndex& index, int role) const
         return QVariant::fromValue(track.type);
 
     case IsStereoRole:
-        return track.type == au::trackedit::TrackType::Stereo;
+        return track.type == agu::trackedit::TrackType::Stereo;
 
     case IsAutomationEnabledRole: {
-        const project::IAudacityProjectPtr prj = globalContext()->currentProject();
+        const project::IAGuProjectPtr prj = globalContext()->currentProject();
         const IProjectViewStatePtr vs = prj ? prj->viewState() : nullptr;
 
         if (!vs) {
@@ -403,7 +403,7 @@ bool ViewTracksListModel::isVerticalRulersVisible() const
 
 int ViewTracksListModel::verticalRulerWidth() const
 {
-    const project::IAudacityProjectPtr prj = globalContext()->currentProject();
+    const project::IAGuProjectPtr prj = globalContext()->currentProject();
     const IProjectViewStatePtr viewState = prj ? prj->viewState() : nullptr;
 
     if (!viewState) {
@@ -425,7 +425,7 @@ QModelIndex ViewTracksListModel::indexOf(trackedit::TrackId trackId)
 
 int ViewTracksListModel::totalTracksHeight() const
 {
-    const project::IAudacityProjectPtr prj = globalContext()->currentProject();
+    const project::IAGuProjectPtr prj = globalContext()->currentProject();
     const IProjectViewStatePtr viewState = prj ? prj->viewState() : nullptr;
 
     if (!viewState) {

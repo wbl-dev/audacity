@@ -10,7 +10,7 @@
 
 #include <unordered_set>
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 class IFrequencySelectionRestorer;
 
 class FrequencySelectionController : public IFrequencySelectionController, public muse::Contextable, public muse::async::Asyncable

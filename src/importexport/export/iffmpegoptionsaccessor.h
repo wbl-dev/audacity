@@ -6,7 +6,7 @@
 #include "io/path.h"
 #include "modularity/imoduleinterface.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class IFFmpegOptionsAccessor : MODULE_GLOBAL_INTERFACE
 {
     INTERFACE_ID(IFFmpegOptionsAccessor)

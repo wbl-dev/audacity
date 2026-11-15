@@ -3,7 +3,7 @@
 #include "au3-effects/LoadEffects.h"
 #include "au3-strings/TranslatableString.h"
 
-namespace au::effects {
+namespace agu::effects {
 InvertEffect::InvertEffect()
 {
 }

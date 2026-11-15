@@ -2,7 +2,7 @@
 
 #include "au3-effects/StatefulEffect.h"
 
-namespace au::effects {
+namespace agu::effects {
 class ReverseEffect : public StatefulEffect
 {
 public:

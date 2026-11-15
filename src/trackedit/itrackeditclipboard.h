@@ -11,7 +11,7 @@
 
 #include "au3wrap/au3types.h"
 
-namespace au::trackedit {
+namespace agu::trackedit {
 class ITrackeditClipboard : MODULE_EXPORT_INTERFACE
 {
     INTERFACE_ID(ITrackeditClipboard)

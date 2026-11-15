@@ -100,7 +100,7 @@ std::vector<QPoint> interpolatePoints(const QPoint& previousPosition, const QPoi
 }
 }
 
-namespace au::projectscene::samplespainterutils {
+namespace agu::projectscene::samplespainterutils {
 float FromDB(float value, double dBRange)
 {
     if (value == 0) {
@@ -177,7 +177,7 @@ int getWaveYPos(float value, float min, float max,
     return (int)(value * (height - 1) + 0.5);
 }
 
-void drawBackground(QPainter& painter, const au::projectscene::WaveMetrics& metrics, const IWavePainter::Style& style,
+void drawBackground(QPainter& painter, const agu::projectscene::WaveMetrics& metrics, const IWavePainter::Style& style,
                     const double trimLeft)
 {
     const ZoomInfo zoomInfo{ metrics.fromTime, metrics.zoom };
@@ -206,16 +206,16 @@ void drawBackground(QPainter& painter, const au::projectscene::WaveMetrics& metr
     }
 }
 
-void drawCenterLine(QPainter& painter, const au::projectscene::WaveMetrics& metrics, const IWavePainter::Style& style, const int y)
+void drawCenterLine(QPainter& painter, const agu::projectscene::WaveMetrics& metrics, const IWavePainter::Style& style, const int y)
 {
     painter.setPen(style.centerLine);
     painter.drawLine(metrics.left, y, metrics.left + metrics.width, y);
 }
 
-void drawClippedSamples(const au::projectscene::SampleData& samples,
-                        const au::projectscene::WaveMetrics& metrics,
+void drawClippedSamples(const agu::projectscene::SampleData& samples,
+                        const agu::projectscene::WaveMetrics& metrics,
                         QPainter& painter,
-                        const au::projectscene::IWavePainter::Style& style)
+                        const agu::projectscene::IWavePainter::Style& style)
 {
     if (samples.clippedX.empty()) {
         return;
@@ -230,7 +230,7 @@ void drawClippedSamples(const au::projectscene::SampleData& samples,
     }
 }
 
-SampleData getSampleData(const au::au3::Au3WaveClip& clip, int channelIndex, const au::projectscene::WaveMetrics& metrics,
+SampleData getSampleData(const agu::au3::Au3WaveClip& clip, int channelIndex, const agu::projectscene::WaveMetrics& metrics,
                          bool dB, float dBRange, float zoomMax, float zoomMin)
 {
     const ZoomInfo zoomInfo{ metrics.fromTime, metrics.zoom };
@@ -278,11 +278,11 @@ SampleData getSampleData(const au::au3::Au3WaveClip& clip, int channelIndex, con
     return SampleData(ypos, xpos, clippedX);
 }
 
-std::optional<int> hitChannelIndex(std::shared_ptr<project::IAudacityProject> project, const trackedit::ClipKey& clipKey,
+std::optional<int> hitChannelIndex(std::shared_ptr<project::IAGuProject> project, const trackedit::ClipKey& clipKey,
                                    const QPoint& position, const IWavePainter::Params& params)
 {
-    au::au3::Au3Project* au3Project = reinterpret_cast<au::au3::Au3Project*>(project->au3ProjectPtr());
-    WaveTrack* track = au::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
+    agu::au3::Au3Project* au3Project = reinterpret_cast<agu::au3::Au3Project*>(project->au3ProjectPtr());
+    WaveTrack* track = agu::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
     if (!track) {
         return std::nullopt;
     }
@@ -307,16 +307,16 @@ std::optional<int> hitChannelIndex(std::shared_ptr<project::IAudacityProject> pr
     return std::nullopt;
 }
 
-std::optional<int> hitNearestSampleChannelIndex(std::shared_ptr<au::project::IAudacityProject> project, const trackedit::ClipKey& clipKey,
+std::optional<int> hitNearestSampleChannelIndex(std::shared_ptr<agu::project::IAGuProject> project, const trackedit::ClipKey& clipKey,
                                                 const QPoint& position, const IWavePainter::Params& params)
 {
-    au::au3::Au3Project* au3Project = reinterpret_cast<au::au3::Au3Project*>(project->au3ProjectPtr());
-    WaveTrack* track = au::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
+    agu::au3::Au3Project* au3Project = reinterpret_cast<agu::au3::Au3Project*>(project->au3ProjectPtr());
+    WaveTrack* track = agu::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
     if (!track) {
         return std::nullopt;
     }
 
-    std::shared_ptr<WaveClip> waveClip = au::au3::DomAccessor::findWaveClip(track, clipKey.itemId);
+    std::shared_ptr<WaveClip> waveClip = agu::au3::DomAccessor::findWaveClip(track, clipKey.itemId);
     if (!waveClip) {
         return std::nullopt;
     }
@@ -400,16 +400,16 @@ std::optional<int> hitNearestSampleChannelIndex(std::shared_ptr<au::project::IAu
 }
 
 void setIsolatedPoint(const unsigned int currentChannel, const trackedit::ClipKey& clipKey,
-                      std::shared_ptr<au::project::IAudacityProject> project, const QPoint& isolatedPoint,
+                      std::shared_ptr<agu::project::IAGuProject> project, const QPoint& isolatedPoint,
                       const QPoint& currentPosition, const IWavePainter::Params& params)
 {
-    au::au3::Au3Project* au3Project = reinterpret_cast<au::au3::Au3Project*>(project->au3ProjectPtr());
-    WaveTrack* track = au::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
+    agu::au3::Au3Project* au3Project = reinterpret_cast<agu::au3::Au3Project*>(project->au3ProjectPtr());
+    WaveTrack* track = agu::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
     if (!track) {
         return;
     }
 
-    std::shared_ptr<WaveClip> waveClip = au::au3::DomAccessor::findWaveClip(track, clipKey.itemId);
+    std::shared_ptr<WaveClip> waveClip = agu::au3::DomAccessor::findWaveClip(track, clipKey.itemId);
     if (!waveClip) {
         return;
     }
@@ -464,17 +464,17 @@ void setIsolatedPoint(const unsigned int currentChannel, const trackedit::ClipKe
     WaveChannelUtilities::SetFloatAtTime(*waveChannel, isolatedPointTime + clip->GetPlayStartTime(), newValue, narrowestSampleFormat);
 }
 
-void setLastClickPos(const unsigned int currentChannel, std::shared_ptr<au::project::IAudacityProject> project,
+void setLastClickPos(const unsigned int currentChannel, std::shared_ptr<agu::project::IAGuProject> project,
                      const trackedit::ClipKey& clipKey, const QPoint& lastPosition, const QPoint& currentPosition,
                      const IWavePainter::Params& params)
 {
-    au::au3::Au3Project* au3Project = reinterpret_cast<au::au3::Au3Project*>(project->au3ProjectPtr());
-    WaveTrack* track = au::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
+    agu::au3::Au3Project* au3Project = reinterpret_cast<agu::au3::Au3Project*>(project->au3ProjectPtr());
+    WaveTrack* track = agu::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
     if (!track) {
         return;
     }
 
-    std::shared_ptr<WaveClip> waveClip = au::au3::DomAccessor::findWaveClip(track, clipKey.itemId);
+    std::shared_ptr<WaveClip> waveClip = agu::au3::DomAccessor::findWaveClip(track, clipKey.itemId);
     if (!waveClip) {
         return;
     }
@@ -560,7 +560,7 @@ void setLastClickPos(const unsigned int currentChannel, std::shared_ptr<au::proj
                                             PlaybackDirection::forward);
 }
 
-void smoothLastClickPos(const unsigned int currentChannel, std::shared_ptr<au::project::IAudacityProject> project,
+void smoothLastClickPos(const unsigned int currentChannel, std::shared_ptr<agu::project::IAGuProject> project,
                         const trackedit::ClipKey& clipKey, const QPoint& currentPosition, const IWavePainter::Params& params)
 {
     // Get the region size around the selected point (one central sample plus some kernel radius on both sides)
@@ -575,13 +575,13 @@ void smoothLastClickPos(const unsigned int currentChannel, std::shared_ptr<au::p
     //  with a triangular mixing probability whose value at the center point is
     //  SMOOTHING_PROPORTION_MAX and at the far bounds is SMOOTHING_PROPORTION_MIN
 
-    au::au3::Au3Project* au3Project = reinterpret_cast<au::au3::Au3Project*>(project->au3ProjectPtr());
-    WaveTrack* track = au::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
+    agu::au3::Au3Project* au3Project = reinterpret_cast<agu::au3::Au3Project*>(project->au3ProjectPtr());
+    WaveTrack* track = agu::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
     if (!track) {
         return;
     }
 
-    std::shared_ptr<WaveClip> waveClip = au::au3::DomAccessor::findWaveClip(track, clipKey.itemId);
+    std::shared_ptr<WaveClip> waveClip = agu::au3::DomAccessor::findWaveClip(track, clipKey.itemId);
     if (!waveClip) {
         return;
     }

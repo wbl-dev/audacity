@@ -6,7 +6,7 @@
 #include <QQmlEngine>
 #include <QQmlContext>
 
-using namespace au::effects;
+using namespace agu::effects;
 
 EffectsUiEngine::~EffectsUiEngine()
 {

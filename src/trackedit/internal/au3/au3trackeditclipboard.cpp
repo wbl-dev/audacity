@@ -42,14 +42,14 @@ static std::vector<muse::io::path_t> extractLocalFilePaths(const QMimeData* md)
 }
 }
 
-using namespace au::trackedit;
+using namespace agu::trackedit;
 
 std::vector<ITrackDataPtr> Au3TrackeditClipboard::trackDataCopy() const
 {
     std::vector<ITrackDataPtr> sourceData = clipboardData()->trackData();
 
     // Make sure that data copied from another project stores its samples within the project it is pasted into
-    au::au3::Au3Project* project = reinterpret_cast<au::au3::Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());
+    agu::au3::Au3Project* project = reinterpret_cast<agu::au3::Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());
     const WaveTrackFactory& trackFactory = WaveTrackFactory::Get(*project);
 
     std::vector<Au3TrackDataPtr> deepCopiedTracksData;

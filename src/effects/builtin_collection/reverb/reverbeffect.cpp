@@ -7,7 +7,7 @@
 #include "au3-math/Reverb_libSoX.h"
 #include "au3-strings/TranslatableString.h"
 
-namespace au::effects {
+namespace agu::effects {
 struct Reverb_priv_t
 {
     reverb_t reverb;
@@ -29,7 +29,7 @@ struct Reverb_priv_ex : Reverb_priv_t
 };
 }
 
-using namespace au::effects;
+using namespace agu::effects;
 
 ReverbEffect::ReverbEffect()
 {
@@ -370,7 +370,7 @@ ReverbEffect::LoadFactoryPreset(int id, EffectSettings& settings) const
     return { nullptr };
 }
 
-bool au::effects::operator==(const ReverbSettings& a, const ReverbSettings& b)
+bool agu::effects::operator==(const ReverbSettings& a, const ReverbSettings& b)
 {
     // With C++20, all of this can be replaced by =default
     return muse::is_equal(a.mRoomSize, b.mRoomSize)
@@ -385,7 +385,7 @@ bool au::effects::operator==(const ReverbSettings& a, const ReverbSettings& b)
            && (a.mWetOnly == b.mWetOnly);
 }
 
-bool au::effects::OnlySimpleParametersChanged(
+bool agu::effects::OnlySimpleParametersChanged(
     const ReverbSettings& a, const ReverbSettings& b)
 {
     // A "simple" reverb parameter is one that when changed, does not require the

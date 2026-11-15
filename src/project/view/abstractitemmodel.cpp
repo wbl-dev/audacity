@@ -23,7 +23,7 @@
 
 #include "uicomponents/view/modelutils.h"
 
-using namespace au::project;
+using namespace agu::project;
 
 const QString AbstractItemModel::NAME_KEY("name");
 const QString AbstractItemModel::SLUG_KEY("slug");

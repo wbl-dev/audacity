@@ -13,7 +13,7 @@
 #include "au3wrap/au3types.h"
 #include <cstddef>
 
-namespace au::trackedit::utils {
+namespace agu::trackedit::utils {
 //! To avoid risk of `getWaveTrack(myTracks, myClipKey.trackId)` ...
 struct TrackIndex {
     const size_t value;

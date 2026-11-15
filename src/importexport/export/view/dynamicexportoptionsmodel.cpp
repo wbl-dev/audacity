@@ -41,7 +41,7 @@ static OptionValue fromQVariant(const QVariant& v)
     return {};
 }
 
-static bool valuesEqual(const au::importexport::OptionValue& a, const au::importexport::OptionValue& b)
+static bool valuesEqual(const agu::importexport::OptionValue& a, const agu::importexport::OptionValue& b)
 {
     if (a.index() != b.index()) {
         return false;
@@ -119,17 +119,17 @@ bool DynamicExportOptionsModel::setData(const QModelIndex& idx, const QVariant& 
     }
     r.value = v;
 
-    std::optional<au::importexport::ExportOption> option_opt = exporter()->option(idx.row());
+    std::optional<agu::importexport::ExportOption> option_opt = exporter()->option(idx.row());
     if (!option_opt.has_value()) {
         return false;
     }
-    au::importexport::ExportOption option = option_opt.value();
+    agu::importexport::ExportOption option = option_opt.value();
 
-    std::optional<au::importexport::OptionValue> value_opt = exporter()->value(option.id);
+    std::optional<agu::importexport::OptionValue> value_opt = exporter()->value(option.id);
     if (!value_opt.has_value()) {
         return false;
     }
-    au::importexport::OptionValue value = value_opt.value();
+    agu::importexport::OptionValue value = value_opt.value();
 
     value = fromQVariant(v);
     exporter()->setValue(option.id, value);
@@ -176,32 +176,32 @@ void DynamicExportOptionsModel::reloadFromEditor()
     newRows.reserve(exporter()->optionsCount());
 
     for (int i = 0; i < exporter()->optionsCount(); ++i) {
-        std::optional<au::importexport::ExportOption> option_opt = exporter()->option(i);
+        std::optional<agu::importexport::ExportOption> option_opt = exporter()->option(i);
         IF_ASSERT_FAILED(option_opt.has_value()) {
             continue;
         }
-        au::importexport::ExportOption option = option_opt.value();
+        agu::importexport::ExportOption option = option_opt.value();
 
-        std::optional<au::importexport::OptionValue> value_opt = exporter()->value(option.id);
+        std::optional<agu::importexport::OptionValue> value_opt = exporter()->value(option.id);
         IF_ASSERT_FAILED(value_opt.has_value()) {
             continue;
         }
-        au::importexport::OptionValue value = value_opt.value();
+        agu::importexport::OptionValue value = value_opt.value();
 
         Row r;
         r.id = option.id;
         r.title = QString::fromStdString(option.title);
 
         r.flags = Flags{};
-        if (option.flags & au::importexport::ExportOption::ReadOnly) {
+        if (option.flags & agu::importexport::ExportOption::ReadOnly) {
             r.flags |= ReadOnly;
         }
-        if (option.flags & au::importexport::ExportOption::Hidden) {
+        if (option.flags & agu::importexport::ExportOption::Hidden) {
             r.flags |= Hidden;
         }
 
-        const auto typeMask = (option.flags & au::importexport::ExportOption::TypeMask);
-        if (typeMask == au::importexport::ExportOption::TypeEnum) {
+        const auto typeMask = (option.flags & agu::importexport::ExportOption::TypeMask);
+        if (typeMask == agu::importexport::ExportOption::TypeEnum) {
             r.type = ExportOptionType::Type::TypeEnum;
 
             r.names.clear();
@@ -224,7 +224,7 @@ void DynamicExportOptionsModel::reloadFromEditor()
             }
 
             r.value = (selectedIndex >= 0) ? QVariant{ selectedIndex } : QVariant { -1 };
-        } else if (typeMask == au::importexport::ExportOption::TypeRange) {
+        } else if (typeMask == agu::importexport::ExportOption::TypeRange) {
             r.type = ExportOptionType::Type::TypeRange;
 
             int minv = 0, maxv = 0;

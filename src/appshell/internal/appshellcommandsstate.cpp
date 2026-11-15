@@ -8,7 +8,7 @@
 
 #include "../appshellcommands.h"
 
-using namespace au::appshell;
+using namespace agu::appshell;
 using namespace muse;
 using namespace muse::rcommand;
 

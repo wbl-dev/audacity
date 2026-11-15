@@ -10,7 +10,7 @@
 #include <QVariantList>
 #include <QVariantMap>
 
-namespace au::trackedit::api::detail {
+namespace agu::trackedit::api::detail {
 struct EditState;
 
 class ProjectSelectionObject final : public QObject
@@ -71,4 +71,4 @@ private:
     QVariantList m_audioTracks;
     QVariantList m_labelTracks;
 };
-} // namespace au::trackedit::api::detail
+} // namespace agu::trackedit::api::detail

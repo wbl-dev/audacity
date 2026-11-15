@@ -12,12 +12,12 @@
 #include "au3-realtime-effects/RealtimeEffectState.h"
 #include "au3-realtime-effects/RealtimeEffectList.h"
 
-#include "project/iaudacityproject.h"
+#include "project/iaguproject.h"
 
 #include "global/types/translatablestring.h"
 #include "au3wrap/internal/wxtypes_convert.h"
 
-namespace au::effects {
+namespace agu::effects {
 /*!
  * Note on realtime effect list updates.
  *
@@ -51,7 +51,7 @@ void RealtimeEffectService::init()
     onProjectChanged(globalContext()->currentProject());
 }
 
-void RealtimeEffectService::onProjectChanged(const au::project::IAudacityProjectPtr& project)
+void RealtimeEffectService::onProjectChanged(const agu::project::IAGuProjectPtr& project)
 {
     m_rtEffectSubscriptions.clear();
 
@@ -59,7 +59,7 @@ void RealtimeEffectService::onProjectChanged(const au::project::IAudacityProject
         return;
     }
 
-    auto au3Project = reinterpret_cast<au::au3::Au3Project*>(project->au3ProjectPtr());
+    auto au3Project = reinterpret_cast<agu::au3::Au3Project*>(project->au3ProjectPtr());
 
     setRealtimeEffectRestorerSignals(*au3Project, { m_realtimeEffectStackChanged, m_effectSettingsChanged });
 
@@ -500,5 +500,5 @@ bool RealtimeEffectService::isAvailable(const RealtimeEffectStatePtr& state) con
 }
 
 // Inject a factory for realtime effects
-static RealtimeEffectState::EffectFactory::Scope scope{ &au::effects::RealtimeEffectService::getInstanceFactory };
-static RealtimeEffectState::EffectIdResolver::Scope idResolverScope{ &au::effects::RealtimeEffectService::resolveEffectId };
+static RealtimeEffectState::EffectFactory::Scope scope{ &agu::effects::RealtimeEffectService::getInstanceFactory };
+static RealtimeEffectState::EffectIdResolver::Scope idResolverScope{ &agu::effects::RealtimeEffectService::resolveEffectId };

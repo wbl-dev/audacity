@@ -12,7 +12,7 @@
 
 #include "trackitem.h"
 
-namespace au::projectscene {
+namespace agu::projectscene {
 class WaveTrackItem : public TrackItem
 {
     Q_OBJECT

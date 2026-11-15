@@ -2,7 +2,7 @@
 
 #include "framework/rcommand/imodulecommandsregister.h"
 
-namespace au::importexport {
+namespace agu::importexport {
 class LabelsCommandsRegister : public muse::rcommand::IModuleCommandsRegister
 {
 public:

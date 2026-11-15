@@ -15,11 +15,11 @@
 constexpr auto SAMPLE_TICK_SIZE = 4;
 constexpr auto SAMPLE_HEAD_PADDING = (SAMPLE_TICK_SIZE / 2) + 1;
 
-using namespace au::au3;
+using namespace agu::au3;
 
 namespace {
-void drawSampleHead(const au::projectscene::SampleData& samples, const au::projectscene::WaveMetrics& metrics, QPainter& painter,
-                    const au::projectscene::IWavePainter::Style& style, const bool showClipping)
+void drawSampleHead(const agu::projectscene::SampleData& samples, const agu::projectscene::WaveMetrics& metrics, QPainter& painter,
+                    const agu::projectscene::IWavePainter::Style& style, const bool showClipping)
 {
     size_t slen = samples.size();
     const ZoomInfo zoomInfo{ metrics.fromTime, metrics.zoom };
@@ -62,8 +62,8 @@ void drawSampleHead(const au::projectscene::SampleData& samples, const au::proje
     }
 }
 
-void drawSampleStalk(const au::projectscene::SampleData& samples, int yZero, const au::projectscene::WaveMetrics& metrics,
-                     QPainter& painter, const au::projectscene::IWavePainter::Style& style, const bool showClipping)
+void drawSampleStalk(const agu::projectscene::SampleData& samples, int yZero, const agu::projectscene::WaveMetrics& metrics,
+                     QPainter& painter, const agu::projectscene::IWavePainter::Style& style, const bool showClipping)
 {
     const size_t slen = samples.size();
 
@@ -90,20 +90,20 @@ void drawSampleStalk(const au::projectscene::SampleData& samples, int yZero, con
 }
 }
 
-namespace au::projectscene {
+namespace agu::projectscene {
 void SamplesPainter::paint(QPainter& painter, const trackedit::ClipKey& clipKey, const IWavePainter::Params& params)
 {
     painter.save();
     painter.setRenderHint(QPainter::Antialiasing, false);
 
-    au::au3::Au3Project* au3Project = reinterpret_cast<au::au3::Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());
+    agu::au3::Au3Project* au3Project = reinterpret_cast<agu::au3::Au3Project*>(globalContext()->currentProject()->au3ProjectPtr());
 
-    WaveTrack* track = au::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
+    WaveTrack* track = agu::au3::DomAccessor::findWaveTrack(*au3Project, TrackId(clipKey.trackId));
     if (!track) {
         return;
     }
 
-    std::shared_ptr<WaveClip> waveClip = au::au3::DomAccessor::findWaveClip(track, clipKey.itemId);
+    std::shared_ptr<WaveClip> waveClip = agu::au3::DomAccessor::findWaveClip(track, clipKey.itemId);
     if (!waveClip) {
         return;
     }

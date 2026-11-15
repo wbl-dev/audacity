@@ -4,7 +4,7 @@
 #include "clipparameters.h"
 #include "spectrogramutils.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 namespace {
 double GetBlankSpaceBeforePlayEndTime(const ClipTimes& clip)
 {

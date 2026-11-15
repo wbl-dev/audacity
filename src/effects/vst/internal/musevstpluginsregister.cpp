@@ -7,7 +7,7 @@
 
 #include "log.h"
 
-using namespace au::effects;
+using namespace agu::effects;
 using namespace muse::vst;
 
 IVstPluginInstancePtr MuseVstInstancesRegister::makeAndRegisterInstrPlugin(const muse::audio::AudioResourceId&,

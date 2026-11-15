@@ -16,12 +16,12 @@
 
 using namespace muse;
 using namespace muse::async;
-using namespace au::record;
-using namespace au::playback;
-using namespace au::au3;
+using namespace agu::record;
+using namespace agu::playback;
+using namespace agu::au3;
 
 Au3AudioInput::Au3AudioInput(const muse::modularity::ContextPtr& ctx)
-    : muse::Contextable(ctx), m_inputMeter{au::au3::createAudioMeter()}
+    : muse::Contextable(ctx), m_inputMeter{agu::au3::createAudioMeter()}
 {
     globalContext()->currentProjectChanged().onNotify(this, [this](){
         auto currentProject = globalContext()->currentProject();
@@ -110,12 +110,12 @@ muse::async::Channel<float> Au3AudioInput::recordVolumeChanged() const
     return m_recordVolumeChanged;
 }
 
-muse::async::Channel<au::audio::audioch_t, au::audio::MeterSignal> Au3AudioInput::recordSignalChanges() const
+muse::async::Channel<agu::audio::audioch_t, agu::audio::MeterSignal> Au3AudioInput::recordSignalChanges() const
 {
     return m_inputMeter->dataChanged();
 }
 
-muse::async::Channel<au::audio::audioch_t, au::audio::MeterSignal> Au3AudioInput::recordTrackSignalChanges(
+muse::async::Channel<agu::audio::audioch_t, agu::audio::MeterSignal> Au3AudioInput::recordTrackSignalChanges(
     int64_t key) const
 {
     return m_inputMeter->dataChanged(audio::IAudioMeter::TrackId { key });
@@ -197,15 +197,15 @@ int Au3AudioInput::getFocusedTrackChannels() const
 
     const auto trackId = trackNavigationController()->focusedTrack();
 
-    std::optional<au::trackedit::Track> track = prj->track(trackId);
+    std::optional<agu::trackedit::Track> track = prj->track(trackId);
     if (!track) {
         return 0;
     }
 
     int channels = 0;
-    if (track->type == au::trackedit::TrackType::Mono) {
+    if (track->type == agu::trackedit::TrackType::Mono) {
         channels = 1;
-    } else if (track->type == au::trackedit::TrackType::Stereo) {
+    } else if (track->type == agu::trackedit::TrackType::Stereo) {
         channels = 2;
     }
 

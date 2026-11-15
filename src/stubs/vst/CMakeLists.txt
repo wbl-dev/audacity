@@ -5,4 +5,4 @@ target_sources(effects_vst PRIVATE
     vsteffectsstubmodule.h
 )
 
-add_subdirectory(qml/Audacity/Vst)
+add_subdirectory(qml/AGu/Vst)

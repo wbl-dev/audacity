@@ -3,7 +3,7 @@
  */
 #include "abstractsectionparameterslistmodel.h"
 
-namespace au::spectrogram {
+namespace agu::spectrogram {
 namespace {
 constexpr int columnSpacing = 8;
 }

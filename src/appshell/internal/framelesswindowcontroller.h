@@ -26,7 +26,7 @@
 #include <QAbstractNativeEventFilter>
 #include <QWindow>
 
-namespace au::appshell {
+namespace agu::appshell {
 class FramelessWindowController : public QAbstractNativeEventFilter
 {
 public:

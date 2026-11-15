@@ -5,9 +5,9 @@ import QtQuick
 import QtQuick.Layouts
 import Muse.Ui 1.0
 import Muse.UiComponents
-import Audacity.Effects
-import Audacity.BuiltinEffects
-import Audacity.BuiltinEffectsCollection
+import AGu.Effects
+import AGu.BuiltinEffects
+import AGu.BuiltinEffectsCollection
 
 import "../timeline"
 

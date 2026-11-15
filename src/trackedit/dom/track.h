@@ -12,7 +12,7 @@
 #include "clip.h" // IWYU pragma: export
 #include "label.h" // IWYU pragma: export
 
-namespace au::trackedit {
+namespace agu::trackedit {
 enum class TrackType {
     Undefined,
     Mono,
@@ -49,11 +49,11 @@ inline const std::array<TrackFormatInfo, 3>& availableTrackFormats()
 {
     static const std::array<TrackFormatInfo, 3> AVAILABLE_TRACK_FORMATS = { {
         //: The format of the audio samples on a track
-        { au::trackedit::TrackFormat::Int16, muse::TranslatableString("trackcontextmenu", "16-bit PCM") },
+        { agu::trackedit::TrackFormat::Int16, muse::TranslatableString("trackcontextmenu", "16-bit PCM") },
         //: The format of the audio samples on a track
-        { au::trackedit::TrackFormat::Int24, muse::TranslatableString("trackcontextmenu", "24-bit PCM") },
+        { agu::trackedit::TrackFormat::Int24, muse::TranslatableString("trackcontextmenu", "24-bit PCM") },
         //: The format of the audio samples on a track
-        { au::trackedit::TrackFormat::Float32, muse::TranslatableString("trackcontextmenu", "32-bit Float") }
+        { agu::trackedit::TrackFormat::Float32, muse::TranslatableString("trackcontextmenu", "32-bit Float") }
     } };
     return AVAILABLE_TRACK_FORMATS;
 }

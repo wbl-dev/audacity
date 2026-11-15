@@ -4,7 +4,7 @@
 #include "builtineffectsmetareader.h"
 #include "builtintypes.h"
 
-namespace au::effects {
+namespace agu::effects {
 BuiltinEffectsMetaReader::BuiltinEffectsMetaReader()
     : Au3AudioPluginMetaReader{m_builtinEffectsModule}
 {
@@ -12,7 +12,7 @@ BuiltinEffectsMetaReader::BuiltinEffectsMetaReader()
 
 muse::audioplugins::PluginType BuiltinEffectsMetaReader::metaType() const
 {
-    return std::string(au::effects::builtin::AUDIO_RESOURCE_TYPE_NAME);
+    return std::string(agu::effects::builtin::AUDIO_RESOURCE_TYPE_NAME);
 }
 
 bool BuiltinEffectsMetaReader::canReadMeta(const muse::io::path_t& pluginPath) const
