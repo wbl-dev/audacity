@@ -7,6 +7,7 @@ set(MODULE_TEST appshell_tests)
 set(MODULE_TEST_SRC
     ${CMAKE_CURRENT_LIST_DIR}/factoryreset_actioncontroller_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/localnetworkpolicy_tests.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/workspacelayoutmigration_tests.cpp
 
     ${CMAKE_CURRENT_LIST_DIR}/mocks/appshellconfigurationmock.h
 )

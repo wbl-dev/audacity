@@ -113,6 +113,8 @@ TEST_P(Workspace_ConfigTests, AppProjectLayoutMatchesCurrentDockNames)
 
     WorkspaceFile file(io::path_t(param.workspacesDir + "/Modern.mws"));
     ASSERT_TRUE(file.load());
+    const QJsonObject settings = QJsonDocument::fromJson(file.data("ui_settings")).object();
+    EXPECT_EQ(settings.value("agu/layoutRevision").toString(), "1");
 
     const QJsonObject states = QJsonDocument::fromJson(file.data("ui_states")).object();
     const QByteArray projectLayout = states.value("ProjectPage").toString().toUtf8();

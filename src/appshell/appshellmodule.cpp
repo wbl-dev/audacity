@@ -31,6 +31,7 @@
 #include "framework/rcommand/icommandsregister.h"
 #include "framework/rcommand/icommandsstate.h"
 #include "framework/ui/iuiactionsregister.h"
+#include "framework/ui/iuistate.h"
 
 
 #include "internal/applicationuiactions.h"
@@ -40,6 +41,7 @@
 #include "internal/appshellconfiguration.h"
 #include "internal/startupscenario.h"
 #include "internal/sessionsmanager.h"
+#include "internal/workspacelayoutmigration.h"
 
 #ifdef Q_OS_MAC
 #include "internal/platform/macos/macosappmenumodelhook.h"
@@ -191,6 +193,10 @@ void AppShellContext::onAllInited(const muse::IApplication::RunMode& mode)
 {
     if (mode == muse::IApplication::RunMode::AudioPluginRegistration) {
         return;
+    }
+
+    if (auto state = ioc()->resolve<muse::ui::IUiState>(mname)) {
+        migrateLegacyWorkspaceLayout(*state);
     }
 
     m_applicationActionController->processPendingEvents();

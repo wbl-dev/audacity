@@ -42,6 +42,8 @@ target_sources(appshell PRIVATE
     internal/framelesswindowcontroller.h
     internal/startupscenario.cpp
     internal/startupscenario.h
+    internal/workspacelayoutmigration.cpp
+    internal/workspacelayoutmigration.h
     internal/isessionsmanager.h
     internal/sessionsmanager.cpp
     internal/sessionsmanager.h
