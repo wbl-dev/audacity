@@ -51,3 +51,6 @@ include(SetupGTest)
         NAME local_project_roundtrip
         COMMAND au_project_tests --gtest_filter=Project_AGuProjectTests.LocalFile_SaveAndReloadSucceeds
     )
+
+    # The full suite runs this round-trip too; both tests use local_copy.aup4.
+    set_tests_properties(au_project_tests local_project_roundtrip PROPERTIES RESOURCE_LOCK agu_project_test_data)

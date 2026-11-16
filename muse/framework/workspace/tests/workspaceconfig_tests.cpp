@@ -21,9 +21,14 @@
  */
 #include <gtest/gtest.h>
 
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+
 #include <set>
 
 #include "io/fileinfo.h"
+#include "workspace/internal/workspacefile.h"
 #include "workspace/tests/workspace_test_helpers.h"
 
 using namespace muse;
@@ -95,6 +100,37 @@ TEST_P(Workspace_ConfigTests, AppShipsOnlyModern)
     ASSERT_TRUE(cfg.load(io::path_t(param.configFile), param.workspacesDir));
     EXPECT_EQ(cfg.defaultWorkspaceName(), "Modern");
     EXPECT_EQ(cfg.builtinFiles(), std::vector<std::string>{ "Modern.mws" });
+#endif
+}
+
+TEST_P(Workspace_ConfigTests, AppProjectLayoutMatchesCurrentDockNames)
+{
+#if defined(APP_WORKSPACE_CONFIG_FILE)
+    const auto& param = GetParam();
+    if (param.configFile != APP_WORKSPACE_CONFIG_FILE) {
+        return;
+    }
+
+    WorkspaceFile file(io::path_t(param.workspacesDir + "/Modern.mws"));
+    ASSERT_TRUE(file.load());
+
+    const QJsonObject states = QJsonDocument::fromJson(file.data("ui_states")).object();
+    const QByteArray projectLayout = states.value("ProjectPage").toString().toUtf8();
+    ASSERT_FALSE(projectLayout.isEmpty());
+
+    const QJsonObject project = QJsonDocument::fromJson(projectLayout).object();
+    const QJsonArray windows = project.value("mainWindows").toArray();
+    ASSERT_EQ(windows.size(), 1);
+    EXPECT_EQ(windows.first().toObject().value("uniqueName").toString(), "mainWindow");
+
+    const QJsonArray docks = project.value("allDockWidgets").toArray();
+    bool hasCentralDock = false;
+    for (const QJsonValue& dock : docks) {
+        const QString name = dock.toObject().value("uniqueName").toString();
+        EXPECT_FALSE(name.endsWith("_0")) << name.toStdString();
+        hasCentralDock |= name == "ProjectPage_central";
+    }
+    EXPECT_TRUE(hasCentralDock);
 #endif
 }
 

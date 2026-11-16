@@ -14,6 +14,7 @@ set(MODULE_TEST_SRC
     ${CMAKE_CURRENT_LIST_DIR}/trackitemsselection_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/trackitemsmovecontroller_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/findguideline_tests.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/iconfontresources_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/playcursorcontroller_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/playpositionactioncontroller_tests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/timelinecontext_labelzoom_tests.cpp

@@ -1,6 +1,6 @@
 # Normalize line endings of all files that Git considers to be text
 * text eol=lf
-#except images and sounds
+# Preserve binary assets byte-for-byte.
 *.png -text
 *.gif -text
 *.jpg -text
@@ -9,6 +9,9 @@
 *.wav -text
 *.au -text
 *.ico -text
+*.ttf -text
+*.otf -text
+*.mws -text
 # and weird stuff in lib-src
 *.ttl text=auto
 *.aps text=auto
