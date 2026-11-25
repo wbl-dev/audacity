@@ -16,6 +16,13 @@ using namespace muse::ui;
 namespace {
 const std::vector<CommandInfo> s_commandInfos = {
     CommandInfo{
+        PROJECTSCENE_TIME_SELECTION_TOOL_COMMAND,
+        TranslatableString("command", "Time selection"),
+        TranslatableString("command_description", "Drag audio to select time; drag a clip header to move it"),
+        InputSchema(),
+        Decoration(IconCode::Code::IBEAM, rcommand::Checkable::Yes)
+    },
+    CommandInfo{
         PROJECTSCENE_MINUTES_SECONDS_RULER_COMMAND,
         //: Command title: shown as a menu item or a button label; keep it short
         TranslatableString("command", "Minutes && seconds"),

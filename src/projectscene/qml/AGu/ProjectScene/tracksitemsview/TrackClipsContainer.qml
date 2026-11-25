@@ -37,7 +37,12 @@ TrackItemsContainer {
     QtObject {
         id: prv
         readonly property bool isMultiView: root.isSpectrogramViewVisible && root.isWaveformViewVisible
-        readonly property real viewHeight: (root.height - root.headerHeight) / (prv.isMultiView ? 2 : 1)
+        readonly property real contentTop: root.trackViewState.isTrackCollapsed ? 0 : root.headerHeight
+        readonly property real contentHeight: Math.max(0, root.height - root.bottomSeparatorHeight - contentTop)
+        readonly property real minimumPaneHeight: Math.min(36, contentHeight / 2)
+        readonly property real waveformHeight: prv.isMultiView ? Math.max(minimumPaneHeight, Math.min(contentHeight - minimumPaneHeight, contentHeight * root.trackViewState.multiViewHeightRatio)) : contentHeight
+        readonly property real spectrogramHeight: prv.isMultiView ? contentHeight - waveformHeight : contentHeight
+        readonly property real effectiveRatio: contentHeight > 0 ? waveformHeight / contentHeight : 0.5
     }
 
     TrackClipsListModel {
@@ -100,7 +105,7 @@ TrackItemsContainer {
 
                 property double targetHeightRatio: 0.5
                 readonly property int minChannelHeight: 20
-                readonly property int viewHeight: prv.isMultiView ? (root.height / 2) : root.height
+                readonly property int viewHeight: prv.isMultiView ? Math.min(prv.waveformHeight, prv.spectrogramHeight) : prv.contentHeight
                 readonly property int yMinValue: Math.min(viewHeight / 2, minChannelHeight)
                 readonly property int yMaxValue: Math.max(viewHeight / 2, viewHeight - minChannelHeight)
 
@@ -410,6 +415,7 @@ TrackItemsContainer {
                                 displayBounds: root.trackViewState.displayBounds
                                 isAutomationEnabled: root.isAutomationEnabled
                                 isWaveformViewVisible: root.isWaveformViewVisible
+                                multiViewHeightRatio: prv.effectiveRatio
                                 isSpectrogramViewVisible: root.isSpectrogramViewVisible
                                 multiSampleEdit: clipsContainer.multiSampleEdit
                                 altPressed: root.altPressed
@@ -594,8 +600,8 @@ TrackItemsContainer {
                                     clipsModel.resetSelectedClips()
                                 }
 
-                                onSplitterPositionChangeRequested: function (position) {
-                                    clipsContainer.updateChannelHeightRatio(position)
+                                onSplitterPositionChangeRequested: function (ratio) {
+                                    root.trackViewState.changeChannelHeightRatio(ratio)
                                     clipsContainer.resetTargetHeightRatio()
                                 }
 
@@ -722,8 +728,8 @@ TrackItemsContainer {
                 visible: root.isSpectrogramViewVisible
                 enabled: !root.splitToolActive
 
-                y: root.headerHeight + (root.isWaveformViewVisible ? prv.viewHeight : 0)
-                height: prv.viewHeight
+                y: prv.contentTop + (prv.isMultiView ? prv.waveformHeight : 0)
+                height: prv.spectrogramHeight
                 anchors.left: parent.left
                 anchors.right: parent.right
                 z: 1
@@ -741,7 +747,7 @@ TrackItemsContainer {
                 selectionEndFrequency: root.selectionEndFrequency
                 selectionStartTime: root.context.selectionStartTime
                 selectionEndTime: root.context.selectionEndTime
-                channelHeightRatio: channelSplitter.channelHeightRatio
+                channelHeightRatio: root.trackViewState.channelHeightRatio
                 isStereo: clipsModel.isStereo
                 selectionController: root.selectionController
 
@@ -759,6 +765,38 @@ TrackItemsContainer {
                 }
             }
 
+            // One divider across the track, including gaps between clips.
+            Rectangle {
+                id: viewDivider
+                anchors.left: parent.left
+                anchors.right: parent.right
+                y: prv.contentTop + prv.waveformHeight - height / 2
+                height: 1
+                z: 4
+                visible: prv.isMultiView
+                color: ui.theme.fontSecondaryColor
+                opacity: dividerMouse.containsMouse || dividerMouse.pressed ? 0.9 : 0.45
+
+                MouseArea {
+                    id: dividerMouse
+                    anchors.fill: parent
+                    anchors.topMargin: -4
+                    anchors.bottomMargin: -4
+                    hoverEnabled: true
+                    cursorShape: Qt.SplitVCursor
+                    preventStealing: true
+                    onPositionChanged: function (mouse) {
+                        if (!pressed || prv.contentHeight <= 0) {
+                            return
+                        }
+                        const pos = mapToItem(viewDivider.parent, mouse.x, mouse.y).y - prv.contentTop
+                        const bounded = Math.max(prv.minimumPaneHeight, Math.min(prv.contentHeight - prv.minimumPaneHeight, pos))
+                        root.trackViewState.changeMultiViewHeightRatio(bounded / prv.contentHeight)
+                    }
+                    onDoubleClicked: root.trackViewState.changeMultiViewHeightRatio(0.5)
+                }
+            }
+
             //! clip
             ChannelSplitter {
                 id: channelSplitter
@@ -767,10 +805,10 @@ TrackItemsContainer {
                 anchors.topMargin: root.trackViewState.isTrackCollapsed ? 1 : 21
                 anchors.bottomMargin: 3
 
-                channelHeightRatio: prv.isMultiView ? 0.5 : root.trackViewState.channelHeightRatio
+                channelHeightRatio: root.trackViewState.channelHeightRatio
                 color: ui.theme.extra["white_color"]
                 opacity: 0.05
-                visible: clipsModel.isStereo
+                visible: clipsModel.isStereo && !prv.isMultiView
 
                 onPositionChangeRequested: function (position) {
                     clipsContainer.updateChannelHeightRatio(position)

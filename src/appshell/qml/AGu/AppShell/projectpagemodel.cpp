@@ -27,14 +27,6 @@ void ProjectPageModel::init()
             toggleDock(dockName);
         });
 
-        uiState()->toolConfigChanged(playbackToolBarName()).onNotify(this, [this]() {
-            updatePlaybackMeterVisibility();
-        });
-
-        playbackUiState()->playbackMeterPositionChanged().onNotify(this, [this]() {
-            updatePlaybackMeterVisibility();
-        });
-
         m_inited = true;
     }
 
@@ -43,23 +35,14 @@ void ProjectPageModel::init()
 
 void ProjectPageModel::updatePlaybackMeterVisibility()
 {
-    const auto toolConfig = uiState()->toolConfig(playbackToolBarName(), projectscene::defaultPlaybackToolBarConfig());
-    const auto it = std::find_if(toolConfig.items.begin(), toolConfig.items.end(),
-                                 [](const muse::ui::ToolConfig::Item& item) {
-        return item.intent == playback::PLAYBACK_LEVEL_COMMAND.toString();
-    });
-
-    if (it != toolConfig.items.end()) {
-        const bool meterPanelVisible = it->show
-                                       && (playbackUiState()->playbackMeterPosition()
-                                           == playback::PlaybackMeterPosition::MeterPosition::SideBar);
-        muse::async::Async::call(this, [this, meterPanelVisible]() {
-            commandDispatcher()->dispatch(dock::DOCK_SET_OPEN_COMMAND, {
-                { "dock_name", Val(playbackMeterPanelName().toStdString()) },
-                { "open", Val(meterPanelVisible) },
-            });
+    // The fixed transport includes its own master meter. Old toolbar layout
+    // preferences must not restore a second meter beside the tracks.
+    muse::async::Async::call(this, [this]() {
+        commandDispatcher()->dispatch(dock::DOCK_SET_OPEN_COMMAND, {
+            { "dock_name", Val(playbackMeterPanelName().toStdString()) },
+            { "open", Val(false) },
         });
-    }
+    });
 }
 
 QString ProjectPageModel::projectToolBarName() const

@@ -27,7 +27,17 @@ Row {
     QtObject {
         id: prv
 
-        readonly property int fullContentWidth: titleLabel.implicitWidth + startEndTimeCode.width + durationLabel.implicitWidth + durationTimecode.width + root.spacing * 3
+        readonly property int fullContentWidth: Math.min(140, targets.implicitWidth) + titleLabel.implicitWidth + startEndTimeCode.width + durationLabel.implicitWidth + durationTimecode.width + root.spacing * 4
+    }
+
+    StyledTextLabel {
+        id: targets
+        anchors.verticalCenter: parent.verticalCenter
+        width: visible ? Math.min(140, implicitWidth) : 0
+        visible: selectionModel.targetTracks.length > 0 && root.showTitles
+        text: selectionModel.targetTracks
+        elide: Text.ElideRight
+        color: ui.theme.fontSecondaryColor
     }
 
     StyledTextLabel {

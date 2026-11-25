@@ -131,6 +131,11 @@ public:
     Q_INVOKABLE void scrollHorizontal(qreal newPos);
     Q_INVOKABLE void scrollVertical(qreal newPos);
 
+    // Overview navigation changes the visible frame, never the edit selection.
+    Q_INVOKABLE void setViewRange(double startTime, double endTime);
+    Q_INVOKABLE void selectProjectTimeRange(double startTime, double endTime);
+    Q_INVOKABLE void clearTimeSelection();
+
     void zoomIn();
     void zoomOut();
     void zoomDefault();

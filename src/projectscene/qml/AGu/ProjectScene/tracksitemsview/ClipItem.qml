@@ -21,6 +21,7 @@ Rectangle {
     required property bool isAutomationEnabled
     required property bool isWaveformViewVisible
     required property bool isSpectrogramViewVisible
+    property real multiViewHeightRatio: 0.5
     property int pitch: 0
     property bool isPitchModified: false
     property int speedPercentage: 0
@@ -92,7 +93,7 @@ Rectangle {
 
     signal requestSelected
     signal requestSelectionReset
-    signal splitterPositionChangeRequested(int position)
+    signal splitterPositionChangeRequested(real ratio)
 
     signal pitchChangeRequested
     signal pitchResetRequested
@@ -127,7 +128,7 @@ Rectangle {
     property bool headerHovered: false
     property var lastSample: undefined
     property bool altPressed: false
-    property bool isBrush: waveView.isStemPlot && root.altPressed
+    property bool isBrush: root.isWaveformViewVisible && waveView.isStemPlot && root.altPressed
     property bool isIsolationMode: false
     property bool containsMouse: false
     property bool automationMouseHoverLetThrough: false
@@ -253,7 +254,7 @@ Rectangle {
 
     onAsymmetricStereoHeightsPossibleChanged: {
         if (!asymmetricStereoHeightsPossible) {
-            root.ratioChanged(showChannelSplitter ? 0.5 : 1)
+            root.splitterPositionChangeRequested(showChannelSplitter ? 0.5 : 1)
         }
     }
 
@@ -309,17 +310,24 @@ Rectangle {
 
     function mousePositionChanged(x, y) {
         clipItemMousePositionChanged(x, y)
-        waveView.onWaveViewPositionChanged(x, y - header.height)
+        const position = waveView.mapFromItem(root, x, y)
+        waveView.onWaveViewPositionChanged(position.x, position.y)
     }
 
     function mousePressAndHold(x, y) {
-        root.altPressed ? waveView.smoothLastClickPos(x, y - header.height) : waveView.setLastClickPos(x, y - header.height, x, y - header.height)
+        const position = waveView.mapFromItem(root, x, y)
+        if (!waveView.visible || position.y < 0 || position.y >= waveView.height) {
+            return
+        }
+        root.altPressed ? waveView.smoothLastClickPos(position.x, position.y) : waveView.setLastClickPos(position.x, position.y, position.x, position.y)
         waveView.update()
     }
 
     function mouseReleased() {
         waveView.isNearSample = false
-        waveView.onWaveViewPositionChanged(lastSample.x, lastSample.y)
+        if (lastSample) {
+            waveView.onWaveViewPositionChanged(lastSample.x, lastSample.y)
+        }
     }
 
     function getSpectrogramHit(y /* relative to tracks canvas */) {
@@ -327,9 +335,10 @@ Rectangle {
     }
 
     function setLastSample(x, y) {
+        const position = waveView.mapFromItem(root, x, y)
         lastSample = {
-            x: x,
-            y: y - header.height
+            x: position.x,
+            y: position.y
         }
     }
 
@@ -432,7 +441,8 @@ Rectangle {
             clipItemMousePositionChanged(e.x, e.y)
 
             // propagate mouse position to the wave view adjusting the y position
-            waveView.onWaveViewPositionChanged(e.x, e.y - header.height)
+            const position = waveView.mapFromItem(root, e.x, e.y)
+            waveView.onWaveViewPositionChanged(position.x, position.y)
         }
 
         onContainsMouseChanged: {
@@ -902,7 +912,9 @@ Rectangle {
                 visible: root.isWaveformViewVisible
 
                 Layout.fillWidth: true
-                Layout.fillHeight: true
+                Layout.preferredHeight: root.isSpectrogramViewVisible ? viewsColumn.height * root.multiViewHeightRatio : viewsColumn.height
+                Layout.minimumHeight: Layout.preferredHeight
+                Layout.maximumHeight: Layout.preferredHeight
 
                 fillColor: waveView.backgroundColor
 
@@ -919,6 +931,10 @@ Rectangle {
                 displayBounds: root.displayBounds
 
                 function onWaveViewPositionChanged(x, y) {
+                    if (!waveView.visible || y < 0 || y >= waveView.height) {
+                        waveView.isNearSample = false
+                        return
+                    }
                     if (waveView.isIsolationMode) {
                         waveView.setIsolatedPoint(x, y)
                         waveView.update()
@@ -946,7 +962,7 @@ Rectangle {
                     opacity: 0.10
 
                     onPositionChangeRequested: function (position) {
-                        root.splitterPositionChangeRequested(position)
+                        root.splitterPositionChangeRequested(Math.max(0.1, Math.min(0.9, position / Math.max(1, parent.height))))
                     }
                 }
 
@@ -965,7 +981,8 @@ Rectangle {
                 onIsStemPlotChanged: {
                     if (waveView.isStemPlot && hoverArea.containsMouse) {
                         // force mouse position update will update isNearSample
-                        waveView.onWaveViewPositionChanged(hoverArea.mouseX, hoverArea.mouseY - header.height)
+                        const position = waveView.mapFromItem(hoverArea, hoverArea.mouseX, hoverArea.mouseY)
+                        waveView.onWaveViewPositionChanged(position.x, position.y)
                     }
                 }
 
@@ -1085,7 +1102,9 @@ Rectangle {
                 visible: active
 
                 Layout.fillWidth: true
-                Layout.fillHeight: true
+                Layout.preferredHeight: root.isWaveformViewVisible ? viewsColumn.height * (1 - root.multiViewHeightRatio) : viewsColumn.height
+                Layout.minimumHeight: Layout.preferredHeight
+                Layout.maximumHeight: Layout.preferredHeight
 
                 sourceComponent: ClipSpectrogramView {
                     canvas: root.canvas
@@ -1124,7 +1143,7 @@ Rectangle {
                         opacity: 0.10
 
                         onPositionChangeRequested: function (position) {
-                            root.splitterPositionChangeRequested(position)
+                            root.splitterPositionChangeRequested(Math.max(0.1, Math.min(0.9, position / Math.max(1, parent.height))))
                         }
                     }
                 }
@@ -1184,9 +1203,8 @@ Rectangle {
         clipNavigationPanel: root.clipNavigationPanel
 
         onClipHandlesMousePositionChanged: function (xWithinClipHandles, yWithinClipHandles) {
-            var xWithinClipItem = xWithinClipHandles
-            var yWithinClipItem = header.height + 1 + yWithinClipHandles
-            clipItemMousePositionChanged(xWithinClipItem, yWithinClipItem)
+            const position = clipHandles.mapToItem(root, xWithinClipHandles, yWithinClipHandles)
+            clipItemMousePositionChanged(position.x, position.y)
         }
 
         onClipStartEditRequested: function () {

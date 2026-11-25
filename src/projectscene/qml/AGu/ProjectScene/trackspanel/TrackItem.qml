@@ -164,10 +164,11 @@ ListItemBlank {
 
         ColumnLayout {
             id: contentColumn
+            spacing: 8
             anchors.left: spacer.right
             anchors.right: separatorLine.left
             anchors.top: parent.top
-            anchors.topMargin: 7
+            anchors.topMargin: 10
             anchors.margins: 12
 
             RowLayout {
@@ -205,10 +206,13 @@ ListItemBlank {
                 MenuButton {
                     id: menuButton
 
+                    Layout.preferredWidth: 28
+                    Layout.preferredHeight: 28
+
                     menuModel: contextMenuModel
 
                     navigation.panel: root.headerNavigationPanel
-                    navigation.order: root.collapsed ? root.headerTrailingControlsNavigationEnd + 1 : title.navigation.order + 1
+                    navigation.order: title.navigation.order + 1
                     navigation.accessible.name: qsTrc("projectscene", "Track menu")
 
                     onClicked: {

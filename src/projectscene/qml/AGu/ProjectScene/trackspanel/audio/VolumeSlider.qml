@@ -18,6 +18,40 @@ StyledSlider {
 
     signal newVolumeRequested(real volume, bool completed)
 
+    implicitHeight: 20
+
+    background: Item {
+        anchors.fill: parent
+        NavigationFocusBorder {
+            navigationCtrl: root.navigation
+        }
+        Rectangle {
+            anchors.verticalCenter: parent.verticalCenter
+            width: parent.width
+            height: 2
+            radius: 1
+            color: ui.theme.fontSecondaryColor
+            opacity: 0.4
+        }
+        Rectangle {
+            anchors.verticalCenter: parent.verticalCenter
+            width: root.handle.x + root.handle.width / 2
+            height: 2
+            radius: 1
+            color: ui.theme.fontPrimaryColor
+            opacity: 0.75
+        }
+    }
+
+    handle: Rectangle {
+        x: root.leftPadding + root.visualPosition * (root.availableWidth - width)
+        y: root.topPadding + root.availableHeight / 2 - height / 2
+        width: 8
+        height: 12
+        radius: 3
+        color: ui.theme.fontPrimaryColor
+    }
+
     from: -60.0
     to: 12.0
 

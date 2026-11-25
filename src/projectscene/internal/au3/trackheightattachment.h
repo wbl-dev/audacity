@@ -24,8 +24,12 @@ public:
     int GetHeight() const;
     void SetHeight(int height);
 
+    double GetMultiViewHeightRatio() const;
+    void SetMultiViewHeightRatio(double ratio);
+
 private:
     std::weak_ptr<Au3Track> mTrack;
+    double mMultiViewHeightRatio{ 0.5 };
     int mHeight{ 0 };  // 0 means use default height
 };
 }

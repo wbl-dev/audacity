@@ -14,15 +14,16 @@
 #include "record/qml/AGu/Record/playbacktoolbarrecordlevelitem.h"
 #include "projectscene/view/toolbars/snaptoolbaritem.h"
 
-#include "playbacktoolbarconfig.h"
+#include "playback/playbackcommands.h"
+#include "record/recordcommands.h"
+#include "projectscene/projectscenecommands.h"
+#include "trackedit/trackeditcommands.h"
 
 using namespace muse::uicomponents;
 using namespace muse::ui;
 using namespace muse::rcommand;
 using namespace agu::projectscene;
 using namespace agu::playback;
-
-static const QString TOOLBAR_NAME("playbackToolBar");
 
 static PlaybackToolBarModel::ItemType itemType(const Command& command)
 {
@@ -37,7 +38,7 @@ static PlaybackToolBarModel::ItemType itemType(const Command& command)
         { agu::record::RECORD_START_COMMAND, PlaybackToolBarModel::PLAYBACK_CONTROL },
         { PLAYBACK_REWIND_START_COMMAND, PlaybackToolBarModel::PLAYBACK_CONTROL },
         { PLAYBACK_REWIND_END_COMMAND, PlaybackToolBarModel::PLAYBACK_CONTROL },
-        { PLAYBACK_TOGGLE_LOOP_REGION_COMMAND, PlaybackToolBarModel::PLAYBACK_CONTROL },
+        { PROJECTSCENE_TIME_SELECTION_TOOL_COMMAND, PlaybackToolBarModel::PLAYBACK_CONTROL },
         { PROJECTSCENE_TOGGLE_CLIP_GAIN_AUTOMATION_COMMAND, PlaybackToolBarModel::PLAYBACK_CONTROL },
         { PROJECTSCENE_TOGGLE_SPLIT_TOOL_COMMAND, PlaybackToolBarModel::PLAYBACK_CONTROL },
         { agu::trackedit::TRACKEDIT_GLOBAL_VIEW_SPECTROGRAM_COMMAND, PlaybackToolBarModel::PLAYBACK_CONTROL },
@@ -55,10 +56,6 @@ PlaybackToolBarModel::PlaybackToolBarModel(QObject* parent)
 void PlaybackToolBarModel::load()
 {
     if (!m_inited) {
-        uiState()->toolConfigChanged(TOOLBAR_NAME).onNotify(this, [this]() {
-            reload();
-        });
-
         uiConfiguration()->currentThemeChanged().onNotify(this, [this]() {
             reload();
         });
@@ -74,16 +71,8 @@ void PlaybackToolBarModel::load()
             setupProjectConnections(*context()->currentProject());
         }
 
-        playbackUiState()->playbackMeterPositionChanged().onNotify(this, [this]() {
-            reload();
-        });
-
         playbackController()->isPlayingChanged().onNotify(this, [this]() {
             updatePlayState();
-        });
-
-        playbackController()->loopRegionChanged().onNotify(this, [this]() {
-            updateLoopState();
         });
 
         recordController()->isRecordingChanged().onNotify(this, [this]() {
@@ -127,7 +116,7 @@ void PlaybackToolBarModel::updateStates()
     updatePlayState();
     updateStopState();
     updateRecordState();
-    updateLoopState();
+    updateTimeSelectionState();
     updateClipGainAutomationState();
     updateSplitState();
     updateGlobalSpectrogramViewState();
@@ -210,19 +199,16 @@ void PlaybackToolBarModel::updateRecordState()
     item->setBackgroundColor(backgroundColor);
 }
 
-void PlaybackToolBarModel::updateLoopState()
+void PlaybackToolBarModel::updateTimeSelectionState()
 {
-    PlaybackToolBarControlItem* item = dynamic_cast<PlaybackToolBarControlItem*>(findItemPtr(PLAYBACK_TOGGLE_LOOP_REGION_COMMAND));
-
-    if (item == nullptr) {
+    const auto project = context()->currentProject();
+    if (!project) {
         return;
     }
 
-    bool isLooping = playbackController()->isLoopRegionActive();
-    item->setSelected(isLooping);
-
-    item->setIconColor(themeColor(FONT_PRIMARY_COLOR));
-    item->setBackgroundColor(themeColor(isLooping ? ACCENT_COLOR : BUTTON_COLOR));
+    const auto viewState = project->viewState();
+    updateToggleState(PROJECTSCENE_TIME_SELECTION_TOOL_COMMAND,
+                      !viewState->clipGainAutomationEnabled().val && !viewState->splitToolEnabled().val);
 }
 
 void PlaybackToolBarModel::updateToggleState(const Command& command, bool isOn)
@@ -234,6 +220,9 @@ void PlaybackToolBarModel::updateToggleState(const Command& command, bool isOn)
     }
 
     item->setSelected(isOn);
+    auto state = item->commandState();
+    state.checked = isOn;
+    item->setCommandState(state);
     item->setBackgroundColor(themeColor(isOn ? ACCENT_COLOR : BUTTON_COLOR));
 }
 
@@ -246,6 +235,7 @@ void PlaybackToolBarModel::updateClipGainAutomationState()
     }
 
     updateToggleState(PROJECTSCENE_TOGGLE_CLIP_GAIN_AUTOMATION_COMMAND, prj->viewState()->clipGainAutomationEnabled().val);
+    updateTimeSelectionState();
 }
 
 void PlaybackToolBarModel::updateSplitState()
@@ -257,6 +247,7 @@ void PlaybackToolBarModel::updateSplitState()
     }
 
     updateToggleState(PROJECTSCENE_TOGGLE_SPLIT_TOOL_COMMAND, prj->viewState()->splitToolEnabled().val);
+    updateTimeSelectionState();
 }
 
 void PlaybackToolBarModel::updateGlobalSpectrogramViewState()
@@ -279,31 +270,41 @@ void PlaybackToolBarModel::updateActions()
 {
     ToolBarItemList items;
 
-    muse::ui::ToolConfig playbackConfig = uiState()->toolConfig(TOOLBAR_NAME, defaultPlaybackToolBarConfig());
+    // The workspace has a fixed set of controls. Legacy toolbar and meter
+    // layout preferences must not hide transport or the master volume.
+    static const std::vector<Command> commands {
+        PLAYBACK_REWIND_START_COMMAND,
+        PLAYBACK_TOGGLE_PLAY_PAUSE_COMMAND,
+        PLAYBACK_STOP_COMMAND,
+        record::RECORD_START_COMMAND,
+        {},
+        PLAYBACK_TIME_COMMAND,
+        {},
+        PROJECTSCENE_TIME_SELECTION_TOOL_COMMAND,
+        PROJECTSCENE_TOGGLE_CLIP_GAIN_AUTOMATION_COMMAND,
+        PROJECTSCENE_TOGGLE_SPLIT_TOOL_COMMAND,
+        {},
+        PROJECTSCENE_ZOOM_OUT_COMMAND,
+        PROJECTSCENE_ZOOM_IN_COMMAND,
+        PROJECTSCENE_ZOOM_TO_FIT_PROJECT_COMMAND,
+        {},
+        PROJECTSCENE_SNAP_COMMAND,
+        {},
+        PLAYBACK_LEVEL_COMMAND
+    };
 
-    for (const muse::ui::ToolConfig::Item& citem : playbackConfig.items) {
-        if (!citem.show) {
-            continue;
-        }
-
-        if (citem.intent == PLAYBACK_LEVEL_COMMAND.toString()) {
-            if (playbackUiState()->playbackMeterPosition() == playback::PlaybackMeterPosition::MeterPosition::SideBar) {
-                // Skip playback meter item if it is set to be displayed in the sidebar
-                continue;
-            }
-        }
-
-        if (citem.isSeparator()) {
+    for (const Command& command : commands) {
+        if (!command.isValid()) {
             items << AbstractToolBarModel::makeSeparator();
             continue;
         }
 
-        ToolBarItem* item = makeLocalItem(Command(citem.intent));
+        ToolBarItem* item = makeLocalItem(command);
         if (!item) {
             continue;
         }
 
-        item->setIsTransparent(false);
+        item->setIsTransparent(true);
 
         items << item;
     }

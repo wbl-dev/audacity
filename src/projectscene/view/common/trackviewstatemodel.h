@@ -5,6 +5,8 @@
 
 #include <QObject>
 
+#include "trackedit/dom/track.h"
+
 #include "global/async/asyncable.h"
 
 #include "modularity/ioc.h"
@@ -25,6 +27,8 @@ class TrackViewStateModel : public QObject, public muse::Contextable, public mus
     Q_PROPERTY(int trackHeight READ trackHeight NOTIFY trackHeightChanged FINAL)
     Q_PROPERTY(bool isTrackCollapsed READ isTrackCollapsed NOTIFY isTrackCollapsedChanged FINAL)
     Q_PROPERTY(double channelHeightRatio READ channelHeightRatio NOTIFY channelHeightRatioChanged FINAL)
+    Q_PROPERTY(double multiViewHeightRatio READ multiViewHeightRatio NOTIFY multiViewHeightRatioChanged FINAL)
+    Q_PROPERTY(bool isMultiView READ isMultiView NOTIFY isMultiViewChanged FINAL)
     Q_PROPERTY(QVariant displayBounds READ displayBounds NOTIFY displayBoundsChanged FINAL)
     Q_PROPERTY(bool isLinear READ isLinear NOTIFY isLinearChanged FINAL)
 
@@ -54,6 +58,11 @@ public:
     double channelHeightRatio() const;
     Q_INVOKABLE void changeChannelHeightRatio(double ratio);
 
+    double multiViewHeightRatio() const;
+    Q_INVOKABLE void changeMultiViewHeightRatio(double ratio);
+    bool isMultiView() const;
+    Q_INVOKABLE void toggleMultiView();
+
     QVariant displayBounds() const;
 
     bool isLinear() const;
@@ -68,6 +77,8 @@ signals:
     void trackHeightChanged();
     void isTrackCollapsedChanged();
     void channelHeightRatioChanged();
+    void multiViewHeightRatioChanged();
+    void isMultiViewChanged();
     void meterModelChanged();
     void isPlayingChanged();
     void isRecordingChanged();
@@ -81,6 +92,8 @@ private:
     muse::ValCh<int> m_trackHeight;
     muse::ValCh<bool> m_isTrackCollapsed;
     muse::ValCh<double> m_channelHeightRatio;
+    muse::ValCh<double> m_multiViewHeightRatio;
+    muse::ValCh<trackedit::TrackViewType> m_viewType;
     muse::ValCh<std::pair<float, float> > m_displayBounds;
     muse::ValCh<int> m_rulerType;
 

@@ -2,6 +2,7 @@
  * Audacity: A Digital Audio Editor
  */
 #include "../internal/projectviewstate.h"
+#include "../internal/au3/trackheightattachment.h"
 
 #include "mocks/projectsceneconfigurationmock.h"
 
@@ -22,6 +23,7 @@
 #include <gtest/gtest.h>
 
 #include <set>
+#include <limits>
 
 using namespace ::testing;
 using ::testing::_;
@@ -95,6 +97,11 @@ public:
         .WillByDefault(Return(getAllTracks()));
     }
 
+    void forgetCachedTracks()
+    {
+        m_projectViewState->m_tracks.clear();
+    }
+
     static trackedit::Clip makeClip(trackedit::TrackId trackId, trackedit::TrackItemId itemId, double start, double end)
     {
         trackedit::Clip clip;
@@ -162,15 +169,84 @@ protected:
         muse::modularity::globalCtx());
 };
 
+TEST_F(ProjectViewStateTests, MultiViewSplitIsIndependentOfStereoAndSurvivesHeightChanges)
+{
+    const auto tracks = getAllTracks();
+    ASSERT_FALSE(tracks.empty());
+    const auto id = tracks.front();
+    m_projectViewState->setTrackHeight(id, 320);
+    m_projectViewState->setChannelHeightRatio(id, 0.7);
+    m_projectViewState->setMultiViewHeightRatio(id, 0.35);
+
+    EXPECT_DOUBLE_EQ(m_projectViewState->multiViewHeightRatio(id).val, 0.35);
+    EXPECT_DOUBLE_EQ(m_projectViewState->channelHeightRatio(id).val, 0.7);
+    m_projectViewState->setTrackHeight(id, 100);
+    m_projectViewState->setTrackHeight(id, 320);
+    EXPECT_DOUBLE_EQ(m_projectViewState->multiViewHeightRatio(id).val, 0.35);
+}
+
+TEST_F(ProjectViewStateTests, MultiViewSplitRestoresFromTrackAttachment)
+{
+    const auto tracks = getAllTracks();
+    ASSERT_FALSE(tracks.empty());
+    const auto id = tracks.front();
+    m_projectViewState->setMultiViewHeightRatio(id, 0.65);
+    auto project = reinterpret_cast<au3::Au3Project*>(m_au3ProjectAccessor->au3ProjectPtr());
+    const auto track = au3::DomAccessor::findTrack(*project, au3::Au3TrackId(id));
+    ASSERT_NE(track, nullptr);
+    EXPECT_DOUBLE_EQ(au3::TrackHeightAttachment::Get(track).GetMultiViewHeightRatio(), 0.65);
+    trackedit::Track restoredTrack;
+    restoredTrack.id = id;
+    restoredTrack.type = trackedit::TrackType::Mono;
+    ON_CALL(*m_trackeditProjectMock, track(id)).WillByDefault(Return(restoredTrack));
+    forgetCachedTracks();
+    EXPECT_DOUBLE_EQ(m_projectViewState->multiViewHeightRatio(id).val, 0.65);
+}
+
+TEST_F(ProjectViewStateTests, MultiViewSplitBoundsAndRejectsNonFiniteValues)
+{
+    const auto tracks = getAllTracks();
+    ASSERT_FALSE(tracks.empty());
+    const auto id = tracks.front();
+    m_projectViewState->setMultiViewHeightRatio(id, -1.0);
+    EXPECT_DOUBLE_EQ(m_projectViewState->multiViewHeightRatio(id).val, 0.1);
+    m_projectViewState->setMultiViewHeightRatio(id, 2.0);
+    EXPECT_DOUBLE_EQ(m_projectViewState->multiViewHeightRatio(id).val, 0.9);
+    m_projectViewState->setMultiViewHeightRatio(id, std::numeric_limits<double>::quiet_NaN());
+    EXPECT_DOUBLE_EQ(m_projectViewState->multiViewHeightRatio(id).val, 0.9);
+    m_projectViewState->setMultiViewHeightRatio(id, std::numeric_limits<double>::infinity());
+    EXPECT_DOUBLE_EQ(m_projectViewState->multiViewHeightRatio(id).val, 0.9);
+}
+
+TEST_F(ProjectViewStateTests, LabelTrackKeepsItsCompactExpandedLayout)
+{
+    const auto id = getAllTracks().front();
+    trackedit::Track labelTrack;
+    labelTrack.id = id;
+    labelTrack.type = trackedit::TrackType::Label;
+    ON_CALL(*m_trackeditProjectMock, track(id)).WillByDefault(Return(labelTrack));
+    auto project = reinterpret_cast<au3::Au3Project*>(m_au3ProjectAccessor->au3ProjectPtr());
+    au3::TrackHeightAttachment::Get(au3::DomAccessor::findTrack(*project, au3::Au3TrackId(id))).SetHeight(0);
+    forgetCachedTracks();
+
+    EXPECT_EQ(m_projectViewState->trackHeight(id).val, 86);
+    EXPECT_FALSE(m_projectViewState->isTrackCollapsed(id).val);
+    m_projectViewState->setTrackHeight(id, 60);
+    EXPECT_TRUE(m_projectViewState->isTrackCollapsed(id).val);
+    m_projectViewState->changeTrackHeight(id, 26);
+    EXPECT_EQ(m_projectViewState->trackHeight(id).val, 86);
+    EXPECT_FALSE(m_projectViewState->isTrackCollapsed(id).val);
+}
+
 TEST_F(ProjectViewStateTests, tracksInRange_InputIntervalIsClosedOpen)
 {
     // i.e., [y1, y2)
 
     const trackedit::TrackIdList tracks = getAllTracks();
     ASSERT_EQ(tracks.size(), 2) << "Expecting 2 tracks in test.aup4";
-    // Minimum track height is 44, so use values >= 44
-    m_projectViewState->setTrackHeight(tracks[0], 50);
-    m_projectViewState->setTrackHeight(tracks[1], 50);
+    // Keep tracks above the minimum height.
+    m_projectViewState->setTrackHeight(tracks[0], 120);
+    m_projectViewState->setTrackHeight(tracks[1], 120);
 
     const auto tracksTop = m_projectViewState->trackVerticalPosition(tracks[0]);
     const auto firstTrackBottom = tracksTop + m_projectViewState->trackHeight(tracks[0]).val;
@@ -196,9 +272,9 @@ TEST_F(ProjectViewStateTests, isBelowAllTracks_StartsAtTheBottomOfTheLastTrack)
 {
     const trackedit::TrackIdList tracks = getAllTracks();
     ASSERT_EQ(tracks.size(), 2) << "Expecting 2 tracks in test.aup4";
-    // Minimum track height is 44, so use values >= 44
-    m_projectViewState->setTrackHeight(tracks[0], 50);
-    m_projectViewState->setTrackHeight(tracks[1], 50);
+    // Keep tracks above the minimum height.
+    m_projectViewState->setTrackHeight(tracks[0], 120);
+    m_projectViewState->setTrackHeight(tracks[1], 120);
 
     const auto tracksTop = m_projectViewState->trackVerticalPosition(tracks[0]);
     const auto tracksBottom = m_projectViewState->trackVerticalPosition(tracks[1]) + m_projectViewState->trackHeight(tracks[1]).val;

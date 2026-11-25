@@ -31,12 +31,6 @@ MenuItemList TimelineContextMenuModel::makeRulerItems()
         makeMenuItem(PROJECTSCENE_TOGGLE_PINNED_PLAY_HEAD_COMMAND),
         makeMenuItem(PROJECTSCENE_TOGGLE_PLAYBACK_ON_RULER_CLICK_COMMAND),
         makeSeparator(),
-        makeMenuItem(playback::PLAYBACK_TOGGLE_LOOP_REGION_COMMAND),
-        makeMenuItem(playback::PLAYBACK_CLEAR_LOOP_REGION_COMMAND),
-        makeMenuItem(playback::PLAYBACK_SET_LOOP_REGION_TO_SELECTION_COMMAND),
-        makeMenuItem(playback::PLAYBACK_SET_SELECTION_TO_LOOP_COMMAND),
-        makeMenuItem(playback::PLAYBACK_TOGGLE_SELECTION_FOLLOWS_LOOP_REGION_COMMAND),
-        makeSeparator(),
         makeMenuItem(PROJECTSCENE_TOGGLE_VERTICAL_RULERS_COMMAND),
     };
 

@@ -467,6 +467,46 @@ void TimelineContext::moveToFrameTime(double startTime)
     updateFrameTime();
 }
 
+void TimelineContext::setViewRange(double startTime, double endTime)
+{
+    const auto project = trackEditProject();
+    if (!project || m_frameWidth <= 0.0 || !std::isfinite(startTime) || !std::isfinite(endTime) || endTime <= startTime) {
+        return;
+    }
+    const double duration = std::max(1.0, project->totalTime().to_double());
+    const double span = std::clamp(endTime - startTime, m_frameWidth / ZOOM_MAX, duration);
+    const double start = std::clamp(startTime, 0.0, std::max(0.0, duration - span));
+    stopAnimation();
+    m_zoom = std::clamp(m_frameWidth / span, ZOOM_MIN, ZOOM_MAX);
+    setFrameStartTime(start);
+    setFrameEndTime(start + m_frameWidth / m_zoom);
+    m_lastZoomEndTime = m_frameEndTime;
+    emit zoomChanged();
+    emit frameTimeChanged();
+    emit verticalScrollChanged();
+    saveViewState();
+}
+
+void TimelineContext::selectProjectTimeRange(double startTime, double endTime)
+{
+    if (!trackEditProject() || !std::isfinite(startTime) || !std::isfinite(endTime)) {
+        return;
+    }
+    const double start = std::max(0.0, std::min(startTime, endTime));
+    const double end = std::max(start, std::max(startTime, endTime));
+    selectionController()->resetSelectedClips();
+    selectionController()->resetSelectedLabels();
+    selectionController()->setSelectedAllAudioData(start, end);
+    selectionController()->setSelectionStartTime(startTime);
+}
+
+void TimelineContext::clearTimeSelection()
+{
+    selectionController()->resetSelectedClips();
+    selectionController()->resetSelectedLabels();
+    selectionController()->resetTimeSelection();
+}
+
 void TimelineContext::animateToFrameTime(double targetStartTime)
 {
     stopAnimation();

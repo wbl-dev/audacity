@@ -15,53 +15,65 @@ import "audio"
 TrackItem {
     id: root
 
-    headerTrailingControlsComponent: Component {
-        RowLayout {
-            opacity: root.collapsed ? 1 : 0
-            visible: opacity !== 0
+    extraControlsComponent: Component {
+        ColumnLayout {
+            spacing: 7
 
-            Behavior on opacity {
-                OpacityAnimator {
-                    duration: 100
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 6
+
+                Loader {
+                    sourceComponent: trackControlButtons
+                }
+
+                Item {
+                    Layout.fillWidth: true
+                }
+
+                FlatToggleButton {
+                    Layout.preferredWidth: 28
+                    Layout.preferredHeight: 24
+                    icon: root.trackViewState.isMultiView ? IconCode.ARROW_UP : IconCode.ARROW_DOWN
+                    checked: root.trackViewState.isMultiView
+                    toolTipDescription: qsTrc("projectscene", "Show waveform and spectrogram")
+                    navigation.panel: root.headerNavigationPanel
+                    navigation.order: root.extraControlsNavigationStart + 2
+                    navigation.accessible.name: qsTrc("projectscene", "Waveform and spectrogram")
+                    onToggled: root.trackViewState.toggleMultiView()
                 }
             }
 
-            Loader {
-                sourceComponent: trackControlButtons
+            VolumeSlider {
+                id: volumeSlider
+                Layout.fillWidth: true
+                Layout.preferredHeight: 20
+                value: Boolean(root.item) ? root.item.volumeLevel : 0
+                navigation.panel: root.headerNavigationPanel
+                navigation.order: root.extraControlsNavigationStart + 3
+                navigation.accessible.name: qsTrc("projectscene", "Track volume")
+                onNewVolumeRequested: function (newValue, completed) {
+                    if (Boolean(root.item)) {
+                        root.item.setVolumeLevel(newValue, completed)
+                    }
+                }
             }
-        }
-    }
-
-    extraControlsComponent: Component {
-        ColumnLayout {
-            spacing: 2
 
             RowLayout {
-                id: topRow
-
                 Layout.fillWidth: true
+                visible: !root.collapsed && root.height >= 160
+                spacing: 12
 
-                spacing: 16
-
-                opacity: root.collapsed ? 0 : 1
-                visible: opacity !== 0
-                Behavior on opacity {
-                    OpacityAnimator {
-                        duration: 100
-                    }
+                StyledTextLabel {
+                    text: qsTrc("projectscene", "Pan")
                 }
 
                 PanKnob {
                     id: panKnob
-
                     value: Boolean(root.item) ? root.item.pan : 0
-
                     navigation.panel: root.headerNavigationPanel
-                    navigation.order: root.extraControlsNavigationStart
-                    navigation.enabled: !root.collapsed
-                    //: Noun: accessibility name of the pan knob
+                    navigation.order: volumeSlider.navigation.order + 1
                     navigation.accessible.name: qsTrc("projectscene", "Pan")
-
                     onNewPanRequested: function (newValue, completed) {
                         if (Boolean(root.item)) {
                             root.item.setPan(newValue, completed)
@@ -69,56 +81,21 @@ TrackItem {
                     }
                 }
 
-                VolumeSlider {
-                    id: volumeSlider
-
-                    value: Boolean(root.item) ? root.item.volumeLevel : 0
-
+                FlatButton {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 28
+                    text: qsTrc("projectscene", "Effects")
+                    toolTipDescription: qsTrc("projectscene", "Opens effects panel")
                     navigation.panel: root.headerNavigationPanel
                     navigation.order: panKnob.navigation.order + 1
-                    navigation.enabled: !root.collapsed
-                    navigation.accessible.name: qsTrc("projectscene", "Track volume")
-
-                    onNewVolumeRequested: function (newValue, completed) {
-                        if (Boolean(root.item)) {
-                            root.item.setVolumeLevel(newValue, completed)
-                        }
-                    }
-
-                    Component.onCompleted: {
-                        root.extraControlsNavigationEnd = Qt.binding(function () {
-                            return volumeSlider.navigation.order
-                        })
-                    }
-                }
-
-                Loader {
-                    sourceComponent: trackControlButtons
+                    onClicked: root.openEffectsRequested()
                 }
             }
 
-            FlatButton {
-                Layout.fillWidth: true
-                Layout.preferredHeight: 24
-
-                text: qsTrc("projectscene", "Effects")
-                toolTipDescription: qsTrc("projectscene", "Opens effects panel")
-
-                opacity: topRow.visible && root.height > root.mapFromItem(this, 0, height + bottomSeparatorHeight).y ? 1 : 0
-                visible: opacity !== 0
-                Behavior on opacity {
-                    OpacityAnimator {
-                        duration: 100
-                    }
-                }
-
-                navigation.panel: root.headerNavigationPanel
-                navigation.order: root.headerTrailingControlsNavigationEnd + 1
-                navigation.enabled: topRow.visible
-
-                onClicked: {
-                    root.openEffectsRequested()
-                }
+            Component.onCompleted: {
+                root.extraControlsNavigationEnd = Qt.binding(function () {
+                    return volumeSlider.navigation.order + 2
+                })
             }
         }
     }
@@ -239,14 +216,17 @@ TrackItem {
             FlatToggleButton {
                 id: muteButton
 
-                Layout.preferredWidth: 20
-                Layout.preferredHeight: Layout.preferredWidth
+                Layout.preferredWidth: 36
+                Layout.preferredHeight: 24
 
-                icon: IconCode.MUTE
+                StyledTextLabel {
+                    anchors.centerIn: parent
+                    text: qsTrc("projectscene", "M")
+                }
                 checked: Boolean(root.item) ? root.item.muted : false
 
                 navigation.panel: root.headerNavigationPanel
-                navigation.order: root.headerTrailingControlsNavigationStart
+                navigation.order: root.extraControlsNavigationStart
                 //: Accessibility name of the mute button
                 navigation.accessible.name: qsTrc("projectscene", "Mute")
                 navigation.accessible.role: MUAccessible.CheckBox
@@ -261,10 +241,13 @@ TrackItem {
             FlatToggleButton {
                 id: soloButton
 
-                Layout.preferredWidth: 20
-                Layout.preferredHeight: Layout.preferredWidth
+                Layout.preferredWidth: 36
+                Layout.preferredHeight: 24
 
-                icon: IconCode.SOLO
+                StyledTextLabel {
+                    anchors.centerIn: parent
+                    text: qsTrc("projectscene", "S")
+                }
                 checked: Boolean(root.item) ? root.item.solo : false
 
                 navigation.panel: root.headerNavigationPanel

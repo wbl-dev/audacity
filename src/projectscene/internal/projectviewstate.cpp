@@ -3,6 +3,8 @@
 */
 
 #include <memory>
+#include <algorithm>
+#include <cmath>
 
 #include <QEvent>
 #include <QKeyEvent>
@@ -27,10 +29,12 @@
 
 using namespace agu::projectscene;
 
-constexpr int TRACK_DEFAULT_HEIGHT = 116;
+constexpr int TRACK_DEFAULT_HEIGHT = 220;
 constexpr int TRACK_LABEL_DEFAULT_HEIGHT = 86;
-constexpr int TRACK_MIN_HEIGHT = 44;
-constexpr int TRACK_COLLAPSE_HEIGHT = 72;
+constexpr int TRACK_MIN_HEIGHT = 100;
+constexpr int TRACK_COLLAPSE_HEIGHT = 120;
+constexpr int LABEL_TRACK_MIN_HEIGHT = 44;
+constexpr int LABEL_TRACK_COLLAPSE_HEIGHT = 72;
 
 namespace {
 constexpr int numDecimals(float value)
@@ -314,6 +318,11 @@ int ProjectViewState::trackVerticalPosition(const trackedit::TrackId& trackId) c
 
 ProjectViewState::TrackData& ProjectViewState::makeTrackData(const trackedit::TrackId& trackId) const
 {
+    auto existing = m_tracks.find(trackId);
+    if (existing != m_tracks.end()) {
+        return existing->second;
+    }
+
     const project::IAGuProjectPtr prj = globalContext()->currentProject();
 
     const std::pair<float, float> defaultBounds = getVerticalDisplayBounds(prj, trackId);
@@ -323,6 +332,7 @@ ProjectViewState::TrackData& ProjectViewState::makeTrackData(const trackedit::Tr
     TrackData d;
     d.collapsed.val = false;
     d.channelHeightRatio.val = 1.0;
+    d.multiViewHeightRatio.val = 0.5;
     d.verticalDisplayBounds.val = defaultBounds;
     d.isHalfWave.val = (defaultBounds.first == 0.0f);
     d.rulerType.val = defaultRulerType;
@@ -342,6 +352,7 @@ ProjectViewState::TrackData& ProjectViewState::makeTrackData(const trackedit::Tr
     if (trackeditPrj) {
         std::optional<trackedit::Track> track = trackeditPrj->track(trackId);
         if (track) {
+            d.isLabel = track->type == trackedit::TrackType::Label;
             d.channelHeightRatio.val = track->type == trackedit::TrackType::Stereo ? 0.5 : 1.0;
             int defaultHeight = track->type == trackedit::TrackType::Label ? TRACK_LABEL_DEFAULT_HEIGHT : TRACK_DEFAULT_HEIGHT;
 
@@ -350,11 +361,15 @@ ProjectViewState::TrackData& ProjectViewState::makeTrackData(const trackedit::Tr
             if (prj) {
                 auto track = agu::au3::DomAccessor::findTrack(
                     *reinterpret_cast<agu::au3::Au3Project*>(prj->au3ProjectPtr()), agu::au3::Au3TrackId(trackId));
-                int savedHeight = au3::TrackHeightAttachment::Get(track).GetHeight();
-                savedHeight = savedHeight <= 0 ? defaultHeight : savedHeight;
-                height = std::max(savedHeight, TRACK_MIN_HEIGHT);
+                if (track) {
+                    const auto& attachment = au3::TrackHeightAttachment::Get(track);
+                    d.multiViewHeightRatio.val = attachment.GetMultiViewHeightRatio();
+                    int savedHeight = attachment.GetHeight();
+                    savedHeight = savedHeight <= 0 ? defaultHeight : savedHeight;
+                    height = std::max(savedHeight, d.isLabel ? LABEL_TRACK_MIN_HEIGHT : TRACK_MIN_HEIGHT);
+                }
             }
-            d.collapsed.val = height <= TRACK_COLLAPSE_HEIGHT;
+            d.collapsed.val = height < (d.isLabel ? LABEL_TRACK_COLLAPSE_HEIGHT : TRACK_COLLAPSE_HEIGHT);
             d.height.val = height;
         }
     }
@@ -457,6 +472,32 @@ muse::ValCh<double> ProjectViewState::channelHeightRatio(const trackedit::TrackI
     return d.channelHeightRatio;
 }
 
+muse::ValCh<double> ProjectViewState::multiViewHeightRatio(const trackedit::TrackId& trackId) const
+{
+    auto it = m_tracks.find(trackId);
+    if (it != m_tracks.end()) {
+        return it->second.multiViewHeightRatio;
+    }
+    return makeTrackData(trackId).multiViewHeightRatio;
+}
+
+void ProjectViewState::setMultiViewHeightRatio(const trackedit::TrackId& trackId, double ratio)
+{
+    if (!std::isfinite(ratio)) {
+        return;
+    }
+    const double bounded = std::clamp(ratio, 0.1, 0.9);
+    auto& d = makeTrackData(trackId);
+    d.multiViewHeightRatio.set(bounded);
+    const auto prj = globalContext()->currentProject();
+    if (prj && prj->au3ProjectPtr()) {
+        auto track = au3::DomAccessor::findTrack(*reinterpret_cast<au3::Au3Project*>(prj->au3ProjectPtr()), au3::Au3TrackId(trackId));
+        if (track) {
+            au3::TrackHeightAttachment::Get(track).SetMultiViewHeightRatio(bounded);
+        }
+    }
+}
+
 void ProjectViewState::changeTrackHeight(const trackedit::TrackId& trackId, int delta)
 {
     TrackData* d = nullptr;
@@ -468,10 +509,10 @@ void ProjectViewState::changeTrackHeight(const trackedit::TrackId& trackId, int 
     }
 
     int oldHeight = d->height.val;
-    int newHeight = std::max(oldHeight + delta, TRACK_MIN_HEIGHT);
+    int newHeight = std::max(oldHeight + delta, d->isLabel ? LABEL_TRACK_MIN_HEIGHT : TRACK_MIN_HEIGHT);
 
     d->height.set(newHeight);
-    d->collapsed.set(newHeight < TRACK_COLLAPSE_HEIGHT);
+    d->collapsed.set(newHeight < (d->isLabel ? LABEL_TRACK_COLLAPSE_HEIGHT : TRACK_COLLAPSE_HEIGHT));
 
     recomputeTotalTrackHeight();
 
@@ -480,7 +521,9 @@ void ProjectViewState::changeTrackHeight(const trackedit::TrackId& trackId, int 
         au3::Au3Project* au3Project = reinterpret_cast<au3::Au3Project*>(prj->au3ProjectPtr());
         if (au3Project) {
             auto track = agu::au3::DomAccessor::findTrack(*au3Project, agu::au3::Au3TrackId(trackId));
-            au3::TrackHeightAttachment::Get(track).SetHeight(newHeight);
+            if (track) {
+                au3::TrackHeightAttachment::Get(track).SetHeight(newHeight);
+            }
         }
     }
 }
@@ -495,9 +538,9 @@ void ProjectViewState::setTrackHeight(const trackedit::TrackId& trackId, int hei
         d = &makeTrackData(trackId);
     }
 
-    int newHeight = std::max(height, TRACK_MIN_HEIGHT);
+    int newHeight = std::max(height, d->isLabel ? LABEL_TRACK_MIN_HEIGHT : TRACK_MIN_HEIGHT);
     d->height.set(newHeight);
-    d->collapsed.set(height < TRACK_COLLAPSE_HEIGHT);
+    d->collapsed.set(newHeight < (d->isLabel ? LABEL_TRACK_COLLAPSE_HEIGHT : TRACK_COLLAPSE_HEIGHT));
 
     recomputeTotalTrackHeight();
 
@@ -506,7 +549,9 @@ void ProjectViewState::setTrackHeight(const trackedit::TrackId& trackId, int hei
         au3::Au3Project* au3Project = reinterpret_cast<au3::Au3Project*>(prj->au3ProjectPtr());
         if (au3Project) {
             auto track = agu::au3::DomAccessor::findTrack(*au3Project, agu::au3::Au3TrackId(trackId));
-            au3::TrackHeightAttachment::Get(track).SetHeight(newHeight);
+            if (track) {
+                au3::TrackHeightAttachment::Get(track).SetHeight(newHeight);
+            }
         }
     }
 }

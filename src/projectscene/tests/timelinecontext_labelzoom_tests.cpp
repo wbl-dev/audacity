@@ -3,6 +3,7 @@
 */
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include <limits>
 
 #include "projectscene/view/timeline/timelinecontext.h"
 
@@ -70,5 +71,40 @@ TEST_F(TimelineContextLabelZoomTests, SelectedPointStaysCenteredAfterPinchZoom)
     m_context.pinchToZoom(2.0, QPointF(700.0, 0.0));
 
     EXPECT_NEAR(m_context.timeToPosition(60.0), 500.0, 0.001);
+}
+
+TEST_F(TimelineContextLabelZoomTests, OverviewNavigationUsesRequestedRangeWithoutChangingSelection)
+{
+    EXPECT_CALL(*m_selection, setDataSelectedStartTime(_, _)).Times(0);
+    EXPECT_CALL(*m_selection, setDataSelectedEndTime(_, _)).Times(0);
+    EXPECT_CALL(*m_selection, setSelectedAllAudioData(_, _)).Times(0);
+
+    m_context.setViewRange(10.0, 30.0);
+
+    EXPECT_DOUBLE_EQ(m_context.frameStartTime(), 10.0);
+    EXPECT_DOUBLE_EQ(m_context.frameEndTime(), 30.0);
+    EXPECT_DOUBLE_EQ(m_context.timeToPosition(20.0), 500.0);
+}
+
+TEST_F(TimelineContextLabelZoomTests, OverviewNavigationClampsToProjectAndRejectsInvalidRanges)
+{
+    m_context.setViewRange(110.0, 130.0);
+    EXPECT_DOUBLE_EQ(m_context.frameStartTime(), 100.0);
+    EXPECT_DOUBLE_EQ(m_context.frameEndTime(), 120.0);
+
+    m_context.setViewRange(30.0, 20.0);
+    m_context.setViewRange(0.0, std::numeric_limits<double>::quiet_NaN());
+    EXPECT_DOUBLE_EQ(m_context.frameStartTime(), 100.0);
+    EXPECT_DOUBLE_EQ(m_context.frameEndTime(), 120.0);
+}
+
+TEST_F(TimelineContextLabelZoomTests, RulerRangeSelectsAllAudioAndClearsStaleItemSelection)
+{
+    InSequence order;
+    EXPECT_CALL(*m_selection, resetSelectedClips());
+    EXPECT_CALL(*m_selection, resetSelectedLabels());
+    EXPECT_CALL(*m_selection, setSelectedAllAudioData(std::optional<muse::secs_t>(2.0), std::optional<muse::secs_t>(5.0)));
+
+    m_context.selectProjectTimeRange(5.0, 2.0);
 }
 }

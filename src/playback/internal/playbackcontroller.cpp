@@ -473,12 +473,13 @@ muse::Ret PlaybackController::togglePlay(TogglePlayMode mode)
         if (selectedLabelRegion) {
             const PlaybackRegion region = *selectedLabelRegion;
             const secs_t position = playbackPosition();
-            const bool looping = isLoopRegionActive();
-            const secs_t start = looping || position < region.start || position + TIME_EPS >= region.end
-                                   ? region.start : position;
-            if (looping) {
-                player()->setLoopRegion(region);
+            if (isLoopRegionActive()) {
+                player()->playRange(region);
+                m_isPlayingSelection = true;
+                return make_ok();
             }
+            const secs_t start = position < region.start || position + TIME_EPS >= region.end
+                                   ? region.start : position;
             doChangePlaybackRegion(region);
             if (!isPlaybackStartPositionValid()) {
                 return make_ret(Ret::Code::NotSupported);
@@ -486,6 +487,13 @@ muse::Ret PlaybackController::togglePlay(TogglePlayMode mode)
             player()->play(start);
             m_isPlayingSelection = true;
             return make_ok();
+        }
+
+        if (!m_pausedResumePos && selectionPlaybackRegion().isValid()) {
+            // Ordinary Play uses the selected interval once, including when a
+            // separate loop region is active. A paused stream torn down by a
+            // device change still resumes at its durable pause position.
+            return playSelectionAction();
         }
 
         if (isPlaybackPositionOnTheEndOfProject()) {
@@ -575,12 +583,6 @@ muse::Ret PlaybackController::playSelectionAction()
     }
 
     if (isLoopRegionActive()) {
-        if (const auto labelRegion = selectedRangeLabelRegion()) {
-            player()->setLoopRegion(*labelRegion);
-            player()->play(labelRegion->start);
-            m_isPlayingSelection = true;
-            return make_ok();
-        }
         //! NOTE: the play region cannot be updated while a loop region is active —
         //! play the selected range directly so the selection is played, not the loop region
         player()->playRange(selection);

@@ -94,10 +94,13 @@ Rectangle {
     }
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    PlayRegion {
-        id: playRegion
-
-        context: timelineContext
+    Rectangle {
+        x: Math.max(0, timelineContext.selectionStartPosition)
+        width: Math.max(0, Math.min(parent.width, timelineContext.selectionEndPosition) - x)
+        height: parent.height
+        visible: timelineContext.selectionActive
+        color: ui.theme.accentColor
+        opacity: 0.18
     }
 
     TimelineRuler {

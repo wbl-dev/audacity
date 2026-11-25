@@ -170,6 +170,9 @@ void SplitToolController::setActive(bool newActive)
 
     auto prj = globalContext()->currentProject();
     if (prj) {
+        if (m_active) {
+            prj->viewState()->setClipGainAutomationEnabled(false);
+        }
         prj->viewState()->setSplitToolEnabled(m_active);
     }
 

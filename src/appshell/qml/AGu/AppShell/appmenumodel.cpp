@@ -262,6 +262,7 @@ MenuItem* AppMenuModel::makeEditMenu()
         makeMenuItem(trackedit::TRACKEDIT_SILENCE_AUDIO_SELECTION_COMMAND, TranslatableString("action", "Silence audio")),
         makeSeparator(),
         makeMenuItem(PROJECT_OPEN_METADATA_DIALOG_COMMAND, TranslatableString("action", "Metadata editor")),
+        makeMenuItem(APP_AUDIO_SETTINGS_COMMAND),
 #ifndef Q_OS_MAC
         makeSeparator(),
 #endif
@@ -282,7 +283,6 @@ MenuItem* AppMenuModel::makeSelectMenu()
         makeSeparator(),
         makeMenu(TranslatableString("appshell-menu-select", "Region"), makeRegionSelectionItems(), "menu-selection-region"),
         makeSeparator(),
-        makeMenu(TranslatableString("appshell-menu-select", "Looping"), makeLoopingItems(), "menu-looping"),
         makeMenuItem(trackedit::TRACKEDIT_ZERO_CROSS_COMMAND),
     };
 

@@ -65,6 +65,7 @@
 #include "view/tracksitemsview/labeleditor/addnewlabeltrackmodel.h"
 
 #include "view/timeline/timelinecontext.h"
+#include "view/timeline/projectoverview.h"
 #include "view/timeline/timelineruler.h"
 #include "view/timeline/timelinecontextmenumodel.h"
 #include "view/timeline/playregioncontroller.h"
@@ -183,6 +184,7 @@ void ProjectSceneModule::registerUiTypes()
     qmlRegisterType<TrackLabelsLayoutManager>("AGu.ProjectScene", 1, 0, "TrackLabelsLayoutManager");
     qmlRegisterUncreatableType<TrackLabelItem>("AGu.ProjectScene", 1, 0, "TrackLabelItem", "Not creatable from QML");
     qmlRegisterType<WaveView>("AGu.ProjectScene", 1, 0, "WaveView");
+    qmlRegisterType<ProjectOverview>("AGu.ProjectScene", 1, 0, "ProjectOverview");
     qmlRegisterType<ClipContextMenuModel>("AGu.ProjectScene", 1, 0, "ClipContextMenuModel");
     qmlRegisterType<MultiClipContextMenuModel>("AGu.ProjectScene", 1, 0, "MultiClipContextMenuModel");
     qmlRegisterType<LabelContextMenuModel>("AGu.ProjectScene", 1, 0, "LabelContextMenuModel");

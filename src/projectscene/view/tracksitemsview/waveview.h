@@ -9,6 +9,7 @@
 #include "context/iglobalcontext.h"
 #include "trackedit/iprojecthistory.h"
 #include "global/async/asyncable.h"
+#include "ui/iuiconfiguration.h"
 
 #include "iwavepainter.h"
 #include "../timeline/timelinecontext.h"
@@ -44,6 +45,7 @@ class WaveView : public QQuickPaintedItem, public muse::async::Asyncable, public
     Q_PROPERTY(QVariant displayBounds READ displayBounds WRITE setDisplayBounds FINAL)
 
     muse::GlobalInject<IProjectSceneConfiguration> configuration;
+    muse::GlobalInject<muse::ui::IUiConfiguration> uiConfiguration;
 
     muse::ContextInject<agu::context::IGlobalContext> globalContext{ this };
     muse::ContextInject<agu::projectscene::IWavePainter> wavePainter{ this };

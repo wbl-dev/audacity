@@ -16,6 +16,9 @@ public:
     MOCK_METHOD(muse::ValCh<bool>, isTrackCollapsed, (const trackedit::TrackId&), (const, override));
     MOCK_METHOD(muse::ValCh<double>, channelHeightRatio, (const trackedit::TrackId&), (const, override));
 
+    MOCK_METHOD(muse::ValCh<double>, multiViewHeightRatio, (const trackedit::TrackId&), (const, override));
+    MOCK_METHOD(void, setMultiViewHeightRatio, (const trackedit::TrackId&, double), (override));
+
     MOCK_METHOD(int, trackVerticalPosition, (const trackedit::TrackId&), (const, override));
     MOCK_METHOD(void, changeTrackHeight, (const trackedit::TrackId&, int), (override));
     MOCK_METHOD(void, setTrackHeight, (const trackedit::TrackId&, int), (override));

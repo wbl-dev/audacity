@@ -81,7 +81,6 @@ Rectangle {
     QtObject {
         id: prv
 
-        property bool playRegionActivated: false
         readonly property int headerHeight: 20
 
         function cancelItemDragEdit() {
@@ -116,10 +115,6 @@ Rectangle {
         id: playbackState
     }
 
-    PlayRegionModel {
-        id: playRegionModel
-    }
-
     LeadInRecordingIndicatorModel {
         id: leadInIndicator
     }
@@ -138,7 +133,14 @@ Rectangle {
         }
 
         onEscapePressed: {
+            const movingClip = itemsMoveController.active
             prv.cancelItemDragEdit()
+            if (!movingClip) {
+                timelineMouseArea.gestureCanceled = true
+                timelineMouseArea.dragged = false
+                selectionViewController.cancelSelectionGesture()
+                timeline.context.clearTimeSelection()
+            }
         }
     }
 
@@ -188,11 +190,6 @@ Rectangle {
         context: timeline.context
     }
 
-    PlayRegionController {
-        id: playRegionController
-        context: timeline.context
-    }
-
     SplitToolController {
         id: splitToolController
         context: timeline.context
@@ -219,7 +216,6 @@ Rectangle {
         Qt.callLater(root.init)
 
         playbackState.init()
-        playRegionModel.init()
         leadInIndicator.init()
         selectionViewController.load()
         selectionContextMenuModel.load()
@@ -230,7 +226,6 @@ Rectangle {
 
     function init() {
         timeline.init()
-        playRegionController.init()
         playCursorController.init()
         tracksViewState.init()
         itemsMoveController.init()
@@ -261,7 +256,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        height: timeline.height
+        height: overview.height + timeline.height
         z: content.z + 1 // to prevent clips overlapping timeline ruler
 
         clip: true
@@ -269,7 +264,7 @@ Rectangle {
         Rectangle {
             id: timelineIndent
 
-            anchors.top: parent.top
+            anchors.top: overview.bottom
             anchors.left: parent.left
 
             height: timeline.height
@@ -288,64 +283,83 @@ Rectangle {
             }
         }
 
+        OverviewNavigator {
+            id: overview
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: 44
+            context: timeline.context
+            playPosition: timeline.context.positionToTime(playCursorController.positionX)
+        }
+
         MouseArea {
             id: timelineMouseArea
-            anchors.fill: parent
+            anchors.top: overview.bottom
+            anchors.left: timeline.left
+            anchors.right: timeline.right
+            height: timeline.height
             hoverEnabled: true
 
-            property bool playRegionActivated: false
+            property real anchorTime: 0
+            property real pressX: 0
+            property bool dragged: false
+            property bool gestureCanceled: false
 
             function convertToTimelinePosition(e) {
-                let position = mapToItem(timeline, Qt.point(e.x, e.y))
-                position.x = Math.max(0, position.x)
-                position.y = Math.max(0, position.y)
-                return position
+                return Qt.point(Math.max(0, Math.min(width, e.x)), e.y)
             }
 
-            onPositionChanged: function (e) {
-                let position = convertToTimelinePosition(e)
-                timeline.updateCursorPosition(position.x, position.y)
-                playRegionController.updatePosition(position.x)
-            }
-
-            onPressed: function (e) {
-                let position = convertToTimelinePosition(e)
-                if (timeline.isMajorSection(position.y)) {
-                    playRegionController.startInteraction(position.x, root.ctrlPressed)
-                    playRegionActivated = true
+            onPressed: e => {
+                content.forceActiveFocus()
+                gestureCanceled = false
+                pressX = e.x
+                dragged = false
+                const time = timeline.context.positionToTime(e.x, true)
+                if ((e.modifiers & Qt.ShiftModifier) && timeline.context.selectionActive) {
+                    const start = timeline.context.selectionStartTime
+                    const end = timeline.context.selectionEndTime
+                    anchorTime = Math.abs(time - start) < Math.abs(time - end) ? end : start
+                    dragged = true
+                    timeline.context.selectProjectTimeRange(anchorTime, time)
+                } else {
+                    anchorTime = time
                 }
             }
 
-            onReleased: function (e) {
-                let position = convertToTimelinePosition(e)
-                playRegionController.finishInteraction(position.x)
+            onPositionChanged: e => {
+                const position = convertToTimelinePosition(e)
+                timeline.updateCursorPosition(position.x, position.y)
+                if (pressed && !gestureCanceled && (dragged || Math.abs(e.x - pressX) >= 4)) {
+                    dragged = true
+                    timeline.context.selectProjectTimeRange(anchorTime, timeline.context.positionToTime(position.x, true))
+                }
             }
 
-            onClicked: function (e) {
-                let position = convertToTimelinePosition(e)
-                if (!playRegionActivated) {
-                    let time = timeline.context.positionToTime(position.x)
-                    playCursorController.seekToTime(time, playbackState.isPlaying || timeline.context.playbackOnRulerClickEnabled)
+            onReleased: e => {
+                if (gestureCanceled) {
+                    return
+                }
+                const position = convertToTimelinePosition(e)
+                const time = timeline.context.positionToTime(position.x, true)
+                if (dragged) {
+                    timeline.context.selectProjectTimeRange(anchorTime, time)
+                } else {
+                    timeline.context.clearTimeSelection()
+                    playCursorController.seekToTime(time, false)
                     playCursorController.setPlaybackRegionByTime(time, time)
                 }
-                playRegionActivated = false
             }
 
-            Connections {
-                target: root
-
-                function onCtrlPressedChanged() {
-                    if (!root.ctrlPressed) {
-                        playRegionController.finishInteraction(timelineMouseArea.mouseX)
-                    }
-                }
+            onCanceled: {
+                dragged = false
             }
         }
 
         Timeline {
             id: timeline
 
-            anchors.top: parent.top
+            anchors.top: overview.bottom
             anchors.left: timelineIndent.right
             anchors.right: verticalRulerPanelHeader.left
 
@@ -457,10 +471,8 @@ Rectangle {
                         var ix = Math.max(mapToItem(timeline, e.x, e.y).x, timeline.context.timeToPosition(0.0))
                         let ixTime = timeline.context.positionToTime(ix)
                         playCursorController.seekToTime(ixTime)
-                        if (!timelineMouseArea.playRegionActivated) {
-                            playCursorController.seekToTime(ixTime, playbackState.isPlaying || timeline.context.playbackOnRulerClickEnabled)
-                            playCursorController.setPlaybackRegionByTime(ixTime, ixTime)
-                        }
+                        playCursorController.seekToTime(ixTime, false)
+                        playCursorController.setPlaybackRegionByTime(ixTime, ixTime)
                         playCursorReleaseTimer.restart()
                     }
 
@@ -476,7 +488,7 @@ Rectangle {
         Rectangle {
             id: verticalRulerPanelHeader
 
-            anchors.top: parent.top
+            anchors.top: overview.bottom
             anchors.right: parent.right
             height: timeline.height
             width: tracksModel.isVerticalRulersVisible ? tracksModel.verticalRulerWidth : 0
@@ -1316,11 +1328,11 @@ Rectangle {
             anchors.bottom: content.bottom
 
             width: timeline.devicePixel
-            x: timeline.snapToDevicePixel(playRegionController.guidelineVisible ? playRegionController.guidelinePosition : (root.guidelineVisible ? root.guidelinePos : -1))
+            x: timeline.snapToDevicePixel(root.guidelineVisible ? root.guidelinePos : -1)
 
             color: tracksViewState.snapEnabled ? ui.theme.extra["guideline_snap_enabled_color"] : ui.theme.extra["guideline_snap_disabled_color"]
 
-            visible: root.guidelineVisible || playRegionController.guidelineVisible
+            visible: root.guidelineVisible
         }
 
         Rectangle {
@@ -1354,30 +1366,6 @@ Rectangle {
             navigationCtrl: root.navDefaultControl
             drawOutsideParent: false
         }
-    }
-
-    LoopRegionGuideline {
-        id: loopRegionGuidelineLeft
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        z: timelineHeader.z + 1
-        context: timeline.context
-        time: playRegionModel.start
-        contentX: content.x
-        windowOriginX: timeline.windowOriginX
-        visible: playRegionModel.active
-    }
-
-    LoopRegionGuideline {
-        id: loopRegionGuidelineRight
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        z: timelineHeader.z + 1
-        context: timeline.context
-        time: playRegionModel.end
-        contentX: content.x
-        windowOriginX: timeline.windowOriginX
-        visible: playRegionModel.active
     }
 
     ImportDropArea {

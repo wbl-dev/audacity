@@ -5,6 +5,7 @@
         <file>qml/AGu/ProjectScene/tracksitemsview/TrackClipsContainer.qml</file>
         <file>qml/AGu/ProjectScene/tracksitemsview/ClipItem.qml</file>
         <file>qml/AGu/ProjectScene/tracksitemsview/Timeline.qml</file>
+        <file>qml/AGu/ProjectScene/tracksitemsview/OverviewNavigator.qml</file>
         <file>qml/AGu/ProjectScene/tracksitemsview/ItemsSelection.qml</file>
         <file>qml/AGu/ProjectScene/tracksitemsview/TrackLabelsContainer.qml</file>
         <file>qml/AGu/ProjectScene/tracksitemsview/TrackItemsContainer.qml</file>

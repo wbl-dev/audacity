@@ -3,12 +3,16 @@
  */
 #include "trackheightattachment.h"
 
+#include <algorithm>
+#include <cmath>
+
 namespace agu::au3 {
 static const AttachedTrackObjects::RegisteredFactory keyTrackHeight{
     [](Au3Track& track) -> std::shared_ptr<TrackHeightAttachment> { return std::make_shared<TrackHeightAttachment>(track); }
 };
 
 static constexpr auto HeightAttr = "height";
+static constexpr auto MultiViewRatioAttr = "multiviewratio";
 
 TrackHeightAttachment& TrackHeightAttachment::Get(Au3Track* track)
 {
@@ -34,15 +38,22 @@ void TrackHeightAttachment::CopyTo(Au3Track& track) const
 {
     auto& attachment = Get(&track);
     attachment.SetHeight(mHeight);
+    attachment.SetMultiViewHeightRatio(mMultiViewHeightRatio);
 }
 
 void TrackHeightAttachment::WriteXMLAttributes(XMLWriter& writer) const
 {
     writer.WriteAttr(HeightAttr, mHeight);
+    writer.WriteAttr(MultiViewRatioAttr, mMultiViewHeightRatio);
 }
 
 bool TrackHeightAttachment::HandleXMLAttribute(const std::string_view& attr, const XMLAttributeValueView& valueView)
 {
+    double ratio;
+    if (attr == MultiViewRatioAttr && valueView.TryGet(ratio)) {
+        SetMultiViewHeightRatio(ratio);
+        return true;
+    }
     long nValue;
     if (attr == HeightAttr && valueView.TryGet(nValue)) {
         mHeight = static_cast<int>(nValue);
@@ -59,5 +70,17 @@ int TrackHeightAttachment::GetHeight() const
 void TrackHeightAttachment::SetHeight(int height)
 {
     mHeight = height;
+}
+
+double TrackHeightAttachment::GetMultiViewHeightRatio() const
+{
+    return mMultiViewHeightRatio;
+}
+
+void TrackHeightAttachment::SetMultiViewHeightRatio(double ratio)
+{
+    if (std::isfinite(ratio)) {
+        mMultiViewHeightRatio = std::clamp(ratio, 0.1, 0.9);
+    }
 }
 }

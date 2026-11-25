@@ -43,6 +43,9 @@ public:
     muse::ValCh<bool> isTrackCollapsed(const trackedit::TrackId& trackId) const override;
     muse::ValCh<double> channelHeightRatio(const trackedit::TrackId& trackId) const override;
 
+    muse::ValCh<double> multiViewHeightRatio(const trackedit::TrackId& trackId) const override;
+    void setMultiViewHeightRatio(const trackedit::TrackId& trackId, double ratio) override;
+
     int trackVerticalPosition(const trackedit::TrackId& trackId) const override;
     void changeTrackHeight(const trackedit::TrackId& trackId, int delta) override;
     void setTrackHeight(const trackedit::TrackId& trackId, int height) override;
@@ -146,9 +149,11 @@ private:
     float maxVerticalZoomLevel(const trackedit::TrackId& trackId) const;
 
     struct TrackData {
+        bool isLabel = false;
         muse::ValCh<int> height;
         muse::ValCh<bool> collapsed;
         muse::ValCh<double> channelHeightRatio;
+        muse::ValCh<double> multiViewHeightRatio;
         muse::ValCh<std::pair<float, float> > verticalDisplayBounds;
         muse::ValCh<bool> isHalfWave;
         muse::ValCh<int> rulerType;

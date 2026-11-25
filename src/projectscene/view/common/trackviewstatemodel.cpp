@@ -63,6 +63,17 @@ void TrackViewStateModel::init()
             emit channelHeightRatioChanged();
         }, muse::async::Asyncable::Mode::SetReplace);
 
+        m_multiViewHeightRatio = vs->multiViewHeightRatio(m_trackId);
+        m_multiViewHeightRatio.ch.onReceive(this, [this](double ratio) {
+            m_multiViewHeightRatio.val = ratio;
+            emit multiViewHeightRatioChanged();
+        }, muse::async::Asyncable::Mode::SetReplace);
+        m_viewType = vs->trackViewType(m_trackId);
+        m_viewType.ch.onReceive(this, [this](trackedit::TrackViewType type) {
+            m_viewType.val = type;
+            emit isMultiViewChanged();
+        }, muse::async::Asyncable::Mode::SetReplace);
+
         m_displayBounds = vs->verticalDisplayBounds(m_trackId);
         m_displayBounds.ch.onReceive(this, [this](std::pair<float, float> bounds) {
             if (m_displayBounds.val == bounds) {
@@ -85,6 +96,8 @@ void TrackViewStateModel::init()
         emit isTrackCollapsedChanged();
         emit channelHeightRatioChanged();
         emit displayBoundsChanged();
+        emit multiViewHeightRatioChanged();
+        emit isMultiViewChanged();
     }
 
     playbackController()->isPlayingChanged().onNotify(this, [this]() {
@@ -180,4 +193,32 @@ bool TrackViewStateModel::isRecording() const
 agu::playback::PlaybackMeterModel* TrackViewStateModel::meterModel() const
 {
     return m_meterModel;
+}
+
+double TrackViewStateModel::multiViewHeightRatio() const
+{
+    return m_multiViewHeightRatio.val;
+}
+
+void TrackViewStateModel::changeMultiViewHeightRatio(double ratio)
+{
+    if (auto vs = viewState()) {
+        vs->setMultiViewHeightRatio(m_trackId, ratio);
+    }
+}
+
+bool TrackViewStateModel::isMultiView() const
+{
+    return m_viewType.val == trackedit::TrackViewType::WaveformAndSpectrogram;
+}
+
+void TrackViewStateModel::toggleMultiView()
+{
+    if (auto vs = viewState()) {
+        const bool expanded = isMultiView();
+        vs->setTrackViewType(m_trackId, expanded ? trackedit::TrackViewType::Waveform : trackedit::TrackViewType::WaveformAndSpectrogram);
+        if (!expanded && trackHeight() < 320) {
+            vs->setTrackHeight(m_trackId, 320);
+        }
+    }
 }

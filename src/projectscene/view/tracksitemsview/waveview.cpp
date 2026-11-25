@@ -18,9 +18,6 @@
 
 using namespace agu::projectscene;
 
-static const QColor BACKGROUND_COLOR = QColor(255, 255, 255);
-static const QColor SAMPLES_BASE_COLOR = QColor(0, 0, 0);
-static const QColor SAMPLES_HIGHLIGHT_COLOR = QColor(255, 255, 255);
 static const QColor RMS_BASE_COLOR = QColor(255, 255, 255);
 static const QColor RMS_SELECTED_COLOR = QColor(255, 255, 255); // TODO: This need update
 static const QColor CLIPPING_SOLID_COLOR = QColor(239, 71, 111);
@@ -76,6 +73,10 @@ WaveView::WaveView(QQuickItem* parent)
         emit backgroundColorChanged();
         update();
     });
+    uiConfiguration()->currentThemeChanged().onNotify(this, [this]() {
+        emit backgroundColorChanged();
+        update();
+    });
 }
 
 WaveView::~WaveView()
@@ -124,25 +125,18 @@ void WaveView::applyColorfulStyle(IWavePainter::Params& params,
                                   const QColor& clipSelectedColor,
                                   bool selected) const
 {
-    float normalBgAlpha = 0.8;
-    if (selected) {
-        params.style.blankBrush = clipSelectedColor;
-        params.style.normalBackground = clipSelectedColor;
-        params.style.selectedBackground = clipSelectedColor;
-        params.style.envelopeBackground = clipSelectedColor;
-        params.style.selectedEnvelopeBackground = clipSelectedColor;
-    } else {
-        params.style.blankBrush = muse::blendQColors(BACKGROUND_COLOR, clipColor, 0.9);
-        params.style.normalBackground = muse::blendQColors(BACKGROUND_COLOR, clipColor, normalBgAlpha);
-        params.style.selectedBackground = clipSelectedColor;
-        params.style.envelopeBackground = muse::blendQColors(BACKGROUND_COLOR, clipColor, normalBgAlpha);
-        params.style.selectedEnvelopeBackground = clipSelectedColor;
-    }
+    const auto& theme = uiConfiguration()->currentTheme();
+    const QColor canvas = theme.extra.value("waveform_background_color",
+                                            theme.values.value(muse::ui::BACKGROUND_PRIMARY_COLOR)).value<QColor>();
+    params.style.blankBrush = selected ? muse::blendQColors(canvas, clipColor, 0.08) : canvas;
+    params.style.normalBackground = params.style.blankBrush;
+    params.style.selectedBackground = muse::blendQColors(canvas, clipSelectedColor, 0.24);
+    params.style.envelopeBackground = params.style.blankBrush;
+    params.style.selectedEnvelopeBackground = params.style.selectedBackground;
 
-    params.style.samplePen = muse::blendQColors(params.style.blankBrush, SAMPLES_BASE_COLOR, 0.8);
-    params.style.selectedSamplePen = muse::blendQColors(params.style.blankBrush,
-                                                        selected ? SAMPLES_HIGHLIGHT_COLOR : SAMPLES_BASE_COLOR,
-                                                        0.75);
+    // Keep the track hue, with the signal carrying the color on a quiet canvas.
+    params.style.samplePen = canvas.lightnessF() > 0.5 ? clipColor.darker(160) : clipColor;
+    params.style.selectedSamplePen = canvas.lightnessF() > 0.5 ? clipColor.darker(180) : clipSelectedColor;
     params.style.rmsPen = muse::blendQColors(params.style.samplePen, RMS_BASE_COLOR, 0.25);
     params.style.rmsSelectedPen = muse::blendQColors(params.style.selectedSamplePen, RMS_BASE_COLOR, 0.6); // TODO: use RMS_SELECTED_COLOR
     params.style.clippedPen = CLIPPING_SOLID_COLOR;

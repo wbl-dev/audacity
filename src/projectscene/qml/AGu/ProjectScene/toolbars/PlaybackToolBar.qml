@@ -1,63 +1,46 @@
 /*
 * Audacity: A Digital Audio Editor
 */
-import QtQuick 2.15
+import QtQuick
 
-import Muse.Ui 1.0
+import Muse.Ui
 import Muse.UiComponents
 
-import AGu.Playback 1.0
-import AGu.Record 1.0
-import AGu.ProjectScene 1.0
-import AGu.UiComponents 1.0
-
-import "internal"
+import AGu.ProjectScene
+import AGu.UiComponents
 
 Item {
     id: root
 
     property bool floating: false
-
     property int maximumWidth: 0
     property int maximumHeight: 0
 
     property alias navigationPanel: view.navigationPanel
 
-    width: {
-        let contentWidth = view.width + prv.customizeButtonSpaceWidth
-        return maximumWidth > 0 ? Math.max(contentWidth, maximumWidth) : contentWidth
-    }
+    width: view.width
     height: view.height
 
     signal relayoutRequested
-
-    QtObject {
-        id: prv
-
-        property int customizeButtonSpaceWidth: 8 /* spacing */ + customizeButton.width + customizeButton.anchors.rightMargin
-    }
 
     StyledToolBarView {
         id: view
 
         navigationPanel.name: "PlaybackToolBar"
-        navigationPanel.accessible.name: qsTrc("projectscene", "Playback toolbar")
+        navigationPanel.accessible.name: qsTrc("projectscene", "Transport and editing toolbar")
 
         anchors.verticalCenter: parent.verticalCenter
 
-        spacing: 2
-
-        rowHeight: isMultiline ? 32 : 48
-        topPadding: isMultiline ? 8 : 0
-        bottomPadding: isMultiline ? 8 : 0
-
+        spacing: 4
+        rowHeight: 56
+        leftPadding: 16
+        rightPadding: 16
         useSpacersAsSeparators: true
-        maximumWidth: root.maximumWidth - prv.customizeButtonSpaceWidth
+        spacerWidth: 12
+        maximumWidth: root.maximumWidth > 0 ? Math.max(0, root.maximumWidth - leftPadding - rightPadding) : -1
 
         model: PlaybackToolBarModel {
-            onItemsChanged: {
-                root.relayoutRequested()
-            }
+            onItemsChanged: root.relayoutRequested()
         }
 
         sourceComponentCallback: function (type) {
@@ -65,21 +48,14 @@ Item {
             case PlaybackToolBarModel.PLAYBACK_CONTROL:
                 return controlComp
             case PlaybackToolBarModel.PLAYBACK_LEVEL:
-                return playbackLevelComp
+                return masterVolumeComp
             case PlaybackToolBarModel.PLAYBACK_TIME:
                 return playbackTimeComp
-            case PlaybackToolBarModel.PLAYBACK_BPM:
-                return playbackBPMComp
-            case PlaybackToolBarModel.PLAYBACK_TIME_SIGNATURE:
-                return playbackTimeSignatureComp
-            case PlaybackToolBarModel.RECORD_LEVEL:
-                return recordLevelComp
             case PlaybackToolBarModel.PROJECT_CONTROL:
                 return projectControlComp
             case PlaybackToolBarModel.SNAP:
                 return snapComp
             }
-
             return null
         }
 
@@ -87,15 +63,24 @@ Item {
             id: controlComp
 
             StyledToolBarItem {
-                width: 28
-                height: width
+                id: controlButton
 
-                backgroundRadius: 2
-
+                width: 32
+                height: 32
+                backgroundRadius: 5
                 iconFont: ui.theme.iconsFont
-                iconColor: Boolean(itemData) ? itemData.iconColor : ui.theme.fontPrimaryColor
-                accentColor: Boolean(itemData) ? itemData.backgroundColor : ui.theme.buttonColor
-                accentButton: Boolean(itemData) ? itemData.selected : false
+                iconColor: itemData ? itemData.iconColor : ui.theme.fontPrimaryColor
+                accentColor: itemData ? itemData.backgroundColor : ui.theme.buttonColor
+                accentButton: itemData ? itemData.selected : false
+
+                backgroundItem: Rectangle {
+                    radius: controlButton.backgroundRadius
+                    color: controlButton.accentButton ? controlButton.accentColor : controlButton.mouseArea.containsMouse || controlButton.mouseArea.pressed ? ui.theme.buttonColor : "transparent"
+
+                    NavigationFocusBorder {
+                        navigationCtrl: controlButton.navigation
+                    }
+                }
             }
         }
 
@@ -103,53 +88,18 @@ Item {
             id: projectControlComp
 
             StyledToolBarItem {
+                id: editButton
+
                 width: 28
-                height: width
-
-                backgroundRadius: 2
-
+                height: 32
                 iconFont: ui.theme.iconsFont
-            }
-        }
 
-        Component {
-            id: playbackLevelComp
+                backgroundItem: Rectangle {
+                    radius: 5
+                    color: editButton.mouseArea.containsMouse || editButton.mouseArea.pressed ? ui.theme.buttonColor : "transparent"
 
-            PlaybackLevel {
-                id: playbackLevel
-
-                property var itemData: null
-
-                width: Boolean(itemData) ? Math.max(288, Math.min(itemData.meterSize, view.maximumWidth)) : 288
-                height: 28
-
-                backgroundRadius: 2
-
-                volumeLevel: Boolean(itemData) ? itemData.level : 0
-                leftCurrentVolumePressure: Boolean(itemData) ? itemData.leftChannelPressure : -145
-                leftCurrentRMS: Boolean(itemData) ? itemData.leftChannelRMS : -145
-                rightCurrentVolumePressure: Boolean(itemData) ? itemData.rightChannelPressure : -145
-                rightCurrentRMS: Boolean(itemData) ? itemData.rightChannelRMS : -145
-                isPlaying: Boolean(itemData) ? itemData.isPlaying : false
-
-                enabled: Boolean(itemData) ? itemData.enabled : false
-
-                onVolumeLevelChangeRequested: function (level) {
-                    if (itemData) {
-                        itemData.level = level
-                    }
-                }
-
-                onWidthChangeRequested: function (x, y) {
-                    let toolbarViewPosition = mapToItem(view, x, y)
-
-                    if (toolbarViewPosition.x > view.maximumWidth) {
-                        // Do not allow the component to exceed the maximum width of the toolbar view
-                        return
-                    }
-
-                    if (itemData) {
-                        itemData.meterSize = Math.max(288, x)
+                    NavigationFocusBorder {
+                        navigationCtrl: editButton.navigation
                     }
                 }
             }
@@ -162,140 +112,26 @@ Item {
                 property var itemData: null
 
                 accessibleName: qsTrc("projectscene", "Playback position:")
-
-                appearance: Timecode.Appearance.Clock
-
-                value: Boolean(itemData) ? itemData.currentValue : 0
-
+                appearance: Timecode.Appearance.Embedded
+                textColor: ui.theme.fontPrimaryColor
+                value: itemData ? itemData.currentValue : 0
                 mode: TimecodeModeSelector.TimePoint
-
-                sampleRate: Boolean(itemData) ? itemData.sampleRate : 0
-                tempo: Boolean(itemData) ? itemData.tempo : 0
-                upperTimeSignature: Boolean(itemData) ? itemData.upperTimeSignature : -1
-                lowerTimeSignature: Boolean(itemData) ? itemData.lowerTimeSignature : -1
-
-                currentFormat: Boolean(itemData) ? itemData.currentFormat : -1
-
-                enabled: Boolean(itemData) ? itemData.enabled : false
+                sampleRate: itemData ? itemData.sampleRate : 0
+                tempo: itemData ? itemData.tempo : 0
+                upperTimeSignature: itemData ? itemData.upperTimeSignature : -1
+                lowerTimeSignature: itemData ? itemData.lowerTimeSignature : -1
+                currentFormat: itemData ? itemData.currentFormat : -1
+                enabled: itemData ? itemData.enabled : false
 
                 onValueChangeRequested: function (newValue) {
-                    if (!Boolean(itemData)) {
-                        return
+                    if (itemData) {
+                        itemData.currentValue = newValue
                     }
-
-                    itemData.currentValue = newValue
                 }
 
                 onCurrentFormatChanged: {
-                    if (!Boolean(itemData)) {
-                        return
-                    }
-
-                    itemData.currentFormat = currentFormat
-                }
-            }
-        }
-
-        Component {
-            id: playbackBPMComp
-
-            BPM {
-                property var itemData: null
-
-                value: Boolean(itemData) ? itemData.currentValue : 0
-
-                enabled: Boolean(itemData) ? itemData.enabled : false
-
-                onValueChangeRequested: function (newValue) {
-                    if (!Boolean(itemData)) {
-                        return
-                    }
-
-                    itemData.currentValue = newValue
-                }
-            }
-        }
-
-        Component {
-            id: playbackTimeSignatureComp
-
-            TimeSignature {
-                property var itemData: null
-
-                upper: Boolean(itemData) ? itemData.upper : 0
-                lower: Boolean(itemData) ? itemData.lower : 0
-
-                enabled: Boolean(itemData) ? itemData.enabled : false
-
-                onUpperChangeRequested: function (newValue) {
-                    if (!Boolean(itemData)) {
-                        return
-                    }
-
-                    itemData.upper = newValue
-                }
-
-                onLowerChangeRequested: function (newValue) {
-                    if (!Boolean(itemData)) {
-                        return
-                    }
-
-                    itemData.lower = newValue
-                }
-            }
-        }
-
-        Component {
-            id: recordLevelComp
-
-            RecordLevel {
-                property var itemData: null
-
-                width: 28
-                height: width
-
-                backgroundRadius: 2
-
-                meterStyle: Boolean(itemData) ? itemData.meterStyle : PlaybackMeterStyle.Default
-
-                icon: Boolean(itemData) ? itemData.icon : IconCode.NONE
-                iconFont: ui.theme.iconsFont
-
-                toolTipTitle: Boolean(itemData) ? itemData.title : ""
-                toolTipDescription: Boolean(itemData) ? itemData.description : ""
-
-                volumeLevel: Boolean(itemData) ? itemData.level : 0
-                leftCurrentVolumePressure: Boolean(itemData) ? itemData.leftChannelPressure : 0
-                rightCurrentVolumePressure: Boolean(itemData) ? itemData.rightChannelPressure : 0
-
-                recordingChannelsCount: Boolean(itemData) ? itemData.recordingChannelsCount : 0
-
-                isInputMonitoringOn: Boolean(itemData) ? itemData.isInputMonitoringOn : false
-                isMicMeteringOn: Boolean(itemData) ? itemData.isMicMeteringOn : false
-
-                enabled: Boolean(itemData) ? itemData.enabled : false
-
-                onVolumeLevelChangeRequested: function (level) {
                     if (itemData) {
-                        itemData.level = level
-                    }
-                }
-
-                onIsInputMonitoringOnChangeRequested: function (enable) {
-                    if (itemData) {
-                        itemData.isInputMonitoringOn = enable
-                    }
-                }
-
-                onIsMicMeteringOnChangeRequested: function (enable) {
-                    if (itemData) {
-                        itemData.isMicMeteringOn = enable
-                    }
-                }
-
-                onIsPopupOpened: function (opened) {
-                    if (itemData) {
-                        itemData.listenMainAudioInput(opened)
+                        itemData.currentFormat = currentFormat
                     }
                 }
             }
@@ -307,63 +143,155 @@ Item {
             DropdownWithTitle {
                 property var itemData: null
 
-                width: 143
+                width: 132
                 height: 28
-
                 //: Noun: label of the snapping control in the playback toolbar
                 title: qsTrc("projectscene", "Snap")
                 toggleAccessibleName: qsTrc("projectscene", "Snapping")
                 dropdownAccessibleName: qsTrc("projectscene", "Snap to")
-
-                current: Boolean(itemData) ? itemData.currentValue : ""
-                model: Boolean(itemData) ? itemData.availableSnapTypes : null
-
-                isOptionEnabled: Boolean(itemData) ? itemData.isSnapEnabled : false
-
-                enabled: Boolean(itemData) ? itemData.enabled : false
+                current: itemData ? itemData.currentValue : ""
+                model: itemData ? itemData.availableSnapTypes : null
+                isOptionEnabled: itemData ? itemData.isSnapEnabled : false
+                enabled: itemData ? itemData.enabled : false
 
                 onIsOptionEnableChangeRequested: function (enabled) {
-                    itemData.isSnapEnabled = enabled
+                    if (itemData) {
+                        itemData.isSnapEnabled = enabled
+                    }
                 }
 
                 onHandleMenuItem: function (itemId) {
-                    itemData.handleMenuItem(itemId)
+                    if (itemData) {
+                        itemData.handleMenuItem(itemId)
+                    }
                 }
             }
         }
-    }
 
-    FlatButton {
-        id: customizeButton
+        Component {
+            id: masterVolumeComp
 
-        anchors.right: parent.right
-        anchors.rightMargin: 12
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 10
+            Item {
+                id: masterVolume
 
-        width: 28
-        height: width
+                property var itemData: null
+                property alias navigation: masterSlider.navigation
 
-        icon: IconCode.SETTINGS_COG
-        iconFont: ui.theme.iconsFont
-        //: Tooltip of the toolbar customization button
-        toolTipTitle: qsTrc("projectscene", "Customize toolbar")
-        toolTipDescription: qsTrc("projectscene", "Show/hide toolbar buttons")
+                width: view.maximumWidth > 0 && view.maximumWidth < 980 ? 140 : 180
+                height: 32
+                enabled: itemData ? itemData.enabled : false
+                opacity: enabled ? 1.0 : ui.theme.itemOpacityDisabled
 
-        enabled: view.model.isEnabled
+                StyledIconLabel {
+                    anchors.left: parent.left
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: 20
+                    height: 20
+                    iconCode: IconCode.AUDIO
+                    color: ui.theme.fontSecondaryColor
+                }
 
-        navigation.panel: root.navigationPanel
-        navigation.order: 10000
-        navigation.accessible.name: qsTrc("projectscene", "Customize toolbar")
+                StyledSlider {
+                    id: masterSlider
 
-        onClicked: {
-            customizePopup.toggleOpened()
-        }
+                    anchors.left: parent.left
+                    anchors.leftMargin: 28
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    height: 22
 
-        PlaybackToolBarCustomisePopup {
-            id: customizePopup
+                    from: -60
+                    to: 0
+                    stepSize: 0.5
+                    value: masterVolume.itemData ? Math.max(from, masterVolume.itemData.level) : 0
 
-            anchorItem: !root.floating ? ui.rootItem : null
+                    navigation.name: "MasterVolume"
+                    navigation.accessible.name: qsTrc("playback", "Master volume")
+
+                    onMoved: {
+                        if (masterVolume.itemData) {
+                            masterVolume.itemData.level = value <= from ? -145 : value
+                        }
+                    }
+
+                    onHoveredChanged: hovered ? volumeTooltip.show() : volumeTooltip.hide()
+                    onPressedChanged: pressed ? volumeTooltip.show(true) : volumeTooltip.hide(true)
+
+                    background: Item {
+                        anchors.fill: parent
+
+                        NavigationFocusBorder {
+                            navigationCtrl: masterSlider.navigation
+                        }
+
+                        Rectangle {
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: parent.width
+                            height: 2
+                            radius: 1
+                            color: ui.theme.fontSecondaryColor
+                            opacity: 0.35
+                        }
+
+                        Rectangle {
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: masterSlider.handle.x + masterSlider.handle.width / 2
+                            height: 2
+                            radius: 1
+                            color: ui.theme.fontPrimaryColor
+                            opacity: 0.75
+                        }
+                    }
+
+                    handle: Rectangle {
+                        x: masterSlider.leftPadding + masterSlider.visualPosition * (masterSlider.availableWidth - width)
+                        y: masterSlider.topPadding + masterSlider.availableHeight / 2 - height / 2
+                        width: 8
+                        height: 12
+                        radius: 3
+                        color: ui.theme.fontPrimaryColor
+                    }
+
+                    ValueTooltip {
+                        id: volumeTooltip
+
+                        parent: masterSlider.handle
+                        unitText: "dB"
+                        sizingText: "-60.0dB"
+                        value: masterSlider.value
+                    }
+                }
+
+                Column {
+                    anchors.left: masterSlider.left
+                    anchors.right: masterSlider.right
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 3
+                    spacing: 2
+
+                    Repeater {
+                        model: 2
+
+                        Rectangle {
+                            required property int index
+                            readonly property real pressure: !masterVolume.itemData || !masterVolume.itemData.isPlaying ? -145 : index === 0 ? masterVolume.itemData.leftChannelPressure : masterVolume.itemData.rightChannelPressure
+
+                            width: parent.width
+                            height: 2
+                            radius: 1
+                            color: ui.theme.backgroundQuarternaryColor
+
+                            Rectangle {
+                                width: parent.width * Math.max(0, Math.min(1, (parent.pressure + 60) / 60))
+                                height: parent.height
+                                radius: 1
+                                color: parent.pressure >= 0 ? "#e27070" : ui.theme.accentColor
+                                opacity: 0.75
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

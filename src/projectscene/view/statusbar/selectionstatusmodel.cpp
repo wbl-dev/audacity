@@ -2,6 +2,8 @@
 * Audacity: A Digital Audio Editor
 */
 #include "selectionstatusmodel.h"
+#include <algorithm>
+#include <QStringList>
 
 #include "playback/iaudiooutput.h"
 
@@ -27,6 +29,9 @@ void SelectionStatusModel::init()
     });
 
     m_endTime = selectionController()->dataSelectedEndTime();
+    selectionController()->selectedTracksChanged().onReceive(this, [this](const trackedit::TrackIdList&) {
+        emit targetTracksChanged();
+    });
     selectionController()->dataSelectedEndTimeChanged().onReceive(this, [this](trackedit::secs_t time) {
         m_endTime = !time.is_negative() ? time : trackedit::secs_t(0.0);
         emit endTimeChanged();
@@ -56,12 +61,32 @@ void SelectionStatusModel::onProjectChanged()
 {
     auto project = globalContext()->currentTrackeditProject();
     if (project) {
+        project->trackChanged().onReceive(this, [this](const trackedit::Track&) {
+            emit targetTracksChanged();
+        });
         project->timeSignatureChanged().onReceive(this, [this](const trackedit::TimeSignature&) {
             emit timeSignatureChanged();
         });
     }
 
     emit timeSignatureChanged();
+    emit targetTracksChanged();
+}
+
+QString SelectionStatusModel::targetTracks() const
+{
+    const auto project = globalContext()->currentTrackeditProject();
+    if (!project) {
+        return {};
+    }
+    const auto selected = selectionController()->selectedTracks();
+    QStringList names;
+    for (const auto& track : project->trackList()) {
+        if (track.type != trackedit::TrackType::Label && std::find(selected.begin(), selected.end(), track.id) != selected.end()) {
+            names << track.title.toQString();
+        }
+    }
+    return names.join(QStringLiteral(", "));
 }
 
 double SelectionStatusModel::startTime() const

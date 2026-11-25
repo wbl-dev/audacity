@@ -31,6 +31,7 @@ class SelectionStatusModel : public QObject, public muse::async::Asyncable, publ
     Q_PROPERTY(int lowerTimeSignature READ lowerTimeSignature NOTIFY timeSignatureChanged FINAL)
 
     Q_PROPERTY(bool isEnabled READ isEnabled NOTIFY isEnabledChanged)
+    Q_PROPERTY(QString targetTracks READ targetTracks NOTIFY targetTracksChanged)
 
     muse::GlobalInject<IProjectSceneConfiguration> configuration;
 
@@ -61,6 +62,7 @@ public:
     int lowerTimeSignature() const;
 
     bool isEnabled() const;
+    QString targetTracks() const;
 
 signals:
     void startTimeChanged();
@@ -73,6 +75,7 @@ signals:
     void timeSignatureChanged();
 
     void isEnabledChanged();
+    void targetTracksChanged();
 
 private:
     void onProjectChanged();

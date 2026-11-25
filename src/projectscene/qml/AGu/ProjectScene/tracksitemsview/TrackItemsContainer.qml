@@ -142,9 +142,10 @@ Item {
         anchors.bottom: root.bottom
         anchors.bottomMargin: sep.thickness
 
-        visible: root.isDataSelected
+        visible: root.context && root.context.selectionActive
+        z: root.isDataSelected ? 0 : 2
         color: ui.theme.extra["selection_highlight_color"]
-        opacity: 0.3
+        opacity: root.isDataSelected ? 0.3 : 0.10
     }
 
     Rectangle {

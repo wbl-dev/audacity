@@ -177,19 +177,23 @@ Rectangle {
                         thickness: 2
                     }
 
-                    ColumnLayout {
+                    Item {
+                        id: rulerViews
+                        readonly property bool isMultiView: model.isWaveformViewVisible && model.isSpectrogramViewVisible
+                        readonly property real minimumPaneHeight: Math.min(36, height / 2)
+                        readonly property real waveformHeight: isMultiView ? Math.max(minimumPaneHeight, Math.min(height - minimumPaneHeight, height * trackViewState.multiViewHeightRatio)) : height
 
                         anchors.top: header.bottom
                         anchors.bottom: sep.top
                         anchors.left: leftBorder.right
                         anchors.right: parent.right
-                        anchors.bottomMargin: 1
+                        anchors.bottomMargin: 0
 
                         Loader {
                             id: waveformRulerLoader
 
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
+                            width: parent.width
+                            height: rulerViews.waveformHeight
 
                             active: false
                             visible: model.isWaveformViewVisible
@@ -207,15 +211,12 @@ Rectangle {
                             }
                         }
 
-                        SeparatorLine {
-                            color: ui.theme.extra["waveform_ruler_tick_extension_color"]
-                        }
-
                         Loader {
                             id: spectrogramRulerLoader
 
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
+                            y: rulerViews.isMultiView ? rulerViews.waveformHeight : 0
+                            width: parent.width
+                            height: rulerViews.isMultiView ? parent.height - y : parent.height
 
                             active: false
                             visible: model.isSpectrogramViewVisible

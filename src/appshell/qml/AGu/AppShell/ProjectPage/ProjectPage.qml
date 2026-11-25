@@ -166,29 +166,6 @@ DockPage {
 
     mainToolBars: [
         DockToolBar {
-            id: projectToolBar
-
-            objectName: pageModel.projectToolBarName()
-            title: qsTrc("appshell", "Project toolbar")
-
-            floatable: false
-            closable: false
-            resizable: false
-            separatorsVisible: false
-
-            alignment: DockToolBarAlignment.Center
-            contentBottomPadding: 2
-
-            compactPriorityOrder: 2
-
-            ProjectToolBar {
-                isCompactMode: projectToolBar.isCompact
-
-                navigationPanel.section: root.topToolKeyNavSec
-                navigationPanel.order: 2
-            }
-        },
-        DockToolBar {
             id: undoRedoToolBar
 
             objectName: pageModel.undoRedoToolBarName()
@@ -216,11 +193,14 @@ DockPage {
             objectName: pageModel.playbackToolBarName()
             title: qsTrc("appshell", "Play toolbar")
 
-            dropDestinations: [root.toolBarTopDropDestination, root.toolBarBottomDropDestination]
+            dropDestinations: []
+            floatable: false
+            closable: false
+            separatorsVisible: false
 
             minimumWidth: 300
-            thickness: 48 /* see PlaybackToolBar rowHeight */
-            resizable: true
+            thickness: Math.max(56, playbackToolBarContent.height)
+            resizable: false
 
             PlaybackToolBar {
                 id: playbackToolBarContent
@@ -233,16 +213,8 @@ DockPage {
                     relayout()
                 }
 
-                maximumWidth: playbackToolBar.width - 30 /* grip button */
+                maximumWidth: playbackToolBar.width
                 maximumHeight: playbackToolBar.height
-
-                onHeightChanged: {
-                    if (!playbackToolBar.inited) {
-                        return
-                    }
-
-                    playbackToolBar.thickness = height
-                }
 
                 onRelayoutRequested: {
                     relayout()
@@ -273,7 +245,7 @@ DockPage {
 
             readonly property int effectsSectionWidth: 240
             property bool showEffectsSection: false
-            property int titleBarHeight: 39
+            property int titleBarHeight: 84
 
             property int panelWidth: root.verticalPanelDefaultWidth + (showEffectsSection ? effectsSectionWidth : 0)
 

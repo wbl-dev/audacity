@@ -139,6 +139,19 @@ void ProjectSceneActionsController::init()
     cd->onRequest(this, PROJECTSCENE_TOGGLE_EFFECTS_PANEL_COMMAND, [this]() { return toggleEffectsPanel(); });
     cd->onRequest(this, PROJECTSCENE_ADD_REALTIME_EFFECTS_COMMAND, [this]() { return toggleEffectsPanel(); });
     cd->onRequest(this, PROJECTSCENE_AUDIO_SETUP_COMMAND, [this]() { return requestAudioSetupContextMenu(); });
+    cd->onRequest(this, PROJECTSCENE_TIME_SELECTION_TOOL_COMMAND, [this]() {
+        const auto project = globalContext()->currentProject();
+        if (!project || !project->viewState()) {
+            return make_ret(Ret::Code::NotSupported);
+        }
+        const auto state = project->viewState();
+        if (state->splitToolEnabled().val) {
+            m_splitToolToggleRequested.notify();
+            state->setSplitToolEnabled(false);
+        }
+        state->setClipGainAutomationEnabled(false);
+        return make_ok();
+    });
     cd->onRequest(this, PROJECTSCENE_TOGGLE_SPLIT_TOOL_COMMAND, [this]() {
         m_splitToolToggleRequested.notify();
         return make_ok();
@@ -425,6 +438,10 @@ muse::Ret ProjectSceneActionsController::toggleAutomation()
 
     const bool automationState = viewState->clipGainAutomationEnabled().val;
     const bool enablingAutomation = !automationState;
+    if (enablingAutomation && viewState->splitToolEnabled().val) {
+        m_splitToolToggleRequested.notify();
+        viewState->setSplitToolEnabled(false);
+    }
     if (enablingAutomation && viewState->globalSpectrogramToggleIsOn()) {
         viewState->toggleGlobalSpectrogramView();
     }

@@ -21,6 +21,9 @@ public:
     virtual muse::ValCh<bool> isTrackCollapsed(const trackedit::TrackId& trackId) const = 0;
     virtual muse::ValCh<double> channelHeightRatio(const trackedit::TrackId& trackId) const = 0;
 
+    virtual muse::ValCh<double> multiViewHeightRatio(const trackedit::TrackId& trackId) const = 0;
+    virtual void setMultiViewHeightRatio(const trackedit::TrackId& trackId, double ratio) = 0;
+
     virtual int trackVerticalPosition(const trackedit::TrackId& trackId) const = 0;
     virtual void changeTrackHeight(const trackedit::TrackId& trackId, int deltaY) = 0;
     virtual void setTrackHeight(const trackedit::TrackId& trackId, int height) = 0;
