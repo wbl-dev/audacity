@@ -33,6 +33,8 @@ constexpr int TRACK_DEFAULT_HEIGHT = 220;
 constexpr int TRACK_LABEL_DEFAULT_HEIGHT = 86;
 constexpr int TRACK_MIN_HEIGHT = 100;
 constexpr int TRACK_COLLAPSE_HEIGHT = 120;
+constexpr int TRACK_MULTIVIEW_MIN_HEIGHT = 280;
+constexpr int TRACK_MULTIVIEW_EXTRA_HEIGHT = 240;
 constexpr int LABEL_TRACK_MIN_HEIGHT = 44;
 constexpr int LABEL_TRACK_COLLAPSE_HEIGHT = 72;
 
@@ -228,12 +230,14 @@ void ProjectViewState::init(const std::shared_ptr<au3::IAu3Project>& project)
             updateItemsBoundaries(false);
         });
 
-        prj->trackAdded().onReceive(this, [this](const trackedit::Track&) {
+        prj->trackAdded().onReceive(this, [this](const trackedit::Track& track) {
+            collapseInsertedMultiView(track.id);
             recomputeTotalTrackHeight();
             updateItemsBoundaries(false);
         });
 
-        prj->trackInserted().onReceive(this, [this](const trackedit::Track&, int) {
+        prj->trackInserted().onReceive(this, [this](const trackedit::Track& track, int) {
+            collapseInsertedMultiView(track.id);
             recomputeTotalTrackHeight();
             updateItemsBoundaries(false);
         });
@@ -366,7 +370,10 @@ ProjectViewState::TrackData& ProjectViewState::makeTrackData(const trackedit::Tr
                     d.multiViewHeightRatio.val = attachment.GetMultiViewHeightRatio();
                     int savedHeight = attachment.GetHeight();
                     savedHeight = savedHeight <= 0 ? defaultHeight : savedHeight;
-                    height = std::max(savedHeight, d.isLabel ? LABEL_TRACK_MIN_HEIGHT : TRACK_MIN_HEIGHT);
+                    const int minHeight = d.isLabel ? LABEL_TRACK_MIN_HEIGHT
+                                          : defaultViewType == trackedit::TrackViewType::WaveformAndSpectrogram
+                                          ? TRACK_MULTIVIEW_MIN_HEIGHT : TRACK_MIN_HEIGHT;
+                    height = std::max(savedHeight, minHeight);
                 }
             }
             d.collapsed.val = height < (d.isLabel ? LABEL_TRACK_COLLAPSE_HEIGHT : TRACK_COLLAPSE_HEIGHT);
@@ -394,6 +401,25 @@ void ProjectViewState::recomputeTotalTrackHeight()
     m_totalTracksHeight.set(total);
 }
 
+void ProjectViewState::collapseInsertedMultiView(const trackedit::TrackId& trackId)
+{
+    if (trackViewType(trackId).val != trackedit::TrackViewType::WaveformAndSpectrogram) {
+        return;
+    }
+    const auto prj = globalContext()->currentTrackeditProject();
+    if (!prj) {
+        return;
+    }
+    // Duplication and stereo splitting copy view attachments. Keep the
+    // existing expanded track, while retaining the copy's expanded dimensions.
+    for (const auto otherId : prj->trackIdList()) {
+        if (otherId != trackId && trackViewType(otherId).val == trackedit::TrackViewType::WaveformAndSpectrogram) {
+            doSetTrackViewType(trackId, trackedit::TrackViewType::Waveform);
+            return;
+        }
+    }
+}
+
 bool ProjectViewState::doSetTrackViewType(const trackedit::TrackId& trackId, trackedit::TrackViewType viewType)
 {
     const auto it = m_tracks.find(trackId);
@@ -413,6 +439,24 @@ bool ProjectViewState::doSetTrackViewType(const trackedit::TrackId& trackId, tra
         return false;
     }
 
+    auto& d = it->second;
+    if (d.viewType.val == viewType) {
+        return false;
+    }
+    const bool wasExpanded = d.viewType.val == trackedit::TrackViewType::WaveformAndSpectrogram;
+    const bool expanded = viewType == trackedit::TrackViewType::WaveformAndSpectrogram;
+    int height = d.height.val;
+    auto& heights = au3::TrackHeightAttachment::Get(waveTrack);
+    if (wasExpanded != expanded) {
+        if (expanded) {
+            heights.SetSingleViewHeight(height);
+            height = heights.GetMultiViewHeight() > 0 ? heights.GetMultiViewHeight() : height + TRACK_MULTIVIEW_EXTRA_HEIGHT;
+        } else {
+            heights.SetMultiViewHeight(height);
+            height = heights.GetSingleViewHeight() > 0 ? heights.GetSingleViewHeight() : TRACK_DEFAULT_HEIGHT;
+        }
+    }
+
     auto& cache = agu::au3::TrackViewTypeAttachment::Get(waveTrack);
     cache.SetTrackViewType(viewType);
 
@@ -420,7 +464,10 @@ bool ProjectViewState::doSetTrackViewType(const trackedit::TrackId& trackId, tra
                                 || viewType == agu::trackedit::TrackViewType::WaveformAndSpectrogram;
     frequencySelectionController()->setShowsSpectrogram(trackId, hasSpectrogram);
 
-    it->second.viewType.set(viewType);
+    d.viewType.set(viewType);
+    if (wasExpanded != expanded) {
+        setTrackHeight(trackId, height);
+    }
     return true;
 }
 
@@ -500,32 +547,7 @@ void ProjectViewState::setMultiViewHeightRatio(const trackedit::TrackId& trackId
 
 void ProjectViewState::changeTrackHeight(const trackedit::TrackId& trackId, int delta)
 {
-    TrackData* d = nullptr;
-    auto it = m_tracks.find(trackId);
-    if (it != m_tracks.end()) {
-        d = &it->second;
-    } else {
-        d = &makeTrackData(trackId);
-    }
-
-    int oldHeight = d->height.val;
-    int newHeight = std::max(oldHeight + delta, d->isLabel ? LABEL_TRACK_MIN_HEIGHT : TRACK_MIN_HEIGHT);
-
-    d->height.set(newHeight);
-    d->collapsed.set(newHeight < (d->isLabel ? LABEL_TRACK_COLLAPSE_HEIGHT : TRACK_COLLAPSE_HEIGHT));
-
-    recomputeTotalTrackHeight();
-
-    const project::IAGuProjectPtr prj = globalContext()->currentProject();
-    if (prj) {
-        au3::Au3Project* au3Project = reinterpret_cast<au3::Au3Project*>(prj->au3ProjectPtr());
-        if (au3Project) {
-            auto track = agu::au3::DomAccessor::findTrack(*au3Project, agu::au3::Au3TrackId(trackId));
-            if (track) {
-                au3::TrackHeightAttachment::Get(track).SetHeight(newHeight);
-            }
-        }
-    }
+    setTrackHeight(trackId, makeTrackData(trackId).height.val + delta);
 }
 
 void ProjectViewState::setTrackHeight(const trackedit::TrackId& trackId, int height)
@@ -538,7 +560,9 @@ void ProjectViewState::setTrackHeight(const trackedit::TrackId& trackId, int hei
         d = &makeTrackData(trackId);
     }
 
-    int newHeight = std::max(height, d->isLabel ? LABEL_TRACK_MIN_HEIGHT : TRACK_MIN_HEIGHT);
+    const bool expanded = d->viewType.val == trackedit::TrackViewType::WaveformAndSpectrogram;
+    const int minHeight = d->isLabel ? LABEL_TRACK_MIN_HEIGHT : expanded ? TRACK_MULTIVIEW_MIN_HEIGHT : TRACK_MIN_HEIGHT;
+    int newHeight = std::max(height, minHeight);
     d->height.set(newHeight);
     d->collapsed.set(newHeight < (d->isLabel ? LABEL_TRACK_COLLAPSE_HEIGHT : TRACK_COLLAPSE_HEIGHT));
 
@@ -550,7 +574,13 @@ void ProjectViewState::setTrackHeight(const trackedit::TrackId& trackId, int hei
         if (au3Project) {
             auto track = agu::au3::DomAccessor::findTrack(*au3Project, agu::au3::Au3TrackId(trackId));
             if (track) {
-                au3::TrackHeightAttachment::Get(track).SetHeight(newHeight);
+                auto& heights = au3::TrackHeightAttachment::Get(track);
+                heights.SetHeight(newHeight);
+                if (expanded) {
+                    heights.SetMultiViewHeight(newHeight);
+                } else {
+                    heights.SetSingleViewHeight(newHeight);
+                }
             }
         }
     }
@@ -955,7 +985,19 @@ void ProjectViewState::setTrackViewType(const trackedit::TrackId& trackId, track
         return;
     }
 
-    if (doSetTrackViewType(trackId, viewType)) {
+    const bool changed = doSetTrackViewType(trackId, viewType);
+    if (changed && viewType == trackedit::TrackViewType::WaveformAndSpectrogram) {
+        const auto prj = globalContext()->currentTrackeditProject();
+        if (prj) {
+            for (const auto otherId : prj->trackIdList()) {
+                if (otherId != trackId && trackViewType(otherId).val == trackedit::TrackViewType::WaveformAndSpectrogram) {
+                    doSetTrackViewType(otherId, trackedit::TrackViewType::Waveform);
+                }
+            }
+        }
+    }
+
+    if (changed) {
         projectHistory()->modifyState();
         projectHistory()->markUnsaved();
     }
@@ -983,7 +1025,6 @@ void ProjectViewState::toggleGlobalSpectrogramView()
         for (auto& [trackId, trackData] : m_tracks) {
             if (trackData.viewType.val == TrackViewType::Spectrogram || trackData.viewType.val == TrackViewType::WaveformAndSpectrogram) {
                 changed = true;
-                trackData.viewType.set(TrackViewType::Waveform);
                 doSetTrackViewType(trackId, TrackViewType::Waveform);
             }
         }

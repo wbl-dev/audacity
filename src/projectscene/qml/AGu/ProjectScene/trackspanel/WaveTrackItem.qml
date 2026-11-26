@@ -40,7 +40,10 @@ TrackItem {
                     navigation.panel: root.headerNavigationPanel
                     navigation.order: root.extraControlsNavigationStart + 2
                     navigation.accessible.name: qsTrc("projectscene", "Waveform and spectrogram")
-                    onToggled: root.trackViewState.toggleMultiView()
+                    onToggled: {
+                        root.selectionRequested(true)
+                        root.trackViewState.toggleMultiView()
+                    }
                 }
             }
 

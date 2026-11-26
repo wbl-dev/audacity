@@ -3,6 +3,7 @@
  */
 #include "../internal/projectviewstate.h"
 #include "../internal/au3/trackheightattachment.h"
+#include "../internal/au3/trackviewtypeattachment.h"
 
 #include "mocks/projectsceneconfigurationmock.h"
 
@@ -15,6 +16,7 @@
 #include "trackedit/tests/mocks/selectioncontrollermock.h"
 #include "trackedit/tests/mocks/projecthistorymock.h"
 #include "trackedit/tests/mocks/trackeditprojectmock.h"
+#include "spectrogram/tests/mocks/frequencyselectioncontrollermock.h"
 #include "project/tests/mocks/aguprojectmock.h"
 #include "trackedit/trackedittypes.h"
 #include "trackedit/dom/clip.h"
@@ -24,6 +26,8 @@
 
 #include <set>
 #include <limits>
+#include "au3-xml/XMLFileReader.h"
+#include "au3-xml/XMLWriter.h"
 
 using namespace ::testing;
 using ::testing::_;
@@ -42,6 +46,7 @@ public:
         m_projectViewState->globalContext.set(m_globalContextMock);
         m_projectViewState->selectionController.set(m_selectionControllerMock);
         m_projectViewState->projectHistory.set(m_projectHistoryMock);
+        m_projectViewState->frequencySelectionController.set(m_frequencySelectionControllerMock);
 
         ON_CALL(*m_globalContextMock, currentTrackeditProjectChanged())
         .WillByDefault(Return(muse::async::Notification()));
@@ -102,6 +107,24 @@ public:
         m_projectViewState->m_tracks.clear();
     }
 
+    trackedit::TrackIdList prepareWaveTracks()
+    {
+        trackedit::TrackIdList tracks;
+        auto project = reinterpret_cast<au3::Au3Project*>(m_au3ProjectAccessor->au3ProjectPtr());
+        for (const auto id : getAllTracks()) {
+            if (auto waveTrack = au3::DomAccessor::findWaveTrack(*project, au3::Au3TrackId(id))) {
+                trackedit::Track track;
+                track.id = id;
+                track.type = trackedit::TrackType::Mono;
+                ON_CALL(*m_trackeditProjectMock, track(id)).WillByDefault(Return(track));
+                au3::TrackViewTypeAttachment::Get(waveTrack).SetTrackViewType(trackedit::TrackViewType::Waveform);
+                tracks.push_back(id);
+            }
+        }
+        forgetCachedTracks();
+        return tracks;
+    }
+
     static trackedit::Clip makeClip(trackedit::TrackId trackId, trackedit::TrackItemId itemId, double start, double end)
     {
         trackedit::Clip clip;
@@ -159,6 +182,9 @@ protected:
     const std::shared_ptr<NiceMock<trackedit::ProjectHistoryMock> > m_projectHistoryMock
         = std::make_shared<NiceMock<trackedit::ProjectHistoryMock> >();
 
+    const std::shared_ptr<NiceMock<spectrogram::FrequencySelectionControllerMock> > m_frequencySelectionControllerMock
+        = std::make_shared<NiceMock<spectrogram::FrequencySelectionControllerMock> >();
+
     const std::shared_ptr<NiceMock<project::AGuProjectMock> > m_currentProject
         = std::make_shared<NiceMock<project::AGuProjectMock> >();
 
@@ -168,6 +194,177 @@ protected:
     const std::shared_ptr<au3::Au3ProjectAccessor> m_au3ProjectAccessor = std::make_shared<au3::Au3ProjectAccessor>(
         muse::modularity::globalCtx());
 };
+
+TEST_F(ProjectViewStateTests, MultiViewRestoresIndependentSingleAndExpandedHeights)
+{
+    const auto tracks = prepareWaveTracks();
+    ASSERT_FALSE(tracks.empty());
+    const auto id = tracks.front();
+    using enum trackedit::TrackViewType;
+    m_projectViewState->setTrackHeight(id, 130);
+    m_projectViewState->setTrackViewType(id, WaveformAndSpectrogram);
+    EXPECT_EQ(m_projectViewState->trackHeight(id).val, 370);
+
+    m_projectViewState->changeTrackHeight(id, 80);
+    m_projectViewState->setMultiViewHeightRatio(id, 0.35);
+    m_projectViewState->setTrackViewType(id, Waveform);
+    EXPECT_EQ(m_projectViewState->trackHeight(id).val, 130);
+
+    m_projectViewState->setTrackHeight(id, 110);
+    m_projectViewState->setTrackViewType(id, WaveformAndSpectrogram);
+    EXPECT_EQ(m_projectViewState->trackHeight(id).val, 450);
+    EXPECT_DOUBLE_EQ(m_projectViewState->multiViewHeightRatio(id).val, 0.35);
+    m_projectViewState->setTrackViewType(id, Waveform);
+    EXPECT_EQ(m_projectViewState->trackHeight(id).val, 110);
+}
+
+TEST_F(ProjectViewStateTests, MultiViewExpansionClosesPreviousTrackAndRestoresItsHeight)
+{
+    const auto tracks = prepareWaveTracks();
+    ASSERT_GE(tracks.size(), 2);
+    const auto first = tracks[0];
+    const auto second = tracks[1];
+    using enum trackedit::TrackViewType;
+    m_projectViewState->setTrackHeight(first, 120);
+    m_projectViewState->setTrackHeight(second, 150);
+    m_projectViewState->setTrackViewType(first, WaveformAndSpectrogram);
+    m_projectViewState->setTrackHeight(first, 500);
+    m_projectViewState->setTrackViewType(second, WaveformAndSpectrogram);
+
+    EXPECT_EQ(m_projectViewState->trackViewType(first).val, Waveform);
+    EXPECT_EQ(m_projectViewState->trackHeight(first).val, 120);
+    EXPECT_EQ(m_projectViewState->trackHeight(second).val, 390);
+
+    m_projectViewState->setTrackViewType(first, WaveformAndSpectrogram);
+    EXPECT_EQ(m_projectViewState->trackHeight(first).val, 500);
+    EXPECT_EQ(m_projectViewState->trackViewType(second).val, Waveform);
+    EXPECT_EQ(m_projectViewState->trackHeight(second).val, 150);
+}
+
+TEST_F(ProjectViewStateTests, MultiViewHeightsRestoreFromProjectAttachments)
+{
+    const auto tracks = prepareWaveTracks();
+    ASSERT_FALSE(tracks.empty());
+    const auto id = tracks.front();
+    using enum trackedit::TrackViewType;
+    m_projectViewState->setTrackHeight(id, 115);
+    m_projectViewState->setTrackViewType(id, WaveformAndSpectrogram);
+    m_projectViewState->setTrackHeight(id, 470);
+    m_projectViewState->setMultiViewHeightRatio(id, 0.6);
+
+    forgetCachedTracks();
+    EXPECT_EQ(m_projectViewState->trackViewType(id).val, WaveformAndSpectrogram);
+    m_projectViewState->setTrackViewType(id, Waveform);
+    EXPECT_EQ(m_projectViewState->trackHeight(id).val, 115);
+    forgetCachedTracks();
+    m_projectViewState->setTrackViewType(id, WaveformAndSpectrogram);
+    EXPECT_EQ(m_projectViewState->trackHeight(id).val, 470);
+    EXPECT_DOUBLE_EQ(m_projectViewState->multiViewHeightRatio(id).val, 0.6);
+}
+
+TEST_F(ProjectViewStateTests, MultiViewMinimumHeightKeepsBothPanesUsable)
+{
+    const auto tracks = prepareWaveTracks();
+    ASSERT_FALSE(tracks.empty());
+    const auto id = tracks.front();
+    using enum trackedit::TrackViewType;
+    m_projectViewState->setTrackHeight(id, 105);
+    m_projectViewState->setTrackViewType(id, WaveformAndSpectrogram);
+    m_projectViewState->setTrackHeight(id, 80);
+    EXPECT_EQ(m_projectViewState->trackHeight(id).val, 280);
+    m_projectViewState->changeTrackHeight(id, -500);
+    EXPECT_EQ(m_projectViewState->trackHeight(id).val, 280);
+    m_projectViewState->setTrackViewType(id, Spectrogram);
+    EXPECT_EQ(m_projectViewState->trackHeight(id).val, 105);
+    m_projectViewState->setTrackViewType(id, WaveformAndSpectrogram);
+    EXPECT_EQ(m_projectViewState->trackHeight(id).val, 280);
+}
+
+TEST_F(ProjectViewStateTests, MultiViewHeightsRoundTripThroughTrackXml)
+{
+    const auto tracks = prepareWaveTracks();
+    ASSERT_GE(tracks.size(), 2);
+    const auto id = tracks.front();
+    const auto restoredId = tracks[1];
+    using enum trackedit::TrackViewType;
+    m_projectViewState->setTrackHeight(id, 125);
+    m_projectViewState->setTrackViewType(id, WaveformAndSpectrogram);
+    m_projectViewState->setTrackHeight(id, 490);
+    m_projectViewState->setMultiViewHeightRatio(id, 0.4);
+
+    // Round-trip native track metadata directly; view-state persistence does
+    // not require copying audio sample blocks.
+    auto project = reinterpret_cast<au3::Au3Project*>(m_au3ProjectAccessor->au3ProjectPtr());
+    auto source = au3::DomAccessor::findWaveTrack(*project, au3::Au3TrackId(id));
+    auto target = au3::DomAccessor::findWaveTrack(*project, au3::Au3TrackId(restoredId));
+    XMLStringWriter xml;
+    xml.StartTag("wavetrack");
+    xml.WriteAttr("rate", 44100);
+    au3::TrackHeightAttachment::Get(source).WriteXMLAttributes(xml);
+    au3::TrackViewTypeAttachment::Get(source).WriteXMLAttributes(xml);
+    xml.EndTag("wavetrack");
+    XMLFileReader reader;
+    ASSERT_TRUE(reader.ParseString(target, xml));
+    forgetCachedTracks();
+
+    EXPECT_EQ(m_projectViewState->trackViewType(restoredId).val, WaveformAndSpectrogram);
+    EXPECT_EQ(m_projectViewState->trackHeight(restoredId).val, 490);
+    m_projectViewState->setTrackViewType(restoredId, Waveform);
+    EXPECT_EQ(m_projectViewState->trackHeight(restoredId).val, 125);
+    m_projectViewState->setTrackViewType(restoredId, WaveformAndSpectrogram);
+    EXPECT_EQ(m_projectViewState->trackHeight(restoredId).val, 490);
+    EXPECT_DOUBLE_EQ(m_projectViewState->multiViewHeightRatio(restoredId).val, 0.4);
+}
+
+TEST_F(ProjectViewStateTests, DuplicatingExpandedTrackKeepsOnlyOriginalExpanded)
+{
+    const auto tracks = prepareWaveTracks();
+    ASSERT_FALSE(tracks.empty());
+    const auto id = tracks.front();
+    muse::async::Channel<trackedit::Track, int> inserted;
+    ON_CALL(*m_trackeditProjectMock, trackInserted()).WillByDefault(Return(inserted));
+    m_globalContextMock->currentTrackeditProjectChanged().notify();
+    using enum trackedit::TrackViewType;
+    m_projectViewState->setTrackHeight(id, 135);
+    m_projectViewState->setTrackViewType(id, WaveformAndSpectrogram);
+    m_projectViewState->setTrackHeight(id, 510);
+    auto project = reinterpret_cast<au3::Au3Project*>(m_au3ProjectAccessor->au3ProjectPtr());
+    auto source = au3::DomAccessor::findTrack(*project, au3::Au3TrackId(id));
+    auto copy = source->Duplicate();
+    auto target = au3::Au3TrackList::Get(*project).Add(copy);
+    const trackedit::TrackId copiedId = target->GetId();
+    trackedit::Track insertedTrack;
+    insertedTrack.id = copiedId;
+    insertedTrack.type = trackedit::TrackType::Mono;
+    ON_CALL(*m_trackeditProjectMock, track(copiedId)).WillByDefault(Return(insertedTrack));
+    ON_CALL(*m_trackeditProjectMock, trackIdList()).WillByDefault(Return(getAllTracks()));
+    inserted.send(insertedTrack, static_cast<int>(getAllTracks().size()) - 1);
+
+    EXPECT_EQ(m_projectViewState->trackViewType(id).val, WaveformAndSpectrogram);
+    EXPECT_EQ(m_projectViewState->trackViewType(copiedId).val, Waveform);
+    EXPECT_EQ(m_projectViewState->trackHeight(copiedId).val, 135);
+    m_projectViewState->setTrackViewType(copiedId, WaveformAndSpectrogram);
+    EXPECT_EQ(m_projectViewState->trackHeight(copiedId).val, 510);
+    EXPECT_EQ(m_projectViewState->trackViewType(id).val, Waveform);
+    EXPECT_EQ(m_projectViewState->trackHeight(id).val, 135);
+}
+
+TEST_F(ProjectViewStateTests, LegacyExpandedTrackUsesDefaultSingleHeight)
+{
+    const auto tracks = prepareWaveTracks();
+    ASSERT_FALSE(tracks.empty());
+    const auto id = tracks.front();
+    auto project = reinterpret_cast<au3::Au3Project*>(m_au3ProjectAccessor->au3ProjectPtr());
+    auto track = au3::DomAccessor::findTrack(*project, au3::Au3TrackId(id));
+    au3::TrackHeightAttachment::Get(track).SetHeight(380);
+    au3::TrackViewTypeAttachment::Get(track).SetTrackViewType(trackedit::TrackViewType::WaveformAndSpectrogram);
+    forgetCachedTracks();
+
+    m_projectViewState->setTrackViewType(id, trackedit::TrackViewType::Waveform);
+    EXPECT_EQ(m_projectViewState->trackHeight(id).val, 220);
+    m_projectViewState->setTrackViewType(id, trackedit::TrackViewType::WaveformAndSpectrogram);
+    EXPECT_EQ(m_projectViewState->trackHeight(id).val, 380);
+}
 
 TEST_F(ProjectViewStateTests, MultiViewSplitIsIndependentOfStereoAndSurvivesHeightChanges)
 {

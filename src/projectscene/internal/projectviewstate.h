@@ -166,6 +166,7 @@ private:
     TrackData& makeTrackData(const trackedit::TrackId& trackId) const;
     void recomputeTotalTrackHeight();
     bool doSetTrackViewType(const trackedit::TrackId& trackId, trackedit::TrackViewType viewType);
+    void collapseInsertedMultiView(const trackedit::TrackId& trackId);
 
     bool eventFilter(QObject* watched, QEvent* event) override;
 

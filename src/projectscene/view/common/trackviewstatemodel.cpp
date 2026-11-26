@@ -217,8 +217,5 @@ void TrackViewStateModel::toggleMultiView()
     if (auto vs = viewState()) {
         const bool expanded = isMultiView();
         vs->setTrackViewType(m_trackId, expanded ? trackedit::TrackViewType::Waveform : trackedit::TrackViewType::WaveformAndSpectrogram);
-        if (!expanded && trackHeight() < 320) {
-            vs->setTrackHeight(m_trackId, 320);
-        }
     }
 }

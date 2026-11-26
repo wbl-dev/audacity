@@ -24,6 +24,11 @@ public:
     int GetHeight() const;
     void SetHeight(int height);
 
+    int GetSingleViewHeight() const;
+    void SetSingleViewHeight(int height);
+    int GetMultiViewHeight() const;
+    void SetMultiViewHeight(int height);
+
     double GetMultiViewHeightRatio() const;
     void SetMultiViewHeightRatio(double ratio);
 
@@ -31,5 +36,7 @@ private:
     std::weak_ptr<Au3Track> mTrack;
     double mMultiViewHeightRatio{ 0.5 };
     int mHeight{ 0 };  // 0 means use default height
+    int mSingleViewHeight{ 0 };
+    int mMultiViewHeight{ 0 };
 };
 }

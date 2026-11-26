@@ -12,6 +12,8 @@ static const AttachedTrackObjects::RegisteredFactory keyTrackHeight{
 };
 
 static constexpr auto HeightAttr = "height";
+static constexpr auto SingleViewHeightAttr = "singleviewheight";
+static constexpr auto MultiViewHeightAttr = "multiviewheight";
 static constexpr auto MultiViewRatioAttr = "multiviewratio";
 
 TrackHeightAttachment& TrackHeightAttachment::Get(Au3Track* track)
@@ -38,12 +40,16 @@ void TrackHeightAttachment::CopyTo(Au3Track& track) const
 {
     auto& attachment = Get(&track);
     attachment.SetHeight(mHeight);
+    attachment.SetSingleViewHeight(mSingleViewHeight);
+    attachment.SetMultiViewHeight(mMultiViewHeight);
     attachment.SetMultiViewHeightRatio(mMultiViewHeightRatio);
 }
 
 void TrackHeightAttachment::WriteXMLAttributes(XMLWriter& writer) const
 {
     writer.WriteAttr(HeightAttr, mHeight);
+    writer.WriteAttr(SingleViewHeightAttr, mSingleViewHeight);
+    writer.WriteAttr(MultiViewHeightAttr, mMultiViewHeight);
     writer.WriteAttr(MultiViewRatioAttr, mMultiViewHeightRatio);
 }
 
@@ -59,6 +65,14 @@ bool TrackHeightAttachment::HandleXMLAttribute(const std::string_view& attr, con
         mHeight = static_cast<int>(nValue);
         return true;
     }
+    if (attr == SingleViewHeightAttr && valueView.TryGet(nValue)) {
+        SetSingleViewHeight(static_cast<int>(nValue));
+        return true;
+    }
+    if (attr == MultiViewHeightAttr && valueView.TryGet(nValue)) {
+        SetMultiViewHeight(static_cast<int>(nValue));
+        return true;
+    }
     return false;
 }
 
@@ -70,6 +84,26 @@ int TrackHeightAttachment::GetHeight() const
 void TrackHeightAttachment::SetHeight(int height)
 {
     mHeight = height;
+}
+
+int TrackHeightAttachment::GetSingleViewHeight() const
+{
+    return mSingleViewHeight;
+}
+
+void TrackHeightAttachment::SetSingleViewHeight(int height)
+{
+    mSingleViewHeight = std::max(0, height);
+}
+
+int TrackHeightAttachment::GetMultiViewHeight() const
+{
+    return mMultiViewHeight;
+}
+
+void TrackHeightAttachment::SetMultiViewHeight(int height)
+{
+    mMultiViewHeight = std::max(0, height);
 }
 
 double TrackHeightAttachment::GetMultiViewHeightRatio() const
