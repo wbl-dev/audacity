@@ -23,6 +23,8 @@
 
 #include <QAbstractNativeEventFilter>
 
+#include <memory>
+
 #include "../../popupviewclosecontroller.h"
 
 namespace muse::uicomponents {
@@ -32,7 +34,7 @@ class MacOSPopupViewCloseController : public PopupViewCloseController, public QA
 
 public:
     explicit MacOSPopupViewCloseController(const muse::modularity::ContextPtr& iocCtx, QObject* parent = nullptr);
-    ~MacOSPopupViewCloseController() override = default;
+    ~MacOSPopupViewCloseController() override;
 
 private:
     bool nativeEventFilter(const QByteArray& eventType, void* message, qintptr* result) override;
@@ -40,5 +42,9 @@ private:
     void doUpdateEventFilters() override;
 
     void initWindowMinimizedObserver();
+    void removeWindowMinimizedObserver();
+
+    struct Private;
+    std::unique_ptr<Private> m_private;
 };
 }

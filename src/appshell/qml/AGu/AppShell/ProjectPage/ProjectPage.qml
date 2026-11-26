@@ -200,7 +200,11 @@ DockPage {
 
             minimumWidth: 300
             thickness: Math.max(56, playbackToolBarContent.height)
-            resizable: false
+            minimumHeight: thickness
+            // A fixed toolbar cannot float, but its dock must still stretch
+            // horizontally. Otherwise DockBase caps its width at 300px and
+            // restoring a saved layout compresses the entire editor.
+            resizable: true
 
             PlaybackToolBar {
                 id: playbackToolBarContent

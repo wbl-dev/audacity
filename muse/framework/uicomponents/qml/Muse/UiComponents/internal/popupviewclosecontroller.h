@@ -22,6 +22,7 @@
 #pragma once
 
 #include <QObject>
+#include <QPointer>
 #include <QQuickItem>
 
 #include "async/notification.h"
@@ -77,7 +78,7 @@ private:
 
     bool m_active = false;
 
-    QQuickItem* m_parentItem = nullptr;
+    QPointer<QQuickItem> m_parentItem;
     QWindow* m_popupWindow = nullptr;
 
     bool m_isCloseOnPressOutsideParent = false;

@@ -64,22 +64,39 @@ QQuickItem* PopupViewCloseController::parentItem() const
 
 void PopupViewCloseController::setParentItem(QQuickItem* parentItem)
 {
+    if (m_parentItem == parentItem) {
+        return;
+    }
+
     if (m_parentItem) {
         m_parentItem->disconnect(this);
     }
 
     m_parentItem = parentItem;
 
-    connect(m_parentItem, &QQuickItem::visibleChanged, this, [this]() {
-        if (!m_parentItem || !m_parentItem->isVisible()) {
-            notifyAboutClose();
-        }
-    });
+    if (m_parentItem) {
+        connect(m_parentItem, &QQuickItem::visibleChanged, this, [this]() {
+            if (!m_parentItem || !m_parentItem->isVisible()) {
+                notifyAboutClose();
+            }
+        });
 
-    connect(m_parentItem, &QQuickItem::destroyed, this, [this]() {
-        qApp->removeEventFilter(this);
-        notifyAboutClose();
-    });
+        connect(m_parentItem, &QQuickItem::windowChanged, this, [this]() {
+            if (active()) {
+                doUpdateEventFilters();
+            }
+        });
+
+        connect(m_parentItem, &QQuickItem::destroyed, this, [this]() {
+            m_parentItem = nullptr;
+            setActive(false);
+            notifyAboutClose();
+        });
+    }
+
+    if (active()) {
+        doUpdateEventFilters();
+    }
 }
 
 void PopupViewCloseController::setWindow(QWindow* window)
@@ -168,10 +185,12 @@ bool PopupViewCloseController::isMouseWithinBoundaries(const QPointF& mousePos) 
     //! NOTE We also check the parent because often clicking on the parent should toggle the popup,
     //! but if we don't check a parent here, the popup will be closed and reopened.
     QQuickItem* parent = parentItem();
-    QPointF localPos = parent->mapFromGlobal(mousePos);
-    QRectF parentRect = QRectF(0, 0, parent->width(), parent->height());
-    if (parentRect.contains(localPos)) {
-        return true;
+    if (parent && parent->window()) {
+        QPointF localPos = parent->mapFromGlobal(mousePos);
+        QRectF parentRect = QRectF(0, 0, parent->width(), parent->height());
+        if (parentRect.contains(localPos)) {
+            return true;
+        }
     }
 
     //! NOTE We also check child windows

@@ -27,26 +27,32 @@
 
 using namespace muse::uicomponents;
 
-id<NSObject> minimizeObserverToken = nil;
+struct MacOSPopupViewCloseController::Private {
+    id<NSObject> minimizeObserverToken = nil;
+};
 
 MacOSPopupViewCloseController::MacOSPopupViewCloseController(const modularity::ContextPtr& iocCtx, QObject* parent)
-    : PopupViewCloseController(iocCtx, parent)
+    : PopupViewCloseController(iocCtx, parent), m_private(std::make_unique<Private>())
 {
+}
+
+MacOSPopupViewCloseController::~MacOSPopupViewCloseController()
+{
+    if (qApp) {
+        qApp->removeNativeEventFilter(this);
+    }
+    removeWindowMinimizedObserver();
 }
 
 void MacOSPopupViewCloseController::doUpdateEventFilters()
 {
+    removeWindowMinimizedObserver();
+
     if (active()) {
         qApp->installNativeEventFilter(this);
-        if (!minimizeObserverToken) {
-            initWindowMinimizedObserver();
-        }
+        initWindowMinimizedObserver();
     } else {
         qApp->removeNativeEventFilter(this);
-        if (minimizeObserverToken) {
-            [[NSNotificationCenter defaultCenter] removeObserver:minimizeObserverToken];
-            minimizeObserverToken = nil;
-        }
     }
 
     PopupViewCloseController::doUpdateEventFilters();
@@ -68,15 +74,33 @@ bool MacOSPopupViewCloseController::nativeEventFilter(const QByteArray& eventTyp
 
 void MacOSPopupViewCloseController::initWindowMinimizedObserver()
 {
-    WId wid = parentItem()->window()->winId();
+    QQuickItem* parent = parentItem();
+    QQuickWindow* window = parent ? parent->window() : nullptr;
+    if (!window) {
+        return;
+    }
+
+    WId wid = window->winId();
     NSView* nsView = (__bridge NSView*)reinterpret_cast<void*>(wid);
     NSWindow* nsWindow = [nsView window];
+    // A nil notification object would subscribe to every window's minimization.
+    if (!nsWindow) {
+        return;
+    }
 
-    minimizeObserverToken = [[NSNotificationCenter defaultCenter]
+    m_private->minimizeObserverToken = [[NSNotificationCenter defaultCenter]
                              addObserverForName:@"NSWindowWillMiniaturizeNotification"
                              object:nsWindow
                              queue:nil
                              usingBlock:^(NSNotification*) {
                                  notifyAboutClose();
                              }];
+}
+
+void MacOSPopupViewCloseController::removeWindowMinimizedObserver()
+{
+    if (m_private->minimizeObserverToken) {
+        [[NSNotificationCenter defaultCenter] removeObserver:m_private->minimizeObserverToken];
+        m_private->minimizeObserverToken = nil;
+    }
 }
