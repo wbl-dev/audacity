@@ -420,8 +420,8 @@ Item {
 
         Rectangle {
             anchors.centerIn: parent
-            width: 12
-            height: 12
+            width: 8
+            height: 8
             radius: width / 2
             color: prv.leftEarBackgroundColor
             border.color: root.isSelected ? ui.theme.fontPrimaryColor : root.labelColor
@@ -459,12 +459,12 @@ Item {
 
         //! To draw on top of other labels, we need to change the parent and increase z
         parent: root.container
-        width: 2
+        width: 1
         x: root.pointPositionX - width / 2
         y: root.parent.y
         z: root.parent.z
 
-        height: 24
+        height: 20
 
         enabled: root.enabled
         isForPoint: true

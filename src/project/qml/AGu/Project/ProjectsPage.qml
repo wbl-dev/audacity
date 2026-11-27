@@ -39,6 +39,44 @@ FocusScope {
 
         spacing: 20
 
+        ColumnLayout {
+            Layout.fillWidth: true
+            spacing: 12
+
+            StyledTextLabel {
+                text: qsTrc("project", "Welcome to AGu")
+                font: ui.theme.titleBoldFont
+            }
+
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: 12
+
+                FlatButton {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 76
+                    icon: IconCode.NEW_FILE
+                    text: qsTrc("project", "New blank project")
+                    textFont: ui.theme.largeBodyBoldFont
+                    orientation: Qt.Horizontal
+                    accentButton: true
+                    backgroundRadius: 8
+                    onClicked: projectsPageModel.createNewProject()
+                }
+
+                FlatButton {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 76
+                    icon: IconCode.OPEN_FILE
+                    text: qsTrc("project", "Open audio file…")
+                    textFont: ui.theme.largeBodyBoldFont
+                    orientation: Qt.Horizontal
+                    backgroundRadius: 8
+                    onClicked: Qt.callLater(projectsPageModel.openOther)
+                }
+            }
+        }
+
         RowLayout {
             Layout.fillWidth: true
 
@@ -46,6 +84,7 @@ FocusScope {
                 Layout.fillWidth: true
                 text: qsTrc("project", "Projects")
                 font: ui.theme.titleBoldFont
+                horizontalAlignment: Text.AlignLeft
             }
 
             SearchField {
@@ -92,36 +131,13 @@ FocusScope {
             viewType: projectsPageModel.viewType
             searchText: searchField.searchText
             backgroundColor: ui.theme.backgroundTertiaryColor
-            sideMargin: root.sideMargin
+            sideMargin: 0
             navigationSection: navSec
             navigationOrder: 4
 
             onCreateNewProjectRequested: projectsPageModel.createNewProject()
             onOpenProjectRequested: function (projectPath, displayName) {
                 Qt.callLater(projectsPageModel.openProject, projectPath, displayName)
-            }
-        }
-
-        SeparatorLine {
-            Layout.fillWidth: true
-        }
-
-        RowLayout {
-            Layout.fillWidth: true
-            Layout.bottomMargin: 10
-
-            Item {
-                Layout.fillWidth: true
-            }
-
-            FlatButton {
-                text: qsTrc("project", "New")
-                onClicked: projectsPageModel.createNewProject()
-            }
-
-            FlatButton {
-                text: qsTrc("project", "Open other…")
-                onClicked: Qt.callLater(projectsPageModel.openOther)
             }
         }
     }

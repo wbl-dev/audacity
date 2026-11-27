@@ -11,14 +11,12 @@ TrackItem {
     id: root
 
     signal addLabelToSelectionRequested
+    signal importLabelsRequested
 
     extraControlsComponent: Component {
-        FlatButton {
+        Row {
             width: parent.width
-            height: 24
-
-            text: qsTrc("projectscene", "Add label")
-
+            spacing: 4
             opacity: root.collapsed ? 0 : 1
             visible: opacity !== 0
             Behavior on opacity {
@@ -27,12 +25,26 @@ TrackItem {
                 }
             }
 
-            navigation.panel: root.headerNavigationPanel
-            navigation.order: root.extraControlsNavigationStart
-            navigation.enabled: !root.collapsed
+            FlatButton {
+                width: (parent.width - parent.spacing) / 2
+                height: 24
+                isNarrow: true
+                text: qsTrc("projectscene", "Add label")
+                navigation.panel: root.headerNavigationPanel
+                navigation.order: root.extraControlsNavigationStart
+                navigation.enabled: !root.collapsed
+                onClicked: root.addLabelToSelectionRequested()
+            }
 
-            onClicked: {
-                root.addLabelToSelectionRequested()
+            FlatButton {
+                width: (parent.width - parent.spacing) / 2
+                height: 24
+                isNarrow: true
+                text: qsTrc("projectscene", "Import…")
+                navigation.panel: root.headerNavigationPanel
+                navigation.order: root.extraControlsNavigationStart + 1
+                navigation.enabled: !root.collapsed
+                onClicked: root.importLabelsRequested()
             }
         }
     }

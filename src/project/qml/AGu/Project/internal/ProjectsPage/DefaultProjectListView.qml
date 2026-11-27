@@ -51,7 +51,6 @@ Item {
             sideMargin: root.sideMargin
             placeholder: root.placeholder
 
-
             navigation.section: root.navigationSection
             navigation.order: root.navigationOrder
             navigation.name: root.navigationName + "Grid"
@@ -62,7 +61,6 @@ Item {
             onOpenProjectRequested: function (projectPath, displayName) {
                 root.openProjectRequested(projectPath, displayName)
             }
-
         }
     }
 

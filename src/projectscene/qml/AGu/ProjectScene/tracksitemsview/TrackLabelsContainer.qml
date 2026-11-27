@@ -48,6 +48,51 @@ TrackItemsContainer {
                     anchors.fill: parent
                     anchors.leftMargin: root.canvasIndentWidth
 
+                    Repeater {
+                        model: layoutManager.ownerGroups
+
+                        delegate: Item {
+                            required property var modelData
+                            readonly property int startLevel: modelData.startLevel
+                            readonly property string owner: modelData.owner
+
+                            x: 0
+                            y: startLevel > 0 ? (startLevel - 1) * root.labelRowHeight : 0
+                            width: labelsContainer.width
+                            height: startLevel > 0 ? root.labelRowHeight : 18
+                            z: 1500
+
+                            Rectangle {
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                anchors.verticalCenter: parent.verticalCenter
+                                height: 1
+                                color: ui.theme.strokeColor
+                                opacity: 0.5
+                                visible: parent.startLevel > 0
+                            }
+
+                            Rectangle {
+                                x: 4
+                                anchors.verticalCenter: parent.verticalCenter
+                                width: ownerText.implicitWidth + 12
+                                height: 18
+                                radius: 9
+                                color: ui.theme.backgroundSecondaryColor
+                                opacity: 0.9
+                                visible: parent.owner.length > 0
+
+                                StyledTextLabel {
+                                    id: ownerText
+                                    anchors.centerIn: parent
+                                    text: parent.parent.owner
+                                    font.pixelSize: 10
+                                    color: ui.theme.fontSecondaryColor
+                                }
+                            }
+                        }
+                    }
+
                     function mapToAllLabels(e, f) {
                         for (let i = 0; i < repeater.count; i++) {
                             let labelLoader = repeater.itemAt(i)
@@ -283,7 +328,6 @@ TrackItemsContainer {
 
                                     onTitleEditAccepted: function (newTitle) {
                                         labelsModel.changeLabelTitle(itemData.key, newTitle)
-                                        labelsModel.resetSelectedLabels()
                                     }
 
                                     onTitleEditCanceled: {
@@ -409,6 +453,21 @@ TrackItemsContainer {
                 onHandleGuideline: function (x, completed) {
                     root.handleTimeGuideline(x, completed)
                 }
+            }
+
+            FlatButton {
+                readonly property int hiddenRows: Math.max(0, layoutManager.totalRowCount - Math.floor(root.height / root.labelRowHeight))
+
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                anchors.rightMargin: 8
+                anchors.bottomMargin: 6
+                z: 3000
+                visible: hiddenRows > 0
+                isNarrow: true
+                text: qsTrc("projectscene", "▼ +%1 rows · expand").arg(hiddenRows)
+                toolTipTitle: qsTrc("projectscene", "Expand label track")
+                onClicked: root.trackViewState.resetTrackHeight()
             }
         }
     }

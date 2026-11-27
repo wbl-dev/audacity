@@ -125,6 +125,14 @@ void TrackLabelsLayoutManager::setLabelsModel(QObject* model)
 void TrackLabelsLayoutManager::subscribeToLabelsChanges()
 {
     if (!m_labelsModel) {
+        if (!m_ownerGroups.isEmpty()) {
+            m_ownerGroups.clear();
+            emit ownerGroupsChanged();
+        }
+        if (m_totalRowCount != 0) {
+            m_totalRowCount = 0;
+            emit totalRowCountChanged();
+        }
         return;
     }
 
@@ -255,11 +263,13 @@ void TrackLabelsLayoutManager::relayout()
 
     int nextLevel = 0;
     bool firstOwner = true;
+    QVariantList ownerGroups;
     for (auto ownerIt = byOwner.begin(); ownerIt != byOwner.end(); ++ownerIt) {
         if (!firstOwner) {
             ++nextLevel; // A blank row separates semantic owner groups.
         }
         firstOwner = false;
+        ownerGroups.append(QVariantMap { { "owner", ownerIt.key() }, { "startLevel", nextLevel } });
 
         QList<LabelInfo*> ranges;
         QList<LabelInfo*> points;
@@ -298,6 +308,10 @@ void TrackLabelsLayoutManager::relayout()
         }
         nextLevel += pointRows;
     }
+    if (m_ownerGroups != ownerGroups) {
+        m_ownerGroups = ownerGroups;
+        emit ownerGroupsChanged();
+    }
     if (m_totalRowCount != nextLevel) {
         m_totalRowCount = nextLevel;
         emit totalRowCountChanged();
@@ -307,6 +321,11 @@ void TrackLabelsLayoutManager::relayout()
 int TrackLabelsLayoutManager::totalRowCount() const
 {
     return m_totalRowCount;
+}
+
+QVariantList TrackLabelsLayoutManager::ownerGroups() const
+{
+    return m_ownerGroups;
 }
 
 void TrackLabelsLayoutManager::relink()

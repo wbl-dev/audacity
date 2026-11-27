@@ -174,6 +174,27 @@ TEST_F(TrackLabelsLayoutManagerTests, OwnersGetSeparateBlocksWithBlankRow)
     EXPECT_EQ(item(2)->level(), 4);
 }
 
+TEST_F(TrackLabelsLayoutManagerTests, OwnerGroupsExposeTheirFirstRows)
+{
+    m_layoutManager->setLabelsModel(m_labelsModel);
+    addItem(1, u"Default", 0.0, 1.0);
+    addItem(2, u"Speaker A", 2.0, 3.0);
+    addItem(3, u"Speaker B", 4.0, 5.0);
+    setItemOwner(1, "Speaker_A");
+    setItemOwner(2, "Speaker_B");
+    m_layoutManager->init();
+
+    const QVariantList groups = m_layoutManager->ownerGroups();
+    ASSERT_EQ(groups.size(), 3);
+    EXPECT_EQ(groups[0].toMap().value("owner").toString(), QString());
+    EXPECT_EQ(groups[0].toMap().value("startLevel").toInt(), 0);
+    EXPECT_EQ(groups[1].toMap().value("owner").toString(), QStringLiteral("Speaker_A"));
+    EXPECT_EQ(groups[1].toMap().value("startLevel").toInt(), 2);
+    EXPECT_EQ(groups[2].toMap().value("owner").toString(), QStringLiteral("Speaker_B"));
+    EXPECT_EQ(groups[2].toMap().value("startLevel").toInt(), 4);
+    EXPECT_EQ(m_layoutManager->totalRowCount(), 5);
+}
+
 TEST_F(TrackLabelsLayoutManagerTests, ChangingOwnerMovesLabelToItsOwnerBlock)
 {
     m_layoutManager->setLabelsModel(m_labelsModel);

@@ -31,6 +31,10 @@ Item {
         id: tracksModel
     }
 
+    LabelsTableViewModel {
+        id: labelsImporter
+    }
+
     TracksViewStateModel {
         id: tracksViewState
     }
@@ -296,6 +300,8 @@ Item {
                             onAddLabelToSelectionRequested: {
                                 tracksModel.addLabelToSelection()
                             }
+
+                            onImportLabelsRequested: labelsImporter.importLabels()
 
                             onMouseReleased: function (releasedItem, x, y) {
                                 root.panelActive(item.trackId)

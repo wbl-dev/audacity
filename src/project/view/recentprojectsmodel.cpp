@@ -74,12 +74,6 @@ void RecentProjectsModel::updateRecentProjects()
     std::vector<QVariantMap> items;
     items.reserve(recentProjects.size());
 
-    QVariantMap addItem;
-    addItem[NAME_KEY] = muse::qtrc("project", "New project");
-    addItem[IS_CREATE_NEW_KEY] = true;
-    addItem[IS_NO_RESULTS_FOUND_KEY] = false;
-    items.push_back(addItem);
-
     for (const RecentFile& file : recentProjects) {
         QVariantMap obj;
 
@@ -113,5 +107,5 @@ void RecentProjectsModel::updateRecentProjects()
 
 QList<int> RecentProjectsModel::nonProjectItemIndices() const
 {
-    return { 0, rowCount() - 1 };
+    return { rowCount() - 1 };
 }

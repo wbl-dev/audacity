@@ -51,7 +51,7 @@ Rectangle {
     property int contentWidth: Math.max(50, Math.min(400, titleLoader.contentWidth + 8))
     property int contentHeight: titleLoader.isEditState && titleLoader.item ? titleLoader.item.contentHeight : 14
 
-    x: root.isPoint ? Math.max(4, Math.min(root.pointAnchorX + 12, root.parent.width - width - 4)) : 0
+    x: root.isPoint ? Math.max(4, Math.min(root.pointAnchorX + 12 + width + 4 <= root.parent.width ? root.pointAnchorX + 12 : root.pointAnchorX - width - 8, root.parent.width - width - 4)) : 0
     y: root.isPoint ? root.pointAnchorY : 0
 
     color: root.isPoint ? root.backgroundColor : "transparent"

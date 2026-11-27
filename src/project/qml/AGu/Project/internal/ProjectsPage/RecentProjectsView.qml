@@ -33,7 +33,7 @@ ProjectsView {
             backgroundColor: root.backgroundColor
             sideMargin: root.sideMargin
 
-            showNewProjectItem: true
+            showNewProjectItem: false
 
             navigationSection: root.navigationSection
             navigationOrder: root.navigationOrder
@@ -46,7 +46,6 @@ ProjectsView {
             onOpenProjectRequested: function (projectPath, displayName) {
                 root.openProjectRequested(projectPath, displayName)
             }
-
         }
     }
 }
