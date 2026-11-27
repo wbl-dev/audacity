@@ -35,6 +35,13 @@ Rectangle {
 
     property bool guidelineVisible: false
     property double guidelinePos: -1
+    readonly property bool guidelineGestureActive: mainMouseArea.pressed || tracksItemsView.mouseMoveActive || tracksViewState.keyboardMoveActive || selectionViewController.selectionInProgress || selectionViewController.selectionEditInProgress || content.leftTrimPressedButtons || content.rightTrimPressedButtons
+
+    onGuidelineGestureActiveChanged: {
+        if (!guidelineGestureActive) {
+            hideGuideline()
+        }
+    }
 
     property alias altPressed: tracksViewState.altPressed
     property alias ctrlPressed: tracksViewState.ctrlPressed
@@ -107,7 +114,7 @@ Rectangle {
         }
 
         function updateGuidelineVisibility() {
-            root.guidelineVisible = root.guidelinePos >= 0
+            root.guidelineVisible = root.guidelineGestureActive && root.guidelinePos >= 0
         }
     }
 
@@ -420,6 +427,7 @@ Rectangle {
                 width: timeline.devicePixel
 
                 color: ui.theme.fontPrimaryColor
+                opacity: timelineMouseArea.containsMouse ? 1 : emptyAreaGuidelineHandler.hovered ? 0.35 : 0
             }
 
             Rectangle {
@@ -582,7 +590,7 @@ Rectangle {
             preventStealing: true
             acceptedButtons: Qt.LeftButton | Qt.RightButton
 
-            Component.onCompleted: CustomCursorProvider.setCursorShape(mainMouseArea, ":/images/customCursorShapes/IBeamCursor.png", 26)
+            cursorShape: Qt.IBeamCursor
 
             hoverEnabled: true
 
@@ -671,7 +679,9 @@ Rectangle {
                 } else {
                     selectionViewController.onPositionChanged(timeline.context.positionToTime(e.x), e.y)
 
-                    snapGuidelineToPosition(e.x)
+                    if (root.guidelineGestureActive) {
+                        snapGuidelineToPosition(e.x)
+                    }
                 }
             }
 
@@ -796,7 +806,9 @@ Rectangle {
                     return
                 }
 
-                root.snapGuidelineToPosition(pos.x)
+                if (root.guidelineGestureActive) {
+                    root.snapGuidelineToPosition(pos.x)
+                }
             }
 
             onPointChanged: {
@@ -808,16 +820,6 @@ Rectangle {
             onHoveredChanged: {
                 if (!hovered) {
                     root.hideGuideline()
-                }
-            }
-        }
-
-        Connections {
-            target: timeline.context
-
-            function onFrameTimeChanged() {
-                if (emptyAreaGuidelineHandler.hovered && !mainMouseArea.pressed && !tracksViewState.isItemEditInProgress()) {
-                    emptyAreaGuidelineHandler.processHover()
                 }
             }
         }
@@ -1328,11 +1330,17 @@ Rectangle {
             anchors.bottom: content.bottom
 
             width: timeline.devicePixel
-            x: timeline.snapToDevicePixel(root.guidelineVisible ? root.guidelinePos : -1)
+            x: timeline.snapToDevicePixel(root.guidelinePos)
 
             color: tracksViewState.snapEnabled ? ui.theme.extra["guideline_snap_enabled_color"] : ui.theme.extra["guideline_snap_disabled_color"]
+            opacity: root.guidelineVisible ? 0.65 : 0
+            visible: opacity > 0.01
 
-            visible: root.guidelineVisible
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 80
+                }
+            }
         }
 
         Rectangle {
@@ -1384,11 +1392,17 @@ Rectangle {
     }
 
     function snapGuidelineToPosition(x) {
+        if (!root.guidelineGestureActive) {
+            return
+        }
         let time = timeline.context.applyDetectedSnap(timeline.context.positionToTime(x))
         root.updateGuidelineAtTime(timeline.context.findGuideline(time))
     }
 
     function updateGuidelineAtTime(time) {
+        if (!root.guidelineGestureActive) {
+            return
+        }
         prv.setGuidelinePosition(time)
         prv.updateGuidelineVisibility()
     }

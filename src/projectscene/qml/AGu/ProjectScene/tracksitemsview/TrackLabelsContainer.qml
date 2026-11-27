@@ -83,24 +83,8 @@ TrackItemsContainer {
                         hoverEnabled: true
                         pressAndHoldInterval: 0
 
-                        cursorShape: Qt.BlankCursor
+                        cursorShape: root.selectionEditInProgress ? Qt.SizeHorCursor : Qt.IBeamCursor
                         enabled: !root.selectionInProgress
-
-                        // While a selection edit is in progress the cursor on the track body
-                        // should indicate a horizontal resize. We reuse SelectionLeft.png as a
-                        // generic selection-edit cursor here — the actual left/right edge
-                        // direction is handled by ItemsSelection's own handle MouseAreas.
-                        readonly property string selectionEditCursor: ":/images/customCursorShapes/SelectionLeft.png"
-                        readonly property string idleCursor: ":/images/customCursorShapes/IBeamCursor.png"
-                        readonly property int iBeamSize: 26
-
-                        function updateCustomCursor() {
-                            if (root.selectionEditInProgress) {
-                                CustomCursorProvider.setCursorShape(labelsContainerMouseArea, selectionEditCursor)
-                            } else {
-                                CustomCursorProvider.setCursorShape(labelsContainerMouseArea, idleCursor, iBeamSize)
-                            }
-                        }
 
                         // Timer to wait for hover state to update after item creation
                         Timer {
@@ -116,14 +100,6 @@ TrackItemsContainer {
                                 if (!overAnyLabel) {
                                     root.clearItemGuideline()
                                 }
-                            }
-                        }
-
-                        Component.onCompleted: updateCustomCursor()
-                        Connections {
-                            target: root
-                            function onSelectionEditInProgressChanged() {
-                                labelsContainerMouseArea.updateCustomCursor()
                             }
                         }
 
@@ -147,9 +123,6 @@ TrackItemsContainer {
                             labelsContainer.mapToAllLabels(e, function (labelItem, mouseEvent) {
                                 labelItem.labelItemMousePositionChanged(mouseEvent.x, mouseEvent.y)
                             })
-
-                            let time = root.context.findGuideline(root.context.positionToTime(e.x, true))
-                            root.updateItemGuideline(time)
                         }
 
                         onContainsMouseChanged: function () {
@@ -164,17 +137,6 @@ TrackItemsContainer {
                                 clearGuidelineTimer.restart()
                             } else {
                                 clearGuidelineTimer.stop()
-                            }
-                        }
-
-                        Connections {
-                            target: root.context
-
-                            function onFrameTimeChanged() {
-                                if (labelsContainerMouseArea.containsMouse && !root.moveActive && !root.selectionInProgress) {
-                                    let time = root.context.findGuideline(root.context.positionToTime(labelsContainerMouseArea.mouseX, true))
-                                    root.updateItemGuideline(time)
-                                }
                             }
                         }
                     }
@@ -194,7 +156,7 @@ TrackItemsContainer {
                             y: root.labelRowHeight * itemData.level
                             z: Boolean(itemData) && itemData.isEditing ? 1000 : itemData.level
 
-                            asynchronous: true
+                            asynchronous: false
 
                             active: !itemData.dragged
                             enabled: !itemData.isDragGhost
@@ -294,13 +256,7 @@ TrackItemsContainer {
 
                                         trackItemMousePositionChanged(xWithinTrack, yWithinTrack, itemData.key)
 
-                                        // During a move/stretch the guideline follows the dragged edge
-                                        // (handleLabelGuideline), not the cursor.
-                                        const editInProgress = root.moveActive || itemData.isEditing
-                                        if (!editInProgress) {
-                                            let time = root.context.findGuideline(root.context.positionToTime(xWithinTrack, true))
-                                            root.updateItemGuideline(time)
-                                        }
+                                    // Active label edits supply their own edge guideline.
                                     }
 
                                     onRequestSelected: {

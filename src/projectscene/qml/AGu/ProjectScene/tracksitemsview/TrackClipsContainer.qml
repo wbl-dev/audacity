@@ -164,23 +164,7 @@ TrackItemsContainer {
                     hoverEnabled: true
                     pressAndHoldInterval: 0
                     enabled: !root.selectionInProgress
-                    cursorShape: Qt.BlankCursor
-
-                    // While a selection edit is in progress the cursor on the track body
-                    // should indicate a horizontal resize. We reuse SelectionLeft.png as a
-                    // generic selection-edit cursor here — the actual left/right edge
-                    // direction is handled by ItemsSelection's own handle MouseAreas.
-                    readonly property string selectionEditCursor: ":/images/customCursorShapes/SelectionLeft.png"
-                    readonly property string idleCursor: ":/images/customCursorShapes/IBeamCursor.png"
-                    readonly property int iBeamSize: 26
-
-                    function updateCustomCursor() {
-                        if (root.selectionEditInProgress) {
-                            CustomCursorProvider.setCursorShape(clipsContainerMouseArea, selectionEditCursor)
-                        } else {
-                            CustomCursorProvider.setCursorShape(clipsContainerMouseArea, idleCursor, iBeamSize)
-                        }
-                    }
+                    cursorShape: root.selectionEditInProgress ? Qt.SizeHorCursor : Qt.IBeamCursor
 
                     // Timer to wait for hover state to update after item creation
                     Timer {
@@ -196,14 +180,6 @@ TrackItemsContainer {
                             if (!overAnyClip) {
                                 root.clearItemGuideline()
                             }
-                        }
-                    }
-
-                    Component.onCompleted: updateCustomCursor()
-                    Connections {
-                        target: root
-                        function onSelectionEditInProgressChanged() {
-                            clipsContainerMouseArea.updateCustomCursor()
                         }
                     }
 
@@ -262,22 +238,6 @@ TrackItemsContainer {
                                 clipItem.mousePositionChanged(mouseEvent.x, mouseEvent.y)
                                 clipItem.setLastSample(mouseEvent.x, mouseEvent.y)
                             })
-                        }
-
-                        // Show the snap guideline while hovering the empty track body
-                        // (the area between/around clips that no ClipItem covers).
-                        let time = root.context.findGuideline(root.context.positionToTime(e.x, true))
-                        root.updateItemGuideline(time)
-                    }
-
-                    Connections {
-                        target: root.context
-
-                        function onFrameTimeChanged() {
-                            if (clipsContainerMouseArea.containsMouse && !root.moveActive && !root.selectionInProgress) {
-                                let time = root.context.findGuideline(root.context.positionToTime(clipsContainerMouseArea.mouseX, true))
-                                root.updateItemGuideline(time)
-                            }
                         }
                     }
 
@@ -567,15 +527,7 @@ TrackItemsContainer {
 
                                     trackItemMousePositionChanged(xWithinTrack, yWithinTrack, itemData.key)
 
-                                    // While a clip is being moved or a trim/stretch handle is held the
-                                    // guideline follows the dragged clip edge (driven by handleClipGuideline),
-                                    // not the cursor — so only snap the guideline to the cursor when no such
-                                    // edit is in progress.
-                                    const editInProgress = root.moveActive || root.leftTrimPressedButtons || root.rightTrimPressedButtons
-                                    if (!editInProgress) {
-                                        let time = root.context.findGuideline(root.context.positionToTime(xWithinTrack, true))
-                                        root.updateItemGuideline(time)
-                                    }
+                                // Active move and trim guidelines are driven by handleClipGuideline.
                                 }
 
                                 onRequestSelected: {

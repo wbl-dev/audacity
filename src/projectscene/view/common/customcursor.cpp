@@ -5,6 +5,7 @@
 #include "customcursor.h"
 
 #include <QGuiApplication>
+#include <QHash>
 #include <QScreen>
 #include <QPixmap>
 #include <QWindow>
@@ -53,6 +54,13 @@ CustomCursorProvider::CustomCursorProvider(QObject* parent)
 QCursor CustomCursorProvider::createScaledCursor(const QString& source, int size, const QQuickItem* item)
 {
     const qreal dpr = resolveDevicePixelRatio(item);
+    const int physicalSize = qRound(size * dpr);
+    const QString cacheKey = source + QLatin1Char('|') + QString::number(physicalSize)
+                             + QLatin1Char('|') + QString::number(dpr);
+    static QHash<QString, QCursor> cursors;
+    if (const auto found = cursors.constFind(cacheKey); found != cursors.cend()) {
+        return *found;
+    }
 
     QPixmap pixmap(source);
     if (pixmap.isNull()) {
@@ -60,10 +68,9 @@ QCursor CustomCursorProvider::createScaledCursor(const QString& source, int size
         return QCursor();
     }
 
-    const int physicalSize = qRound(size * dpr);
     QPixmap scaledPixmap = pixmap.scaled(physicalSize, physicalSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     scaledPixmap.setDevicePixelRatio(dpr);
-    return QCursor(scaledPixmap);
+    return cursors.insert(cacheKey, QCursor(scaledPixmap)).value();
 }
 
 namespace {
@@ -171,16 +178,22 @@ CustomCursor::CustomCursor(QObject* parent)
 void CustomCursor::refresh()
 {
     if (!m_active) {
-        QGuiApplication::restoreOverrideCursor();
+        if (m_overrideInstalled) {
+            QGuiApplication::restoreOverrideCursor();
+            m_overrideInstalled = false;
+        }
         return;
     }
-
-    QGuiApplication::restoreOverrideCursor();
 
     QCursor cursor = CustomCursorProvider::createScaledCursor(m_source, m_size);
     if (cursor.shape() == Qt::BitmapCursor) {
         m_cursor = cursor;
-        QGuiApplication::setOverrideCursor(m_cursor);
+        if (m_overrideInstalled && QGuiApplication::overrideCursor()) {
+            QGuiApplication::changeOverrideCursor(m_cursor);
+        } else {
+            QGuiApplication::setOverrideCursor(m_cursor);
+            m_overrideInstalled = true;
+        }
     }
 }
 

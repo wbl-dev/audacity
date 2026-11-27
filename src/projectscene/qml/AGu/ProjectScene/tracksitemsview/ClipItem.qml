@@ -418,16 +418,7 @@ Rectangle {
         hoverEnabled: true
 
         readonly property bool forbidden: (root.isNearSample || root.isIsolationMode) && playbackState.isPlaying
-        cursorShape: forbidden ? Qt.ForbiddenCursor : Qt.BlankCursor
-
-        function updateCustomCursor() {
-            if (!forbidden) {
-                CustomCursorProvider.setCursorShape(hoverArea, ":/images/customCursorShapes/IBeamCursor.png", 26)
-            }
-        }
-
-        Component.onCompleted: updateCustomCursor()
-        onForbiddenChanged: updateCustomCursor()
+        cursorShape: forbidden ? Qt.ForbiddenCursor : Qt.IBeamCursor
 
         acceptedButtons: Qt.NoButton
 
@@ -611,10 +602,9 @@ Rectangle {
             anchors.left: parent.left
             anchors.right: parent.right
 
-            height: root.headerHeight
+            height: root.collapsed && !menuBtn.isMenuOpened && !editLoader.isEditState ? 6 : root.headerHeight
             z: 2
-
-            visible: !root.collapsed || root.hover || menuBtn.isMenuOpened
+            opacity: !root.collapsed || menuBtn.isMenuOpened || editLoader.isEditState ? 1 : 0
 
             Rectangle {
                 id: headerSelectionRectangle
@@ -894,6 +884,26 @@ Rectangle {
                         Qt.callLater(menuBtn.clicked, mouse)
                     }
                 }
+            }
+        }
+
+        MouseArea {
+            anchors.top: parent.top
+            anchors.right: parent.right
+            width: 20
+            height: 20
+            z: 3
+            visible: root.collapsed && root.hover && !menuBtn.isMenuOpened && root.enableCursorInteraction
+            cursorShape: Qt.ArrowCursor
+
+            onClicked: function (mouse) {
+                menuBtn.doClicked(mouse)
+            }
+
+            Text {
+                anchors.centerIn: parent
+                text: "⋯"
+                color: ui.theme.fontPrimaryColor
             }
         }
 

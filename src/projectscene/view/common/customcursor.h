@@ -46,6 +46,7 @@ private:
     QString m_source;
     QCursor m_cursor;
     int m_size = DEFAULT_CURSOR_SIZE;
+    bool m_overrideInstalled = false;
 };
 
 //! QML singleton exposing cursor helpers to QML code.

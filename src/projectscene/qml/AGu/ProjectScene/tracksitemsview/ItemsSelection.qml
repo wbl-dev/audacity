@@ -62,9 +62,7 @@ Item {
 
         visible: (isDataSelected || leftMa.pressed) && !root.selectionInProgress
         width: selRect.width >= 16 ? 8 : (selRect.width / 2)
-        cursorShape: Qt.BlankCursor
-
-        Component.onCompleted: CustomCursorProvider.setCursorShape(leftMa, ":/images/customCursorShapes/SelectionLeft.png")
+        cursorShape: Qt.SizeHorCursor
 
         property real startX: 0
         property real startW: 0
@@ -76,7 +74,7 @@ Item {
             leftMa.startX = selRect.x
             leftMa.startW = selRect.width
             leftMa.x = selRect.x
-            CustomCursorProvider.overrideCursor(":/images/customCursorShapes/SelectionLeft.png")
+            CustomCursorProvider.overrideStandardCursor(Qt.SizeHorCursor)
             handleGuideline(selRect.x, false)
         }
 
@@ -131,9 +129,7 @@ Item {
 
         visible: (isDataSelected || rightMa.pressed) && !root.selectionInProgress
         width: selRect.width >= 16 ? 8 : (selRect.width / 2)
-        cursorShape: Qt.BlankCursor
-
-        Component.onCompleted: CustomCursorProvider.setCursorShape(rightMa, ":/images/customCursorShapes/SelectionRight.png")
+        cursorShape: Qt.SizeHorCursor
 
         property real startX: 0
         property real startW: 0
@@ -145,7 +141,7 @@ Item {
             rightMa.startX = selRect.x
             rightMa.startW = selRect.width
             rightMa.x = selRect.x + selRect.width - rightMa.width
-            CustomCursorProvider.overrideCursor(":/images/customCursorShapes/SelectionRight.png")
+            CustomCursorProvider.overrideStandardCursor(Qt.SizeHorCursor)
             handleGuideline(root.context.selectionEndPosition, false)
         }
 
