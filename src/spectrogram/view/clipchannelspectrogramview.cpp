@@ -106,7 +106,9 @@ void ClipChannelSpectrogramView::setSelectionStartTime(double time)
     }
     m_selectionStartTime = time;
     emit selectionStartTimeChanged();
-    update();
+    if (m_selectionStartFrequency >= 0 && m_selectionEndFrequency > m_selectionStartFrequency) {
+        update();
+    }
 }
 
 void ClipChannelSpectrogramView::setSelectionEndTime(double time)
@@ -116,7 +118,9 @@ void ClipChannelSpectrogramView::setSelectionEndTime(double time)
     }
     m_selectionEndTime = time;
     emit selectionEndTimeChanged();
-    update();
+    if (m_selectionStartFrequency >= 0 && m_selectionEndFrequency > m_selectionStartFrequency) {
+        update();
+    }
 }
 
 double ClipChannelSpectrogramView::selectionStartFrequency() const

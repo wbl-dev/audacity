@@ -207,7 +207,6 @@ Rectangle {
         onActiveChanged: {
             if (active) {
                 selectionViewController.cancelSpectrogramEdit()
-                itemsSelection.visible = false
             }
         }
     }
@@ -434,13 +433,14 @@ Rectangle {
                 id: timelineSelRect
 
                 x: timeline.context.singleItemSelected ? timeline.context.selectedItemStartPosition : timeline.context.selectionStartPosition
-                width: timeline.context.singleItemSelected ? timeline.context.selectedItemEndPosition - x : timeline.context.selectionEndPosition - x
+                width: Math.max(0, timeline.context.singleItemSelected ? timeline.context.selectedItemEndPosition - x : timeline.context.selectionEndPosition - x)
 
                 anchors.top: parent.verticalCenter
                 anchors.bottom: parent.bottom
 
                 color: ui.theme.extra["selection_highlight_color"]
                 opacity: 0.3
+                visible: timeline.context.selectionActive || timeline.context.singleItemSelected
             }
 
             PlayCursorHead {
@@ -642,7 +642,6 @@ Rectangle {
                             const spectrogramHit = tracksItemsView.getSpectrogramHit(e.y)
                             selectionViewController.onPressed(timeline.context.positionToTime(e.x), e.y, spectrogramHit)
                             selectionViewController.resetSelectedItems()
-                            itemsSelection.visible = true
                         }
                         snapGuidelineToPosition(e.x)
 
@@ -738,7 +737,6 @@ Rectangle {
                         playCursorController.cancelSeekGesture()
                     }
 
-                    itemsSelection.visible = false
                     hideGuideline()
                 }
             }
@@ -787,7 +785,6 @@ Rectangle {
                     playCursorController.seekToTimeKeepingView(timeline.context.selectionStartTime)
                     playCursorController.setPlaybackRegionByTime(timeline.context.selectionStartTime, timeline.context.selectionEndTime)
                 }
-                itemsSelection.visible = false
             }
         }
 
@@ -1045,7 +1042,6 @@ Rectangle {
 
                             onItemSelectedRequested: {
                                 selectionViewController.resetDataSelection()
-                                itemsSelection.visible = false
                             }
 
                             onSelectionResetRequested: {
@@ -1239,7 +1235,6 @@ Rectangle {
 
                             onItemSelectedRequested: {
                                 selectionViewController.resetDataSelection()
-                                itemsSelection.visible = false
                             }
 
                             onSelectionResetRequested: {
@@ -1273,19 +1268,6 @@ Rectangle {
             onScrollVertical: function (newPos) {
                 timeline.context.scrollVertical(newPos)
             }
-        }
-
-        Rectangle {
-            id: itemsSelection
-
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            color: ui.theme.extra["selection_highlight_color"]
-            opacity: 0.05
-            visible: false
-
-            x: Math.max(timeline.context.selectionStartPosition, 0.0)
-            width: timeline.context.selectionEndPosition - x
         }
 
         Rectangle {

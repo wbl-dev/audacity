@@ -12,6 +12,8 @@
 
 #include "au3-wave-track/WaveClip.h"
 
+#include <vector>
+
 namespace agu::spectrogram {
 namespace {
 std::pair<sampleCount, sampleCount> GetSelectedSampleIndices(
@@ -183,25 +185,28 @@ void Au3SpectrogramClipChannelPainter::fillImage(QImage& image,
         SpectrogramColors::PreComputeGradient();
     }
 
-    // Bug 2389 - always draw at least one pixel of selection.
-    int selectedX = static_cast<int>(timeToPosition(viewInfo, selectionInfo.startTime) - leftOffset);
-
-    // There used to be a pragma omp parallel for here. Can/Should we use QtConcurrent?
+    const bool spectralSelection = selectionInfo.startFrequency >= 0
+                                   && selectionInfo.endFrequency > selectionInfo.startFrequency;
+    // Bug 2389 - always draw at least one pixel of a spectral selection.
+    const int selectedX = spectralSelection
+                          ? static_cast<int>(timeToPosition(viewInfo, selectionInfo.startTime) - leftOffset) : -1;
+    std::vector<unsigned char> selectedColumns(imageWidth, selectionInfo.clipSelected);
     for (int xx = 0; xx < imageWidth; ++xx) {
-        const auto w0 = sampleCount(
-            0.5 + sampleRate / stretchRatio
-            * (positionToTime(viewInfo, xx + leftOffset) - playStartTime));
+        if (!spectralSelection || selectedColumns[xx]) {
+            continue;
+        }
+        const auto w0 = sampleCount(0.5 + sampleRate / stretchRatio
+                                    * (positionToTime(viewInfo, xx + leftOffset) - playStartTime));
+        const auto w1 = sampleCount(0.5 + sampleRate / stretchRatio
+                                    * (positionToTime(viewInfo, xx + 1 + leftOffset) - playStartTime));
+        selectedColumns[xx] = (ssel0 <= w0 && w1 < ssel1) || xx == selectedX;
+    }
 
-        const auto w1 = sampleCount(
-            0.5 + sampleRate / stretchRatio
-            * (positionToTime(viewInfo, xx + 1 + leftOffset) - playStartTime));
-        bool maybeSelected = selectionInfo.clipSelected || (ssel0 <= w0 && w1 < ssel1);
-        maybeSelected = maybeSelected || (xx == selectedX);
-
-        // There used to be a pragma omp parallel for here. Can/Should we use QtConcurrent?
-        for (int yy = 0; yy < imageHeight; ++yy) {
-            const float bin     = bins[yy];
-            const float nextBin = bins[yy + 1];
+    for (int yy = 0; yy < imageHeight; ++yy) {
+        const float bin = bins[yy];
+        const float nextBin = bins[yy + 1];
+        QRgb* scanLine = reinterpret_cast<QRgb*>(image.scanLine(imageHeight - yy - 1));
+        for (int xx = 0; xx < imageWidth; ++xx) {
 
             // For spectral selection, determine what colour
             // set to use.  We use a darker selection if
@@ -209,14 +214,14 @@ void Au3SpectrogramClipChannelPainter::fillImage(QImage& image,
             SpectrogramColors::ColorGradientChoice selected = SpectrogramColors::ColorGradientUnselected;
 
             // If we are in the time selected range, then we may use a different color set.
-            if (maybeSelected) {
+            if (selectedColumns[xx]) {
                 selected = ChooseColorSet(bin, nextBin, selBinLo, selBinHi);
             }
 
             const float value = specPxCache->values[xx * imageHeight + yy];
             unsigned char rv, gv, bv;
             GetColorGradient(value, selected, colorScheme, &rv, &gv, &bv);
-            image.setPixelColor(xx, imageHeight - yy - 1, QColor(rv, gv, bv));
+            scanLine[xx] = qRgb(rv, gv, bv);
         }
     }
 }

@@ -115,7 +115,7 @@ Rectangle {
     property alias navigation: navCtrl
 
     radius: 4
-    color: clipSelected ? clipSelectedColor : clipColor
+    color: ui.blendColors(ui.theme.extra["waveform_background_color"], root.clipColor, root.clipSelected ? 0.12 : 0.06)
     border.color: ui.theme.extra["black_color"]
     opacity: root.moveActive && (clipSelected || clipIntersectsSelection) ? 0.5 : isAudible ? 1.0 : 0.3
 
@@ -617,7 +617,7 @@ Rectangle {
                 anchors.bottom: header.bottom
 
                 color: root.clipTimeSelectionColor
-                visible: root.isDataSelected && currentClipStyle == ClipStyle.COLORFUL
+                visible: false // Time selection is drawn once by TrackItemsContainer.
             }
 
             MouseArea {

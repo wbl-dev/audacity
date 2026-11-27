@@ -101,8 +101,9 @@ IWavePainter::Params WaveView::getWavePainterParams() const
     params.zoom = m_context->zoom();
     params.fromTime = (m_clipTime.itemStartTime - m_clipTime.startTime);
     params.toTime = params.fromTime + (m_clipTime.itemEndTime - m_clipTime.itemStartTime);
-    params.selectionStartTime = m_clipTime.selectionStartTime;
-    params.selectionEndTime = m_clipTime.selectionEndTime;
+    // The scene graph selection rectangle owns time highlighting.
+    params.selectionStartTime = 0.0;
+    params.selectionEndTime = 0.0;
     params.channelHeightRatio = m_channelHeightRatio;
     params.showRMS = configuration()->isRMSInWaveformVisible();
     params.showClipping = configuration()->isClippingInWaveformVisible();
@@ -258,8 +259,6 @@ void WaveView::setTimelineContext(TimelineContext* newContext)
 
     if (m_context) {
         connect(m_context, &TimelineContext::frameTimeChanged, this, &WaveView::updateView);
-        connect(m_context, &TimelineContext::selectionStartTimeChanged, this, &WaveView::updateView);
-        connect(m_context, &TimelineContext::selectionEndTimeChanged, this, &WaveView::updateView);
         connect(m_context, &TimelineContext::zoomChanged, this, &WaveView::onWaveZoomChanged);
 
         onWaveZoomChanged();
@@ -328,11 +327,7 @@ QColor WaveView::backgroundColor() const
 {
     const IWavePainter::Params params = getWavePainterParams();
 
-    const bool endWithinSelection = m_clipTime.selectionStartTime < m_clipTime.selectionEndTime
-                                    && m_clipTime.selectionStartTime <= m_clipTime.endTime
-                                    && m_clipTime.selectionEndTime >= m_clipTime.endTime;
-
-    return endWithinSelection ? params.style.selectedBackground : params.style.normalBackground;
+    return params.style.normalBackground;
 }
 
 ClipTime WaveView::clipTime() const
@@ -345,11 +340,15 @@ void WaveView::setClipTime(const ClipTime& newClipTime)
     if (m_clipTime == newClipTime) {
         return;
     }
+    const bool geometryChanged = !muse::is_equal(m_clipTime.startTime, newClipTime.startTime)
+                                 || !muse::is_equal(m_clipTime.endTime, newClipTime.endTime)
+                                 || !muse::is_equal(m_clipTime.itemStartTime, newClipTime.itemStartTime)
+                                 || !muse::is_equal(m_clipTime.itemEndTime, newClipTime.itemEndTime);
     m_clipTime = newClipTime;
     emit clipTimeChanged();
-    emit backgroundColorChanged();
-
-    update();
+    if (geometryChanged) {
+        update();
+    }
 }
 
 double WaveView::channelHeightRatio() const

@@ -142,10 +142,23 @@ Item {
         anchors.bottom: root.bottom
         anchors.bottomMargin: sep.thickness
 
-        visible: root.context && root.context.selectionActive
-        z: root.isDataSelected ? 0 : 2
-        color: ui.theme.extra["selection_highlight_color"]
-        opacity: root.isDataSelected ? 0.3 : 0.10
+        visible: root.context && root.context.selectionActive && root.context.selectionEndTime > root.context.selectionStartTime && width > 0
+        z: 2
+        color: ui.colorWithAlphaF(ui.theme.extra["selection_highlight_color"], root.isDataSelected ? 0.18 : 0.06)
+
+        Rectangle {
+            anchors.left: parent.left
+            height: parent.height
+            width: 1
+            color: ui.theme.extra["selection_highlight_color"]
+        }
+
+        Rectangle {
+            anchors.right: parent.right
+            height: parent.height
+            width: 1
+            color: ui.theme.extra["selection_highlight_color"]
+        }
     }
 
     Rectangle {
