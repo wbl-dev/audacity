@@ -514,6 +514,10 @@ bool DockWindow::doLoadPage(const QString& uri, const QVariantMap& params)
     restorePageState(newPage);
     initDocks(newPage);
 
+    // Saved layouts can mark this embedded view hidden even though its
+    // QQuickWindow is visible. Keep the page content visible after restore.
+    m_mainWindow->setVisible(true);
+
     newPage->setParams(params);
 
     m_currentPage = newPage;
