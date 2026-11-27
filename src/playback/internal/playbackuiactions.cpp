@@ -46,9 +46,9 @@ const UiActionList PlaybackUiActions::m_mainActions = {
              agu::context::UiCtxProjectOpened,
              agu::context::CTX_PROJECT_OPENED,
              //: Action title: shown as a menu item or a button label; keep it short
-             TranslatableString("action", "Play/Stop"),
+             TranslatableString("action", "Play/Pause (Space)"),
              //: Action description: shown as a tooltip; can be a full sentence
-             TranslatableString("action_description", "Play/Stop"),
+             TranslatableString("action_description", "Play/Pause with Space"),
              IconCode::Code::PLAY_FILL
              ),
     UiAction(PLAYBACK_TOGGLE_PLAY_STOP_AND_SET_CURSOR_QUERY.toString(),

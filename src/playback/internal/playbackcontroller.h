@@ -125,7 +125,6 @@ private:
 
     enum class TogglePlayMode {
         PlayPause,      //!< pause while playing; resume/replay when not
-        PlayStop,       //!< stop while playing; play when not
         PlayStopAndSetCursor, //!< stop and seek to the stop position while playing, so the next play continues from there; play when not
     };
 

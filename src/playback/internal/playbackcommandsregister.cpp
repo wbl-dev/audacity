@@ -27,9 +27,9 @@ const std::vector<CommandInfo> s_commandInfos = {
     CommandInfo{
         PLAYBACK_TOGGLE_PLAY_STOP_COMMAND,
         //: Command title: shown as a menu item or a button label; keep it short
-        TranslatableString("command", "Play/Stop"),
+        TranslatableString("command", "Play/Pause (Space)"),
         //: Command description: shown as a tooltip; can be a full sentence
-        TranslatableString("command_description", "Play/Stop"),
+        TranslatableString("command_description", "Play/Pause with Space"),
         InputSchema(),
         Decoration(IconCode::Code::PLAY_FILL)
     },

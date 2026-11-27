@@ -427,7 +427,10 @@ muse::Ret PlaybackController::togglePlayPauseAction()
 
 muse::Ret PlaybackController::togglePlayStopAction()
 {
-    return togglePlay(TogglePlayMode::PlayStop);
+    // Keep the legacy command ID for existing Space shortcuts. Unlike the
+    // toolbar's Play/Pause command, it stays disabled while recording so Space
+    // can continue to stop the recorder.
+    return togglePlay(TogglePlayMode::PlayPause);
 }
 
 muse::Ret PlaybackController::togglePlayStopAndSetCursorAction()
@@ -448,13 +451,6 @@ muse::Ret PlaybackController::togglePlay(TogglePlayMode mode)
         switch (mode) {
         case TogglePlayMode::PlayStopAndSetCursor:
             stopAndSeekToPlaybackPosition();
-            break;
-        case TogglePlayMode::PlayStop:
-            if (selectedLabelRegion) {
-                stopAndSeekToPlaybackPosition();
-            } else {
-                stopAndSeekToLastSeekTime();
-            }
             break;
         case TogglePlayMode::PlayPause:
             doPause();

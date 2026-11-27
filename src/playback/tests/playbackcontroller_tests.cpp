@@ -125,7 +125,7 @@ public:
         m_controller->togglePlayPauseAction();
     }
 
-    //! NOTE: Spacebar — play/stop
+    //! NOTE: Spacebar — play/pause (legacy play-stop command ID)
     void togglePlayStop()
     {
         m_controller->togglePlayStopAction();
@@ -467,7 +467,7 @@ TEST_F(PlaybackControllerTests, ToggleLoopPlayback_WithSelectedRangeLabel_UsesLa
     m_controller->toggleLoopPlayback();
 }
 
-TEST_F(PlaybackControllerTests, TogglePlay_WithSelectedRangeLabel_StopsAtPlayhead)
+TEST_F(PlaybackControllerTests, TogglePlay_WithSelectedRangeLabel_PausesAtPlayhead)
 {
     m_controller->setLastPlaybackSeekTime(10.0);
     ON_CALL(*m_player, playbackStatus())
@@ -481,9 +481,34 @@ TEST_F(PlaybackControllerTests, TogglePlay_WithSelectedRangeLabel_StopsAtPlayhea
     ON_CALL(*m_selectionController, selectedLabelEndTime())
     .WillByDefault(Return(std::optional<secs_t>(20.0)));
 
-    EXPECT_CALL(*m_player, stop()).Times(1);
-    EXPECT_CALL(*m_player, seek(secs_t(15.0), false)).Times(1);
+    EXPECT_CALL(*m_player, pause()).Times(1);
+    EXPECT_CALL(*m_player, stop()).Times(0);
+    EXPECT_CALL(*m_player, seek(_, _)).Times(0);
     togglePlayStop();
+}
+
+TEST_F(PlaybackControllerTests, TogglePlayStop_WithTimeSelection_ResumesFromPausedPosition)
+{
+    m_controller->setLastPlaybackSeekTime(10.0);
+    setTimeSelection(10.0, 20.0);
+    PlaybackStatus status = PlaybackStatus::Running;
+    ON_CALL(*m_player, playbackStatus()).WillByDefault([&status]() { return status; });
+    ON_CALL(*m_player, playbackPosition()).WillByDefault(Return(secs_t(15.0)));
+
+    EXPECT_CALL(*m_player, pause()).WillOnce([&status]() { status = PlaybackStatus::Paused; });
+    EXPECT_CALL(*m_player, resume()).WillOnce([&status]() { status = PlaybackStatus::Running; });
+    EXPECT_CALL(*m_player, stop()).Times(0);
+    EXPECT_CALL(*m_player, seek(_, _)).Times(0);
+    EXPECT_CALL(*m_player, play(_)).Times(0);
+    EXPECT_CALL(*m_player, setPlaybackRegion(_)).Times(0);
+
+    togglePlayStop();
+    EXPECT_EQ(status, PlaybackStatus::Paused);
+
+    togglePlayStop();
+
+    EXPECT_EQ(status, PlaybackStatus::Running);
+    EXPECT_EQ(m_controller->lastPlaybackSeekTime(), secs_t(10.0));
 }
 
 TEST_F(PlaybackControllerTests, TogglePlay_WithSelectedPointLabel_PlaysToProjectEnd)
@@ -687,18 +712,16 @@ TEST_F(PlaybackControllerTests, Pause_WhenPlaybackRegionChangesAfterSeekTargetCh
 }
 
 /**
- * @brief Toggle play when already playing with run from start position
- * @details User clicked play with Shift modifier
- *          Playback should run from start position
+ * @brief Space pauses playback at the current playhead
  */
-TEST_F(PlaybackControllerTests, TogglePlay_WhenPlaying_PlayAgain)
+TEST_F(PlaybackControllerTests, TogglePlayStop_WhenPlaying_Pauses)
 {
     //! [GIVEN] Playback is running
     ON_CALL(*m_player, playbackStatus())
     .WillByDefault(Return(PlaybackStatus::Running));
 
-    //! [THEN] Player should stop playing
-    EXPECT_CALL(*m_player, stop())
+    //! [THEN] Player should pause playing
+    EXPECT_CALL(*m_player, pause())
     .Times(1);
 
     //! [WHEN] Toggle play
