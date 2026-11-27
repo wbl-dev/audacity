@@ -54,6 +54,11 @@ void TrackItem::init(const trackedit::Track& track)
         emit iconChanged();
     }
 
+    if (m_colorIndex != track.colorIndex) {
+        m_colorIndex = track.colorIndex;
+        emit colorIndexChanged();
+    }
+
     m_isFocused = trackNavigationController()->focusedTrack() == m_trackId;
     emit isFocusedChanged();
 }
@@ -76,6 +81,11 @@ QString TrackItem::title() const
 int TrackItem::icon() const
 {
     return static_cast<int>(m_icon);
+}
+
+int TrackItem::colorIndex() const
+{
+    return m_colorIndex;
 }
 
 agu::trackedit::TrackType TrackItem::trackType() const

@@ -15,6 +15,7 @@ Item {
     property bool floating: false
     property int maximumWidth: 0
     property int maximumHeight: 0
+    property real timecodeWidth: 0
 
     property alias navigationPanel: view.navigationPanel
 
@@ -22,6 +23,30 @@ Item {
     height: view.height
 
     signal relayoutRequested
+
+    Rectangle {
+        x: view.leftPadding - 4
+        anchors.verticalCenter: parent.verticalCenter
+        width: 4 + 4 * 32 + 5 * view.spacing + view.spacerWidth + root.timecodeWidth + 4
+        height: 40
+        radius: 6
+        color: ui.theme.backgroundQuarternaryColor
+        border.width: 1
+        border.color: ui.theme.strokeColor
+        visible: root.timecodeWidth > 0 && !view.isMultiline
+    }
+
+    Rectangle {
+        x: view.leftPadding + 4 * 32 + 5 * view.spacing + view.spacerWidth + root.timecodeWidth + view.spacing + view.spacerWidth
+        anchors.verticalCenter: parent.verticalCenter
+        width: 3 * 32 + 2 * view.spacing + 8
+        height: 40
+        radius: 6
+        color: ui.theme.backgroundQuarternaryColor
+        border.width: 1
+        border.color: ui.theme.strokeColor
+        visible: root.timecodeWidth > 0 && !view.isMultiline
+    }
 
     StyledToolBarView {
         id: view
@@ -65,6 +90,8 @@ Item {
             StyledToolBarItem {
                 id: controlButton
 
+                readonly property bool isEditTool: itemData && (itemData.code === "command://projectscene/time-selection-tool" || itemData.code === "command://projectscene/toggle-clip-gain-automation" || itemData.code === "command://projectscene/toggle-split-tool")
+
                 width: 32
                 height: 32
                 backgroundRadius: 5
@@ -84,6 +111,15 @@ Item {
 
                     NavigationFocusBorder {
                         navigationCtrl: controlButton.navigation
+                    }
+
+                    Rectangle {
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+                        width: 1
+                        height: 18
+                        color: ui.theme.strokeColor
+                        visible: controlButton.isEditTool && controlButton.itemData.code !== "command://projectscene/toggle-split-tool"
                     }
                 }
             }
@@ -120,6 +156,8 @@ Item {
 
             Timecode {
                 property var itemData: null
+
+                onWidthChanged: root.timecodeWidth = width
 
                 accessibleName: qsTrc("projectscene", "Playback position:")
                 appearance: Timecode.Appearance.Embedded
@@ -285,6 +323,14 @@ Item {
                         Rectangle {
                             required property int index
                             readonly property real pressure: !masterVolume.itemData || !masterVolume.itemData.isPlaying ? -145 : index === 0 ? masterVolume.itemData.leftChannelPressure : masterVolume.itemData.rightChannelPressure
+                            property real displayedPressure: pressure
+                            Behavior on displayedPressure {
+                                enabled: displayedPressure > pressure
+                                NumberAnimation {
+                                    duration: 120
+                                    easing.type: Easing.OutCubic
+                                }
+                            }
 
                             width: parent.width
                             height: 2
@@ -292,10 +338,10 @@ Item {
                             color: ui.theme.backgroundQuarternaryColor
 
                             Rectangle {
-                                width: parent.width * Math.max(0, Math.min(1, (parent.pressure + 60) / 60))
+                                width: parent.width * Math.max(0, Math.min(1, (parent.displayedPressure + 60) / 60))
                                 height: parent.height
                                 radius: 1
-                                color: parent.pressure >= 0 ? "#e27070" : ui.theme.accentColor
+                                color: parent.pressure >= 0 ? "#EF476F" : parent.pressure >= -6 ? "#F59E0B" : "#2DD4BF"
                                 opacity: 0.75
                             }
                         }

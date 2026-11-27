@@ -48,7 +48,10 @@ PanelTracksListModel::PanelTracksListModel(QObject* parent)
 
     connect(this, &PanelTracksListModel::rowsInserted, this, [this]() {
         updateRemovingAvailability();
+        emit trackCountChanged();
     });
+    connect(this, &PanelTracksListModel::rowsRemoved, this, &PanelTracksListModel::trackCountChanged);
+    connect(this, &PanelTracksListModel::modelReset, this, &PanelTracksListModel::trackCountChanged);
 }
 
 PanelTracksListModel::~PanelTracksListModel()
@@ -465,6 +468,11 @@ bool PanelTracksListModel::isAddingAvailable() const
 bool PanelTracksListModel::isEmpty() const
 {
     return m_trackList.empty();
+}
+
+int PanelTracksListModel::trackCount() const
+{
+    return static_cast<int>(m_trackList.size());
 }
 
 void PanelTracksListModel::updateRearrangementAvailability()

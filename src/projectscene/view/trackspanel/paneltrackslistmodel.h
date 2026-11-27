@@ -37,6 +37,7 @@ class PanelTracksListModel : public QAbstractListModel, public muse::async::Asyn
     Q_PROPERTY(bool isRemovingAvailable READ isRemovingAvailable NOTIFY isRemovingAvailableChanged)
     Q_PROPERTY(bool isAddingAvailable READ isAddingAvailable NOTIFY isAddingAvailableChanged)
     Q_PROPERTY(bool isEmpty READ isEmpty NOTIFY isEmptyChanged)
+    Q_PROPERTY(int trackCount READ trackCount NOTIFY trackCountChanged)
 
     muse::ContextInject<trackedit::ISelectionController> selectionController{ this };
     muse::ContextInject<trackedit::ITrackeditInteraction> trackeditInteraction{ this };
@@ -83,6 +84,7 @@ public:
     bool isRemovingAvailable() const;
     bool isAddingAvailable() const;
     bool isEmpty() const;
+    int trackCount() const;
 
 signals:
     void isMovingUpAvailableChanged(bool isMovingUpAvailable);
@@ -90,6 +92,7 @@ signals:
     void isAddingAvailableChanged(bool isAddingAvailable);
     void isRemovingAvailableChanged(bool isRemovingAvailable);
     void isEmptyChanged();
+    void trackCountChanged();
 
 private slots:
     void updateRearrangementAvailability();

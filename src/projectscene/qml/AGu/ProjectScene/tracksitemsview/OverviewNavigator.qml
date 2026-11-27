@@ -43,7 +43,7 @@ Rectangle {
             x: Math.max(0, Math.min(parent.width, root.context.selectionStartTime / strip.duration * parent.width))
             width: Math.max(1, Math.min(parent.width, root.context.selectionEndTime / strip.duration * parent.width) - x)
             height: parent.height
-            color: ui.theme.accentColor
+            color: ui.theme.extra["selection_highlight_color"]
             opacity: 0.25
         }
 

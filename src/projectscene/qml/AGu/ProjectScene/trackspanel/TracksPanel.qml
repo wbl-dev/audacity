@@ -154,7 +154,7 @@ Item {
             TracksListView {
                 id: view
 
-                Layout.topMargin: 1
+                Layout.topMargin: 0
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 

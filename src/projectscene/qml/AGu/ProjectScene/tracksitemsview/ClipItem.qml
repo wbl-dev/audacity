@@ -33,10 +33,11 @@ Rectangle {
     property color clipColor: ui.theme.extra["clip_color_1"]
     property color clipSelectedColor: ui.theme.extra["clip_selected_color_1"]
     property color clipTimeSelectionColor: "transparent"
-    property color normalHeaderColor: root.currentClipStyle == ClipStyle.COLORFUL ? root.clipColor : root.classicHeaderColor
-    property color selectedHeaderColor: root.currentClipStyle == ClipStyle.COLORFUL ? ui.blendColors(ui.theme.extra["white_color"], root.clipColor, 0.3) : classicHeaderColor
-    property color normalHeaderHoveredColor: root.currentClipStyle == ClipStyle.COLORFUL ? ui.blendColors(ui.theme.extra["white_color"], root.clipColor, 0.8) : classicHeaderHoveredColor
-    property color selectedHeaderHoveredColor: root.currentClipStyle == ClipStyle.COLORFUL ? ui.blendColors(ui.theme.extra["white_color"], root.clipColor, 0.2) : classicHeaderHoveredColor
+    property color normalHeaderColor: root.currentClipStyle == ClipStyle.COLORFUL ? ui.blendColors(ui.theme.extra["waveform_background_color"], root.clipColor, 0.24) : root.classicHeaderColor
+    property color selectedHeaderColor: root.currentClipStyle == ClipStyle.COLORFUL ? ui.blendColors(ui.theme.extra["waveform_background_color"], root.clipColor, 0.40) : classicHeaderColor
+    property color normalHeaderHoveredColor: root.currentClipStyle == ClipStyle.COLORFUL ? ui.blendColors(ui.theme.extra["waveform_background_color"], root.clipColor, 0.32) : classicHeaderHoveredColor
+    property color selectedHeaderHoveredColor: root.currentClipStyle == ClipStyle.COLORFUL ? ui.blendColors(ui.theme.extra["waveform_background_color"], root.clipColor, 0.48) : classicHeaderHoveredColor
+    readonly property color headerTextColor: root.currentClipStyle == ClipStyle.COLORFUL ? ui.theme.fontPrimaryColor : ui.theme.extra["black_color"]
     readonly property color classicHeaderColor: ui.theme.extra["classic_clip_header_color"]
     readonly property color classicHeaderHoveredColor: ui.theme.extra["classic_clip_header_hover_color"]
     property int currentClipStyle: ClipStyle.COLORFUL
@@ -116,7 +117,8 @@ Rectangle {
 
     radius: 4
     color: ui.blendColors(ui.theme.extra["waveform_background_color"], root.clipColor, root.clipSelected ? 0.12 : 0.06)
-    border.color: ui.theme.extra["black_color"]
+    border.color: root.currentClipStyle == ClipStyle.COLORFUL ? ui.colorWithAlphaF(root.clipColor, root.clipSelected ? 0.85 : 0.35) : ui.theme.extra["black_color"]
+    border.width: 1
     opacity: root.moveActive && (clipSelected || clipIntersectsSelection) ? 0.5 : isAudible ? 1.0 : 0.3
 
     onMoveActiveChanged: {
@@ -605,6 +607,11 @@ Rectangle {
             height: root.collapsed && !menuBtn.isMenuOpened && !editLoader.isEditState ? 6 : root.headerHeight
             z: 2
             opacity: !root.collapsed || menuBtn.isMenuOpened || editLoader.isEditState ? 1 : 0
+            Behavior on color {
+                ColorAnimation {
+                    duration: 110
+                }
+            }
 
             Rectangle {
                 id: headerSelectionRectangle
@@ -885,6 +892,16 @@ Rectangle {
                     }
                 }
             }
+        }
+
+        Rectangle {
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: 2
+            z: 3
+            color: root.clipColor
+            visible: root.currentClipStyle == ClipStyle.COLORFUL
         }
 
         MouseArea {
@@ -1261,21 +1278,21 @@ Rectangle {
             }
             PropertyChanges {
                 target: titleLabel
-                color: ui.theme.extra["black_color"]
+                color: root.headerTextColor
             }
             PropertyChanges {
                 target: pitchBtn
-                textColor: ui.theme.extra["black_color"]
-                iconColor: ui.theme.extra["black_color"]
+                textColor: root.headerTextColor
+                iconColor: root.headerTextColor
             }
             PropertyChanges {
                 target: speedBtn
-                textColor: ui.theme.extra["black_color"]
-                iconColor: ui.theme.extra["black_color"]
+                textColor: root.headerTextColor
+                iconColor: root.headerTextColor
             }
             PropertyChanges {
                 target: menuBtn
-                iconColor: ui.theme.extra["black_color"]
+                iconColor: root.headerTextColor
             }
         },
         State {
@@ -1287,21 +1304,21 @@ Rectangle {
             }
             PropertyChanges {
                 target: titleLabel
-                color: ui.theme.extra["black_color"]
+                color: root.headerTextColor
             }
             PropertyChanges {
                 target: pitchBtn
-                textColor: ui.theme.extra["black_color"]
-                iconColor: ui.theme.extra["black_color"]
+                textColor: root.headerTextColor
+                iconColor: root.headerTextColor
             }
             PropertyChanges {
                 target: speedBtn
-                textColor: ui.theme.extra["black_color"]
-                iconColor: ui.theme.extra["black_color"]
+                textColor: root.headerTextColor
+                iconColor: root.headerTextColor
             }
             PropertyChanges {
                 target: menuBtn
-                iconColor: ui.theme.extra["black_color"]
+                iconColor: root.headerTextColor
             }
         },
         State {
@@ -1313,21 +1330,21 @@ Rectangle {
             }
             PropertyChanges {
                 target: titleLabel
-                color: ui.theme.extra["black_color"]
+                color: root.headerTextColor
             }
             PropertyChanges {
                 target: pitchBtn
-                textColor: ui.theme.extra["black_color"]
-                iconColor: ui.theme.extra["black_color"]
+                textColor: root.headerTextColor
+                iconColor: root.headerTextColor
             }
             PropertyChanges {
                 target: speedBtn
-                textColor: ui.theme.extra["black_color"]
-                iconColor: ui.theme.extra["black_color"]
+                textColor: root.headerTextColor
+                iconColor: root.headerTextColor
             }
             PropertyChanges {
                 target: menuBtn
-                iconColor: ui.theme.extra["black_color"]
+                iconColor: root.headerTextColor
             }
         },
         State {
@@ -1339,21 +1356,21 @@ Rectangle {
             }
             PropertyChanges {
                 target: titleLabel
-                color: ui.theme.extra["black_color"]
+                color: root.headerTextColor
             }
             PropertyChanges {
                 target: pitchBtn
-                textColor: ui.theme.extra["black_color"]
-                iconColor: ui.theme.extra["black_color"]
+                textColor: root.headerTextColor
+                iconColor: root.headerTextColor
             }
             PropertyChanges {
                 target: speedBtn
-                textColor: ui.theme.extra["black_color"]
-                iconColor: ui.theme.extra["black_color"]
+                textColor: root.headerTextColor
+                iconColor: root.headerTextColor
             }
             PropertyChanges {
                 target: menuBtn
-                iconColor: ui.theme.extra["black_color"]
+                iconColor: root.headerTextColor
             }
         }
     ]

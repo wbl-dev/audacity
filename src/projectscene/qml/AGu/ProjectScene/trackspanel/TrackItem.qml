@@ -19,6 +19,7 @@ ListItemBlank {
     property bool collapsed: trackViewState.isTrackCollapsed
 
     property bool isFocused: false
+    readonly property color trackAccentColor: root.item && root.item.trackType !== TrackType.LABEL ? (ui.theme.extra["clip_color_" + root.item.colorIndex] || ui.theme.extra["clip_color_1"]) : ui.theme.accentColor
 
     //! NOTE: the track itself is a control of its own panel (root.navigation),
     //! all the header controls live in the next panel, so Tab goes: track -> header controls -> clips/labels
@@ -26,7 +27,6 @@ ListItemBlank {
 
     property alias headerTrailingControlsComponent: headerTrailingControls.sourceComponent
     property int headerTrailingControlsNavigationStart: collapsed ? title.navigation.order + 1 : extraControlsNavigationEnd + 1
-    property int headerTrailingControlsNavigationEnd: 0
 
     property alias extraControlsComponent: extraControlsLoader.sourceComponent
     property int extraControlsNavigationStart: menuButton.navigation.order + 1
@@ -177,6 +177,23 @@ ListItemBlank {
             width: 9
 
             color: "transparent"
+
+            Rectangle {
+                width: 4
+                radius: 2
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.topMargin: 8
+                anchors.bottomMargin: 8
+                color: root.trackAccentColor
+                opacity: root.isSelected ? 1 : 0.45
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: 110
+                    }
+                }
+            }
         }
 
         ColumnLayout {
@@ -229,7 +246,7 @@ ListItemBlank {
                     menuModel: contextMenuModel
 
                     navigation.panel: root.headerNavigationPanel
-                    navigation.order: title.navigation.order + 1
+                    navigation.order: title.navigation.order + (root.collapsed ? 4 : 1)
                     navigation.accessible.name: qsTrc("projectscene", "Track menu")
 
                     onClicked: {
@@ -350,12 +367,12 @@ ListItemBlank {
         anchors.topMargin: -border.width
         anchors.bottomMargin: bottomSeparator.thickness - border.width
 
-        visible: root.isFocused
+        visible: root.isFocused && root.navigation.highlight
 
         color: "transparent"
 
         border.color: ui.theme.extra["focus_state_color"]
-        border.width: 2
+        border.width: 1
 
         radius: 6
     }

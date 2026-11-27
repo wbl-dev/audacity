@@ -252,12 +252,12 @@ Item {
         anchors.rightMargin: -border.width
         anchors.topMargin: -border.width
 
-        visible: isTrackFocused
+        visible: isTrackFocused && root.navigationPanel && root.navigationPanel.active
 
         color: "transparent"
 
         border.color: ui.theme.extra["focus_state_color"]
-        border.width: 2
+        border.width: 1
     }
 
     SeparatorLine {

@@ -287,6 +287,7 @@ DockPage {
 
                     effectsSectionWidth: tracksPanel.effectsSectionWidth
                     showEffectsSection: tracksPanel.showEffectsSection
+                    trackCount: tracksPanelContent.tracksModel.trackCount
 
                     height: tracksPanel.titleBarHeight
                     width: parent.width

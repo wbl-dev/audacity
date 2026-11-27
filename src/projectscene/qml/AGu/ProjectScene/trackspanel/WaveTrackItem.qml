@@ -15,12 +15,68 @@ import "audio"
 TrackItem {
     id: root
 
+    headerTrailingControlsComponent: Component {
+        Row {
+            spacing: 3
+
+            FlatToggleButton {
+                width: 24
+                height: 24
+                checked: Boolean(root.item) ? root.item.muted : false
+                checkedColor: "#3B82F6"
+                navigation.panel: root.headerNavigationPanel
+                navigation.order: root.headerTrailingControlsNavigationStart
+                navigation.accessible.name: qsTrc("projectscene", "Mute")
+                toolTipTitle: qsTrc("projectscene", "Mute")
+                onToggled: if (root.item)
+                    root.item.muted = !checked
+                StyledTextLabel {
+                    anchors.centerIn: parent
+                    text: qsTrc("projectscene", "M")
+                    color: parent.checked ? "#FFFFFF" : ui.theme.fontPrimaryColor
+                }
+            }
+
+            FlatToggleButton {
+                width: 24
+                height: 24
+                checked: Boolean(root.item) ? root.item.solo : false
+                checkedColor: "#EAB308"
+                navigation.panel: root.headerNavigationPanel
+                navigation.order: root.headerTrailingControlsNavigationStart + 1
+                navigation.accessible.name: qsTrc("projectscene", "Solo")
+                toolTipTitle: qsTrc("projectscene", "Solo")
+                onToggled: if (root.item)
+                    root.item.solo = !checked
+                StyledTextLabel {
+                    anchors.centerIn: parent
+                    text: qsTrc("projectscene", "S")
+                    color: parent.checked ? "#14151A" : ui.theme.fontPrimaryColor
+                }
+            }
+
+            FlatToggleButton {
+                width: 24
+                height: 24
+                icon: root.trackViewState.isMultiView ? IconCode.ARROW_UP : IconCode.ARROW_DOWN
+                checked: root.trackViewState.isMultiView
+                checkedColor: ui.theme.extra["selection_highlight_color"]
+                navigation.panel: root.headerNavigationPanel
+                navigation.order: root.headerTrailingControlsNavigationStart + 2
+                navigation.accessible.name: qsTrc("projectscene", "Waveform and spectrogram")
+                toolTipTitle: qsTrc("projectscene", "Waveform and spectrogram")
+                onToggled: root.trackViewState.toggleMultiView()
+            }
+        }
+    }
+
     extraControlsComponent: Component {
         ColumnLayout {
             spacing: 7
 
             RowLayout {
                 Layout.fillWidth: true
+                visible: !root.collapsed
                 spacing: 6
 
                 Loader {
@@ -36,6 +92,7 @@ TrackItem {
                     Layout.preferredHeight: 24
                     icon: root.trackViewState.isMultiView ? IconCode.ARROW_UP : IconCode.ARROW_DOWN
                     checked: root.trackViewState.isMultiView
+                    checkedColor: ui.theme.extra["selection_highlight_color"]
                     toolTipDescription: qsTrc("projectscene", "Show waveform and spectrogram")
                     navigation.panel: root.headerNavigationPanel
                     navigation.order: root.extraControlsNavigationStart + 2
@@ -225,8 +282,10 @@ TrackItem {
                 StyledTextLabel {
                     anchors.centerIn: parent
                     text: qsTrc("projectscene", "M")
+                    color: muteButton.checked ? "#FFFFFF" : ui.theme.fontPrimaryColor
                 }
                 checked: Boolean(root.item) ? root.item.muted : false
+                checkedColor: "#3B82F6"
 
                 navigation.panel: root.headerNavigationPanel
                 navigation.order: root.extraControlsNavigationStart
@@ -250,8 +309,10 @@ TrackItem {
                 StyledTextLabel {
                     anchors.centerIn: parent
                     text: qsTrc("projectscene", "S")
+                    color: soloButton.checked ? "#14151A" : ui.theme.fontPrimaryColor
                 }
                 checked: Boolean(root.item) ? root.item.solo : false
+                checkedColor: "#EAB308"
 
                 navigation.panel: root.headerNavigationPanel
                 navigation.order: muteButton.navigation.order + 1
@@ -263,12 +324,6 @@ TrackItem {
                     if (Boolean(root.item)) {
                         root.item.solo = !checked
                     }
-                }
-
-                Component.onCompleted: {
-                    root.headerTrailingControlsNavigationEnd = Qt.binding(function () {
-                        return soloButton.navigation.order
-                    })
                 }
             }
         }

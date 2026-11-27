@@ -14,6 +14,7 @@ Item {
 
     property int effectsSectionWidth: 0
     property bool showEffectsSection: false
+    property int trackCount: 0
 
     property int buttonWidth: 97
     property int buttonHeight: 28
@@ -46,7 +47,7 @@ Item {
         Rectangle {
             id: effectsTitleBar
 
-            property int padding: parent.height / 4
+            property int padding: 10
 
             Layout.preferredWidth: root.effectsSectionWidth
             Layout.preferredHeight: root.height
@@ -57,8 +58,11 @@ Item {
             visible: root.showEffectsSection
 
             StyledTextLabel {
-                anchors.fill: parent
-                padding: effectsTitleBar.padding
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                height: 40
+                leftPadding: effectsTitleBar.padding
 
                 text: qsTrc("projectscene", "Realtime effects")
                 horizontalAlignment: Text.AlignLeft
@@ -71,8 +75,9 @@ Item {
 
             Rectangle {
                 anchors.right: parent.right
-                width: root.height
-                height: root.height
+                anchors.bottom: parent.bottom
+                width: 40
+                height: 40
 
                 color: effectsTitleBar.color
 
@@ -100,6 +105,14 @@ Item {
                     }
                 }
             }
+
+            Rectangle {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                y: 43
+                height: 1
+                color: ui.theme.strokeColor
+            }
         }
 
         SeparatorLine {}
@@ -122,51 +135,71 @@ Item {
             }
 
             StyledTextLabel {
-                anchors.left: buttonContainer.left
+                anchors.left: parent.left
                 anchors.leftMargin: root.textLeftMargin
-                anchors.verticalCenter: buttonContainer.verticalCenter
-
-                text: qsTrc("projectscene", "Tracks")
+                anchors.top: parent.top
+                height: 43
+                verticalAlignment: Text.AlignVCenter
+                color: ui.theme.fontSecondaryColor
+                text: qsTrc("projectscene", "Tracks: %1").arg(root.trackCount)
             }
 
-            FlatButton {
-                id: addNewTrackBtn
+            Rectangle {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                y: 43
+                height: 1
+                color: ui.theme.strokeColor
+            }
 
-                width: root.buttonWidth
-                height: root.buttonHeight
+            Item {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                height: 40
 
-                anchors.right: buttonContainer.right
-                anchors.rightMargin: root.buttonRightMargin
-                anchors.verticalCenter: buttonContainer.verticalCenter
-
-                navigation.name: "AddTrack"
-                navigation.panel: buttonContainer.navigation
-                navigation.order: 0
-
-                backgroundRadius: 3
-                normalColor: ui.theme.buttonColor
-
-                text: qsTrc("projectscene", "Add track")
-
-                enabled: true
-
-                icon: IconCode.PLUS
-
-                orientation: Qt.Horizontal
-
-                onClicked: {
-                    if (addNewTrack.isOpened) {
-                        addNewTrack.close()
-                    } else {
-                        addNewTrack.open()
-                    }
+                StyledTextLabel {
+                    anchors.left: parent.left
+                    anchors.leftMargin: root.textLeftMargin
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: qsTrc("projectscene", "Tracks")
                 }
 
-                AddNewTrackPopup {
-                    id: addNewTrack
+                FlatButton {
+                    id: addNewTrackBtn
 
-                    onCreateTrack: type => {
-                        root.addRequested(type)
+                    width: root.buttonWidth
+                    height: root.buttonHeight
+
+                    anchors.right: parent.right
+                    anchors.rightMargin: root.buttonRightMargin
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    navigation.name: "AddTrack"
+                    navigation.panel: buttonContainer.navigation
+                    navigation.order: 0
+
+                    backgroundRadius: 3
+                    normalColor: ui.theme.buttonColor
+
+                    text: qsTrc("projectscene", "Add track")
+                    icon: IconCode.PLUS
+                    orientation: Qt.Horizontal
+
+                    onClicked: {
+                        if (addNewTrack.isOpened) {
+                            addNewTrack.close()
+                        } else {
+                            addNewTrack.open()
+                        }
+                    }
+
+                    AddNewTrackPopup {
+                        id: addNewTrack
+
+                        onCreateTrack: type => {
+                            root.addRequested(type)
+                        }
                     }
                 }
             }

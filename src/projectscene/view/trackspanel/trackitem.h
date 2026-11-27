@@ -28,11 +28,13 @@ class TrackItem : public QObject, public muse::Contextable, public muse::async::
     Q_PROPERTY(QVariant trackId READ trackId_property CONSTANT)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
     Q_PROPERTY(int icon READ icon NOTIFY iconChanged)
+    Q_PROPERTY(int colorIndex READ colorIndex NOTIFY colorIndexChanged)
     Q_PROPERTY(agu::trackedit::TrackType trackType READ trackType NOTIFY trackTypeChanged)
 
     Q_PROPERTY(bool isSelected READ isSelected NOTIFY isSelectedChanged)
     Q_PROPERTY(bool isFocused READ isFocused NOTIFY isFocusedChanged)
 
+protected:
     muse::ContextInject<trackedit::ITrackeditInteraction> trackeditInteraction{ this };
     muse::ContextInject<trackedit::ISelectionController> selectionController{ this };
     muse::ContextInject<trackedit::ITrackNavigationController> trackNavigationController{ this };
@@ -48,6 +50,7 @@ public:
     QVariant trackId_property() const;
     QString title() const;
     int icon() const;
+    int colorIndex() const;
     agu::trackedit::TrackType trackType() const;
 
     bool isSelected() const;
@@ -67,6 +70,7 @@ signals:
 
     void trackTypeChanged();
     void iconChanged();
+    void colorIndexChanged();
 
     void isSelectedChanged();
     void isFocusedChanged();
@@ -76,6 +80,7 @@ protected:
     trackedit::TrackType m_trackType = trackedit::TrackType::Undefined;
     QString m_title;
     muse::ui::IconCode::Code m_icon = muse::ui::IconCode::Code::NONE;
+    int m_colorIndex = 1;
 
     bool m_isSelected = false;
     bool m_isFocused = false;
