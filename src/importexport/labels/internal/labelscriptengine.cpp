@@ -5,6 +5,7 @@
 
 #include <cmath>
 #include <cstdint>
+#include <cerrno>
 
 #include <QCoreApplication>
 #include <QElapsedTimer>
@@ -109,9 +110,14 @@ muse::RetVal<ParsedLabelTrack> LabelScriptEngine::parse(const QString& source, c
 #if defined(Q_OS_MACOS)
         if (worker.state() != QProcess::NotRunning) {
             rusage_info_v2 usage {};
-            if (proc_pid_rusage(static_cast<int>(worker.processId()), RUSAGE_INFO_V2,
-                                reinterpret_cast<rusage_info_t*>(&usage)) != 0
-                || usage.ri_resident_size > 512ULL * 1024 * 1024) {
+            const int usageResult = proc_pid_rusage(static_cast<int>(worker.processId()), RUSAGE_INFO_V2,
+                                                    reinterpret_cast<rusage_info_t*>(&usage));
+            if (usageResult != 0 && errno == ESRCH) {
+                // The worker exited between QProcess::state() and proc_pid_rusage().
+                // Let QProcess collect its real exit status on the next iteration.
+                continue;
+            }
+            if (usageResult != 0 || usage.ri_resident_size > 512ULL * 1024 * 1024) {
                 exceededMemoryLimit = true;
                 break;
             }
