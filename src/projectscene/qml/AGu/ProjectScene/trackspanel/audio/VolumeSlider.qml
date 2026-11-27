@@ -6,6 +6,7 @@ import Muse.Ui
 import Muse.UiComponents
 
 import AGu.UiComponents
+import "VolumeSliderMath.js" as SliderMath
 
 StyledSlider {
     id: root
@@ -13,7 +14,7 @@ StyledSlider {
     Layout.fillWidth: true
 
     property double snapPoint: 0.0
-    property double snapRange: 2.0
+    property double snapRange: 1.2
     property bool shiftPressed: false
 
     signal newVolumeRequested(real volume, bool completed)
@@ -41,6 +42,14 @@ StyledSlider {
             color: ui.theme.fontPrimaryColor
             opacity: 0.75
         }
+        Rectangle {
+            x: root.leftPadding + (root.snapPoint - root.from) / (root.to - root.from) * (root.availableWidth - root.handle.width) + root.handle.width / 2
+            anchors.verticalCenter: parent.verticalCenter
+            width: 1
+            height: 6
+            color: ui.theme.fontPrimaryColor
+            opacity: 0.8
+        }
     }
 
     handle: Rectangle {
@@ -64,9 +73,9 @@ StyledSlider {
 
         property bool dragActive: false
         property real handleWidth: root.handle ? root.handle.width : 0
-        property real innerMargin: handleWidth / 2
         property real startPos: 0.0
         property real startFineValue: 0.0
+        property real handleOffset: 0.0
     }
 
     Connections {
@@ -101,7 +110,13 @@ StyledSlider {
 
         onPressed: {
             prv.dragActive = true
-            root.value = sliderValue()
+            const center = root.handle.x + root.handle.width / 2
+            const overHandle = mouseX >= root.handle.x && mouseX <= root.handle.x + root.handle.width
+            prv.handleOffset = overHandle ? mouseX - center : 0
+            root.shiftPressed = (mouse.modifiers & Qt.ShiftModifier) !== 0
+            if (!overHandle) {
+                root.value = sliderValue()
+            }
             tooltip.show(true)
             prv.startPos = mouseX
             prv.startFineValue = root.value
@@ -113,6 +128,7 @@ StyledSlider {
 
         onReleased: {
             prv.dragActive = false
+            root.shiftPressed = false
             if (!containsMouse) {
                 tooltip.hide(true)
             }
@@ -147,20 +163,20 @@ StyledSlider {
                     root.shiftPressed = false
                     prv.startPos = mouseX
                     prv.startFineValue = root.value
+                    prv.handleOffset = mouseX - root.handle.x - root.handle.width / 2
                 }
                 root.value = sliderValue()
             }
         }
 
         function sliderValue() {
-            let relativePos = (mouseX - prv.innerMargin) / (width - prv.handleWidth)
-            relativePos = Math.max(0, Math.min(1, relativePos))
-            return relativePos * (root.to - root.from) + root.from
+            const value = SliderMath.volumeAtPointer(mouseX, width, prv.handleWidth, prv.handleOffset, root.from, root.to)
+            return SliderMath.snapVolume(value, root.shiftPressed, root.snapRange)
         }
 
         function fineSliderValue() {
             let step = 2 * (mouseX - prv.startPos) / (root.to - root.from)
-            return prv.startFineValue + step
+            return SliderMath.clampVolume(prv.startFineValue + step, root.from, root.to)
         }
     }
 }

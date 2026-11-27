@@ -5,6 +5,10 @@
 #include <gtest/gtest.h>
 
 #include "view/toolbars/playbacktoolbarmodel.h"
+#include "playback/view/toolbars/playbacktoolbarcontrolitem.h"
+#include "mocks/agu4projectmock.h"
+#include "mocks/globalcontextmock.h"
+#include "mocks/projectviewstatemock.h"
 #include "uicomponents/qml/Muse/UiComponents/toolbaritem.h"
 #include "rcommand/tests/mocks/commandsregistermock.h"
 #ifdef MUSE_MODULE_SHORTCUTS_V2
@@ -15,6 +19,7 @@
 
 #include "playback/playbackcommands.h"
 #include "record/recordcommands.h"
+#include "projectscene/projectscenecommands.h"
 
 using namespace ::testing;
 
@@ -31,6 +36,28 @@ struct PlaybackToolBarTestAccess {
     static void updateActions(PlaybackToolBarModel& model)
     {
         model.updateActions();
+    }
+
+    static void configureSelection(PlaybackToolBarModel& model,
+                                   const std::shared_ptr<context::IGlobalContext>& context,
+                                   const std::shared_ptr<muse::ui::IUiConfiguration>& configuration)
+    {
+        model.context.set(context);
+        model.uiConfiguration.set(configuration);
+    }
+
+    static playback::PlaybackToolBarControlItem* addTimeSelectionItem(PlaybackToolBarModel& model)
+    {
+        muse::rcommand::CommandInfo info;
+        info.command = PROJECTSCENE_TIME_SELECTION_TOOL_COMMAND;
+        auto* item = new playback::PlaybackToolBarControlItem(info, muse::uicomponents::ToolBarItemType::USER_TYPE, &model);
+        model.setItems({ item });
+        return item;
+    }
+
+    static void updateTimeSelectionState(PlaybackToolBarModel& model)
+    {
+        model.updateTimeSelectionState();
     }
 };
 
@@ -122,6 +149,46 @@ TEST(PlaybackToolBarModelTests, LegacyCustomizationCannotHideTransportOrRestoreL
                                                      playback::PLAYBACK_TOGGLE_PLAY_PAUSE_COMMAND,
                                                      playback::PLAYBACK_STOP_COMMAND,
                                                      record::RECORD_START_COMMAND));
+}
+
+TEST(PlaybackToolBarModelTests, AutomationDoesNotDeselectTimeSelectionTool)
+{
+    auto configuration = std::make_shared<NiceMock<muse::ui::UiConfigurationMock> >();
+    muse::ui::ThemeInfo theme;
+    ON_CALL(*configuration, currentTheme()).WillByDefault(ReturnRef(theme));
+
+    auto viewState = std::make_shared<NiceMock<ProjectViewStateMock> >();
+    ON_CALL(*viewState, clipGainAutomationEnabled()).WillByDefault(Return(muse::ValCh<bool> { true, {} }));
+    EXPECT_CALL(*viewState, clipGainAutomationEnabled()).Times(0);
+    bool splitEnabled = false;
+    ON_CALL(*viewState, splitToolEnabled()).WillByDefault(Invoke([&]() { return muse::ValCh<bool> { splitEnabled, {} }; }));
+
+    auto project = std::make_shared<NiceMock<AGu4ProjectMock> >();
+    ON_CALL(*project, viewState()).WillByDefault(Return(viewState));
+    auto context = std::make_shared<NiceMock<GlobalContextMock> >();
+    ON_CALL(*context, currentProject()).WillByDefault(Return(project));
+
+    PlaybackToolBarModel model;
+    PlaybackToolBarTestAccess::configureSelection(model, context, configuration);
+#ifdef MUSE_MODULE_SHORTCUTS_V2
+    auto shortcuts = std::make_shared<NiceMock<muse::shortcuts::CommandShortcutsRegisterMock> >();
+    model.commandShortcutsRegister.set(shortcuts);
+#else
+    auto shortcuts = std::make_shared<NiceMock<ShortcutsRegisterMock> >();
+    model.shortcutsRegister.set(shortcuts);
+#endif
+    muse::shortcuts::Shortcut shortcut;
+    ON_CALL(*shortcuts, shortcut(_)).WillByDefault(ReturnRef(shortcut));
+    auto* item = PlaybackToolBarTestAccess::addTimeSelectionItem(model);
+
+    PlaybackToolBarTestAccess::updateTimeSelectionState(model);
+    EXPECT_TRUE(item->selected());
+    EXPECT_TRUE(item->commandState().checked);
+
+    splitEnabled = true;
+    PlaybackToolBarTestAccess::updateTimeSelectionState(model);
+    EXPECT_FALSE(item->selected());
+    EXPECT_FALSE(item->commandState().checked);
 }
 }
 }

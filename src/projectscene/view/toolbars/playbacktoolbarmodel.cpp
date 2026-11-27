@@ -208,7 +208,7 @@ void PlaybackToolBarModel::updateTimeSelectionState()
 
     const auto viewState = project->viewState();
     updateToggleState(PROJECTSCENE_TIME_SELECTION_TOOL_COMMAND,
-                      !viewState->clipGainAutomationEnabled().val && !viewState->splitToolEnabled().val);
+                      !viewState->splitToolEnabled().val);
 }
 
 void PlaybackToolBarModel::updateToggleState(const Command& command, bool isOn)

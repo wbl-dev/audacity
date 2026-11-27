@@ -6,6 +6,7 @@
         <file>qml/AGu/ProjectScene/tracksitemsview/ClipItem.qml</file>
         <file>qml/AGu/ProjectScene/tracksitemsview/Timeline.qml</file>
         <file>qml/AGu/ProjectScene/tracksitemsview/OverviewNavigator.qml</file>
+        <file>qml/AGu/ProjectScene/tracksitemsview/OverviewNavigatorMath.js</file>
         <file>qml/AGu/ProjectScene/tracksitemsview/ItemsSelection.qml</file>
         <file>qml/AGu/ProjectScene/tracksitemsview/TrackLabelsContainer.qml</file>
         <file>qml/AGu/ProjectScene/tracksitemsview/TrackItemsContainer.qml</file>
@@ -32,6 +33,7 @@
         <file>qml/AGu/ProjectScene/trackspanel/audio/VolumePressureMeter.qml</file>
         <file>qml/AGu/ProjectScene/trackspanel/audio/VolumePressureRuler.qml</file>
         <file>qml/AGu/ProjectScene/trackspanel/audio/VolumeSlider.qml</file>
+        <file>qml/AGu/ProjectScene/trackspanel/audio/VolumeSliderMath.js</file>
         <file>qml/AGu/ProjectScene/toolbars/ProjectToolBar.qml</file>
         <file>qml/AGu/ProjectScene/toolbars/UndoRedoToolBar.qml</file>
         <file>qml/AGu/ProjectScene/tracksitemsview/PlayCursorLine.qml</file>

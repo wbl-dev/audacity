@@ -140,7 +140,6 @@ ListItemBlank {
 
             if (!multiSelectionModifier) {
                 root.selectionRequested(true)
-                root.dataSelectionRequested()
                 return
             }
 

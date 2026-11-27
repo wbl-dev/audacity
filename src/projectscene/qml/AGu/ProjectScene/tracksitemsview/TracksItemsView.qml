@@ -293,7 +293,7 @@ Rectangle {
             id: overview
             anchors.top: parent.top
             anchors.left: parent.left
-            anchors.right: parent.right
+            anchors.right: timeline.right
             height: 44
             context: timeline.context
             playPosition: timeline.context.positionToTime(playCursorController.positionX)
@@ -1366,6 +1366,8 @@ Rectangle {
         tracksItemsView: tracksItemsView
         tracksViewState: tracksViewState
         timeline: timeline
+        headerHeight: timelineHeader.height
+        canvasLeftInset: content.anchors.leftMargin
 
         onSetGuidelineRequested: function (pos, visibility) {
             root.guidelinePos = pos

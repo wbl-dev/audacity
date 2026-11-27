@@ -14,6 +14,8 @@ DropArea {
     property var tracksItemsView: null
     property var tracksViewState: null
     property var timeline: null
+    property real headerHeight: 0
+    property real canvasLeftInset: 0
 
     signal setGuidelineRequested(var pos, bool visibility)
 
@@ -88,8 +90,8 @@ DropArea {
         let dropX = 0
         let dropY = drop.y
         if (!externalDrop) {
-            dropX = drop.x
-            dropY -= root.timeline.height
+            dropX = drop.x - root.canvasLeftInset
+            dropY -= root.headerHeight
         }
 
         var trackId = tracksViewState.trackAtPosition(dropX, dropY)
@@ -111,8 +113,8 @@ DropArea {
         let dropX = 0
         let dropY = drop.y
         if (!externalDrop) {
-            dropX = drop.x
-            dropY -= root.timeline.height
+            dropX = drop.x - root.canvasLeftInset
+            dropY -= root.headerHeight
         }
 
         let trackId = tracksViewState.trackAtPosition(dropX, dropY)
