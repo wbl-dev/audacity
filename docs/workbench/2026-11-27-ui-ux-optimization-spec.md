@@ -234,15 +234,28 @@
 
 建议按以下 **6 个独立可测的 Task** 顺序执行并分别提交：
 
-- [ ] **Task 1（去闪烁核心批）**：完成 **A1 + A2 + A4 + A5**（关闭空移鼠标磁吸线频闪、移除折叠轨悬停弹顶栏、`TrackLabelsContainer` 改为同步加载消除抓放空闪、替换为 macOS 原生光标并缓存自定义光标且改用 `changeOverrideCursor`）。
+- [x] **Task 1（去闪烁核心批）**：完成 **A1 + A2 + A4 + A5**（关闭空移鼠标磁吸线频闪、移除折叠轨悬停弹顶栏、`TrackLabelsContainer` 改为同步加载消除抓放空闪、替换为 macOS 原生光标并缓存自定义光标且改用 `changeOverrideCursor`）。
   - *验证*：编译运行 `projectscene_tests`；实机检查空移鼠标、跨折叠轨移动、拖动标注与片段抓放、跨边缘移动鼠标均无任何闪烁。
-- [ ] **Task 2（选区 GPU 化与频谱绘制提速）**：完成 **A3**（`ClipItem` 根底色改为深色画布底、固定 `WaveView::backgroundColor`、固定 `selectionRectangle` 层级并清理 `Timeline` 重复选区层、`au3spectrogramclipchannelpainter.cpp` 改用 `scanLine` 并解耦纯时间选区重绘）。
+- [x] **Task 2（选区 GPU 化与频谱绘制提速）**：完成 **A3**（`ClipItem` 根底色改为深色画布底、固定 `WaveView::backgroundColor`、固定 `selectionRectangle` 层级并清理 `Timeline` 重复选区层、`au3spectrogramclipchannelpainter.cpp` 改用 `scanLine` 并解耦纯时间选区重绘）。
   - *验证*：运行 `projectscene_tests` 与频谱相关测试；实机开启双视图频谱后快速拖选时间区间、缩放、拉分割线，确认无亮蓝漏底且帧率顺滑。
-- [ ] **Task 3（关键手势修复与概览条升级）**：完成 **B1 + B2 + B4（第 5~7 项）**（单击轨道头保留全局时间选区、修复 `OverviewNavigator` 窄视口无法平移并补齐选区投影/双击 Fit/右侧对齐、修复 `VolumeSlider` 0dB 刻度磁吸与 Shift 钳制、拆分工具栏 `Automation` 开关状态、修复 `ImportDropArea` `44px` 偏移）。
+- [x] **Task 3（关键手势修复与概览条升级）**：完成 **B1 + B2 + B4（第 5~7 项）**（单击轨道头保留全局时间选区、修复 `OverviewNavigator` 窄视口无法平移并补齐选区投影/双击 Fit/右侧对齐、修复 `VolumeSlider` 0dB 刻度磁吸与 Shift 钳制、拆分工具栏 `Automation` 开关状态、修复 `ImportDropArea` `44px` 偏移）。
   - *验证*：新增/更新 `projectscene_tests`（含轨道点击保留选区、概览条窄视口平移测试、`playbacktoolbarmodel_tests`）。
-- [ ] **Task 4（库乐队式阻尼动效与分割把手打磨）**：完成 **B3 + B4（第 1~4 项）**（双视图展开/收起 `170ms OutCubic` 缓动 + 手动拉边框 `0ms` 跟手 + 上方自动折叠滚动锚定、隔离 `ProjectOverview` 无关重绘、拓宽轨道底边与波形/频谱分割线热区并增加胶囊 Grip 把手、轨道排序 `6px` 起拖阈值、基础按钮悬停颜色过渡）。
+- [x] **Task 4（库乐队式阻尼动效与分割把手打磨）**：完成 **B3 + B4（第 1~4 项）**（双视图展开/收起 `170ms OutCubic` 缓动 + 手动拉边框 `0ms` 跟手 + 上方自动折叠滚动锚定、隔离 `ProjectOverview` 无关重绘、拓宽轨道底边与波形/频谱分割线热区并增加胶囊 Grip 把手、轨道排序 `6px` 起拖阈值、基础按钮悬停颜色过渡）。
   - *验证*：运行 `ProjectViewStateTests.*` 全量回归；实机测试单双视图切换动画、跨轨切换锚定及手动拖拽分割线跟手度。
-- [ ] **Task 5（沉稳深色视觉重构与左右几何对齐）**：完成 **C1 + C2 + C3**（收敛 `dark.cfg` 配色与分割线可见度、深色半透明染色 `ClipItem` 顶栏、轨道头左侧 `4px` 主题色标条、左上 `TracksTitleBar` `44+40px` 双层对齐、折叠轨两行紧凑布局、`M/S` 语义色、工具栏走带胶囊与分段按钮）。
+- [x] **Task 5（沉稳深色视觉重构与左右几何对齐）**：完成 **C1 + C2 + C3**（收敛 `dark.cfg` 配色与分割线可见度、深色半透明染色 `ClipItem` 顶栏、轨道头左侧 `4px` 主题色标条、左上 `TracksTitleBar` `44+40px` 双层对齐、折叠轨两行紧凑布局、`M/S` 语义色、工具栏走带胶囊与分段按钮）。
   - *验证*：深浅两套主题（重点深色主题）实机走查与全量 CTest `40/40` 通过。
-- [ ] **Task 6（标注轨泳道闭环与首页瘦身）**：完成 **D1 + D2**（标注轨 `owner` 悬浮泳道徽标、多行截断展开提示、点标注边缘翻转与回车保选中、标注文件快捷拖入、移除 `HomePage` 冗余 `260px` 侧边栏）。
+- [x] **Task 6（标注轨泳道闭环与首页瘦身）**：完成 **D1 + D2**（标注轨 `owner` 悬浮泳道徽标、多行截断展开提示、点标注边缘翻转与回车保选中、标注文件快捷拖入、移除 `HomePage` 冗余 `260px` 侧边栏）。
   - *验证*：运行 `tracklabelslayoutmanager_tests`、`au3labelsinteractions_tests`、`appshell_tests`、`workbench_*` 测试集并实机回归。
+
+## 四、落实记录（2026-11-27）
+
+| 批次 | 实现提交 |
+| :--- | :--- |
+| Task 1 | `de3c831baa` |
+| Task 2 | `abdb1a2299` |
+| Task 3 | `4b62a2074f` |
+| Task 4 | `d91cf9dcb3` |
+| Task 5 | `316b75cbbf` |
+| Task 6 | `5bdf20bd92` |
+
+六个批次均已完成。批次外的独立修复记录为 `5924fe993e`、`989174ad68` 和 `0c3423f5d2`。
