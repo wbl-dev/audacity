@@ -64,6 +64,13 @@ Item {
     property Component contentComponent: null
 
     height: trackViewState.trackHeight
+    Behavior on height {
+        enabled: !trackViewState.isInteractiveResize
+        NumberAnimation {
+            duration: 170
+            easing.type: Easing.OutCubic
+        }
+    }
 
     property TrackViewStateModel trackViewState: TrackViewStateModel {
         trackId: root.trackId
@@ -191,7 +198,8 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        height: 4
+        height: 8
+        anchors.bottomMargin: -4
         z: sep.z + 1
 
         cursorShape: Qt.SizeVerCursor
@@ -199,10 +207,14 @@ Item {
         visible: !root.selectionInProgress && !root.selectionEditInProgress && !root.verticalSelectionEditInProgress
 
         onPressed: {
+            trackViewState.setInteractiveResize(true)
             root.interactionStarted()
         }
 
         onPositionChanged: function (mouse) {
+            if (!pressed) {
+                return
+            }
             const resizeVerticalMargin = 10
             mouse.accepted = true
 
@@ -217,7 +229,18 @@ Item {
         }
 
         onReleased: {
+            trackViewState.setInteractiveResize(false)
             root.interactionEnded()
+        }
+
+        onCanceled: {
+            trackViewState.setInteractiveResize(false)
+            root.interactionEnded()
+        }
+
+        onDoubleClicked: {
+            trackViewState.setInteractiveResize(false)
+            trackViewState.resetTrackHeight()
         }
     }
 
@@ -240,7 +263,13 @@ Item {
     SeparatorLine {
         id: sep
 
-        color: "transparent"
+        color: ui.theme.extra["track_header_separator_color"]
+        opacity: dragArea.containsMouse || dragArea.pressed ? 0.9 : 0
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 120
+            }
+        }
         anchors.bottom: parent.bottom
         thickness: 2
     }

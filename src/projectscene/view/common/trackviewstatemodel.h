@@ -26,6 +26,7 @@ class TrackViewStateModel : public QObject, public muse::Contextable, public mus
     Q_PROPERTY(QVariant trackId READ trackId WRITE setTrackId NOTIFY trackIdChanged FINAL)
     Q_PROPERTY(int trackHeight READ trackHeight NOTIFY trackHeightChanged FINAL)
     Q_PROPERTY(bool isTrackCollapsed READ isTrackCollapsed NOTIFY isTrackCollapsedChanged FINAL)
+    Q_PROPERTY(bool isInteractiveResize READ isInteractiveResize NOTIFY isInteractiveResizeChanged FINAL)
     Q_PROPERTY(double channelHeightRatio READ channelHeightRatio NOTIFY channelHeightRatioChanged FINAL)
     Q_PROPERTY(double multiViewHeightRatio READ multiViewHeightRatio NOTIFY multiViewHeightRatioChanged FINAL)
     Q_PROPERTY(bool isMultiView READ isMultiView NOTIFY isMultiViewChanged FINAL)
@@ -53,6 +54,10 @@ public:
 
     int trackHeight() const;
     Q_INVOKABLE void changeTrackHeight(int deltaY);
+    Q_INVOKABLE void resetTrackHeight();
+    Q_INVOKABLE void setLabelRowCount(int rows);
+    bool isInteractiveResize() const;
+    Q_INVOKABLE void setInteractiveResize(bool active);
 
     bool isTrackCollapsed() const;
     double channelHeightRatio() const;
@@ -76,6 +81,7 @@ signals:
     void trackIdChanged();
     void trackHeightChanged();
     void isTrackCollapsedChanged();
+    void isInteractiveResizeChanged();
     void channelHeightRatioChanged();
     void multiViewHeightRatioChanged();
     void isMultiViewChanged();
@@ -91,6 +97,7 @@ private:
     trackedit::TrackId m_trackId = -1;
     muse::ValCh<int> m_trackHeight;
     muse::ValCh<bool> m_isTrackCollapsed;
+    muse::ValCh<bool> m_interactiveResize;
     muse::ValCh<double> m_channelHeightRatio;
     muse::ValCh<double> m_multiViewHeightRatio;
     muse::ValCh<trackedit::TrackViewType> m_viewType;

@@ -54,6 +54,12 @@ void TrackViewStateModel::init()
             emit isTrackCollapsedChanged();
         }, muse::async::Asyncable::Mode::SetReplace);
 
+        m_interactiveResize = vs->interactiveResize(m_trackId);
+        m_interactiveResize.ch.onReceive(this, [this](bool active) {
+            m_interactiveResize.val = active;
+            emit isInteractiveResizeChanged();
+        }, muse::async::Asyncable::Mode::SetReplace);
+
         m_channelHeightRatio = vs->channelHeightRatio(m_trackId);
         m_channelHeightRatio.ch.onReceive(this, [this](double ratio) {
             if (m_channelHeightRatio.val == ratio) {
@@ -94,6 +100,7 @@ void TrackViewStateModel::init()
 
         emit trackHeightChanged();
         emit isTrackCollapsedChanged();
+        emit isInteractiveResizeChanged();
         emit channelHeightRatioChanged();
         emit displayBoundsChanged();
         emit multiViewHeightRatioChanged();
@@ -117,6 +124,32 @@ void TrackViewStateModel::changeTrackHeight(int deltaY)
     IProjectViewStatePtr vs = viewState();
     if (vs) {
         vs->changeTrackHeight(m_trackId, deltaY);
+    }
+}
+
+void TrackViewStateModel::resetTrackHeight()
+{
+    if (auto vs = viewState()) {
+        vs->resetTrackHeight(m_trackId);
+    }
+}
+
+void TrackViewStateModel::setLabelRowCount(int rows)
+{
+    if (auto vs = viewState()) {
+        vs->setLabelRowCount(m_trackId, rows);
+    }
+}
+
+bool TrackViewStateModel::isInteractiveResize() const
+{
+    return m_interactiveResize.val;
+}
+
+void TrackViewStateModel::setInteractiveResize(bool active)
+{
+    if (auto vs = viewState()) {
+        vs->setInteractiveResize(m_trackId, active);
     }
 }
 

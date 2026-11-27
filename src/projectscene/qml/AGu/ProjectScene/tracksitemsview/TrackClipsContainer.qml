@@ -723,17 +723,42 @@ TrackItemsContainer {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 y: prv.contentTop + prv.waveformHeight - height / 2
-                height: 1
+                height: dividerMouse.containsMouse || dividerMouse.pressed ? 2 : 1
                 z: 4
                 visible: prv.isMultiView
                 color: ui.theme.fontSecondaryColor
                 opacity: dividerMouse.containsMouse || dividerMouse.pressed ? 0.9 : 0.45
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: 120
+                    }
+                }
+                Behavior on height {
+                    NumberAnimation {
+                        duration: 120
+                    }
+                }
+
+                Rectangle {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: 32
+                    height: 4
+                    radius: 2
+                    color: ui.theme.fontSecondaryColor
+                    opacity: dividerMouse.containsMouse || dividerMouse.pressed ? 1 : 0
+                    Behavior on opacity {
+                        NumberAnimation {
+                            duration: 120
+                        }
+                    }
+                }
 
                 MouseArea {
                     id: dividerMouse
                     anchors.fill: parent
-                    anchors.topMargin: -4
-                    anchors.bottomMargin: -4
+                    anchors.topMargin: -(10 - viewDivider.height) / 2
+                    anchors.bottomMargin: -(10 - viewDivider.height) / 2
                     hoverEnabled: true
                     cursorShape: Qt.SplitVCursor
                     preventStealing: true

@@ -21,6 +21,7 @@ TrackItemsContainer {
         id: layoutManager
         labelsModel: labelsModel
         context: root.context
+        onTotalRowCountChanged: root.trackViewState.setLabelRowCount(totalRowCount)
     }
 
     property var ignoreNextReleaseKey: null

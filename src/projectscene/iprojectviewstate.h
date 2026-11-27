@@ -19,6 +19,8 @@ public:
     virtual muse::ValCh<int> totalTrackHeight() const = 0;
     virtual muse::ValCh<int> trackHeight(const trackedit::TrackId& trackId) const = 0;
     virtual muse::ValCh<bool> isTrackCollapsed(const trackedit::TrackId& trackId) const = 0;
+    virtual muse::ValCh<bool> interactiveResize(const trackedit::TrackId& trackId) const = 0;
+    virtual void setInteractiveResize(const trackedit::TrackId& trackId, bool active) = 0;
     virtual muse::ValCh<double> channelHeightRatio(const trackedit::TrackId& trackId) const = 0;
 
     virtual muse::ValCh<double> multiViewHeightRatio(const trackedit::TrackId& trackId) const = 0;
@@ -27,6 +29,8 @@ public:
     virtual int trackVerticalPosition(const trackedit::TrackId& trackId) const = 0;
     virtual void changeTrackHeight(const trackedit::TrackId& trackId, int deltaY) = 0;
     virtual void setTrackHeight(const trackedit::TrackId& trackId, int height) = 0;
+    virtual void resetTrackHeight(const trackedit::TrackId& trackId) = 0;
+    virtual void setLabelRowCount(const trackedit::TrackId& trackId, int rows) = 0;
     virtual void setChannelHeightRatio(const trackedit::TrackId& trackId, double ratio) = 0;
     virtual trackedit::TrackId trackAtPosition(double y) const = 0;
     virtual trackedit::TrackIdList tracksInRange(double y1, double y2) const = 0;

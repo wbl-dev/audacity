@@ -23,6 +23,8 @@
 #include "trackedit/dom/label.h"
 
 #include <gtest/gtest.h>
+#include <QEventLoop>
+#include <QTimer>
 
 #include <set>
 #include <limits>
@@ -33,6 +35,23 @@ using namespace ::testing;
 using ::testing::_;
 
 namespace agu::projectscene {
+namespace {
+void waitForVerticalOffset(const ProjectViewState& state, int expected)
+{
+    QEventLoop loop;
+    QTimer poll;
+    poll.setInterval(10);
+    QObject::connect(&poll, &QTimer::timeout, &loop, [&]() {
+        if (state.tracksVerticalOffset().val == expected) {
+            loop.quit();
+        }
+    });
+    QTimer::singleShot(1000, &loop, &QEventLoop::quit);
+    poll.start();
+    loop.exec();
+}
+}
+
 class ProjectViewStateTests : public ::testing::Test
 {
 public:
@@ -241,6 +260,49 @@ TEST_F(ProjectViewStateTests, MultiViewExpansionClosesPreviousTrackAndRestoresIt
     EXPECT_EQ(m_projectViewState->trackHeight(second).val, 150);
 }
 
+TEST_F(ProjectViewStateTests, InteractiveResizeFlagIsSharedPerTrack)
+{
+    const auto tracks = prepareWaveTracks();
+    ASSERT_FALSE(tracks.empty());
+    const auto id = tracks.front();
+    EXPECT_FALSE(m_projectViewState->interactiveResize(id).val);
+    m_projectViewState->setInteractiveResize(id, true);
+    EXPECT_TRUE(m_projectViewState->interactiveResize(id).val);
+    m_projectViewState->setInteractiveResize(id, false);
+    EXPECT_FALSE(m_projectViewState->interactiveResize(id).val);
+}
+
+TEST_F(ProjectViewStateTests, CollapsingExpandedTrackAboveKeepsTargetTrackAnchored)
+{
+    const auto tracks = prepareWaveTracks();
+    ASSERT_GE(tracks.size(), 2);
+    using enum trackedit::TrackViewType;
+    m_projectViewState->setTrackHeight(tracks[0], 120);
+    m_projectViewState->setTrackViewType(tracks[0], WaveformAndSpectrogram);
+    m_projectViewState->setTrackHeight(tracks[0], 500);
+    m_projectViewState->changeTracksVerticalOffset(500);
+
+    m_projectViewState->setTrackViewType(tracks[1], WaveformAndSpectrogram);
+    EXPECT_EQ(m_projectViewState->tracksVerticalOffset().val, 500);
+    waitForVerticalOffset(*m_projectViewState, 120);
+
+    EXPECT_EQ(m_projectViewState->trackHeight(tracks[0]).val, 120);
+    EXPECT_EQ(m_projectViewState->tracksVerticalOffset().val, 120);
+}
+
+TEST_F(ProjectViewStateTests, CollapsingExpandedTrackBelowDoesNotMoveScroll)
+{
+    const auto tracks = prepareWaveTracks();
+    ASSERT_GE(tracks.size(), 2);
+    using enum trackedit::TrackViewType;
+    m_projectViewState->setTrackViewType(tracks[1], WaveformAndSpectrogram);
+    m_projectViewState->changeTracksVerticalOffset(200);
+
+    m_projectViewState->setTrackViewType(tracks[0], WaveformAndSpectrogram);
+
+    EXPECT_EQ(m_projectViewState->tracksVerticalOffset().val, 200);
+}
+
 TEST_F(ProjectViewStateTests, MultiViewHeightsRestoreFromProjectAttachments)
 {
     const auto tracks = prepareWaveTracks();
@@ -433,6 +495,35 @@ TEST_F(ProjectViewStateTests, LabelTrackKeepsItsCompactExpandedLayout)
     m_projectViewState->changeTrackHeight(id, 26);
     EXPECT_EQ(m_projectViewState->trackHeight(id).val, 86);
     EXPECT_FALSE(m_projectViewState->isTrackCollapsed(id).val);
+}
+
+TEST_F(ProjectViewStateTests, ResetTrackHeightUsesCurrentViewDefault)
+{
+    const auto tracks = prepareWaveTracks();
+    ASSERT_FALSE(tracks.empty());
+    const auto id = tracks.front();
+    m_projectViewState->setTrackHeight(id, 310);
+    m_projectViewState->resetTrackHeight(id);
+    EXPECT_EQ(m_projectViewState->trackHeight(id).val, 220);
+
+    m_projectViewState->setTrackViewType(id, trackedit::TrackViewType::WaveformAndSpectrogram);
+    m_projectViewState->setTrackHeight(id, 600);
+    m_projectViewState->resetTrackHeight(id);
+    EXPECT_EQ(m_projectViewState->trackHeight(id).val, 460);
+}
+
+TEST_F(ProjectViewStateTests, ResetLabelHeightFitsLayoutRows)
+{
+    const auto id = getAllTracks().front();
+    trackedit::Track labelTrack;
+    labelTrack.id = id;
+    labelTrack.type = trackedit::TrackType::Label;
+    ON_CALL(*m_trackeditProjectMock, track(id)).WillByDefault(Return(labelTrack));
+    forgetCachedTracks();
+
+    m_projectViewState->setLabelRowCount(id, 6);
+    m_projectViewState->resetTrackHeight(id);
+    EXPECT_EQ(m_projectViewState->trackHeight(id).val, 160);
 }
 
 TEST_F(ProjectViewStateTests, tracksInRange_InputIntervalIsClosedOpen)

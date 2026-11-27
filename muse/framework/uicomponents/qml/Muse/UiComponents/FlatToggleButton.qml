@@ -41,7 +41,7 @@ FocusScope {
     property color hoverHitColor: ui.theme.buttonColor
     property color checkedColor: ui.theme.accentColor
 
-    signal toggled()
+    signal toggled
 
     implicitHeight: 30
     implicitWidth: 30
@@ -63,9 +63,16 @@ FocusScope {
         id: backgroundRect
         anchors.fill: parent
 
-        NavigationFocusBorder { navigationCtrl: navCtrl }
+        NavigationFocusBorder {
+            navigationCtrl: navCtrl
+        }
 
         color: root.checked ? root.checkedColor : root.normalColor
+        Behavior on color {
+            ColorAnimation {
+                duration: 110
+            }
+        }
         opacity: ui.theme.buttonOpacityNormal
 
         border.width: ui.theme.borderWidth
@@ -118,7 +125,6 @@ FocusScope {
                 opacity: ui.theme.buttonOpacityHover
             }
         },
-
         State {
             name: "PRESSED"
             when: mouseArea.pressed

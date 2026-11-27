@@ -338,6 +338,8 @@ Item {
                     anchors.fill: parent
 
                     property bool dragging: false
+                    property bool dragPending: false
+                    property point pressPosition: Qt.point(0, 0)
                     property int dragFirstIndex: -1
                     property int dragLastIndex: -1
                     property int dropIndex: -1
@@ -363,15 +365,18 @@ Item {
                             return
                         }
 
-                        mouseY = view.mapFromItem(item, mouseX, mouseY).y + view.contentY
+                        pressPosition = view.mapFromItem(item, mouseX, mouseY)
 
                         dragFirstIndex = selection[0].row
                         dragLastIndex = selection[selection.length - 1].row
+                        dropIndex = -1
 
-                        dragging = true
+                        dragPending = true
+                        dragging = false
                     }
 
                     function endDrag() {
+                        dragPending = false
                         dragging = false
                         setDraggedStateForTracks(false)
 
@@ -380,6 +385,7 @@ Item {
                         }
 
                         if (dragFirstIndex == dropIndex || dropIndex < 0) {
+                            dropIndex = -1
                             return
                         }
 
@@ -390,11 +396,16 @@ Item {
                     }
 
                     function onMouseMove(item, mouseX, mouseY) {
-                        if (!dragging) {
+                        if (!dragPending) {
                             return
                         }
 
-                        mouseY = view.mapFromItem(item, mouseX, mouseY).y + view.contentY
+                        const position = view.mapFromItem(item, mouseX, mouseY)
+                        if (!dragging && Math.hypot(position.x - pressPosition.x, position.y - pressPosition.y) <= 6) {
+                            return
+                        }
+                        dragging = true
+                        mouseY = position.y + view.contentY
 
                         let itemAtCursor = view.itemAt(0, mouseY)
                         let indexAtCursor = view.indexAt(0, mouseY)

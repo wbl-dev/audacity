@@ -29,6 +29,7 @@ void ProjectOverview::reload()
     // Disconnect before releasing the old project/list notification objects.
     async_disconnectAll();
     m_clipLists.clear();
+    m_trackColors.clear();
     m_project = globalContext()->currentTrackeditProject();
     globalContext()->currentProjectChanged().onNotify(this, [this]() { reload(); });
     if (m_project) {
@@ -38,13 +39,18 @@ void ProjectOverview::reload()
         m_project->trackInserted().onReceive(this, reloadTracks);
         m_project->trackRemoved().onReceive(this, reloadTracks);
         m_project->trackMoved().onReceive(this, reloadTracks);
-        m_project->trackChanged().onReceive(this, [this](auto) { refresh(); });
+        m_project->trackChanged().onReceive(this, [this](const trackedit::Track& track) {
+            if (updateTrackColor(track)) {
+                refresh();
+            }
+        });
         m_project->trackClipListChanged().onReceive(this, reloadTracks);
 
         for (const auto& track : m_project->trackList()) {
             if (track.type != trackedit::TrackType::Mono && track.type != trackedit::TrackType::Stereo) {
                 continue;
             }
+            m_trackColors.insert(track.id, track.colorIndex);
             auto clips = m_project->clipList(track.id);
             clips.onChanged(this, [this]() { refresh(); });
             clips.onItemAdded(this, [this](auto) { refresh(); });
@@ -54,6 +60,19 @@ void ProjectOverview::reload()
         }
     }
     refresh();
+}
+
+bool ProjectOverview::updateTrackColor(const trackedit::Track& track)
+{
+    if (track.type != trackedit::TrackType::Mono && track.type != trackedit::TrackType::Stereo) {
+        return false;
+    }
+    const auto it = m_trackColors.constFind(track.id);
+    if (it != m_trackColors.cend() && *it == track.colorIndex) {
+        return false;
+    }
+    m_trackColors.insert(track.id, track.colorIndex);
+    return true;
 }
 
 void ProjectOverview::refresh()

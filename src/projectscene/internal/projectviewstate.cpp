@@ -187,6 +187,11 @@ void setTrackRulerType(const std::shared_ptr<agu::project::IAGuProject>& project
 ProjectViewState::ProjectViewState(const muse::modularity::ContextPtr& ctx)
     : muse::Contextable(ctx)
 {
+    m_scrollAnchorAnimation.setDuration(170);
+    m_scrollAnchorAnimation.setEasingCurve(QEasingCurve::OutCubic);
+    connect(&m_scrollAnchorAnimation, &QVariantAnimation::valueChanged, this, [this](const QVariant& value) {
+        m_tracksVerticalOffset.set(value.toInt());
+    });
 }
 
 void ProjectViewState::init(const std::shared_ptr<au3::IAu3Project>& project)
@@ -272,6 +277,9 @@ muse::ValCh<int> ProjectViewState::tracksVerticalOffset() const
 
 void ProjectViewState::changeTracksVerticalOffset(int deltaY)
 {
+    if (deltaY != m_tracksVerticalOffset.val) {
+        m_scrollAnchorAnimation.stop();
+    }
     m_tracksVerticalOffset.set(deltaY);
 }
 
@@ -335,6 +343,7 @@ ProjectViewState::TrackData& ProjectViewState::makeTrackData(const trackedit::Tr
 
     TrackData d;
     d.collapsed.val = false;
+    d.interactiveResize.val = false;
     d.channelHeightRatio.val = 1.0;
     d.multiViewHeightRatio.val = 0.5;
     d.verticalDisplayBounds.val = defaultBounds;
@@ -503,6 +512,16 @@ muse::ValCh<bool> ProjectViewState::isTrackCollapsed(const trackedit::TrackId& t
     return d.collapsed;
 }
 
+muse::ValCh<bool> ProjectViewState::interactiveResize(const trackedit::TrackId& trackId) const
+{
+    return makeTrackData(trackId).interactiveResize;
+}
+
+void ProjectViewState::setInteractiveResize(const trackedit::TrackId& trackId, bool active)
+{
+    makeTrackData(trackId).interactiveResize.set(active);
+}
+
 muse::ValCh<double> ProjectViewState::channelHeightRatio(const trackedit::TrackId& trackId) const
 {
     auto it = m_tracks.find(trackId);
@@ -584,6 +603,20 @@ void ProjectViewState::setTrackHeight(const trackedit::TrackId& trackId, int hei
             }
         }
     }
+}
+
+void ProjectViewState::resetTrackHeight(const trackedit::TrackId& trackId)
+{
+    const auto& data = makeTrackData(trackId);
+    const int defaultHeight = data.isLabel ? std::max(TRACK_LABEL_DEFAULT_HEIGHT, data.labelRowCount * 24 + 16)
+                              : data.viewType.val == trackedit::TrackViewType::WaveformAndSpectrogram
+                              ? TRACK_DEFAULT_HEIGHT + TRACK_MULTIVIEW_EXTRA_HEIGHT : TRACK_DEFAULT_HEIGHT;
+    setTrackHeight(trackId, defaultHeight);
+}
+
+void ProjectViewState::setLabelRowCount(const trackedit::TrackId& trackId, int rows)
+{
+    makeTrackData(trackId).labelRowCount = std::max(0, rows);
 }
 
 agu::trackedit::TrackId ProjectViewState::trackAtPosition(double y) const
@@ -989,10 +1022,26 @@ void ProjectViewState::setTrackViewType(const trackedit::TrackId& trackId, track
     if (changed && viewType == trackedit::TrackViewType::WaveformAndSpectrogram) {
         const auto prj = globalContext()->currentTrackeditProject();
         if (prj) {
-            for (const auto otherId : prj->trackIdList()) {
+            int heightShiftAbove = 0;
+            const auto trackIds = prj->trackIdList();
+            const auto expandedPosition = std::find(trackIds.begin(), trackIds.end(), trackId);
+            for (auto it = trackIds.begin(); it != trackIds.end(); ++it) {
+                const auto otherId = *it;
                 if (otherId != trackId && trackViewType(otherId).val == trackedit::TrackViewType::WaveformAndSpectrogram) {
+                    const int oldHeight = trackHeight(otherId).val;
                     doSetTrackViewType(otherId, trackedit::TrackViewType::Waveform);
+                    if (it < expandedPosition) {
+                        heightShiftAbove += trackHeight(otherId).val - oldHeight;
+                    }
                 }
+            }
+            if (heightShiftAbove != 0 && m_tracksVerticalOffset.val > 0) {
+                const int initialOffset = m_tracksVerticalOffset.val;
+                const int targetOffset = std::max(0, initialOffset + heightShiftAbove);
+                m_scrollAnchorAnimation.stop();
+                m_scrollAnchorAnimation.setStartValue(initialOffset);
+                m_scrollAnchorAnimation.setEndValue(targetOffset);
+                m_scrollAnchorAnimation.start();
             }
         }
     }

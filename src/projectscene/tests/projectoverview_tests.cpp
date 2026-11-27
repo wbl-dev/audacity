@@ -35,6 +35,9 @@ protected:
         ON_CALL(*m_context, currentProject()).WillByDefault(Return(m_audioProject));
     }
 
+    void seedTrackColor(const trackedit::Track& track) { m_overview.m_trackColors.insert(track.id, track.colorIndex); }
+    bool updateTrackColor(const trackedit::Track& track) { return m_overview.updateTrackColor(track); }
+
     std::shared_ptr<NiceMock<context::GlobalContextMock> > m_context = std::make_shared<NiceMock<context::GlobalContextMock> >();
     std::shared_ptr<NiceMock<project::AGuProjectMock> > m_audioProject = std::make_shared<NiceMock<project::AGuProjectMock> >();
     std::shared_ptr<NiceMock<trackedit::TrackeditProjectMock> > m_project = std::make_shared<NiceMock<trackedit::TrackeditProjectMock> >();
@@ -78,5 +81,19 @@ TEST_F(ProjectOverviewTests, ManyStereoTracksRetainDrawableChannelHeights)
     QPainter painter(&image);
     m_overview.paint(&painter);
     EXPECT_EQ(image.pixelColor(300, 1), QColor(Qt::white));
+}
+
+TEST_F(ProjectOverviewTests, ViewOnlyTrackNotificationDoesNotInvalidateOverview)
+{
+    trackedit::Track track;
+    track.id = 17;
+    track.type = trackedit::TrackType::Mono;
+    track.colorIndex = 3;
+    seedTrackColor(track);
+
+    EXPECT_FALSE(updateTrackColor(track));
+    track.colorIndex = 4;
+    EXPECT_TRUE(updateTrackColor(track));
+    EXPECT_FALSE(updateTrackColor(track));
 }
 }

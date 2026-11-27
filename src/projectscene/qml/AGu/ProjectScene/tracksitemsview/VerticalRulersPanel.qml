@@ -55,6 +55,13 @@ Rectangle {
 
             width: root.width
             height: trackViewState.trackHeight
+            Behavior on height {
+                enabled: !trackViewState.isInteractiveResize
+                NumberAnimation {
+                    duration: 170
+                    easing.type: Easing.OutCubic
+                }
+            }
 
             sourceComponent: model.trackType !== TrackType.LABEL ? waveComp : emptyComp
 

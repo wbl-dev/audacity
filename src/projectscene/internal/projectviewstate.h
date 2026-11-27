@@ -18,6 +18,7 @@
 #include "au3wrap/iau3project.h"
 
 #include "../iprojectviewstate.h"
+#include <QVariantAnimation>
 
 namespace agu::projectscene {
 class ProjectViewState : public QObject, public IProjectViewState, public muse::Contextable, public muse::async::Asyncable
@@ -41,6 +42,8 @@ public:
     muse::ValCh<int> totalTrackHeight() const override;
     muse::ValCh<int> trackHeight(const trackedit::TrackId& trackId) const override;
     muse::ValCh<bool> isTrackCollapsed(const trackedit::TrackId& trackId) const override;
+    muse::ValCh<bool> interactiveResize(const trackedit::TrackId& trackId) const override;
+    void setInteractiveResize(const trackedit::TrackId& trackId, bool active) override;
     muse::ValCh<double> channelHeightRatio(const trackedit::TrackId& trackId) const override;
 
     muse::ValCh<double> multiViewHeightRatio(const trackedit::TrackId& trackId) const override;
@@ -49,6 +52,8 @@ public:
     int trackVerticalPosition(const trackedit::TrackId& trackId) const override;
     void changeTrackHeight(const trackedit::TrackId& trackId, int delta) override;
     void setTrackHeight(const trackedit::TrackId& trackId, int height) override;
+    void resetTrackHeight(const trackedit::TrackId& trackId) override;
+    void setLabelRowCount(const trackedit::TrackId& trackId, int rows) override;
     void setChannelHeightRatio(const trackedit::TrackId& trackId, double ratio) override;
     trackedit::TrackId trackAtPosition(double y) const override;
     trackedit::TrackIdList tracksInRange(double y1, double y2) const override;
@@ -150,8 +155,10 @@ private:
 
     struct TrackData {
         bool isLabel = false;
+        int labelRowCount = 0;
         muse::ValCh<int> height;
         muse::ValCh<bool> collapsed;
+        muse::ValCh<bool> interactiveResize;
         muse::ValCh<double> channelHeightRatio;
         muse::ValCh<double> multiViewHeightRatio;
         muse::ValCh<std::pair<float, float> > verticalDisplayBounds;
@@ -171,6 +178,7 @@ private:
     bool eventFilter(QObject* watched, QEvent* event) override;
 
     muse::ValCh<int> m_tracksVerticalOffset;
+    QVariantAnimation m_scrollAnchorAnimation;
     muse::ValCh<bool> m_tracksVerticalScrollLocked;
 
     mutable std::map<trackedit::TrackId, TrackData> m_tracks;

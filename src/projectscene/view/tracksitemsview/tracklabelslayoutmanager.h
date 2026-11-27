@@ -21,6 +21,7 @@ class TrackLabelsLayoutManager : public QObject
 
     Q_PROPERTY(QObject * labelsModel READ labelsModel WRITE setLabelsModel NOTIFY labelsModelChanged)
     Q_PROPERTY(TimelineContext * context READ timelineContext WRITE setTimelineContext NOTIFY timelineContextChanged FINAL)
+    Q_PROPERTY(int totalRowCount READ totalRowCount NOTIFY totalRowCountChanged FINAL)
 
 public:
     explicit TrackLabelsLayoutManager(QObject* parent = nullptr);
@@ -41,10 +42,12 @@ public:
 
     QObject* labelsModel() const;
     void setLabelsModel(QObject* model);
+    int totalRowCount() const;
 
 signals:
     void labelsModelChanged();
     void timelineContextChanged();
+    void totalRowCountChanged();
 
 private:
     friend class TrackLabelsLayoutManagerTests;
@@ -72,6 +75,7 @@ private:
     bool m_isInited = false;
     bool m_isBusy = false;
     bool m_relayoutScheduled = false;
+    int m_totalRowCount = 0;
 
     QMap<LabelKey, LabelKey> m_leftLinkedLabels;
     QMap<LabelKey, LabelKey> m_rightLinkedLabels;

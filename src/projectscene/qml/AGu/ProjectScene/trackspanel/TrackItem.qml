@@ -65,13 +65,20 @@ ListItemBlank {
     }
 
     height: trackViewState.trackHeight
+    Behavior on height {
+        enabled: !trackViewState.isInteractiveResize
+        NumberAnimation {
+            duration: 170
+            easing.type: Easing.OutCubic
+        }
+    }
     opacity: dragged ? 0.5 : 1
 
     focusBorder.anchors.leftMargin: spacer.width + 2
     focusBorder.anchors.rightMargin: 24 + separatorLine.width
     focusBorder.anchors.bottomMargin: 2
 
-    background.color: root.isSelected ? ui.theme.extra["track_header_active_color"] : (hoverHandler.hovered ? ui.theme.extra["track_header_hover_color"] : ui.theme.extra["track_header_color"])
+    background.color: "transparent"
 
     background.anchors.leftMargin: spacer.width
     background.anchors.rightMargin: -background.radius
@@ -144,6 +151,17 @@ ListItemBlank {
             }
 
             root.selectionRequested(false)
+        }
+    }
+
+    Rectangle {
+        anchors.fill: root.background
+        radius: root.background.radius
+        color: root.isSelected ? ui.theme.extra["track_header_active_color"] : (hoverHandler.hovered ? ui.theme.extra["track_header_hover_color"] : ui.theme.extra["track_header_color"])
+        Behavior on color {
+            ColorAnimation {
+                duration: 110
+            }
         }
     }
 
@@ -262,15 +280,22 @@ ListItemBlank {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        height: 4
+        height: 8
+        anchors.bottomMargin: -4
+        z: 3
+        hoverEnabled: true
 
         cursorShape: Qt.SizeVerCursor
 
         onPressed: {
+            trackViewState.setInteractiveResize(true)
             root.interactionStarted()
         }
 
         onPositionChanged: function (mouse) {
+            if (!pressed) {
+                return
+            }
             const resizeVerticalMargin = 10
             mouse.accepted = true
 
@@ -285,7 +310,18 @@ ListItemBlank {
         }
 
         onReleased: {
+            trackViewState.setInteractiveResize(false)
             root.interactionEnded()
+        }
+
+        onCanceled: {
+            trackViewState.setInteractiveResize(false)
+            root.interactionEnded()
+        }
+
+        onDoubleClicked: {
+            trackViewState.setInteractiveResize(false)
+            trackViewState.resetTrackHeight()
         }
     }
 
@@ -294,7 +330,13 @@ ListItemBlank {
 
         anchors.bottom: parent.bottom
 
-        color: "transparent"
+        color: ui.theme.extra["track_header_separator_color"]
+        opacity: resizeArea.containsMouse || resizeArea.pressed ? 0.9 : 0
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 120
+            }
+        }
 
         thickness: 2
     }

@@ -298,6 +298,15 @@ void TrackLabelsLayoutManager::relayout()
         }
         nextLevel += pointRows;
     }
+    if (m_totalRowCount != nextLevel) {
+        m_totalRowCount = nextLevel;
+        emit totalRowCountChanged();
+    }
+}
+
+int TrackLabelsLayoutManager::totalRowCount() const
+{
+    return m_totalRowCount;
 }
 
 void TrackLabelsLayoutManager::relink()

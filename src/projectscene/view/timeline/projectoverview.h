@@ -4,6 +4,7 @@
 #pragma once
 
 #include <QQuickPaintedItem>
+#include <QHash>
 
 #include "context/iglobalcontext.h"
 #include "global/async/asyncable.h"
@@ -37,8 +38,10 @@ private:
     friend class ProjectOverviewTests;
     void reload();
     void refresh();
+    bool updateTrackColor(const trackedit::Track& track);
     trackedit::ITrackeditProjectPtr m_project;
     std::vector<muse::async::NotifyList<trackedit::Clip> > m_clipLists;
+    QHash<trackedit::TrackId, trackedit::ClipColorIndex> m_trackColors;
     double m_duration = 1.0;
 };
 }

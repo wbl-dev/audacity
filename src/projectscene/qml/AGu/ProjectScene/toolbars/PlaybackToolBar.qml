@@ -76,6 +76,11 @@ Item {
                 backgroundItem: Rectangle {
                     radius: controlButton.backgroundRadius
                     color: controlButton.accentButton ? controlButton.accentColor : controlButton.mouseArea.containsMouse || controlButton.mouseArea.pressed ? ui.theme.buttonColor : "transparent"
+                    Behavior on color {
+                        ColorAnimation {
+                            duration: 110
+                        }
+                    }
 
                     NavigationFocusBorder {
                         navigationCtrl: controlButton.navigation
@@ -97,6 +102,11 @@ Item {
                 backgroundItem: Rectangle {
                     radius: 5
                     color: editButton.mouseArea.containsMouse || editButton.mouseArea.pressed ? ui.theme.buttonColor : "transparent"
+                    Behavior on color {
+                        ColorAnimation {
+                            duration: 110
+                        }
+                    }
 
                     NavigationFocusBorder {
                         navigationCtrl: editButton.navigation
